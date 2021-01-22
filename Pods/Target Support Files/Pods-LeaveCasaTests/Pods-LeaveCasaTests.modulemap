@@ -1,0 +1,6 @@
+framework module Pods_LeaveCasaTests {
+  umbrella header "Pods-LeaveCasaTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

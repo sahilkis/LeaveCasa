@@ -1,0 +1,43 @@
+PODS:
+  - Alamofire (5.0.0-rc.2)
+  - AlamofireObjectMapper (6.2.0):
+    - Alamofire (= 5.0.0-rc.2)
+    - ObjectMapper (~> 3.5.1)
+  - DropDown (2.3.13)
+  - ObjectMapper (3.5.1)
+  - SDWebImage (5.4.0):
+    - SDWebImage/Core (= 5.4.0)
+  - SDWebImage/Core (5.4.0)
+  - SearchTextField (1.2.4)
+  - SKActivityIndicatorView (0.1.0)
+
+DEPENDENCIES:
+  - Alamofire
+  - AlamofireObjectMapper
+  - DropDown
+  - SDWebImage
+  - SearchTextField
+  - SKActivityIndicatorView
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - AlamofireObjectMapper
+    - DropDown
+    - ObjectMapper
+    - SDWebImage
+    - SearchTextField
+    - SKActivityIndicatorView
+
+SPEC CHECKSUMS:
+  Alamofire: f9450d3c7f6bea2ad62e7a541c3e9b186c7991d6
+  AlamofireObjectMapper: 74d1440c92c42bbcc2b5f4dc81654ac095ec669f
+  DropDown: 8a2116376c1981888557f72ec2ffc9a5e0e456ec
+  ObjectMapper: 70187b8941977c62ccfb423caf6b50be405cabf0
+  SDWebImage: 5bf6aec6481ae2a062bdc59f9d6c1d1e552090e0
+  SearchTextField: 40dc3cc57def5a211f263cac263622c163bbc25a
+  SKActivityIndicatorView: f46936f760d33eb8235333242269bf01cc9248ae
+
+PODFILE CHECKSUM: c0219e4b94334cae15a415a46a6e0012a5e0feac
+
+COCOAPODS: 1.8.4
