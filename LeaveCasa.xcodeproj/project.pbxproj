@@ -61,8 +61,6 @@
 		19DAE660233211B3008D2F24 /* SidebarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DAE65F233211B3008D2F24 /* SidebarViewController.swift */; };
 		19FB4D09231A7998007C742C /* AlertMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FB4D08231A7998007C742C /* AlertMessages.swift */; };
 		19FE9CF223352BAA0006BC2D /* HotelDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FE9CF123352BAA0006BC2D /* HotelDetailViewController.swift */; };
-		274499C4E9878A7BE8B9A6C3 /* Pods_LeaveCasaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9687D6BCC1BE6280703677A7 /* Pods_LeaveCasaTests.framework */; };
-		3436B691D2E4FCECE1578CB2 /* Pods_LeaveCasa_LeaveCasaUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C1A474179B9F805B5C9898F /* Pods_LeaveCasa_LeaveCasaUITests.framework */; };
 		A71135AD1284FFCD1745A8CA /* Pods_LeaveCasa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2938878705CEC9DEF73768C5 /* Pods_LeaveCasa.framework */; };
 /* End PBXBuildFile section */
 
@@ -84,7 +82,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0C1A474179B9F805B5C9898F /* Pods_LeaveCasa_LeaveCasaUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LeaveCasa_LeaveCasaUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		18C82805214FCEC8007FC65A /* LeaveCasa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeaveCasa.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18C82808214FCEC8007FC65A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		18C8280D214FCEC8007FC65A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -149,12 +146,7 @@
 		19FE9CF123352BAA0006BC2D /* HotelDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelDetailViewController.swift; sourceTree = "<group>"; };
 		2938878705CEC9DEF73768C5 /* Pods_LeaveCasa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LeaveCasa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B451D01AA1029BFC6156992 /* Pods-LeaveCasa.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeaveCasa.release.xcconfig"; path = "Target Support Files/Pods-LeaveCasa/Pods-LeaveCasa.release.xcconfig"; sourceTree = "<group>"; };
-		413029E3F0A5DBA42EC15C2E /* Pods-LeaveCasa-LeaveCasaUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeaveCasa-LeaveCasaUITests.debug.xcconfig"; path = "Target Support Files/Pods-LeaveCasa-LeaveCasaUITests/Pods-LeaveCasa-LeaveCasaUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		9687D6BCC1BE6280703677A7 /* Pods_LeaveCasaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LeaveCasaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B0962F2D11A525A7B3CDA1BC /* Pods-LeaveCasa-LeaveCasaUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeaveCasa-LeaveCasaUITests.release.xcconfig"; path = "Target Support Files/Pods-LeaveCasa-LeaveCasaUITests/Pods-LeaveCasa-LeaveCasaUITests.release.xcconfig"; sourceTree = "<group>"; };
 		D57CC5C06870644F4F5A9B61 /* Pods-LeaveCasa.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeaveCasa.debug.xcconfig"; path = "Target Support Files/Pods-LeaveCasa/Pods-LeaveCasa.debug.xcconfig"; sourceTree = "<group>"; };
-		FC029313FF19F980632CAF83 /* Pods-LeaveCasaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeaveCasaTests.debug.xcconfig"; path = "Target Support Files/Pods-LeaveCasaTests/Pods-LeaveCasaTests.debug.xcconfig"; sourceTree = "<group>"; };
-		FF6785C101768D12EDC32CDB /* Pods-LeaveCasaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeaveCasaTests.release.xcconfig"; path = "Target Support Files/Pods-LeaveCasaTests/Pods-LeaveCasaTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,7 +162,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				274499C4E9878A7BE8B9A6C3 /* Pods_LeaveCasaTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -178,7 +169,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3436B691D2E4FCECE1578CB2 /* Pods_LeaveCasa_LeaveCasaUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -595,8 +585,6 @@
 			isa = PBXGroup;
 			children = (
 				2938878705CEC9DEF73768C5 /* Pods_LeaveCasa.framework */,
-				9687D6BCC1BE6280703677A7 /* Pods_LeaveCasaTests.framework */,
-				0C1A474179B9F805B5C9898F /* Pods_LeaveCasa_LeaveCasaUITests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -606,10 +594,6 @@
 			children = (
 				D57CC5C06870644F4F5A9B61 /* Pods-LeaveCasa.debug.xcconfig */,
 				2B451D01AA1029BFC6156992 /* Pods-LeaveCasa.release.xcconfig */,
-				413029E3F0A5DBA42EC15C2E /* Pods-LeaveCasa-LeaveCasaUITests.debug.xcconfig */,
-				B0962F2D11A525A7B3CDA1BC /* Pods-LeaveCasa-LeaveCasaUITests.release.xcconfig */,
-				FC029313FF19F980632CAF83 /* Pods-LeaveCasaTests.debug.xcconfig */,
-				FF6785C101768D12EDC32CDB /* Pods-LeaveCasaTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -640,7 +624,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 18C82830214FCEC8007FC65A /* Build configuration list for PBXNativeTarget "LeaveCasaTests" */;
 			buildPhases = (
-				18BA01FC835226897DB0E02E /* [CP] Check Pods Manifest.lock */,
 				18C82815214FCEC8007FC65A /* Sources */,
 				18C82816214FCEC8007FC65A /* Frameworks */,
 				18C82817214FCEC8007FC65A /* Resources */,
@@ -659,11 +642,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 18C82833214FCEC8007FC65A /* Build configuration list for PBXNativeTarget "LeaveCasaUITests" */;
 			buildPhases = (
-				A944D1A2716EDADDEE0740CF /* [CP] Check Pods Manifest.lock */,
 				18C82820214FCEC8007FC65A /* Sources */,
 				18C82821214FCEC8007FC65A /* Frameworks */,
 				18C82822214FCEC8007FC65A /* Resources */,
-				4C8D48C143BE2996823726F3 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -759,28 +740,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		18BA01FC835226897DB0E02E /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-LeaveCasaTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		3328E3C6F179212F52FBC243 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -801,36 +760,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		4C8D48C143BE2996823726F3 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-LeaveCasa-LeaveCasaUITests/Pods-LeaveCasa-LeaveCasaUITests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/AlamofireObjectMapper/AlamofireObjectMapper.framework",
-				"${BUILT_PRODUCTS_DIR}/DropDown/DropDown.framework",
-				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
-				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
-				"${BUILT_PRODUCTS_DIR}/SKActivityIndicatorView/SKActivityIndicatorView.framework",
-				"${BUILT_PRODUCTS_DIR}/SearchTextField/SearchTextField.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireObjectMapper.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DropDown.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SKActivityIndicatorView.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SearchTextField.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LeaveCasa-LeaveCasaUITests/Pods-LeaveCasa-LeaveCasaUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		9DDBFAEDC4680FFF88E11D7A /* [CP] Embed Pods Frameworks */ = {
@@ -861,28 +790,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LeaveCasa/Pods-LeaveCasa-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A944D1A2716EDADDEE0740CF /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-LeaveCasa-LeaveCasaUITests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1038,7 +945,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1091,7 +998,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -1108,6 +1015,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = G96NGZCMGU;
 				INFOPLIST_FILE = "$(SRCROOT)/LeaveCasa/SupportingFiles/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.LeaveCasa.iOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1127,6 +1035,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = G96NGZCMGU;
 				INFOPLIST_FILE = "$(SRCROOT)/LeaveCasa/SupportingFiles/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.LeaveCasa.iOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1138,7 +1047,6 @@
 		};
 		18C82831214FCEC8007FC65A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FC029313FF19F980632CAF83 /* Pods-LeaveCasaTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1156,7 +1064,6 @@
 		};
 		18C82832214FCEC8007FC65A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FF6785C101768D12EDC32CDB /* Pods-LeaveCasaTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1174,7 +1081,6 @@
 		};
 		18C82834214FCEC8007FC65A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 413029E3F0A5DBA42EC15C2E /* Pods-LeaveCasa-LeaveCasaUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -1191,7 +1097,6 @@
 		};
 		18C82835214FCEC8007FC65A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B0962F2D11A525A7B3CDA1BC /* Pods-LeaveCasa-LeaveCasaUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

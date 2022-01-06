@@ -1,23 +1,13 @@
-platform :ios, '10.0'
+platform :ios, '11.0'
 
 target 'LeaveCasa' do
   use_frameworks!
   
-  pod 'Alamofire'
-  pod 'AlamofireObjectMapper'
-  pod 'SDWebImage'
-  pod 'SKActivityIndicatorView'
-  pod "SearchTextField"
-  pod 'DropDown'
-  pod 'SDWebImage'
-
-  target 'LeaveCasaTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
-  target 'LeaveCasaUITests' do
-    # Pods for testing
-  end
-
+    pod 'Alamofire', '~> 5.0.0-rc.2'
+    pod 'AlamofireObjectMapper'
+    pod 'DropDown'
+    pod "SearchTextField"
+    pod 'SDWebImage'
+    pod 'SKActivityIndicatorView'
+    
 end
