@@ -1,11 +1,3 @@
-//
-//  SignupViewController.swift
-//  LeaveCasa
-//
-//  Created by Dinker Malhotra on 08/08/19.
-//  Copyright © 2019 Apple. All rights reserved.
-//
-
 import UIKit
 
 class SignupViewController: UIViewController {
@@ -142,6 +134,7 @@ extension SignupViewController {
                 if isSuccess {
                     Helper.hideLoader(onVC: self)
                     if let vc = ViewControllerHelper.getViewController(ofType: .SWRevealViewController) as? SWRevealViewController {
+                        vc.modalPresentationStyle = .overFullScreen
                         self.present(vc, animated: true, completion: nil)
                     }
                 } else {

@@ -18,7 +18,6 @@
 		18C82844214FCF8F007FC65A /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C82843214FCF8F007FC65A /* Helper.swift */; };
 		18C82846214FCF98007FC65A /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C82845214FCF98007FC65A /* AppConstants.swift */; };
 		18C82849214FD06C007FC65A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C82848214FD06C007FC65A /* Extensions.swift */; };
-		18C8284E214FD0EF007FC65A /* UserDefaultsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C8284D214FD0EF007FC65A /* UserDefaultsConstants.swift */; };
 		18C82852214FD2C1007FC65A /* Proxima Nova Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 18C82850214FD2C0007FC65A /* Proxima Nova Bold.otf */; };
 		18C82853214FD2C1007FC65A /* ProximaNova-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 18C82851214FD2C0007FC65A /* ProximaNova-Regular.otf */; };
 		18C82856214FDB10007FC65A /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C82855214FDB10007FC65A /* UIButton+Extension.swift */; };
@@ -61,6 +60,7 @@
 		19DAE660233211B3008D2F24 /* SidebarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DAE65F233211B3008D2F24 /* SidebarViewController.swift */; };
 		19FB4D09231A7998007C742C /* AlertMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FB4D08231A7998007C742C /* AlertMessages.swift */; };
 		19FE9CF223352BAA0006BC2D /* HotelDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FE9CF123352BAA0006BC2D /* HotelDetailViewController.swift */; };
+		400DFE442786CA1D0030CE16 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DFE432786CA1D0030CE16 /* SettingsManager.swift */; };
 		A71135AD1284FFCD1745A8CA /* Pods_LeaveCasa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2938878705CEC9DEF73768C5 /* Pods_LeaveCasa.framework */; };
 /* End PBXBuildFile section */
 
@@ -99,7 +99,6 @@
 		18C82843214FCF8F007FC65A /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		18C82845214FCF98007FC65A /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		18C82848214FD06C007FC65A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		18C8284D214FD0EF007FC65A /* UserDefaultsConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsConstants.swift; sourceTree = "<group>"; };
 		18C82850214FD2C0007FC65A /* Proxima Nova Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Proxima Nova Bold.otf"; sourceTree = "<group>"; };
 		18C82851214FD2C0007FC65A /* ProximaNova-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Regular.otf"; sourceTree = "<group>"; };
 		18C82855214FDB10007FC65A /* UIButton+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
@@ -146,6 +145,7 @@
 		19FE9CF123352BAA0006BC2D /* HotelDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelDetailViewController.swift; sourceTree = "<group>"; };
 		2938878705CEC9DEF73768C5 /* Pods_LeaveCasa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LeaveCasa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B451D01AA1029BFC6156992 /* Pods-LeaveCasa.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeaveCasa.release.xcconfig"; path = "Target Support Files/Pods-LeaveCasa/Pods-LeaveCasa.release.xcconfig"; sourceTree = "<group>"; };
+		400DFE432786CA1D0030CE16 /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
 		D57CC5C06870644F4F5A9B61 /* Pods-LeaveCasa.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeaveCasa.debug.xcconfig"; path = "Target Support Files/Pods-LeaveCasa/Pods-LeaveCasa.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -238,18 +238,15 @@
 		18C82837214FCEF5007FC65A /* OtherClasses */ = {
 			isa = PBXGroup;
 			children = (
+				18C82840214FCF73007FC65A /* AppConstants */,
+				19FB4D07231A7985007C742C /* AlertMessages */,
+				195C404322FC0C850013A644 /* BridgingHeaderFile */,
+				400DFE422786CA080030CE16 /* SettingsManager */,
 				1924095023A244470012CFBF /* WWCalendarTimeSelector */,
 				19309A0F2334D48000E189AE /* FloatRatingView */,
 				19D6442C23263986009E199B /* Validator */,
-				19FB4D07231A7985007C742C /* AlertMessages */,
-				195C404322FC0C850013A644 /* BridgingHeaderFile */,
 				195C403E22FC0C5A0013A644 /* SWRevealViewController */,
-				192495EC2333612900B0E36E /* UIView+Extension */,
-				19D6442F23263A51009E199B /* UITextfield+Extension */,
-				18C82854214FDAEF007FC65A /* UIButton+Extension */,
-				18C8284A214FD0AE007FC65A /* UserDefaults */,
 				18C82847214FD05F007FC65A /* Extensions */,
-				18C82840214FCF73007FC65A /* AppConstants */,
 				18C8283F214FCF68007FC65A /* ViewControllerHelper */,
 				18C8283E214FCF61007FC65A /* Helper */,
 			);
@@ -287,6 +284,7 @@
 		18C8283A214FCF17007FC65A /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				400DFE452786CA440030CE16 /* Extensions */,
 				195C404422FC10B60013A644 /* Utils */,
 				18C8284F214FD2B4007FC65A /* Fonts */,
 				18C8280F214FCEC8007FC65A /* Assets.xcassets */,
@@ -333,14 +331,6 @@
 				18C82848214FD06C007FC65A /* Extensions.swift */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		18C8284A214FD0AE007FC65A /* UserDefaults */ = {
-			isa = PBXGroup;
-			children = (
-				18C8284D214FD0EF007FC65A /* UserDefaultsConstants.swift */,
-			);
-			path = UserDefaults;
 			sourceTree = "<group>";
 		};
 		18C8284F214FD2B4007FC65A /* Fonts */ = {
@@ -581,6 +571,24 @@
 			path = HotelDetailViewController;
 			sourceTree = "<group>";
 		};
+		400DFE422786CA080030CE16 /* SettingsManager */ = {
+			isa = PBXGroup;
+			children = (
+				400DFE432786CA1D0030CE16 /* SettingsManager.swift */,
+			);
+			path = SettingsManager;
+			sourceTree = "<group>";
+		};
+		400DFE452786CA440030CE16 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				18C82854214FDAEF007FC65A /* UIButton+Extension */,
+				19D6442F23263A51009E199B /* UITextfield+Extension */,
+				192495EC2333612900B0E36E /* UIView+Extension */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		7410C43B0668D9FA3D3716CF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -799,6 +807,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				400DFE442786CA1D0030CE16 /* SettingsManager.swift in Sources */,
 				1924095B23A244810012CFBF /* NSDateComponents+Timepiece.swift in Sources */,
 				1924095923A244810012CFBF /* String+Timepiece.swift in Sources */,
 				1924095C23A244810012CFBF /* NSDate+Timepiece.swift in Sources */,
@@ -813,7 +822,6 @@
 				19499D4523A7905D0025DB1F /* SearchFlightViewController.swift in Sources */,
 				19107A5823363670003E8CF3 /* HotelDetail.swift in Sources */,
 				192495F12333643000B0E36E /* SearchHotelViewController.swift in Sources */,
-				18C8284E214FD0EF007FC65A /* UserDefaultsConstants.swift in Sources */,
 				19309A112334D4C100E189AE /* FloatRatingView.swift in Sources */,
 				1924095D23A244810012CFBF /* Duration.swift in Sources */,
 				19309A0D2334CDED00E189AE /* HotelListCell.swift in Sources */,

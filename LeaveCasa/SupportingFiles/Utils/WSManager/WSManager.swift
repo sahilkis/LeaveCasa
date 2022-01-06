@@ -3,6 +3,19 @@ import Alamofire
 import ObjectMapper
 
 class WSManager {
+    static var _settings: SettingsManager?
+    
+    static var settings: SettingsManagerProtocol?
+    {
+        if let _ = WSManager._settings {
+        }
+        else {
+            WSManager._settings = SettingsManager()
+        }
+
+        return WSManager._settings
+    }
+    
     class func isConnectedToInternet() -> Bool {
         return NetworkReachabilityManager()!.isReachable
     }
@@ -15,20 +28,19 @@ class WSManager {
             case .success(let value):
                 if let responseValue = value as? [String: AnyObject] {
                     print(responseValue)
-                    if (responseValue[WSResponseParams.WS_RESP_PARAM_STATUS] as? Int == WSResponseParams.WS_RESP_PARAM_TRUE) {
-                        if let token = responseValue[WSResponseParams.WS_RESP_PARAM_TOKEN] as? String {
-                            Helper.setPREF(token, key: UserDefaults.PREF_ACCESS_TOKEN)
-                            if rememberMe {
-                                Helper.setBoolPREF(true, key: UserDefaults.PREF_REMEMBER_ME)
-                            } else {
-                                Helper.setBoolPREF(false, key: UserDefaults.PREF_REMEMBER_ME)
-                            }
-                            completion(true, "")
+                    if let token = responseValue[WSResponseParams.WS_RESP_PARAM_ACCESS_TOKEN] as? String, let bearer = responseValue[WSResponseParams.WS_RESP_PARAM_TOKEN_TYPE] as? String {
+                        self.settings?.accessToken = "\(token)\(bearer)"
+                        
+                        if rememberMe {
+                            self.settings?.rememberMe = true
+                        } else {
+                            self.settings?.rememberMe = false
                         }
-                    } else {
-                        if let responseMessage = responseValue[WSResponseParams.WS_RESP_PARAM_MESSAGE] as? String {
-                            completion(false, responseMessage)
-                        }
+                        
+                        completion(true, "")
+                    }
+                    else {
+                        completion(false, "")
                     }
                 } else {
                     completion(false, responseData.error?.localizedDescription ?? "")
@@ -48,9 +60,11 @@ class WSManager {
                 if let responseValue = value as? [String: AnyObject] {
                     print(responseValue)
                     if (responseValue[WSResponseParams.WS_RESP_PARAM_STATUS] as? Int == WSResponseParams.WS_RESP_PARAM_TRUE) {
-                        if let token = responseValue[WSResponseParams.WS_RESP_PARAM_TOKEN] as? String {
-                            Helper.setPREF(token, key: UserDefaults.PREF_ACCESS_TOKEN)
-                            Helper.setBoolPREF(true, key: UserDefaults.PREF_REMEMBER_ME)
+                        if let token = responseValue[WSResponseParams.WS_RESP_PARAM_ACCESS_TOKEN] as? String, let bearer = responseValue[WSResponseParams.WS_RESP_PARAM_TOKEN_TYPE] as? String {
+                            
+                            self.settings?.accessToken = "\(token)\(bearer)"
+                            self.settings?.rememberMe = true
+                            
                             completion(true, "")
                         }
                     } else {

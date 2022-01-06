@@ -7,7 +7,7 @@
 //
 
 struct WebService {
-    static let baseUrl                               = "https://leavecasa.com/public/api"
+    static let baseUrl                               = "https://leavecasa.com/api"
     static let termsAndConditions                    = ""
     static let login                                 = "\(baseUrl)/login"
     static let signup                                = "\(baseUrl)/register"
@@ -101,6 +101,7 @@ struct WSResponseParams {
     static let WS_RESP_PARAM_STATUS                  = "status"
     static let WS_REPS_PARAM_SUCCESS                 = "success"
     static let WS_RESP_PARAM_TOKEN                   = "token"
+    static let WS_RESP_PARAM_TOKEN_TYPE              = "token_type"
     static let WS_RESP_PARAM_TOTAL_FARE              = "totalFare"
     static let WS_RESP_PARAM_TRAVELS                 = "travels"
     static let WS_RESP_PARAM_TRUE                    = 200

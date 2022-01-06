@@ -13,7 +13,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
 //        for family: String in UIFont.familyNames {
@@ -23,7 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            }
 //        }
         
-        checkUserStatus()
         setNavigationBar()
         
         return true
@@ -62,18 +60,5 @@ extension AppDelegate {
         navigationBar.isOpaque = true
         navigationBar.tintColor = UIColor.white
         navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: LeaveCasaFonts.FONT_PROXIMA_NOVA_REGULAR_18 ?? UIFont.systemFont(ofSize: 18)]
-    }
-}
-
-// MARK: - CHECK IF USER IS LOGGED IN OR NOT
-extension AppDelegate {
-    func checkUserStatus() {
-        if Helper.getBoolPREF(UserDefaults.PREF_REMEMBER_ME) {
-            if let vc = ViewControllerHelper.getViewController(ofType: .SWRevealViewController) as? SWRevealViewController {
-                let navigationController = UINavigationController.init(rootViewController: vc)
-                navigationController.setNavigationBarHidden(true, animated: false)
-                self.window?.rootViewController = navigationController
-            }
-        }
     }
 }

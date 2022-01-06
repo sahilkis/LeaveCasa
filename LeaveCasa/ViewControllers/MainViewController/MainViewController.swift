@@ -1,21 +1,40 @@
-//
-//  MainViewController.swift
-//  LeaveCasa
-//
-//  Created by Dinker Malhotra on 08/08/19.
-//  Copyright © 2019 Apple. All rights reserved.
-//
-
 import UIKit
 
 class MainViewController: UIViewController {
 
+    var _settings: SettingsManager?
+    
+    var settings: SettingsManagerProtocol?
+    {
+        if let _ = WSManager._settings {
+        }
+        else {
+            WSManager._settings = SettingsManager()
+        }
+
+        return WSManager._settings
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        checkUserStatus()
+    }
+    
+    func checkUserStatus() {
+        if self.settings?.rememberMe ?? false {
+            if let vc = ViewControllerHelper.getViewController(ofType: .SWRevealViewController) as? SWRevealViewController {
+                vc.modalPresentationStyle = .overFullScreen
+                self.present(vc, animated: true, completion: nil)
+            }
+        }
+    }
 }
 
 // MARK: - UIBUTTON ACTIONS

@@ -1,11 +1,3 @@
-//
-//  LoginViewController.swift
-//  LeaveCasa
-//
-//  Created by Apple on 17/09/18.
-//  Copyright © 2018 Apple. All rights reserved.
-//
-
 import UIKit
 
 class LoginViewController: UIViewController {
@@ -90,6 +82,7 @@ extension LoginViewController {
                 if isSuccess {
                     Helper.hideLoader(onVC: self)
                     if let vc = ViewControllerHelper.getViewController(ofType: .SWRevealViewController) as? SWRevealViewController {
+                        vc.modalPresentationStyle = .overFullScreen
                         self.present(vc, animated: true, completion: nil)
                     }
                 } else {
