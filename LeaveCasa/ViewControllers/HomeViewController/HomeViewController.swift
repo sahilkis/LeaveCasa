@@ -19,12 +19,7 @@ class HomeViewController: UIViewController {
             self.signupViewHeightConstraint.priority = .defaultLow
             self.signupViewHeightConstraint.constant = 0
         }
-        
-//        if #available(iOS 11.0, *) {
-//            scrollView.contentInsetAdjustmentBehavior = .never
-//        } else {
-//            automaticallyAdjustsScrollViewInsets = false
-//        }
+
         setLeftbarButton()
     }
 
@@ -39,21 +34,42 @@ class HomeViewController: UIViewController {
     }
     
     func setClearNavigationBar() {
-        let navigationBar = self.navigationController?.navigationBar
-        navigationBar?.setBackgroundImage(UIImage(), for: .default)
-        navigationBar?.shadowImage = UIImage()
-        navigationBar?.isTranslucent = true
-        navigationBar?.backgroundColor = UIColor.clear
-        navigationBar?.tintColor = UIColor.white
+        if #available(iOS 13.0, *) {
+            let navBarAppearance = UINavigationBarAppearance()
+            navBarAppearance.configureWithTransparentBackground()
+            navBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: LeaveCasaFonts.FONT_PROXIMA_NOVA_REGULAR_18 ?? UIFont.systemFont(ofSize: 18)]
+            navBarAppearance.backgroundColor = UIColor.clear
+            self.navigationController?.navigationBar.tintColor = UIColor.white
+            self.navigationController?.navigationBar.standardAppearance = navBarAppearance
+            self.navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
+        }
+        else {
+            let navigationBar = self.navigationController?.navigationBar
+            navigationBar?.setBackgroundImage(UIImage(), for: .default)
+            navigationBar?.shadowImage = UIImage()
+            navigationBar?.isTranslucent = true
+            navigationBar?.backgroundColor = UIColor.clear
+            navigationBar?.tintColor = UIColor.white
+        }
     }
     
     func setNavigationBar() {
-        let navigationBar = self.navigationController?.navigationBar
-        navigationBar?.barTintColor = LeaveCasaColors.BLUE_COLOR
-        navigationBar?.shadowImage = UIImage()
-        navigationBar?.isTranslucent = false
-        navigationBar?.isOpaque = true
-        navigationBar?.tintColor = UIColor.white
+        if #available(iOS 13.0, *) {
+            let navBarAppearance = UINavigationBarAppearance()
+            navBarAppearance.configureWithOpaqueBackground()
+            navBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: LeaveCasaFonts.FONT_PROXIMA_NOVA_REGULAR_18 ?? UIFont.systemFont(ofSize: 18)]
+            navBarAppearance.backgroundColor = LeaveCasaColors.BLUE_COLOR
+            self.navigationController?.navigationBar.tintColor = UIColor.white
+            self.navigationController?.navigationBar.standardAppearance = navBarAppearance
+            self.navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
+        } else {
+            let navigationBar = self.navigationController?.navigationBar
+            navigationBar?.barTintColor = LeaveCasaColors.BLUE_COLOR
+            navigationBar?.shadowImage = UIImage()
+            navigationBar?.isTranslucent = false
+            navigationBar?.isOpaque = true
+            navigationBar?.tintColor = UIColor.white
+        }
     }
 }
 
@@ -61,6 +77,8 @@ class HomeViewController: UIViewController {
 extension HomeViewController: SWRevealViewControllerDelegate {
     func setLeftbarButton() {
         self.title = "Home"
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         let revealController = self.revealViewController()
         revealController?.panGestureRecognizer().isEnabled = true

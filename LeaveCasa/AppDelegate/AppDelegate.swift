@@ -22,8 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            }
 //        }
         
-        setNavigationBar()
-        
         return true
     }
 
@@ -47,18 +45,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    }
-}
-
-// MARK: - MAKE CUSTOM NAVIGATIONBAR
-extension AppDelegate {
-    func setNavigationBar() {
-        let navigationBar = UINavigationBar.appearance()
-        navigationBar.barTintColor = LeaveCasaColors.BLUE_COLOR
-        navigationBar.shadowImage = UIImage()
-        navigationBar.isTranslucent = false
-        navigationBar.isOpaque = true
-        navigationBar.tintColor = UIColor.white
-        navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: LeaveCasaFonts.FONT_PROXIMA_NOVA_REGULAR_18 ?? UIFont.systemFont(ofSize: 18)]
     }
 }
