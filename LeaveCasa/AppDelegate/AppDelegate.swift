@@ -22,8 +22,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //                print("== \(names)")
 //            }
 //        }
+        
         checkUserStatus()
         setNavigationBar()
+        
         return true
     }
 
@@ -66,7 +68,6 @@ extension AppDelegate {
 // MARK: - CHECK IF USER IS LOGGED IN OR NOT
 extension AppDelegate {
     func checkUserStatus() {
-        print(Helper.getBoolPREF(UserDefaults.PREF_REMEMBER_ME))
         if Helper.getBoolPREF(UserDefaults.PREF_REMEMBER_ME) {
             if let vc = ViewControllerHelper.getViewController(ofType: .SWRevealViewController) as? SWRevealViewController {
                 let navigationController = UINavigationController.init(rootViewController: vc)
