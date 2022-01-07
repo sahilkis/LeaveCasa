@@ -15,6 +15,8 @@ class SearchHotelViewController: UIViewController {
     lazy var cityName = [String]()
     lazy var cityCodeStr = ""
     var numberOfRooms = 1
+    var numberOfAdults = [1]
+    var numberOfChilds = [""]
     var isFromCheckin = true
     var checkinDate = Date()
     var checkoutDate = Date()
@@ -120,7 +122,40 @@ extension SearchHotelViewController {
             numberOfRooms = numberOfRooms + 1
             lblRoom.text = "\(numberOfRooms)"
             
+            numberOfAdults.append(1)
+            numberOfChilds.append("")
+            
             tableView.reloadData()
+        }
+    }
+    
+    @IBAction func adultPlusClicked(_ sender: UIButton) {
+        if let cell = tableView.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as? SearchRoomsCell {
+            var value = Int(cell.lblAdultCount.text ?? "") ?? 1
+            
+            if value < 5 {
+                value += 1
+                
+                numberOfAdults.remove(at: sender.tag)
+                numberOfAdults.insert(value, at: sender.tag)
+                
+                cell.lblAdultCount.text = "\(value)"
+            }
+        }
+    }
+    
+    @IBAction func childPlusClicked(_ sender: UIButton) {
+        if let cell = tableView.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as? SearchRoomsCell {
+            var value = Int(cell.lblChildCount.text ?? "0") ?? 0
+            
+            if value < 5 {
+                value += 1
+                
+                numberOfChilds.remove(at: sender.tag)
+                numberOfChilds.insert("\(value)", at: sender.tag)
+                
+                cell.lblChildCount.text = "\(value)"
+            }
         }
     }
     
@@ -129,7 +164,40 @@ extension SearchHotelViewController {
             numberOfRooms = numberOfRooms - 1
             lblRoom.text = "\(numberOfRooms)"
             
+            numberOfAdults.removeLast()
+            numberOfChilds.removeLast()
+            
             tableView.reloadData()
+        }
+    }
+    
+    @IBAction func adultMinusClicked(_ sender: UIButton) {
+        if let cell = tableView.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as? SearchRoomsCell {
+            var value = Int(cell.lblAdultCount.text ?? "1") ?? 1
+            
+            if value > 1 {
+                value -= 1
+                
+                numberOfAdults.remove(at: sender.tag)
+                numberOfAdults.insert(value, at: sender.tag)
+                
+                cell.lblAdultCount.text = "\(value)"
+            }
+        }
+    }
+    
+    @IBAction func childMinusClicked(_ sender: UIButton) {
+        if let cell = tableView.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as? SearchRoomsCell {
+            var value = Int(cell.lblChildCount.text ?? "0") ?? 0
+            
+            if value > 0 {
+                value -= 1
+                
+                numberOfChilds.remove(at: sender.tag)
+                numberOfChilds.insert("\(value)", at: sender.tag)
+                
+                cell.lblChildCount.text = "\(value)"
+            }
         }
     }
     
@@ -171,6 +239,24 @@ extension SearchHotelViewController: UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CellIds.SearchRoomsCell, for: indexPath) as! SearchRoomsCell
+        
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .spellOut
+        let roomNumber = formatter.string(from: NSNumber(value: indexPath.row + 1))
+        
+        cell.lblRoomCount.text = "In room \(roomNumber ?? "")"
+        cell.lblAdultCount.text = "\(numberOfAdults[indexPath.row])"
+        cell.lblChildCount.text = "\(numberOfChilds[indexPath.row])"
+        
+        cell.btnPlusAdult.tag = indexPath.row
+        cell.btnMinusAdult.tag = indexPath.row
+        cell.btnPlusChild.tag = indexPath.row
+        cell.btnMinusChild.tag = indexPath.row
+        
+        cell.btnPlusAdult.addTarget(self, action: #selector(adultPlusClicked(_:)), for: .touchUpInside)
+        cell.btnMinusAdult.addTarget(self, action: #selector(adultMinusClicked(_:)), for: .touchUpInside)
+        cell.btnPlusChild.addTarget(self, action: #selector(childPlusClicked(_:)), for: .touchUpInside)
+        cell.btnMinusChild.addTarget(self, action: #selector(childMinusClicked(_:)), for: .touchUpInside)
         
         return cell
     }
