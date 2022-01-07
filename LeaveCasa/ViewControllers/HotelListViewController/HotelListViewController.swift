@@ -1,11 +1,3 @@
-//
-//  HotelListViewController.swift
-//  LeaveCasa
-//
-//  Created by Dinker Malhotra on 20/09/19.
-//  Copyright © 2019 Apple. All rights reserved.
-//
-
 import UIKit
 import SDWebImage
 
@@ -15,11 +7,13 @@ class HotelListViewController: UIViewController {
     @IBOutlet weak var lblHotelCount: UILabel!
     @IBOutlet weak var lblDate: UILabel!
     
-    var hotels = [Hotels]()
+    var results = [Results]()
     var markups = [Markup]()
     var checkInDate = ""
+    var checkIn = ""
+    var checkOut = ""
+    var finalRooms = [[String: AnyObject]]()
     var hotelCount = ""
-    var searchId = ""
     var logId = 0
     
     override func viewDidLoad() {
@@ -48,15 +42,18 @@ extension HotelListViewController {
 // MARK: - UITABLEVIEW METHODS
 extension HotelListViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return results.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return hotels.count
+        return results[section].hotels.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CellIds.HotelListCell, for: indexPath) as! HotelListCell
+        
+        let hotels = results[indexPath.section].hotels
+
         let hotel: Hotels?
         hotel = hotels[indexPath.row]
         
@@ -113,11 +110,16 @@ extension HotelListViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let dict = results[indexPath.section]
+        
         if let vc = ViewControllerHelper.getViewController(ofType: .HotelDetailViewController) as? HotelDetailViewController {
-            vc.hotels = hotels[indexPath.row]
-            vc.searchId = searchId
+            vc.hotels = dict.hotels[indexPath.row]
+            vc.searchId = dict.searchId
             vc.logId = logId
             vc.markups = markups
+            vc.checkIn = checkIn
+            vc.checkOut = checkOut
+            vc.finalRooms = finalRooms
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }

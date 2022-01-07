@@ -7,37 +7,47 @@ class SearchHotelViewController: UIViewController {
     @IBOutlet weak var txtCity: SearchTextField!
     @IBOutlet weak var txtCheckIn: UITextField!
     @IBOutlet weak var txtCheckOut: UITextField!
-    @IBOutlet weak var txtRooms: UITextField!
-    @IBOutlet weak var btnPlusAdultRoomOne: UIButton!
-    @IBOutlet weak var btnMinusAdultRoomOne: UIButton!
-    @IBOutlet weak var btnPlusChildrenRoomOne: UIButton!
-    @IBOutlet weak var btnMinusChildrenRoomOne: UIButton!
+    @IBOutlet weak var lblRoom: UILabel!
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint!
     
     lazy var cityCode = [String]()
     lazy var cityName = [String]()
     lazy var cityCodeStr = ""
-    var roomsDropDown = DropDown()
+    var numberOfRooms = 1
     var isFromCheckin = true
     var checkinDate = Date()
     var checkoutDate = Date()
+    var finalRooms = [[String: AnyObject]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setLeftbarButton()
         setDates()
-        setRoomsDropDown()
-        hideMinusButton()
+        
         txtCity.addTarget(self, action: #selector(searchCity(_:)), for: .editingChanged)
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        self.btnPlusAdultRoomOne.roundedButton()
-        self.btnMinusAdultRoomOne.roundedButton()
-        self.btnPlusChildrenRoomOne.roundedButton()
-        self.btnMinusChildrenRoomOne.roundedButton()
+        tableView.addObserver(self, forKeyPath: Strings.CONTENT_SIZE, options: .new, context: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.tableView.removeObserver(self, forKeyPath: Strings.CONTENT_SIZE)
+    }
+
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == Strings.CONTENT_SIZE {
+            if let newvalue = change?[.newKey] {
+                let newsize  = newvalue as! CGSize
+                tableViewHeightConstraint.constant = newsize.height
+            }
+        }
     }
     
     func setLeftbarButton() {
@@ -61,25 +71,11 @@ class SearchHotelViewController: UIViewController {
         }
     }
     
-    func setRoomsDropDown() {
-        txtRooms.text = "01"
-        roomsDropDown.anchorView = txtRooms
-        roomsDropDown.dataSource = ["01", "02", "03"]
-        roomsDropDown.selectionAction = { [weak self] (index, item) in
-            self?.txtRooms.text = item
-        }
-    }
-    
     func setDates() {
         checkinDate = Date()
         checkoutDate = Calendar.current.date(byAdding: .day, value: 1, to: Date()) ?? Date()
         txtCheckIn.text = Helper.setCheckInDate()
         txtCheckOut.text = Helper.setCheckOutDate()
-    }
-    
-    func hideMinusButton() {
-        btnMinusAdultRoomOne.isHidden = true
-        btnMinusChildrenRoomOne.isHidden = true
     }
     
     func openDateCalendar() {
@@ -111,19 +107,72 @@ extension SearchHotelViewController {
         if self.cityName.count > 0 {
             self.cityName.removeAll()
         }
+        
         if self.cityCode.count > 0 {
             self.cityCode.removeAll()
         }
+        
         fetchCityList()
+    }
+    
+    @IBAction func roomPlusClicked(_ sender: UIButton) {
+        if numberOfRooms >= 1 {
+            numberOfRooms = numberOfRooms + 1
+            lblRoom.text = "\(numberOfRooms)"
+            
+            tableView.reloadData()
+        }
+    }
+    
+    @IBAction func roomMinusClicked(_ sender: UIButton) {
+        if numberOfRooms > 1 {
+            numberOfRooms = numberOfRooms - 1
+            lblRoom.text = "\(numberOfRooms)"
+            
+            tableView.reloadData()
+        }
     }
     
     @IBAction func searchClicked(_ sender: UIButton) {
         if txtCity.text?.isEmpty ?? true || cityCodeStr.isEmpty {
             Helper.showOKAlert(onVC: self, title: Alert.ALERT, message: AlertMessages.SELECT_CITY)
         } else {
+            var params: [String: AnyObject] = [:]
+            
+            for i in 0..<numberOfRooms {
+                if let cell = tableView.cellForRow(at: IndexPath(row: i, section: 0)) as? SearchRoomsCell {
+                    let childCount = Int(cell.lblChildCount.text ?? "0") ?? 0
+                    
+                    params[WSRequestParams.WS_REQS_PARAM_ADULTS] = cell.lblAdultCount.text as AnyObject
+                    
+                    if childCount > 0 {
+                        params[WSRequestParams.WS_REQS_PARAM_CHILDREN_AGES] = [] as AnyObject
+                    }
+                    
+                    self.finalRooms.append(params)
+                }
+            }
+            
             Helper.showLoader(onVC: self, message: Alert.LOADING)
             searchHotel()
         }
+    }
+}
+
+// MARK: - UITABLEVIEW METHODS
+extension SearchHotelViewController: UITableViewDataSource, UITableViewDelegate {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return numberOfRooms
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: CellIds.SearchRoomsCell, for: indexPath) as! SearchRoomsCell
+        
+        return cell
     }
 }
 
@@ -164,18 +213,18 @@ extension SearchHotelViewController: UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         if textField == txtCity {
             return true
-        } else if textField == txtRooms {
-            roomsDropDown.show()
-            return false
-        } else if textField == txtCheckIn {
+        }
+        else if textField == txtCheckIn {
             isFromCheckin = true
             openDateCalendar()
             return false
-        } else if textField == txtCheckOut {
+        }
+        else if textField == txtCheckOut {
             isFromCheckin = false
             openDateCalendar()
             return false
-        } else {
+        }
+        else {
             return false
         }
     }
@@ -213,22 +262,18 @@ extension SearchHotelViewController {
             let params: [String: AnyObject] = [WSRequestParams.WS_REQS_PARAM_DESTINATION_CODE: cityCodeStr as AnyObject,
                                                WSRequestParams.WS_REQS_PARAM_CHECKIN: txtCheckIn.text as AnyObject,
                                                WSRequestParams.WS_REQS_PARAM_CHECKOUT: txtCheckOut.text as AnyObject,
-                                               WSRequestParams.WS_REQS_PARAM_CLIENT_NATIONALITY: "IN" as AnyObject,
-                                               WSRequestParams.WS_REQS_PARAM_CUTOFF_TIME: 40000 as AnyObject,
-                                               WSRequestParams.WS_REQS_PARAM_MORE_RESULTS: true as AnyObject,
-                                               WSRequestParams.WS_REQS_PARAM_HOTEL_INFO: true as AnyObject,
-                                               WSRequestParams.WS_REQS_PARAM_RATES: "concise" as AnyObject,
-                                               WSRequestParams.WS_REQS_PARAM_HOTEL_CATEGORY: [2, 7] as AnyObject,
-                                               WSRequestParams.WS_REQS_PARAM_ROOMS: [[WSRequestParams.WS_REQS_PARAM_ADULTS: "1"]] as AnyObject]
-            WSManager.wsCallFetchHotels(params, success: { (response, markup, hotelCount, logId, searchId) in
+                                               WSRequestParams.WS_REQS_PARAM_ROOMS: finalRooms as AnyObject]
+            WSManager.wsCallFetchHotels(params, success: { (results, markup, hotelCount, logId) in
                 Helper.hideLoader(onVC: self)
                 if let vc = ViewControllerHelper.getViewController(ofType: .HotelListViewController) as? HotelListViewController {
-                    vc.hotels = response
+                    vc.results = results
                     vc.markups = markup
-                    vc.hotelCount = String(hotelCount)
+                    vc.hotelCount = "\(hotelCount)"
                     vc.logId = logId
-                    vc.searchId = searchId
                     vc.checkInDate = Helper.convertCheckinDate(self.txtCheckIn.text ?? "")
+                    vc.checkIn = self.txtCheckIn.text ?? ""
+                    vc.checkOut = self.txtCheckOut.text ?? ""
+                    vc.finalRooms = self.finalRooms
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
             }, failure: { (error) in

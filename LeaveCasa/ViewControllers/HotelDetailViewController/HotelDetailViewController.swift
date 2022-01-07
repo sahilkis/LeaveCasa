@@ -1,11 +1,3 @@
-//
-//  HotelDetailViewController.swift
-//  LeaveCasa
-//
-//  Created by Dinker Malhotra on 20/09/19.
-//  Copyright © 2019 Apple. All rights reserved.
-//
-
 import UIKit
 import SDWebImage
 
@@ -29,12 +21,16 @@ class HotelDetailViewController: UIViewController {
     var prices = [[String: AnyObject]]()
     var searchId = ""
     var logId = 0
+    var checkIn = ""
+    var checkOut = ""
+    var finalRooms = [[String: AnyObject]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         collectionView.register(UINib.init(nibName: CellIds.ImagesCell, bundle: nil), forCellWithReuseIdentifier: CellIds.ImagesCell)
         tableView.register(UINib.init(nibName: CellIds.RoomsCell, bundle: nil), forCellReuseIdentifier: CellIds.RoomsCell)
+        
         setLeftbarButton()
         fetchHotelImages()
         fetchHotelDetail()
@@ -218,7 +214,10 @@ extension HotelDetailViewController {
         if WSManager.isConnectedToInternet() {
             let params: [String: AnyObject] = [WSResponseParams.WS_RESP_PARAM_SEARCH_ID: searchId as AnyObject,
                                                WSResponseParams.WS_RESP_PARAM_HOTEL_CODE: hotels?.sHotelCode as AnyObject,
-                                               WSResponseParams.WS_RESP_PARAM_LOGID: logId as AnyObject]
+                                               WSResponseParams.WS_RESP_PARAM_LOGID: logId as AnyObject,
+                                               WSRequestParams.WS_REQS_PARAM_CHECKIN: checkIn as AnyObject,
+                                               WSRequestParams.WS_REQS_PARAM_CHECKOUT: checkOut as AnyObject,
+                                               WSRequestParams.WS_REQS_PARAM_ROOMS: finalRooms as AnyObject]
             WSManager.wsCallFetchHotelDetail(params, success: { (response) in
                 self.setData(response)
             }, failure: { (error) in

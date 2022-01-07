@@ -100,7 +100,7 @@ class WSManager {
     }
     
     // MARK: FETCH HOTEL
-    class func wsCallFetchHotels(_ requestParams: [String: AnyObject], success:@escaping (_ arrHomeData: [Hotels], _ markups: [Markup],_ numberOfHotels: Int, _ logId: Int, _ searchId: String)->(),failure:@escaping (NSError)->()) {
+    class func wsCallFetchHotels(_ requestParams: [String: AnyObject], success:@escaping (_ arrHomeData: [Results], _ markups: [Markup],_ numberOfHotels: Int, _ logId: Int)->(),failure:@escaping (NSError)->()) {
         AF.request(WebService.hotelSearch, method: .post, parameters: requestParams, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: {(responseData) -> Void in
             print(responseData.result)
             switch responseData.result {
@@ -110,28 +110,8 @@ class WSManager {
                     if (responseValue[WSResponseParams.WS_RESP_PARAM_STATUS] as? String == WSResponseParams.WS_REPS_PARAM_SUCCESS) {
                         if let response = responseValue[WSResponseParams.WS_RESP_PARAM_RESULTS] as? [[String: Any]] {
                             if let markup = responseValue[WSResponseParams.WS_RESP_PARAM_MARKUP] as? [[String: Any]] {
-                                if let markupArr = Mapper<Markup>().mapArray(JSONArray: markup) as [Markup]? {
-                                    for i in 0..<response.count {
-                                        let dict = response[i]
-                                        if let hotelCount = dict[WSResponseParams.WS_RESP_PARAM_HOTELS] as? [[String: Any]] {
-                                            if let hotels = Mapper<Hotels>().mapArray(JSONArray: hotelCount) as [Hotels]? {
-                                                success(hotels, markupArr, responseValue[WSResponseParams.WS_RESP_PARAM_NUMBER_OF_HOTELS] as? Int ?? 0, responseValue[WSResponseParams.WS_RESP_PARAM_LOGID] as? Int ?? 0, dict[WSResponseParams.WS_RESP_PARAM_SEARCH_ID] as? String ?? "")
-                                            } else {
-                                                failure(AppConstants.errSomethingWentWrong)
-                                            }
-                                        } else {
-                                            if let errors = dict[WSResponseParams.WS_RESP_PARAM_ERRORS] as? [[String: Any]] {
-                                                for j in 0..<errors.count {
-                                                    let newDict = errors[j]
-                                                    print(newDict)
-                                                    if let message = newDict[WSResponseParams.WS_RESP_PARAM_MESSAGES] as? [String: Any] {
-                                                        print(message)
-                                                        failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: message]))
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
+                                if let results = Mapper<Results>().mapArray(JSONArray: response) as [Results]?, let markupArr = Mapper<Markup>().mapArray(JSONArray: markup) as [Markup]? {
+                                    success(results, markupArr, responseValue[WSResponseParams.WS_RESP_PARAM_NUMBER_OF_HOTELS] as? Int ?? 0, responseValue[WSResponseParams.WS_RESP_PARAM_LOGID] as? Int ?? 0)
                                 }
                             }
                         } else {

@@ -37,6 +37,7 @@ struct CellIds {
     static let RoomsCell                    = "RoomsCell"
     static let BusListCell                  = "BusListCell"
     static let FacilitiesCell               = "FacilitiesCell"
+    static let SearchRoomsCell              = "SearchRoomsCell"
 }
 
 // Color Constants

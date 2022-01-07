@@ -1,11 +1,3 @@
-//
-//  HomeViewController.swift
-//  LeaveCasa
-//
-//  Created by Dinker Malhotra on 08/08/19.
-//  Copyright © 2019 Apple. All rights reserved.
-//
-
 import UIKit
 
 class HomeViewController: UIViewController {

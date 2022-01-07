@@ -61,6 +61,7 @@
 		19FB4D09231A7998007C742C /* AlertMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FB4D08231A7998007C742C /* AlertMessages.swift */; };
 		19FE9CF223352BAA0006BC2D /* HotelDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FE9CF123352BAA0006BC2D /* HotelDetailViewController.swift */; };
 		400DFE442786CA1D0030CE16 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DFE432786CA1D0030CE16 /* SettingsManager.swift */; };
+		400DFE492787028A0030CE16 /* SearchRoomsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DFE482787028A0030CE16 /* SearchRoomsCell.swift */; };
 		A71135AD1284FFCD1745A8CA /* Pods_LeaveCasa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2938878705CEC9DEF73768C5 /* Pods_LeaveCasa.framework */; };
 /* End PBXBuildFile section */
 
@@ -146,6 +147,7 @@
 		2938878705CEC9DEF73768C5 /* Pods_LeaveCasa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LeaveCasa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B451D01AA1029BFC6156992 /* Pods-LeaveCasa.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeaveCasa.release.xcconfig"; path = "Target Support Files/Pods-LeaveCasa/Pods-LeaveCasa.release.xcconfig"; sourceTree = "<group>"; };
 		400DFE432786CA1D0030CE16 /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
+		400DFE482787028A0030CE16 /* SearchRoomsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRoomsCell.swift; sourceTree = "<group>"; };
 		D57CC5C06870644F4F5A9B61 /* Pods-LeaveCasa.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeaveCasa.debug.xcconfig"; path = "Target Support Files/Pods-LeaveCasa/Pods-LeaveCasa.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -393,6 +395,7 @@
 			isa = PBXGroup;
 			children = (
 				192495F02333643000B0E36E /* SearchHotelViewController.swift */,
+				400DFE482787028A0030CE16 /* SearchRoomsCell.swift */,
 			);
 			path = SearchHotelViewController;
 			sourceTree = "<group>";
@@ -818,6 +821,7 @@
 				18C8283D214FCF57007FC65A /* LoginViewController.swift in Sources */,
 				19561F292338975500AA4FF3 /* ImagesCell.swift in Sources */,
 				1944949523DC61CD00AD8492 /* FacilitiesViewController.swift in Sources */,
+				400DFE492787028A0030CE16 /* SearchRoomsCell.swift in Sources */,
 				193E1EF223ACDDDC00DDA7C9 /* Bus.swift in Sources */,
 				19499D4523A7905D0025DB1F /* SearchFlightViewController.swift in Sources */,
 				19107A5823363670003E8CF3 /* HotelDetail.swift in Sources */,
