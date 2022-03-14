@@ -38,11 +38,15 @@ struct CellIds {
     static let BusListCell                  = "BusListCell"
     static let FacilitiesCell               = "FacilitiesCell"
     static let SearchRoomsCell              = "SearchRoomsCell"
+    static let SearchFlightCell             = "SearchFlightCell"
+
 }
 
 // Color Constants
 struct LeaveCasaColors {
     static let BLUE_COLOR                   = UIColor.init(hex: "2CB7F2")
+    static let PINK_COLOR                   = UIColor.init(hex: "FF2D55")
+    static let LIGHT_GRAY_COLOR             = UIColor.init(hex: "BEC2CE")
 }
 
 // Font Constants
