@@ -62,6 +62,8 @@
 		19FE9CF223352BAA0006BC2D /* HotelDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FE9CF123352BAA0006BC2D /* HotelDetailViewController.swift */; };
 		400DFE442786CA1D0030CE16 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DFE432786CA1D0030CE16 /* SettingsManager.swift */; };
 		400DFE492787028A0030CE16 /* SearchRoomsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DFE482787028A0030CE16 /* SearchRoomsCell.swift */; };
+		406778B927DF050100565C52 /* Flight.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 406778B827DF050100565C52 /* Flight.storyboard */; };
+		406778BB27DF205900565C52 /* SearchFlightCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406778BA27DF205900565C52 /* SearchFlightCell.swift */; };
 		A71135AD1284FFCD1745A8CA /* Pods_LeaveCasa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2938878705CEC9DEF73768C5 /* Pods_LeaveCasa.framework */; };
 /* End PBXBuildFile section */
 
@@ -148,6 +150,8 @@
 		2B451D01AA1029BFC6156992 /* Pods-LeaveCasa.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeaveCasa.release.xcconfig"; path = "Target Support Files/Pods-LeaveCasa/Pods-LeaveCasa.release.xcconfig"; sourceTree = "<group>"; };
 		400DFE432786CA1D0030CE16 /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
 		400DFE482787028A0030CE16 /* SearchRoomsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRoomsCell.swift; sourceTree = "<group>"; };
+		406778B827DF050100565C52 /* Flight.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Flight.storyboard; sourceTree = "<group>"; };
+		406778BA27DF205900565C52 /* SearchFlightCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFlightCell.swift; sourceTree = "<group>"; };
 		D57CC5C06870644F4F5A9B61 /* Pods-LeaveCasa.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeaveCasa.debug.xcconfig"; path = "Target Support Files/Pods-LeaveCasa/Pods-LeaveCasa.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -279,6 +283,7 @@
 			children = (
 				18C8280C214FCEC8007FC65A /* Main.storyboard */,
 				18C82811214FCEC8007FC65A /* LaunchScreen.storyboard */,
+				406778B827DF050100565C52 /* Flight.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -451,6 +456,7 @@
 			isa = PBXGroup;
 			children = (
 				19499D4423A7905D0025DB1F /* SearchFlightViewController.swift */,
+				406778BA27DF205900565C52 /* SearchFlightCell.swift */,
 			);
 			path = SearchFlightViewController;
 			sourceTree = "<group>";
@@ -726,6 +732,7 @@
 				18C82853214FD2C1007FC65A /* ProximaNova-Regular.otf in Resources */,
 				18C82852214FD2C1007FC65A /* Proxima Nova Bold.otf in Resources */,
 				18C82810214FCEC8007FC65A /* Assets.xcassets in Resources */,
+				406778B927DF050100565C52 /* Flight.storyboard in Resources */,
 				19309A0E2334CDED00E189AE /* HotelListCell.xib in Resources */,
 				19561F2E2338B8F000AA4FF3 /* RoomsCell.xib in Resources */,
 				1924096223A2449A0012CFBF /* WWCalendarTimeSelector.storyboard in Resources */,
@@ -827,6 +834,7 @@
 				19107A5823363670003E8CF3 /* HotelDetail.swift in Sources */,
 				192495F12333643000B0E36E /* SearchHotelViewController.swift in Sources */,
 				19309A112334D4C100E189AE /* FloatRatingView.swift in Sources */,
+				406778BB27DF205900565C52 /* SearchFlightCell.swift in Sources */,
 				1924095D23A244810012CFBF /* Duration.swift in Sources */,
 				19309A0D2334CDED00E189AE /* HotelListCell.swift in Sources */,
 				18C82849214FD06C007FC65A /* Extensions.swift in Sources */,

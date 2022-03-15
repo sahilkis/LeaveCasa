@@ -2247,21 +2247,6 @@
             </objects>
             <point key="canvasLocation" x="4144.8000000000002" y="436.73163418290858"/>
         </scene>
-        <!--Search Flight View Controller-->
-        <scene sceneID="JE7-3m-02V">
-            <objects>
-                <viewController storyboardIdentifier="SearchFlightViewController" automaticallyAdjustsScrollViewInsets="NO" id="W6q-lC-oDM" customClass="SearchFlightViewController" customModule="LeaveCasa" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Va1-tp-2gq">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="Z2r-1u-zOU"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="10h-Gc-wzN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4145" y="1139"/>
-        </scene>
         <!--Hotel List View Controller-->
         <scene sceneID="DNt-SH-DPS">
             <objects>

@@ -47,6 +47,7 @@ class ViewControllerHelper: NSObject {
     class func getViewController(ofType viewControllerType: ViewControllerType) -> UIViewController {
         var viewController: UIViewController?
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let flightStoryboard = UIStoryboard(name: "Flight", bundle: nil)
         
         if viewControllerType == .MainViewController {
             viewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.MainViewController) as! MainViewController
@@ -66,14 +67,15 @@ class ViewControllerHelper: NSObject {
             viewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.HotelDetailViewController) as! HotelDetailViewController
         } else if viewControllerType == .WWCalendarTimeSelector {
             viewController = UIStoryboard.init(name: ViewControllerIdentifiers.WWCalendarTimeSelector, bundle: nil).instantiateInitialViewController() as! WWCalendarTimeSelector
-        } else if viewControllerType == .SearchFlightViewController {
-            viewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.SearchFlightViewController) as! SearchFlightViewController
         } else if viewControllerType == .SearchBusViewController {
             viewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.SearchBusViewController) as! SearchBusViewController
         } else if viewControllerType == .BusListViewController {
             viewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.BusListViewController) as! BusListViewController
         } else if viewControllerType == .FacilitiesViewController {
             viewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.FacilitiesViewController) as! FacilitiesViewController
+        } // Flight Storyboard
+        else if viewControllerType == .SearchFlightViewController {
+            viewController = flightStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.SearchFlightViewController) as! SearchFlightViewController
         } else {
             print("Unknown view controller type")
         }
