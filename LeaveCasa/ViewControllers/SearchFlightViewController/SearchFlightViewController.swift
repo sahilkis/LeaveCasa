@@ -179,6 +179,11 @@ class SearchFlightViewController: UIViewController {
 //            Helper.showOKAlert(onVC: self, title: Alert.ALERT, message: AlertMessages.SELECT_CITY)
 //        } else {
 //        }
+        
+        if let vc = ViewControllerHelper.getViewController(ofType: .FlightListViewController) as? FlightListViewController {
+            
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     @objc func btnCloseClicked(_ sender: UIButton) {
@@ -291,8 +296,8 @@ extension SearchFlightViewController: UITableViewDataSource, UITableViewDelegate
 
         cell.btnClose.addTarget(self, action: #selector(btnCloseClicked(_:)), for: .touchUpInside)
         cell.btnAddCity.addTarget(self, action: #selector(btnAddCityClicked(_:)), for: .touchUpInside)
-//        cell.txtSource.addTarget(self, action: #selector(searchCity(_:)), for: .editingChanged)
-//        cell.txtDestination.addTarget(self, action: #selector(searchCity(_:)), for: .editingChanged)
+        cell.txtSource.addTarget(self, action: #selector(searchCity(_:)), for: .editingChanged)
+        cell.txtDestination.addTarget(self, action: #selector(searchCity(_:)), for: .editingChanged)
 
         if let source = array[row]["Source"], let destination = array[row]["Destination"], let flightClass = array[row]["Class"], let passengers = array[row]["Passengers"], let from = array[row]["From"] , let to = array[row]["To"] {
             cell.txtSource.text = source

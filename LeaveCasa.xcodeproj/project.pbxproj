@@ -64,6 +64,8 @@
 		400DFE492787028A0030CE16 /* SearchRoomsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DFE482787028A0030CE16 /* SearchRoomsCell.swift */; };
 		406778B927DF050100565C52 /* Flight.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 406778B827DF050100565C52 /* Flight.storyboard */; };
 		406778BB27DF205900565C52 /* SearchFlightCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406778BA27DF205900565C52 /* SearchFlightCell.swift */; };
+		40CDAF1627E0B40800B5B8FA /* FlightListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CDAF1527E0B40800B5B8FA /* FlightListViewController.swift */; };
+		40CDAF1827E0B43F00B5B8FA /* FlightListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CDAF1727E0B43F00B5B8FA /* FlightListCell.swift */; };
 		A71135AD1284FFCD1745A8CA /* Pods_LeaveCasa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2938878705CEC9DEF73768C5 /* Pods_LeaveCasa.framework */; };
 /* End PBXBuildFile section */
 
@@ -152,6 +154,8 @@
 		400DFE482787028A0030CE16 /* SearchRoomsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRoomsCell.swift; sourceTree = "<group>"; };
 		406778B827DF050100565C52 /* Flight.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Flight.storyboard; sourceTree = "<group>"; };
 		406778BA27DF205900565C52 /* SearchFlightCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFlightCell.swift; sourceTree = "<group>"; };
+		40CDAF1527E0B40800B5B8FA /* FlightListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightListViewController.swift; sourceTree = "<group>"; };
+		40CDAF1727E0B43F00B5B8FA /* FlightListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightListCell.swift; sourceTree = "<group>"; };
 		D57CC5C06870644F4F5A9B61 /* Pods-LeaveCasa.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeaveCasa.debug.xcconfig"; path = "Target Support Files/Pods-LeaveCasa/Pods-LeaveCasa.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -266,6 +270,7 @@
 				193E1EF323ACE4E200DDA7C9 /* BusListViewController */,
 				19499D4623A790630025DB1F /* SearchBusViewController */,
 				19499D4323A790430025DB1F /* SearchFlightViewController */,
+				40CDAF1427E0B3DB00B5B8FA /* FlightListViewController */,
 				19FE9CF023352B8E0006BC2D /* HotelDetailViewController */,
 				19309A082334CB3800E189AE /* HotelListViewController */,
 				192495EF2333641500B0E36E /* SearchHotelViewController */,
@@ -598,6 +603,15 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		40CDAF1427E0B3DB00B5B8FA /* FlightListViewController */ = {
+			isa = PBXGroup;
+			children = (
+				40CDAF1527E0B40800B5B8FA /* FlightListViewController.swift */,
+				40CDAF1727E0B43F00B5B8FA /* FlightListCell.swift */,
+			);
+			path = FlightListViewController;
+			sourceTree = "<group>";
+		};
 		7410C43B0668D9FA3D3716CF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -840,6 +854,7 @@
 				18C82849214FD06C007FC65A /* Extensions.swift in Sources */,
 				1924095A23A244810012CFBF /* NSCalendar+Timepiece.swift in Sources */,
 				19561F2D2338B8F000AA4FF3 /* RoomsCell.swift in Sources */,
+				40CDAF1627E0B40800B5B8FA /* FlightListViewController.swift in Sources */,
 				19FB4D09231A7998007C742C /* AlertMessages.swift in Sources */,
 				18C82809214FCEC8007FC65A /* AppDelegate.swift in Sources */,
 				19DAE660233211B3008D2F24 /* SidebarViewController.swift in Sources */,
@@ -849,6 +864,7 @@
 				195C403D22FC0C100013A644 /* HomeViewController.swift in Sources */,
 				19D6443123263A77009E199B /* UITextfield+Extension.swift in Sources */,
 				192495EE2333615B00B0E36E /* UIView+Extension.swift in Sources */,
+				40CDAF1827E0B43F00B5B8FA /* FlightListCell.swift in Sources */,
 				18C82844214FCF8F007FC65A /* Helper.swift in Sources */,
 				1924096023A244920012CFBF /* WWCalendarTimeSelector.swift in Sources */,
 				195C404A22FC10F90013A644 /* WSManager.swift in Sources */,

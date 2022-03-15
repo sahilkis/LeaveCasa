@@ -17,6 +17,7 @@ struct ViewControllerIdentifiers {
     static let HotelDetailViewController            = "HotelDetailViewController"
     static let WWCalendarTimeSelector               = "WWCalendarTimeSelector"
     static let SearchFlightViewController           = "SearchFlightViewController"
+    static let FlightListViewController             = "FlightListViewController"
     static let SearchBusViewController              = "SearchBusViewController"
     static let BusListViewController                = "BusListViewController"
     static let FacilitiesViewController             = "FacilitiesViewController"
@@ -35,6 +36,7 @@ enum ViewControllerType {
     case HotelDetailViewController
     case WWCalendarTimeSelector
     case SearchFlightViewController
+    case FlightListViewController
     case SearchBusViewController
     case BusListViewController
     case FacilitiesViewController
@@ -76,6 +78,8 @@ class ViewControllerHelper: NSObject {
         } // Flight Storyboard
         else if viewControllerType == .SearchFlightViewController {
             viewController = flightStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.SearchFlightViewController) as! SearchFlightViewController
+        }else if viewControllerType == .FlightListViewController {
+            viewController = flightStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.FlightListViewController) as! FlightListViewController
         } else {
             print("Unknown view controller type")
         }
