@@ -415,6 +415,7 @@
                                                         <constraint firstItem="8nY-bP-937" firstAttribute="leading" secondItem="Vtu-qR-wcR" secondAttribute="leading" id="k9k-YZ-D6P"/>
                                                         <constraint firstAttribute="bottom" secondItem="Ltj-0j-4Jh" secondAttribute="bottom" constant="8" id="mp7-uN-OVi"/>
                                                         <constraint firstItem="Ltj-0j-4Jh" firstAttribute="centerX" secondItem="Vtu-qR-wcR" secondAttribute="centerX" id="s5F-ja-CVd"/>
+                                                        <constraint firstAttribute="trailing" secondItem="8nY-bP-937" secondAttribute="trailing" id="y3E-dz-55E"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>

@@ -50,29 +50,29 @@ class SearchFlightViewController: UIViewController {
             btnOneWay.setTitleColor(selectedColor, for: .normal)
             underlineOneWay.backgroundColor = selectedColor
             
-            btnRoundTrip.setTitleColor(unselectedColor, for: .normal)
+            btnRoundTrip.titleLabel?.textColor = unselectedColor
             underlineRoundTrip.backgroundColor = clearColor
             
-            btnMultiCity.setTitleColor(unselectedColor, for: .normal)
+            btnMultiCity.titleLabel?.textColor = unselectedColor
             underlineMultiCity.backgroundColor = clearColor
             break
             
         case 1:
-            btnOneWay.setTitleColor(unselectedColor, for: .normal)
+            btnOneWay.titleLabel?.textColor = unselectedColor
             underlineOneWay.backgroundColor = clearColor
             
             btnRoundTrip.setTitleColor(selectedColor, for: .normal)
             underlineRoundTrip.backgroundColor = selectedColor
             
-            btnMultiCity.setTitleColor(unselectedColor, for: .normal)
+            btnMultiCity.titleLabel?.textColor = unselectedColor
             underlineMultiCity.backgroundColor = clearColor
             break
             
         case 2:
-            btnOneWay.setTitleColor(unselectedColor, for: .normal)
+            btnOneWay.titleLabel?.textColor = unselectedColor
             underlineOneWay.backgroundColor = clearColor
             
-            btnRoundTrip.setTitleColor(unselectedColor, for: .normal)
+            btnRoundTrip.titleLabel?.textColor = unselectedColor
             underlineRoundTrip.backgroundColor = clearColor
             
             btnMultiCity.setTitleColor(selectedColor, for: .normal)
@@ -118,29 +118,44 @@ class SearchFlightViewController: UIViewController {
     }
     
     func setupSearchTextField(_ searchedCities: [String], textField: SearchTextField) {
-        textField.theme = SearchTextFieldTheme.lightTheme()
-        textField.theme.font = LeaveCasaFonts.FONT_PROXIMA_NOVA_REGULAR_12 ?? UIFont.systemFont(ofSize: 12)
-        textField.theme.bgColor = UIColor.white
-        textField.theme.fontColor = UIColor.black
-        textField.theme.cellHeight = 40
-        textField.filterStrings(searchedCities)
-        textField.itemSelectionHandler = { filteredResults, itemPosition in
-            let item = filteredResults[itemPosition]
-            let row = textField.tag
-            
+        DispatchQueue.main.async {
+           
+        let row = textField.tag
+        
             let cell = self.tableView.cellForRow(at: IndexPath(row: row, section: 0)) as! SearchFlightCell
-            
-            if textField == cell.txtSource {
+        
+        if textField == cell.txtSource {
+        
+            cell.txtSource.theme = SearchTextFieldTheme.lightTheme()
+            cell.txtSource.theme.font = LeaveCasaFonts.FONT_PROXIMA_NOVA_REGULAR_12 ?? UIFont.systemFont(ofSize: 12)
+            cell.txtSource.theme.bgColor = UIColor.white
+            cell.txtSource.theme.fontColor = UIColor.black
+            cell.txtSource.theme.cellHeight = 40
+            cell.txtSource.filterStrings(searchedCities)
+            cell.txtSource.itemSelectionHandler = { filteredResults, itemPosition in
+                let item = filteredResults[itemPosition]
             
                 self.array[row]["Source"] = item.title
                 self.cityCodeStr = self.cityCode[itemPosition]
                 cell.txtSource.resignFirstResponder()
             }
-            else if textField == cell.txtDestination {
+        } else if textField == cell.txtDestination {
+            
+            cell.txtDestination.theme = SearchTextFieldTheme.lightTheme()
+            cell.txtDestination.theme.font = LeaveCasaFonts.FONT_PROXIMA_NOVA_REGULAR_12 ?? UIFont.systemFont(ofSize: 12)
+            cell.txtDestination.theme.bgColor = UIColor.white
+            cell.txtDestination.theme.fontColor = UIColor.black
+            cell.txtDestination.theme.cellHeight = 40
+            cell.txtDestination.filterStrings(searchedCities)
+            cell.txtDestination.itemSelectionHandler = { filteredResults, itemPosition in
+                let item = filteredResults[itemPosition]
+                
                 self.array[row]["Destination"] = item.title
                 self.cityCodeStr = self.cityCode[itemPosition]
                 cell.txtDestination.resignFirstResponder()
+
             }
+        }
         }
     }
     
