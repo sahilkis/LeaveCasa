@@ -182,6 +182,8 @@ class SearchFlightViewController: UIViewController {
         
         if let vc = ViewControllerHelper.getViewController(ofType: .FlightListViewController) as? FlightListViewController {
             
+            vc.results = [Results(), Results(), Results()]
+            
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }

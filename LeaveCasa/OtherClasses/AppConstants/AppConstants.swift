@@ -40,6 +40,7 @@ struct CellIds {
     static let SearchRoomsCell              = "SearchRoomsCell"
     static let SearchFlightCell             = "SearchFlightCell"
     static let FlightListCell               = "FlightListCell"
+    static let FlightListCollectionCell     = "FlightListCollectionCell"
 
 }
 
@@ -48,6 +49,7 @@ struct LeaveCasaColors {
     static let BLUE_COLOR                   = UIColor.init(hex: "2CB7F2")
     static let PINK_COLOR                   = UIColor.init(hex: "FF2D55")
     static let LIGHT_GRAY_COLOR             = UIColor.init(hex: "BEC2CE")
+    static let VIEW_BG_COLOR                = UIColor.init(hex: "F1F2F6")
 }
 
 // Font Constants
@@ -56,6 +58,12 @@ struct LeaveCasaFonts {
     static let FONT_PROXIMA_NOVA_REGULAR_18 = UIFont.init(name: "ProximaNova-Regular", size: 18)
     static let FONT_PROXIMA_NOVA_BOLD_18    = UIFont.init(name: "ProximaNova-Bold", size: 18)
 }
+
+// Icons Constants
+struct LeaveCasaIcons {
+    static let THREE_DOTS = UIImage.init(named: "ic_three_dots")
+}
+
 
 // Alert Titles
 struct Alert {

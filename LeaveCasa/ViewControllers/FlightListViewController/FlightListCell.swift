@@ -10,6 +10,17 @@ import UIKit
 
 class FlightListCell: UITableViewCell {
 
+    @IBOutlet weak var lblStartTime: UILabel!
+    @IBOutlet weak var lblSource: UILabel!
+    @IBOutlet weak var lblEndTime: UILabel!
+    @IBOutlet weak var lblDestination: UILabel!
+    @IBOutlet weak var lblPrice: UILabel!
+    @IBOutlet weak var lblFLightInfo: UILabel!
+    @IBOutlet weak var lblDuration: UILabel!
+    @IBOutlet weak var lblRoute: UILabel!
+    @IBOutlet weak var imgLogo: UIImageView!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

@@ -276,4 +276,24 @@ class Helper: NSObject {
         newDateFormatter.dateFormat = "EEEE, MMMM, dd, yyyy"
         return newDateFormatter.string(from: date ?? Date())
     }
+    
+    class func setWeekDates(_ date: Date) -> Date {
+        let nextDate = Calendar.current.date(byAdding: .day, value: 1, to: date)
+        
+        return nextDate ?? Date()
+    }
+    
+    class func getWeekDay(_ date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd"
+        
+        return dateFormatter.string(from: date)
+    }
+    
+    class func getWeekMonth(_ date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM"
+        
+        return dateFormatter.string(from: date)
+    }
 }
