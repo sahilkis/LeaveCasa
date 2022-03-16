@@ -37,6 +37,13 @@ class SearchFlightViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         setUpTab()
+        setLeftbarButton()
+    }
+    
+    func setLeftbarButton() {
+        self.title = " "
+        let leftBarButton = UIBarButtonItem.init(image: LeaveCasaIcons.BLACK_BACK, style: .plain, target: self, action: #selector(backClicked(_:)))
+        self.navigationItem.leftBarButtonItem = leftBarButton
     }
     
     private func setUpTab() {
@@ -209,6 +216,17 @@ class SearchFlightViewController: UIViewController {
         
         array.append(obj) // add new city
         tableView.reloadData()
+    }
+}
+
+// MARK: - UIBUTTON ACTIONS
+extension SearchFlightViewController {
+    @IBAction func backClicked(_ sender: UIBarButtonItem) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func rightBarButton(_ sender: UIBarButtonItem) {
+        
     }
 }
 

@@ -28,12 +28,12 @@ class SearchBusViewController: UIViewController {
 
         txtDate.text = Helper.setCheckInDate()
         setLeftbarButton()
-        fetchSourceCityList()
+//        fetchSourceCityList()
     }
     
     func setLeftbarButton() {
-        self.title = "Bus Search"
-        let leftBarButton = UIBarButtonItem.init(image: #imageLiteral(resourceName: "ic_back"), style: .plain, target: self, action: #selector(backClicked(_:)))
+        self.title = " "
+        let leftBarButton = UIBarButtonItem.init(image: LeaveCasaIcons.BLACK_BACK, style: .plain, target: self, action: #selector(backClicked(_:)))
         self.navigationItem.leftBarButtonItem = leftBarButton
     }
     
@@ -185,6 +185,13 @@ extension SearchBusViewController {
     }
     
     func searchBus() {
+        Helper.hideLoader(onVC: self)
+        if let vc = ViewControllerHelper.getViewController(ofType: .BusListViewController) as? BusListViewController {
+            vc.buses = [Bus(), Bus()]
+            vc.checkInDate = Helper.convertCheckinDate(self.txtDate.text ?? "")
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        /*
         if WSManager.isConnectedToInternet() {
             let params: [String: AnyObject] = [WSRequestParams.WS_REQS_PARAM_JOURNEY_DATE: txtDate.text as AnyObject,
                                                WSRequestParams.WS_REQS_PARAM_BUS_FROM: sourceCityCodeStr as AnyObject,
@@ -207,5 +214,6 @@ extension SearchBusViewController {
                 self.searchBus()
             })
         }
+         */
     }
 }

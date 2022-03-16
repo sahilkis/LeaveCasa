@@ -12,11 +12,14 @@ class BusListCell: UITableViewCell {
 
     @IBOutlet weak var lblSeats: UILabel!
     @IBOutlet weak var lblPrice: UILabel!
-    @IBOutlet weak var lblTimings: UILabel!
+//    @IBOutlet weak var lblTimings: UILabel!
     @IBOutlet weak var lblBusName: UILabel!
-    @IBOutlet weak var lblBusType: UILabel!
+//    @IBOutlet weak var lblBusType: UILabel!
     @IBOutlet weak var lblBusCondition: UILabel!
-    
+    @IBOutlet weak var lblStartTime: UILabel!
+    @IBOutlet weak var lblSource: UILabel!
+    @IBOutlet weak var lblEndTime: UILabel!
+    @IBOutlet weak var lblDestination: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

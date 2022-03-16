@@ -30,7 +30,7 @@ class FlightListViewController: UIViewController {
     
     func setLeftbarButton() {
         self.title = "Flight"
-        let leftBarButton = UIBarButtonItem.init(image: #imageLiteral(resourceName: "ic_back"), style: .plain, target: self, action: #selector(backClicked(_:)))
+        let leftBarButton = UIBarButtonItem.init(image: LeaveCasaIcons.BLACK_BACK, style: .plain, target: self, action: #selector(backClicked(_:)))
         self.navigationItem.leftBarButtonItem = leftBarButton
     }
     
@@ -103,6 +103,7 @@ extension FlightListViewController: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
+// MARK: - UICOLLECTIONVIEW METHODS
 extension FlightListViewController: UICollectionViewDelegate, UICollectionViewDataSource
 {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -130,7 +131,6 @@ extension FlightListViewController: UICollectionViewDelegate, UICollectionViewDa
         cell.lblDay.text = Helper.getWeekDay(date)
         
         return cell
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -139,8 +139,4 @@ extension FlightListViewController: UICollectionViewDelegate, UICollectionViewDa
         
         collectionView.reloadData()
     }
-    
-    
-    
-    
 }

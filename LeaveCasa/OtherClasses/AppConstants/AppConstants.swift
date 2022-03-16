@@ -61,6 +61,7 @@ struct LeaveCasaFonts {
 
 // Icons Constants
 struct LeaveCasaIcons {
+    static let BLACK_BACK = UIImage.init(named: "ic_back_black")
     static let THREE_DOTS = UIImage.init(named: "ic_three_dots")
 }
 
