@@ -36,7 +36,6 @@
 		19309A072334C58800E189AE /* Hotels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19309A062334C58800E189AE /* Hotels.swift */; };
 		19309A0A2334CB5100E189AE /* HotelListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19309A092334CB5100E189AE /* HotelListViewController.swift */; };
 		19309A0D2334CDED00E189AE /* HotelListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19309A0B2334CDED00E189AE /* HotelListCell.swift */; };
-		19309A0E2334CDED00E189AE /* HotelListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19309A0C2334CDED00E189AE /* HotelListCell.xib */; };
 		19309A112334D4C100E189AE /* FloatRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19309A102334D4C100E189AE /* FloatRatingView.swift */; };
 		193E1EF223ACDDDC00DDA7C9 /* Bus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193E1EF123ACDDDC00DDA7C9 /* Bus.swift */; };
 		193E1EF523ACE4FF00DDA7C9 /* BusListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193E1EF423ACE4FF00DDA7C9 /* BusListViewController.swift */; };
@@ -124,7 +123,6 @@
 		19309A062334C58800E189AE /* Hotels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hotels.swift; sourceTree = "<group>"; };
 		19309A092334CB5100E189AE /* HotelListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelListViewController.swift; sourceTree = "<group>"; };
 		19309A0B2334CDED00E189AE /* HotelListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelListCell.swift; sourceTree = "<group>"; };
-		19309A0C2334CDED00E189AE /* HotelListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HotelListCell.xib; sourceTree = "<group>"; };
 		19309A102334D4C100E189AE /* FloatRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatRatingView.swift; sourceTree = "<group>"; };
 		193E1EF123ACDDDC00DDA7C9 /* Bus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bus.swift; sourceTree = "<group>"; };
 		193E1EF423ACE4FF00DDA7C9 /* BusListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusListViewController.swift; sourceTree = "<group>"; };
@@ -432,7 +430,6 @@
 			children = (
 				19309A092334CB5100E189AE /* HotelListViewController.swift */,
 				19309A0B2334CDED00E189AE /* HotelListCell.swift */,
-				19309A0C2334CDED00E189AE /* HotelListCell.xib */,
 			);
 			path = HotelListViewController;
 			sourceTree = "<group>";
@@ -754,7 +751,6 @@
 				18C82852214FD2C1007FC65A /* Proxima Nova Bold.otf in Resources */,
 				18C82810214FCEC8007FC65A /* Assets.xcassets in Resources */,
 				406778B927DF050100565C52 /* Flight.storyboard in Resources */,
-				19309A0E2334CDED00E189AE /* HotelListCell.xib in Resources */,
 				19561F2E2338B8F000AA4FF3 /* RoomsCell.xib in Resources */,
 				1924096223A2449A0012CFBF /* WWCalendarTimeSelector.storyboard in Resources */,
 				18C8280E214FCEC8007FC65A /* Main.storyboard in Resources */,

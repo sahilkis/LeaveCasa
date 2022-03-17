@@ -56,7 +56,7 @@ class HotelDetailViewController: UIViewController {
     
     func setLeftbarButton() {
         self.title = hotels?.sName ?? ""
-        let leftBarButton = UIBarButtonItem.init(image: #imageLiteral(resourceName: "ic_back"), style: .plain, target: self, action: #selector(backClicked(_:)))
+        let leftBarButton = UIBarButtonItem.init(image: LeaveCasaIcons.BLACK_BACK, style: .plain, target: self, action: #selector(backClicked(_:)))
         self.navigationItem.leftBarButtonItem = leftBarButton
     }
     

@@ -63,14 +63,8 @@ class ViewControllerHelper: NSObject {
             viewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.SWRevealViewController) as! SWRevealViewController
         } else if viewControllerType == .HomeViewController {
             viewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.HomeViewController) as! HomeViewController
-        } else if viewControllerType == .HotelListViewController {
-            viewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.HotelListViewController) as! HotelListViewController
-        } else if viewControllerType == .HotelDetailViewController {
-            viewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.HotelDetailViewController) as! HotelDetailViewController
         } else if viewControllerType == .WWCalendarTimeSelector {
             viewController = UIStoryboard.init(name: ViewControllerIdentifiers.WWCalendarTimeSelector, bundle: nil).instantiateInitialViewController() as! WWCalendarTimeSelector
-        } else if viewControllerType == .FacilitiesViewController {
-            viewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.FacilitiesViewController) as! FacilitiesViewController
         }
         // Flight Storyboard
         else if viewControllerType == .SearchFlightViewController {
@@ -87,6 +81,12 @@ class ViewControllerHelper: NSObject {
         // Hotel storyboard
         else if viewControllerType == .SearchHotelViewController {
            viewController = hotelStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.SearchHotelViewController) as! SearchHotelViewController
+       }  else if viewControllerType == .HotelListViewController {
+           viewController = hotelStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.HotelListViewController) as! HotelListViewController
+       } else if viewControllerType == .HotelDetailViewController {
+           viewController = hotelStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.HotelDetailViewController) as! HotelDetailViewController
+       } else if viewControllerType == .FacilitiesViewController {
+           viewController = hotelStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.FacilitiesViewController) as! FacilitiesViewController
        } else {
             print("Unknown view controller type")
         }
