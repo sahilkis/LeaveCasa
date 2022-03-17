@@ -78,7 +78,7 @@ extension BusListViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: CellIds.BusListCell, for: indexPath) as! BusListCell
         let bus: Bus?
         bus = buses[indexPath.row]
-        
+        /*
         if let seats = bus?.sSeats {
             cell.lblSeats.text = "\(seats) Seats"
         }
@@ -121,6 +121,7 @@ extension BusListViewController: UITableViewDataSource, UITableViewDelegate {
         if let travels = bus?.sTravels {
             cell.lblBusName.text = travels
         }
+        */
         
 //        if let busType = bus?.sBusType {
 //            cell.lblBusType.text = busType
