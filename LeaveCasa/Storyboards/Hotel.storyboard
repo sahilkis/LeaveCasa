@@ -1286,8 +1286,30 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9kR-38-NXX">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                                         <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K3b-GZ-MAv">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="119.5"/>
+                                                <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fJR-D2-SI9">
+                                                <rect key="frame" x="16" y="44" width="382" height="59.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="15 hotels found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UGe-qA-BTL">
+                                                        <rect key="frame" x="16" y="16" width="350" height="27.5"/>
+                                                        <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="20"/>
+                                                        <color key="textColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="UGe-qA-BTL" firstAttribute="top" secondItem="fJR-D2-SI9" secondAttribute="top" constant="16" id="CFk-Ga-64F"/>
+                                                    <constraint firstItem="UGe-qA-BTL" firstAttribute="leading" secondItem="fJR-D2-SI9" secondAttribute="leading" constant="16" id="afV-rw-lsO"/>
+                                                    <constraint firstAttribute="trailing" secondItem="UGe-qA-BTL" secondAttribute="trailing" constant="16" id="bES-B4-MoC"/>
+                                                    <constraint firstAttribute="bottom" secondItem="UGe-qA-BTL" secondAttribute="bottom" constant="16" id="kMm-L5-A0k"/>
+                                                </constraints>
+                                            </view>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="MQW-rw-Qid">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="322.5"/>
+                                                <rect key="frame" x="0.0" y="119.5" width="414" height="322.5"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="n0t-LL-KS4">
                                                     <size key="itemSize" width="375" height="240"/>
@@ -1302,27 +1324,24 @@
                                                 </connections>
                                             </collectionView>
                                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="fmh-e2-0Hs">
-                                                <rect key="frame" x="16" y="322.5" width="382" height="0.0"/>
+                                                <rect key="frame" x="16" y="442" width="382" height="0.0"/>
                                                 <color key="currentPageIndicatorTintColor" red="0.17254901959999999" green="0.71764705880000002" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </pageControl>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YYl-GK-qz8">
-                                                <rect key="frame" x="8" y="330.5" width="398" height="19"/>
-                                                <fontDescription key="fontDescription" name="ProximaNova-Bold" family="Proxima Nova" pointSize="16"/>
+                                                <rect key="frame" x="16" y="450" width="382" height="23.5"/>
+                                                <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
-                                                <variation key="heightClass=regular-widthClass=regular">
-                                                    <fontDescription key="fontDescription" name="ProximaNova-Bold" family="Proxima Nova" pointSize="22"/>
-                                                </variation>
                                             </label>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imageView:I3V-sP-W49:image" translatesAutoresizingMaskIntoConstraints="NO" id="I3V-sP-W49">
-                                                <rect key="frame" x="8" y="357" width="20" height="20"/>
+                                                <rect key="frame" x="16" y="481" width="20" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="20" id="S8R-0H-en2"/>
                                                     <constraint firstAttribute="height" constant="20" id="qjb-6Y-rxG"/>
                                                 </constraints>
                                             </imageView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qch-xW-fNC" customClass="FloatRatingView" customModule="LeaveCasa" customModuleProvider="target">
-                                                <rect key="frame" x="8" y="382.5" width="100" height="18"/>
+                                                <rect key="frame" x="16" y="508.5" width="100" height="18"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="18" id="Cjv-FU-T0r"/>
@@ -1331,7 +1350,7 @@
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="editable" value="NO"/>
                                                     <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="view:qch-xW-fNC:value"/>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="fullImage" value="306D0E07-87EA-4D79-A4D9-18835E2BDC58"/>
+                                                    <userDefinedRuntimeAttribute type="image" keyPath="fullImage" value="5BEBAF36-BAEC-4D36-87FF-D605B354A047"/>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="minRating">
                                                         <integer key="value" value="0"/>
                                                     </userDefinedRuntimeAttribute>
@@ -1341,52 +1360,43 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="klH-xI-OaD">
-                                                <rect key="frame" x="366.5" y="382.5" width="39.5" height="19"/>
+                                                <rect key="frame" x="358.5" y="508.5" width="39.5" height="19"/>
                                                 <fontDescription key="fontDescription" name="ProximaNova-Bold" family="Proxima Nova" pointSize="16"/>
-                                                <color key="textColor" red="0.17254901959999999" green="0.71764705880000002" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="textColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                                 <variation key="heightClass=regular-widthClass=regular">
                                                     <fontDescription key="fontDescription" name="ProximaNova-Bold" family="Proxima Nova" pointSize="22"/>
                                                 </variation>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="total price for 1night(s), 1room(s)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P01-Oi-8jM">
-                                                <rect key="frame" x="324" y="402.5" width="82" height="7"/>
-                                                <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="6"/>
-                                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <rect key="frame" x="247" y="528.5" width="151" height="14"/>
+                                                <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="10"/>
+                                                <color key="textColor" red="0.11764705882352941" green="0.14117647058823529" blue="0.19607843137254902" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
-                                                <variation key="heightClass=regular-widthClass=regular">
-                                                    <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="10"/>
-                                                </variation>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0DU-hD-8HM">
-                                                <rect key="frame" x="36" y="357" width="370" height="17.5"/>
-                                                <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="14"/>
-                                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <rect key="frame" x="44" y="481" width="354" height="19.5"/>
+                                                <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="14"/>
+                                                <color key="textColor" red="0.74509803919999995" green="0.76078431369999999" blue="0.80784313730000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
-                                                <variation key="heightClass=regular-widthClass=regular">
-                                                    <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="20"/>
-                                                </variation>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gqd-Od-EZk">
-                                                <rect key="frame" x="8" y="417.5" width="60" height="30"/>
+                                                <rect key="frame" x="16" y="550.5" width="60" height="30"/>
                                                 <state key="normal" title="Facilities">
-                                                    <color key="titleColor" systemColor="systemBlueColor"/>
+                                                    <color key="titleColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="facilitiesClicked:" destination="lg4-sR-qKV" eventType="touchUpInside" id="sAK-y4-6gY"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Available Rooms" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uRW-SH-fX5">
-                                                <rect key="frame" x="8" y="491" width="398" height="19.5"/>
-                                                <fontDescription key="fontDescription" name="ProximaNova-Bold" family="Proxima Nova" pointSize="16"/>
+                                                <rect key="frame" x="16" y="626.5" width="382" height="22"/>
+                                                <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
-                                                <variation key="heightClass=regular-widthClass=regular">
-                                                    <fontDescription key="fontDescription" name="ProximaNova-Bold" family="Proxima Nova" pointSize="22"/>
-                                                </variation>
                                             </label>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="98" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="gcr-L6-dvx">
-                                                <rect key="frame" x="0.0" y="518.5" width="414" height="335.5"/>
+                                                <rect key="frame" x="8" y="656.5" width="398" height="197.5"/>
                                                 <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="jey-US-tna"/>
@@ -1397,51 +1407,56 @@
                                                 </connections>
                                             </tableView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OUo-ar-dmP">
-                                                <rect key="frame" x="8" y="455.5" width="398" height="19.5"/>
-                                                <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="16"/>
-                                                <nil key="textColor"/>
+                                                <rect key="frame" x="16" y="588.5" width="382" height="22"/>
+                                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="16"/>
+                                                <color key="textColor" red="0.1176470588" green="0.14117647059999999" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
-                                                <variation key="heightClass=regular-widthClass=regular">
-                                                    <fontDescription key="fontDescription" name="ProximaNova-Regular" family="Proxima Nova" pointSize="22"/>
-                                                </variation>
                                             </label>
                                         </subviews>
+                                        <viewLayoutGuide key="safeArea" id="7dt-hO-yg2"/>
                                         <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="uRW-SH-fX5" secondAttribute="trailing" constant="8" id="1sd-fC-r1l"/>
-                                            <constraint firstItem="MQW-rw-Qid" firstAttribute="top" secondItem="9kR-38-NXX" secondAttribute="top" id="1yC-xr-D78"/>
+                                            <constraint firstAttribute="trailing" secondItem="uRW-SH-fX5" secondAttribute="trailing" constant="16" id="1sd-fC-r1l"/>
                                             <constraint firstAttribute="trailing" secondItem="MQW-rw-Qid" secondAttribute="trailing" id="2hK-qk-VYa"/>
-                                            <constraint firstItem="OUo-ar-dmP" firstAttribute="leading" secondItem="9kR-38-NXX" secondAttribute="leading" constant="8" id="5XP-hX-av9"/>
-                                            <constraint firstItem="gcr-L6-dvx" firstAttribute="leading" secondItem="9kR-38-NXX" secondAttribute="leading" id="DYu-Vp-xqp"/>
-                                            <constraint firstItem="qch-xW-fNC" firstAttribute="leading" secondItem="9kR-38-NXX" secondAttribute="leading" constant="8" id="DlG-1c-bZ3"/>
+                                            <constraint firstItem="OUo-ar-dmP" firstAttribute="leading" secondItem="9kR-38-NXX" secondAttribute="leading" constant="16" id="5XP-hX-av9"/>
+                                            <constraint firstItem="fJR-D2-SI9" firstAttribute="top" secondItem="7dt-hO-yg2" secondAttribute="top" id="8NW-Yj-n6M"/>
+                                            <constraint firstItem="K3b-GZ-MAv" firstAttribute="leading" secondItem="9kR-38-NXX" secondAttribute="leading" id="D4C-pK-8eQ"/>
+                                            <constraint firstItem="gcr-L6-dvx" firstAttribute="leading" secondItem="9kR-38-NXX" secondAttribute="leading" constant="8" id="DYu-Vp-xqp"/>
+                                            <constraint firstItem="qch-xW-fNC" firstAttribute="leading" secondItem="9kR-38-NXX" secondAttribute="leading" constant="16" id="DlG-1c-bZ3"/>
                                             <constraint firstItem="uRW-SH-fX5" firstAttribute="top" secondItem="OUo-ar-dmP" secondAttribute="bottom" constant="16" id="Fa0-Xv-MSY"/>
                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="gqd-Od-EZk" secondAttribute="trailing" constant="20" symbolic="YES" id="GG7-hH-6m0"/>
+                                            <constraint firstItem="fJR-D2-SI9" firstAttribute="leading" secondItem="7dt-hO-yg2" secondAttribute="leading" constant="16" id="HaP-3L-ukr"/>
                                             <constraint firstAttribute="bottom" secondItem="gcr-L6-dvx" secondAttribute="bottom" constant="8" id="IfT-AM-TVs"/>
+                                            <constraint firstItem="MQW-rw-Qid" firstAttribute="top" secondItem="K3b-GZ-MAv" secondAttribute="bottom" id="KF6-pa-mmt"/>
                                             <constraint firstItem="P01-Oi-8jM" firstAttribute="top" secondItem="klH-xI-OaD" secondAttribute="bottom" constant="1" id="L61-W6-U3E"/>
-                                            <constraint firstAttribute="trailing" secondItem="0DU-hD-8HM" secondAttribute="trailing" constant="8" id="M8X-lh-De4"/>
-                                            <constraint firstAttribute="trailing" secondItem="YYl-GK-qz8" secondAttribute="trailing" constant="8" id="Onm-Hb-WDL"/>
+                                            <constraint firstAttribute="trailing" secondItem="0DU-hD-8HM" secondAttribute="trailing" constant="16" id="M8X-lh-De4"/>
+                                            <constraint firstAttribute="trailing" secondItem="YYl-GK-qz8" secondAttribute="trailing" constant="16" id="Onm-Hb-WDL"/>
+                                            <constraint firstItem="K3b-GZ-MAv" firstAttribute="top" secondItem="9kR-38-NXX" secondAttribute="top" id="Q1l-gT-2wR"/>
                                             <constraint firstItem="gqd-Od-EZk" firstAttribute="top" secondItem="P01-Oi-8jM" secondAttribute="bottom" constant="8" id="Ss4-z1-Way"/>
                                             <constraint firstItem="fmh-e2-0Hs" firstAttribute="bottom" secondItem="MQW-rw-Qid" secondAttribute="bottom" id="TOQ-Kz-eLX"/>
                                             <constraint firstItem="qch-xW-fNC" firstAttribute="top" secondItem="0DU-hD-8HM" secondAttribute="bottom" constant="8" id="Tta-EU-X0X"/>
-                                            <constraint firstAttribute="trailing" secondItem="gcr-L6-dvx" secondAttribute="trailing" id="Var-1K-v2h"/>
+                                            <constraint firstAttribute="trailing" secondItem="gcr-L6-dvx" secondAttribute="trailing" constant="8" id="Var-1K-v2h"/>
                                             <constraint firstItem="YYl-GK-qz8" firstAttribute="top" secondItem="MQW-rw-Qid" secondAttribute="bottom" constant="8" id="ZB8-o5-0a4"/>
                                             <constraint firstItem="gcr-L6-dvx" firstAttribute="top" secondItem="uRW-SH-fX5" secondAttribute="bottom" constant="8" id="aCs-7V-qpq"/>
-                                            <constraint firstItem="YYl-GK-qz8" firstAttribute="leading" secondItem="9kR-38-NXX" secondAttribute="leading" constant="8" id="cox-Mc-D7X"/>
+                                            <constraint firstItem="YYl-GK-qz8" firstAttribute="leading" secondItem="9kR-38-NXX" secondAttribute="leading" constant="16" id="cox-Mc-D7X"/>
                                             <constraint firstItem="klH-xI-OaD" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="qch-xW-fNC" secondAttribute="trailing" constant="8" symbolic="YES" id="dOu-o8-ESw"/>
                                             <constraint firstItem="0DU-hD-8HM" firstAttribute="leading" secondItem="I3V-sP-W49" secondAttribute="trailing" constant="8" id="f4y-Rg-zwi"/>
-                                            <constraint firstAttribute="trailing" secondItem="P01-Oi-8jM" secondAttribute="trailing" constant="8" id="fKB-cy-lhg"/>
+                                            <constraint firstAttribute="trailing" secondItem="P01-Oi-8jM" secondAttribute="trailing" constant="16" id="fKB-cy-lhg"/>
                                             <constraint firstItem="OUo-ar-dmP" firstAttribute="top" secondItem="gqd-Od-EZk" secondAttribute="bottom" constant="8" id="fRp-vR-pQW"/>
                                             <constraint firstItem="P01-Oi-8jM" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="9kR-38-NXX" secondAttribute="leading" constant="20" symbolic="YES" id="jcG-4P-Dfz"/>
                                             <constraint firstItem="fmh-e2-0Hs" firstAttribute="leading" secondItem="9kR-38-NXX" secondAttribute="leading" constant="16" id="jdZ-8W-9wW"/>
-                                            <constraint firstItem="gqd-Od-EZk" firstAttribute="leading" secondItem="9kR-38-NXX" secondAttribute="leading" constant="8" id="kZ8-2k-RQQ"/>
-                                            <constraint firstAttribute="trailing" secondItem="klH-xI-OaD" secondAttribute="trailing" constant="8" id="myL-UW-Xzk"/>
-                                            <constraint firstItem="uRW-SH-fX5" firstAttribute="leading" secondItem="9kR-38-NXX" secondAttribute="leading" constant="8" id="n4Z-27-6Dn"/>
+                                            <constraint firstItem="fJR-D2-SI9" firstAttribute="trailing" secondItem="7dt-hO-yg2" secondAttribute="trailing" constant="-16" id="k1I-lI-qJt"/>
+                                            <constraint firstItem="gqd-Od-EZk" firstAttribute="leading" secondItem="9kR-38-NXX" secondAttribute="leading" constant="16" id="kZ8-2k-RQQ"/>
+                                            <constraint firstItem="MQW-rw-Qid" firstAttribute="top" secondItem="fJR-D2-SI9" secondAttribute="bottom" constant="16" id="mem-Vp-27y"/>
+                                            <constraint firstAttribute="trailing" secondItem="klH-xI-OaD" secondAttribute="trailing" constant="16" id="myL-UW-Xzk"/>
+                                            <constraint firstItem="uRW-SH-fX5" firstAttribute="leading" secondItem="9kR-38-NXX" secondAttribute="leading" constant="16" id="n4Z-27-6Dn"/>
                                             <constraint firstItem="0DU-hD-8HM" firstAttribute="top" secondItem="YYl-GK-qz8" secondAttribute="bottom" constant="7.5" id="nJq-5V-nUY"/>
                                             <constraint firstItem="klH-xI-OaD" firstAttribute="top" secondItem="0DU-hD-8HM" secondAttribute="bottom" constant="8" id="pAY-6r-51z"/>
                                             <constraint firstItem="MQW-rw-Qid" firstAttribute="leading" secondItem="9kR-38-NXX" secondAttribute="leading" id="qcE-st-k8H"/>
                                             <constraint firstItem="I3V-sP-W49" firstAttribute="top" secondItem="YYl-GK-qz8" secondAttribute="bottom" constant="7.5" id="sFz-7p-Tu1"/>
-                                            <constraint firstItem="I3V-sP-W49" firstAttribute="leading" secondItem="9kR-38-NXX" secondAttribute="leading" constant="8" id="sQB-jq-nkV"/>
-                                            <constraint firstAttribute="trailing" secondItem="OUo-ar-dmP" secondAttribute="trailing" constant="8" id="vmI-zL-D5X"/>
+                                            <constraint firstItem="I3V-sP-W49" firstAttribute="leading" secondItem="9kR-38-NXX" secondAttribute="leading" constant="16" id="sQB-jq-nkV"/>
+                                            <constraint firstAttribute="trailing" secondItem="K3b-GZ-MAv" secondAttribute="trailing" id="uFk-UA-tII"/>
+                                            <constraint firstAttribute="trailing" secondItem="OUo-ar-dmP" secondAttribute="trailing" constant="16" id="vmI-zL-D5X"/>
                                             <constraint firstAttribute="trailing" secondItem="fmh-e2-0Hs" secondAttribute="trailing" constant="16" id="z3T-zh-BhT"/>
                                         </constraints>
                                     </view>
@@ -1480,7 +1495,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="-96984" y="-14336"/>
+            <point key="canvasLocation" x="-96984.057971014496" y="-14336.383928571428"/>
         </scene>
         <!--Facilities View Controller-->
         <scene sceneID="fUf-Vo-Oyg">
@@ -1538,7 +1553,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="306D0E07-87EA-4D79-A4D9-18835E2BDC58" width="128" height="128">
+        <image name="5BEBAF36-BAEC-4D36-87FF-D605B354A047" width="128" height="128">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGBwpYJHZlcnNpb25ZJGFyY2hpdmVyVCR0b3BYJG9iamVjdHMSAAGGoF8QD05T
 S2V5ZWRBcmNoaXZlctEICVRyb290gAGvEBcLDBkaIRQmKywzNjs+P0RHSEtVXV5iZVUkbnVsbNYNDg8Q
@@ -42277,9 +42292,6 @@ AAAAAAAAAAAADjw8A
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemBlueColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
