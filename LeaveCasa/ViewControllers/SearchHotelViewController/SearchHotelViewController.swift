@@ -7,20 +7,20 @@ class SearchHotelViewController: UIViewController {
     @IBOutlet weak var txtCity: SearchTextField!
     @IBOutlet weak var txtCheckIn: UITextField!
     @IBOutlet weak var txtCheckOut: UITextField!
-    @IBOutlet weak var lblRoom: UILabel!
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint!
+//    @IBOutlet weak var lblRoom: UILabel!
+//    @IBOutlet weak var tableView: UITableView!
+//    @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint!
     
     lazy var cityCode = [String]()
     lazy var cityName = [String]()
     lazy var cityCodeStr = ""
-    var numberOfRooms = 1
-    var numberOfAdults = [1]
-    var numberOfChilds = [""]
+//    var numberOfRooms = 1
+//    var numberOfAdults = [1]
+//    var numberOfChilds = [""]
     var isFromCheckin = true
     var checkinDate = Date()
     var checkoutDate = Date()
-    var finalRooms = [[String: AnyObject]]()
+//    var finalRooms = [[String: AnyObject]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,26 +34,26 @@ class SearchHotelViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        tableView.addObserver(self, forKeyPath: Strings.CONTENT_SIZE, options: .new, context: nil)
+//        tableView.addObserver(self, forKeyPath: Strings.CONTENT_SIZE, options: .new, context: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        self.tableView.removeObserver(self, forKeyPath: Strings.CONTENT_SIZE)
+//        self.tableView.removeObserver(self, forKeyPath: Strings.CONTENT_SIZE)
     }
 
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if keyPath == Strings.CONTENT_SIZE {
-            if let newvalue = change?[.newKey] {
-                let newsize  = newvalue as! CGSize
-                tableViewHeightConstraint.constant = newsize.height
-            }
-        }
-    }
+//    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+//        if keyPath == Strings.CONTENT_SIZE {
+//            if let newvalue = change?[.newKey] {
+//                let newsize  = newvalue as! CGSize
+//                tableViewHeightConstraint.constant = newsize.height
+//            }
+//        }
+//    }
     
     func setLeftbarButton() {
-        self.title = "Hotel Search"
+        self.title = " "
         let leftBarButton = UIBarButtonItem.init(image: #imageLiteral(resourceName: "ic_back"), style: .plain, target: self, action: #selector(backClicked(_:)))
         self.navigationItem.leftBarButtonItem = leftBarButton
     }
@@ -117,89 +117,89 @@ extension SearchHotelViewController {
         fetchCityList()
     }
     
-    @IBAction func roomPlusClicked(_ sender: UIButton) {
-        if numberOfRooms >= 1 {
-            numberOfRooms = numberOfRooms + 1
-            lblRoom.text = "\(numberOfRooms)"
-            
-            numberOfAdults.append(1)
-            numberOfChilds.append("")
-            
-            tableView.reloadData()
-        }
-    }
-    
-    @IBAction func adultPlusClicked(_ sender: UIButton) {
-        if let cell = tableView.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as? SearchRoomsCell {
-            var value = Int(cell.lblAdultCount.text ?? "") ?? 1
-            
-            if value < 5 {
-                value += 1
-                
-                numberOfAdults.remove(at: sender.tag)
-                numberOfAdults.insert(value, at: sender.tag)
-                
-                cell.lblAdultCount.text = "\(value)"
-            }
-        }
-    }
-    
-    @IBAction func childPlusClicked(_ sender: UIButton) {
-        if let cell = tableView.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as? SearchRoomsCell {
-            var value = Int(cell.lblChildCount.text ?? "0") ?? 0
-            
-            if value < 5 {
-                value += 1
-                
-                numberOfChilds.remove(at: sender.tag)
-                numberOfChilds.insert("\(value)", at: sender.tag)
-                
-                cell.lblChildCount.text = "\(value)"
-            }
-        }
-    }
-    
-    @IBAction func roomMinusClicked(_ sender: UIButton) {
-        if numberOfRooms > 1 {
-            numberOfRooms = numberOfRooms - 1
-            lblRoom.text = "\(numberOfRooms)"
-            
-            numberOfAdults.removeLast()
-            numberOfChilds.removeLast()
-            
-            tableView.reloadData()
-        }
-    }
-    
-    @IBAction func adultMinusClicked(_ sender: UIButton) {
-        if let cell = tableView.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as? SearchRoomsCell {
-            var value = Int(cell.lblAdultCount.text ?? "1") ?? 1
-            
-            if value > 1 {
-                value -= 1
-                
-                numberOfAdults.remove(at: sender.tag)
-                numberOfAdults.insert(value, at: sender.tag)
-                
-                cell.lblAdultCount.text = "\(value)"
-            }
-        }
-    }
-    
-    @IBAction func childMinusClicked(_ sender: UIButton) {
-        if let cell = tableView.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as? SearchRoomsCell {
-            var value = Int(cell.lblChildCount.text ?? "0") ?? 0
-            
-            if value > 0 {
-                value -= 1
-                
-                numberOfChilds.remove(at: sender.tag)
-                numberOfChilds.insert("\(value)", at: sender.tag)
-                
-                cell.lblChildCount.text = "\(value)"
-            }
-        }
-    }
+//    @IBAction func roomPlusClicked(_ sender: UIButton) {
+//        if numberOfRooms >= 1 {
+//            numberOfRooms = numberOfRooms + 1
+//            lblRoom.text = "\(numberOfRooms)"
+//
+//            numberOfAdults.append(1)
+//            numberOfChilds.append("")
+//
+//            tableView.reloadData()
+//        }
+//    }
+//
+//    @IBAction func adultPlusClicked(_ sender: UIButton) {
+//        if let cell = tableView.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as? SearchRoomsCell {
+//            var value = Int(cell.lblAdultCount.text ?? "") ?? 1
+//
+//            if value < 5 {
+//                value += 1
+//
+//                numberOfAdults.remove(at: sender.tag)
+//                numberOfAdults.insert(value, at: sender.tag)
+//
+//                cell.lblAdultCount.text = "\(value)"
+//            }
+//        }
+//    }
+//
+//    @IBAction func childPlusClicked(_ sender: UIButton) {
+//        if let cell = tableView.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as? SearchRoomsCell {
+//            var value = Int(cell.lblChildCount.text ?? "0") ?? 0
+//
+//            if value < 5 {
+//                value += 1
+//
+//                numberOfChilds.remove(at: sender.tag)
+//                numberOfChilds.insert("\(value)", at: sender.tag)
+//
+//                cell.lblChildCount.text = "\(value)"
+//            }
+//        }
+//    }
+//
+//    @IBAction func roomMinusClicked(_ sender: UIButton) {
+//        if numberOfRooms > 1 {
+//            numberOfRooms = numberOfRooms - 1
+//            lblRoom.text = "\(numberOfRooms)"
+//
+//            numberOfAdults.removeLast()
+//            numberOfChilds.removeLast()
+//
+//            tableView.reloadData()
+//        }
+//    }
+//
+//    @IBAction func adultMinusClicked(_ sender: UIButton) {
+//        if let cell = tableView.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as? SearchRoomsCell {
+//            var value = Int(cell.lblAdultCount.text ?? "1") ?? 1
+//
+//            if value > 1 {
+//                value -= 1
+//
+//                numberOfAdults.remove(at: sender.tag)
+//                numberOfAdults.insert(value, at: sender.tag)
+//
+//                cell.lblAdultCount.text = "\(value)"
+//            }
+//        }
+//    }
+//
+//    @IBAction func childMinusClicked(_ sender: UIButton) {
+//        if let cell = tableView.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as? SearchRoomsCell {
+//            var value = Int(cell.lblChildCount.text ?? "0") ?? 0
+//
+//            if value > 0 {
+//                value -= 1
+//
+//                numberOfChilds.remove(at: sender.tag)
+//                numberOfChilds.insert("\(value)", at: sender.tag)
+//
+//                cell.lblChildCount.text = "\(value)"
+//            }
+//        }
+//    }
     
     @IBAction func searchClicked(_ sender: UIButton) {
         if txtCity.text?.isEmpty ?? true || cityCodeStr.isEmpty {
@@ -207,19 +207,19 @@ extension SearchHotelViewController {
         } else {
             var params: [String: AnyObject] = [:]
             
-            for i in 0..<numberOfRooms {
-                if let cell = tableView.cellForRow(at: IndexPath(row: i, section: 0)) as? SearchRoomsCell {
-                    let childCount = Int(cell.lblChildCount.text ?? "0") ?? 0
-                    
-                    params[WSRequestParams.WS_REQS_PARAM_ADULTS] = cell.lblAdultCount.text as AnyObject
-                    
-                    if childCount > 0 {
-                        params[WSRequestParams.WS_REQS_PARAM_CHILDREN_AGES] = [] as AnyObject
-                    }
-                    
-                    self.finalRooms.append(params)
-                }
-            }
+//            for i in 0..<numberOfRooms {
+//                if let cell = tableView.cellForRow(at: IndexPath(row: i, section: 0)) as? SearchRoomsCell {
+//                    let childCount = Int(cell.lblChildCount.text ?? "0") ?? 0
+//
+//                    params[WSRequestParams.WS_REQS_PARAM_ADULTS] = cell.lblAdultCount.text as AnyObject
+//
+//                    if childCount > 0 {
+//                        params[WSRequestParams.WS_REQS_PARAM_CHILDREN_AGES] = [] as AnyObject
+//                    }
+//
+//                    self.finalRooms.append(params)
+//                }
+//            }
             
             Helper.showLoader(onVC: self, message: Alert.LOADING)
             searchHotel()
@@ -227,40 +227,40 @@ extension SearchHotelViewController {
     }
 }
 
-// MARK: - UITABLEVIEW METHODS
-extension SearchHotelViewController: UITableViewDataSource, UITableViewDelegate {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return numberOfRooms
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: CellIds.SearchRoomsCell, for: indexPath) as! SearchRoomsCell
-        
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .spellOut
-        let roomNumber = formatter.string(from: NSNumber(value: indexPath.row + 1))
-        
-        cell.lblRoomCount.text = "In room \(roomNumber ?? "")"
-        cell.lblAdultCount.text = "\(numberOfAdults[indexPath.row])"
-        cell.lblChildCount.text = "\(numberOfChilds[indexPath.row])"
-        
-        cell.btnPlusAdult.tag = indexPath.row
-        cell.btnMinusAdult.tag = indexPath.row
-        cell.btnPlusChild.tag = indexPath.row
-        cell.btnMinusChild.tag = indexPath.row
-        
-        cell.btnPlusAdult.addTarget(self, action: #selector(adultPlusClicked(_:)), for: .touchUpInside)
-        cell.btnMinusAdult.addTarget(self, action: #selector(adultMinusClicked(_:)), for: .touchUpInside)
-        cell.btnPlusChild.addTarget(self, action: #selector(childPlusClicked(_:)), for: .touchUpInside)
-        cell.btnMinusChild.addTarget(self, action: #selector(childMinusClicked(_:)), for: .touchUpInside)
-        
-        return cell
-    }
-}
+//// MARK: - UITABLEVIEW METHODS
+//extension SearchHotelViewController: UITableViewDataSource, UITableViewDelegate {
+//    func numberOfSections(in tableView: UITableView) -> Int {
+//        return 1
+//    }
+//
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return numberOfRooms
+//    }
+//
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: CellIds.SearchRoomsCell, for: indexPath) as! SearchRoomsCell
+//
+//        let formatter = NumberFormatter()
+//        formatter.numberStyle = .spellOut
+//        let roomNumber = formatter.string(from: NSNumber(value: indexPath.row + 1))
+//
+//        cell.lblRoomCount.text = "In room \(roomNumber ?? "")"
+//        cell.lblAdultCount.text = "\(numberOfAdults[indexPath.row])"
+//        cell.lblChildCount.text = "\(numberOfChilds[indexPath.row])"
+//
+//        cell.btnPlusAdult.tag = indexPath.row
+//        cell.btnMinusAdult.tag = indexPath.row
+//        cell.btnPlusChild.tag = indexPath.row
+//        cell.btnMinusChild.tag = indexPath.row
+//
+//        cell.btnPlusAdult.addTarget(self, action: #selector(adultPlusClicked(_:)), for: .touchUpInside)
+//        cell.btnMinusAdult.addTarget(self, action: #selector(adultMinusClicked(_:)), for: .touchUpInside)
+//        cell.btnPlusChild.addTarget(self, action: #selector(childPlusClicked(_:)), for: .touchUpInside)
+//        cell.btnMinusChild.addTarget(self, action: #selector(childMinusClicked(_:)), for: .touchUpInside)
+//
+//        return cell
+//    }
+//}
 
 // MARK: - WWCALENDARTIMESELECTOR DELEGATE
 extension SearchHotelViewController: WWCalendarTimeSelectorProtocol {
@@ -348,7 +348,8 @@ extension SearchHotelViewController {
             let params: [String: AnyObject] = [WSRequestParams.WS_REQS_PARAM_DESTINATION_CODE: cityCodeStr as AnyObject,
                                                WSRequestParams.WS_REQS_PARAM_CHECKIN: txtCheckIn.text as AnyObject,
                                                WSRequestParams.WS_REQS_PARAM_CHECKOUT: txtCheckOut.text as AnyObject,
-                                               WSRequestParams.WS_REQS_PARAM_ROOMS: finalRooms as AnyObject]
+//                                               WSRequestParams.WS_REQS_PARAM_ROOMS: finalRooms as AnyObject
+            ]
             WSManager.wsCallFetchHotels(params, success: { (results, markup, hotelCount, logId) in
                 Helper.hideLoader(onVC: self)
                 if let vc = ViewControllerHelper.getViewController(ofType: .HotelListViewController) as? HotelListViewController {
@@ -359,7 +360,7 @@ extension SearchHotelViewController {
                     vc.checkInDate = Helper.convertCheckinDate(self.txtCheckIn.text ?? "")
                     vc.checkIn = self.txtCheckIn.text ?? ""
                     vc.checkOut = self.txtCheckOut.text ?? ""
-                    vc.finalRooms = self.finalRooms
+//                    vc.finalRooms = self.finalRooms
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
             }, failure: { (error) in

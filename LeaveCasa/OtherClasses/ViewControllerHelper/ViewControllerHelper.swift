@@ -51,6 +51,7 @@ class ViewControllerHelper: NSObject {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let flightStoryboard = UIStoryboard(name: "Flight", bundle: nil)
         let busStoryboard = UIStoryboard(name: "Bus", bundle: nil)
+        let hotelStoryboard = UIStoryboard(name: "Hotel", bundle: nil)
 
         if viewControllerType == .MainViewController {
             viewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.MainViewController) as! MainViewController
@@ -62,8 +63,6 @@ class ViewControllerHelper: NSObject {
             viewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.SWRevealViewController) as! SWRevealViewController
         } else if viewControllerType == .HomeViewController {
             viewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.HomeViewController) as! HomeViewController
-        } else if viewControllerType == .SearchHotelViewController {
-            viewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.SearchHotelViewController) as! SearchHotelViewController
         } else if viewControllerType == .HotelListViewController {
             viewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.HotelListViewController) as! HotelListViewController
         } else if viewControllerType == .HotelDetailViewController {
@@ -84,6 +83,10 @@ class ViewControllerHelper: NSObject {
            viewController = busStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.SearchBusViewController) as! SearchBusViewController
        } else if viewControllerType == .BusListViewController {
            viewController = busStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.BusListViewController) as! BusListViewController
+       }
+        // Hotel storyboard
+        else if viewControllerType == .SearchHotelViewController {
+           viewController = hotelStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.SearchHotelViewController) as! SearchHotelViewController
        } else {
             print("Unknown view controller type")
         }
