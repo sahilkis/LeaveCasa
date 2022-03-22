@@ -384,6 +384,9 @@
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits"/>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="rOT-iD-pZI" id="mCJ-7g-gNi"/>
+                                                        </connections>
                                                     </textField>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A3H-If-Bb0">
                                                         <rect key="frame" x="60" y="71" width="275" height="1"/>
@@ -420,6 +423,9 @@
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits"/>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="rOT-iD-pZI" id="1uz-sF-hSs"/>
+                                                        </connections>
                                                     </textField>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aqj-wW-hbd">
                                                         <rect key="frame" x="60" y="16" width="275" height="16"/>
@@ -528,6 +534,9 @@
                                                         <rect key="frame" x="60" y="36.5" width="283" height="35.5"/>
                                                         <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits"/>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="rOT-iD-pZI" id="57o-in-HBZ"/>
+                                                        </connections>
                                                     </textField>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zRP-zo-GAZ">
                                                         <rect key="frame" x="60" y="71" width="275" height="1"/>
