@@ -46,12 +46,12 @@ extension HotelListViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2// results[section].hotels.count
+        return results[section].hotels.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CellIds.HotelListCell, for: indexPath) as! HotelListCell
-        /*
+        
         let hotels = results[indexPath.section].hotels
 
         let hotel: Hotels?
@@ -105,7 +105,7 @@ extension HotelListViewController: UITableViewDataSource, UITableViewDelegate {
                 }
             }
         }
-        */
+        
         return cell
     }
     
@@ -113,13 +113,13 @@ extension HotelListViewController: UITableViewDataSource, UITableViewDelegate {
         let dict = results[indexPath.section]
         
         if let vc = ViewControllerHelper.getViewController(ofType: .HotelDetailViewController) as? HotelDetailViewController {
-//            vc.hotels = dict.hotels[indexPath.row]
-//            vc.searchId = dict.searchId
-//            vc.logId = logId
-//            vc.markups = markups
-//            vc.checkIn = checkIn
-//            vc.checkOut = checkOut
-//            vc.finalRooms = finalRooms
+            vc.hotels = dict.hotels[indexPath.row]
+            vc.searchId = dict.searchId
+            vc.logId = logId
+            vc.markups = markups
+            vc.checkIn = checkIn
+            vc.checkOut = checkOut
+            vc.finalRooms = finalRooms
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }

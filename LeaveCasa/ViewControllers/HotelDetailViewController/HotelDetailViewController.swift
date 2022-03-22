@@ -9,6 +9,7 @@ class HotelDetailViewController: UIViewController {
     @IBOutlet weak var facilitiesCollectionView: UICollectionView!
     @IBOutlet weak var facilitiesCollectionViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var pageControl: UIPageControl!
+    @IBOutlet weak var lblHotelTitle: UILabel!
     @IBOutlet weak var lblHotelName: UILabel!
     @IBOutlet weak var lblHotelAddress: UILabel!
     @IBOutlet weak var lblHotelPrice: UILabel!
@@ -20,7 +21,8 @@ class HotelDetailViewController: UIViewController {
     @IBOutlet weak var btnTerms: UIButton!
     @IBOutlet weak var underlineTerms: UIView!
     @IBOutlet weak var hotelRatingView: FloatRatingView!
-    
+    @IBOutlet weak var lblRefundable: UILabel!
+
     var hotels: Hotels?
     var markups = [Markup]()
     var facilities = [String]()
@@ -39,10 +41,11 @@ class HotelDetailViewController: UIViewController {
         collectionView.register(UINib.init(nibName: CellIds.ImagesCell, bundle: nil), forCellWithReuseIdentifier: CellIds.ImagesCell)
         tableView.register(UINib.init(nibName: CellIds.RoomsCell, bundle: nil), forCellReuseIdentifier: CellIds.RoomsCell)
         
+        setUpTab()
+        setupData()
         setLeftbarButton()
         fetchHotelImages()
         fetchHotelDetail()
-        setUpTab()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -72,7 +75,7 @@ class HotelDetailViewController: UIViewController {
     }
     
     func setLeftbarButton() {
-        self.title = hotels?.sName ?? ""
+        self.lblHotelTitle.text = hotels?.sName ?? ""
         let leftBarButton = UIBarButtonItem.init(image: LeaveCasaIcons.BLACK_BACK, style: .plain, target: self, action: #selector(backClicked(_:)))
         self.navigationItem.leftBarButtonItem = leftBarButton
     }
@@ -81,6 +84,45 @@ class HotelDetailViewController: UIViewController {
         pageControl.numberOfPages = self.jsonResponse.count
         pageControl.currentPage = 0
         pageControl.addTarget(self, action: #selector(self.changePage(sender:)), for: .valueChanged)
+    }
+    
+    private func setupData() {
+        
+        let hotel: Hotels?
+        hotel = self.hotels
+        
+        if let address = hotel?.sAddress {
+            self.lblHotelAddress.text = address
+        }
+        if let name = hotel?.sName {
+            self.lblHotelName.text = name
+        }
+        if let minRate = hotel?.iMinRate {
+            if let nonRefundable = minRate[WSResponseParams.WS_RESP_PARAM_NON_REFUNDABLE] as? Bool {
+                if nonRefundable {
+                    self.lblRefundable.text = Strings.NON_REFUNDABLE
+                } else {
+                    self.lblRefundable.text = Strings.REFUNDABLE
+                }
+            }
+            if var price = minRate[WSResponseParams.WS_RESP_PARAM_PRICE] as? Int {
+                for i in 0..<markups.count {
+                    let markup: Markup?
+                    markup = markups[i]
+                    if markup?.starRating == hotel?.iCategory {
+                        if markup?.amountBy == Strings.PERCENT {
+                            price += (price * (markup?.amount ?? 0) / 100)
+                        } else {
+                            price += (markup?.amount ?? 0)
+                        }
+                    }
+                }
+                self.lblHotelPrice.text = "₹\(String(price))"
+            }
+        }
+        if let rating = hotel?.iCategory {
+            self.hotelRatingView.rating = Double(rating)
+        }
     }
     
     private func setUpTab() {
@@ -235,14 +277,14 @@ extension HotelDetailViewController: UICollectionViewDataSource, UICollectionVie
                 width = collectionView.frame.width/2
             }
             let label = UILabel(frame: CGRect.zero)
-            label.frame.size.width = width - 32
-            label.text = "Hotel Golden Plaza 2 in Chandigarh is one of the best values for money hotel aituated in Chandigarh. A city known for its infrastructure, the hotel also has business class facilities at its guests disposal. The hotel is well connected because it enjoys a central location. Hotel Golden Plaza 2 offers amenties such as 24-hours front desk."
+            label.frame.size.width = width - 40
+            label.text = "Label"
             label.numberOfLines = 0
             label.sizeToFit()
             
             height = label.frame.height
             
-            return CGSize.init(width: width - 16, height: height + 20)
+            return CGSize.init(width: width, height: height + 20)
         }
         else {
             return CGSize.init(width: collectionView.frame.width, height: collectionView.frame.height)

@@ -20,7 +20,7 @@ class SearchHotelViewController: UIViewController {
     var isFromCheckin = true
     var checkinDate = Date()
     var checkoutDate = Date()
-//    var finalRooms = [[String: AnyObject]]()
+    var finalRooms = [[String: AnyObject]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -207,6 +207,10 @@ extension SearchHotelViewController {
         } else {
             var params: [String: AnyObject] = [:]
             
+            params[WSRequestParams.WS_REQS_PARAM_ADULTS] = "01" as AnyObject
+            params[WSRequestParams.WS_REQS_PARAM_CHILDREN_AGES] = [] as AnyObject
+            self.finalRooms.append(params)
+            
 //            for i in 0..<numberOfRooms {
 //                if let cell = tableView.cellForRow(at: IndexPath(row: i, section: 0)) as? SearchRoomsCell {
 //                    let childCount = Int(cell.lblChildCount.text ?? "0") ?? 0
@@ -348,7 +352,7 @@ extension SearchHotelViewController {
             let params: [String: AnyObject] = [WSRequestParams.WS_REQS_PARAM_DESTINATION_CODE: cityCodeStr as AnyObject,
                                                WSRequestParams.WS_REQS_PARAM_CHECKIN: txtCheckIn.text as AnyObject,
                                                WSRequestParams.WS_REQS_PARAM_CHECKOUT: txtCheckOut.text as AnyObject,
-//                                               WSRequestParams.WS_REQS_PARAM_ROOMS: finalRooms as AnyObject
+                                               WSRequestParams.WS_REQS_PARAM_ROOMS: finalRooms as AnyObject
             ]
             WSManager.wsCallFetchHotels(params, success: { (results, markup, hotelCount, logId) in
                 Helper.hideLoader(onVC: self)
@@ -360,7 +364,7 @@ extension SearchHotelViewController {
                     vc.checkInDate = Helper.convertCheckinDate(self.txtCheckIn.text ?? "")
                     vc.checkIn = self.txtCheckIn.text ?? ""
                     vc.checkOut = self.txtCheckOut.text ?? ""
-//                    vc.finalRooms = self.finalRooms
+                    vc.finalRooms = self.finalRooms
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
             }, failure: { (error) in
