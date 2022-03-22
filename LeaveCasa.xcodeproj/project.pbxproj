@@ -44,7 +44,6 @@
 		19499D4523A7905D0025DB1F /* SearchFlightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19499D4423A7905D0025DB1F /* SearchFlightViewController.swift */; };
 		19499D4823A790770025DB1F /* SearchBusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19499D4723A790770025DB1F /* SearchBusViewController.swift */; };
 		19561F292338975500AA4FF3 /* ImagesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19561F272338975500AA4FF3 /* ImagesCell.swift */; };
-		19561F2A2338975500AA4FF3 /* ImagesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19561F282338975500AA4FF3 /* ImagesCell.xib */; };
 		19561F2D2338B8F000AA4FF3 /* RoomsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19561F2B2338B8F000AA4FF3 /* RoomsCell.swift */; };
 		19561F2E2338B8F000AA4FF3 /* RoomsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19561F2C2338B8F000AA4FF3 /* RoomsCell.xib */; };
 		195C403722FC09170013A644 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 195C403622FC09170013A644 /* SignupViewController.swift */; };
@@ -63,8 +62,10 @@
 		40169FCC27E1AC330046A7A2 /* FlightListCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40169FCB27E1AC330046A7A2 /* FlightListCollectionCell.swift */; };
 		40169FCE27E1C30E0046A7A2 /* Bus.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40169FCD27E1C30E0046A7A2 /* Bus.storyboard */; };
 		4038B41827E2C2E90047E839 /* Hotel.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4038B41727E2C2E90047E839 /* Hotel.storyboard */; };
+		403EDF5C27E9AF6400096521 /* ImagesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 403EDF5B27E9AF6400096521 /* ImagesCell.xib */; };
 		406778B927DF050100565C52 /* Flight.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 406778B827DF050100565C52 /* Flight.storyboard */; };
 		406778BB27DF205900565C52 /* SearchFlightCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406778BA27DF205900565C52 /* SearchFlightCell.swift */; };
+		40BAC11827E8968C00952E2E /* FacilitiesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BAC11727E8968C00952E2E /* FacilitiesCell.swift */; };
 		40CDAF1627E0B40800B5B8FA /* FlightListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CDAF1527E0B40800B5B8FA /* FlightListViewController.swift */; };
 		40CDAF1827E0B43F00B5B8FA /* FlightListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CDAF1727E0B43F00B5B8FA /* FlightListCell.swift */; };
 		A71135AD1284FFCD1745A8CA /* Pods_LeaveCasa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2938878705CEC9DEF73768C5 /* Pods_LeaveCasa.framework */; };
@@ -131,7 +132,6 @@
 		19499D4423A7905D0025DB1F /* SearchFlightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFlightViewController.swift; sourceTree = "<group>"; };
 		19499D4723A790770025DB1F /* SearchBusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBusViewController.swift; sourceTree = "<group>"; };
 		19561F272338975500AA4FF3 /* ImagesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesCell.swift; sourceTree = "<group>"; };
-		19561F282338975500AA4FF3 /* ImagesCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImagesCell.xib; sourceTree = "<group>"; };
 		19561F2B2338B8F000AA4FF3 /* RoomsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsCell.swift; sourceTree = "<group>"; };
 		19561F2C2338B8F000AA4FF3 /* RoomsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoomsCell.xib; sourceTree = "<group>"; };
 		195C403622FC09170013A644 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
@@ -154,8 +154,10 @@
 		40169FCB27E1AC330046A7A2 /* FlightListCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightListCollectionCell.swift; sourceTree = "<group>"; };
 		40169FCD27E1C30E0046A7A2 /* Bus.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Bus.storyboard; sourceTree = "<group>"; };
 		4038B41727E2C2E90047E839 /* Hotel.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Hotel.storyboard; sourceTree = "<group>"; };
+		403EDF5B27E9AF6400096521 /* ImagesCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImagesCell.xib; sourceTree = "<group>"; };
 		406778B827DF050100565C52 /* Flight.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Flight.storyboard; sourceTree = "<group>"; };
 		406778BA27DF205900565C52 /* SearchFlightCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFlightCell.swift; sourceTree = "<group>"; };
+		40BAC11727E8968C00952E2E /* FacilitiesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacilitiesCell.swift; sourceTree = "<group>"; };
 		40CDAF1527E0B40800B5B8FA /* FlightListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightListViewController.swift; sourceTree = "<group>"; };
 		40CDAF1727E0B43F00B5B8FA /* FlightListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightListCell.swift; sourceTree = "<group>"; };
 		D57CC5C06870644F4F5A9B61 /* Pods-LeaveCasa.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeaveCasa.debug.xcconfig"; path = "Target Support Files/Pods-LeaveCasa/Pods-LeaveCasa.debug.xcconfig"; sourceTree = "<group>"; };
@@ -579,8 +581,9 @@
 			isa = PBXGroup;
 			children = (
 				19FE9CF123352BAA0006BC2D /* HotelDetailViewController.swift */,
+				40BAC11727E8968C00952E2E /* FacilitiesCell.swift */,
 				19561F272338975500AA4FF3 /* ImagesCell.swift */,
-				19561F282338975500AA4FF3 /* ImagesCell.xib */,
+				403EDF5B27E9AF6400096521 /* ImagesCell.xib */,
 				19561F2B2338B8F000AA4FF3 /* RoomsCell.swift */,
 				19561F2C2338B8F000AA4FF3 /* RoomsCell.xib */,
 			);
@@ -744,7 +747,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				19561F2A2338975500AA4FF3 /* ImagesCell.xib in Resources */,
 				18C82813214FCEC8007FC65A /* LaunchScreen.storyboard in Resources */,
 				18C82853214FD2C1007FC65A /* ProximaNova-Regular.otf in Resources */,
 				40169FCE27E1C30E0046A7A2 /* Bus.storyboard in Resources */,
@@ -754,6 +756,7 @@
 				19561F2E2338B8F000AA4FF3 /* RoomsCell.xib in Resources */,
 				1924096223A2449A0012CFBF /* WWCalendarTimeSelector.storyboard in Resources */,
 				18C8280E214FCEC8007FC65A /* Main.storyboard in Resources */,
+				403EDF5C27E9AF6400096521 /* ImagesCell.xib in Resources */,
 				4038B41827E2C2E90047E839 /* Hotel.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -878,6 +881,7 @@
 				193E1EF523ACE4FF00DDA7C9 /* BusListViewController.swift in Sources */,
 				195C403A22FC09B40013A644 /* MainViewController.swift in Sources */,
 				195C404722FC10D80013A644 /* WSConstant.swift in Sources */,
+				40BAC11827E8968C00952E2E /* FacilitiesCell.swift in Sources */,
 				19107A5A2336397C003E8CF3 /* Markup.swift in Sources */,
 				40169FCC27E1AC330046A7A2 /* FlightListCollectionCell.swift in Sources */,
 				195C404222FC0C800013A644 /* SWRevealViewController.m in Sources */,

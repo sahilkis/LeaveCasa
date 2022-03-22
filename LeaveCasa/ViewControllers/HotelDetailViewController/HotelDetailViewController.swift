@@ -6,12 +6,19 @@ class HotelDetailViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var facilitiesCollectionView: UICollectionView!
+    @IBOutlet weak var facilitiesCollectionViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var lblHotelName: UILabel!
     @IBOutlet weak var lblHotelAddress: UILabel!
     @IBOutlet weak var lblHotelPrice: UILabel!
     @IBOutlet weak var lblDescription: UILabel!
+    @IBOutlet weak var btnOverview: UIButton!
+    @IBOutlet weak var underlineOverview: UIView!
     @IBOutlet weak var btnFacilities: UIButton!
+    @IBOutlet weak var underlineFacilities: UIView!
+    @IBOutlet weak var btnTerms: UIButton!
+    @IBOutlet weak var underlineTerms: UIView!
     @IBOutlet weak var hotelRatingView: FloatRatingView!
     
     var hotels: Hotels?
@@ -24,6 +31,7 @@ class HotelDetailViewController: UIViewController {
     var checkIn = ""
     var checkOut = ""
     var finalRooms = [[String: AnyObject]]()
+    var selectedTab = 0 // 0 - Overview, 1 - Facilities, 2 - TermsAndCondn
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,24 +42,33 @@ class HotelDetailViewController: UIViewController {
         setLeftbarButton()
         fetchHotelImages()
         fetchHotelDetail()
+        setUpTab()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tableView.addObserver(self, forKeyPath: Strings.CONTENT_SIZE, options: .new, context: nil)
+        self.facilitiesCollectionView.addObserver(self, forKeyPath: Strings.CONTENT_SIZE, options: .new, context: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.tableView.removeObserver(self, forKeyPath: Strings.CONTENT_SIZE)
+        self.facilitiesCollectionView.removeObserver(self, forKeyPath: Strings.CONTENT_SIZE)
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if let newValue = change?[.newKey] {
             if let newSize = newValue as? CGSize {
-                self.tableViewHeightConstraint.constant = newSize.height
+                if (object as? UITableView) != nil {
+                    self.tableViewHeightConstraint.constant = newSize.height
+                }
+                else if (object as? UICollectionView) != nil {
+                    self.facilitiesCollectionViewHeightConstraint.constant = newSize.height
+                }
             }
         }
+        
     }
     
     func setLeftbarButton() {
@@ -64,6 +81,52 @@ class HotelDetailViewController: UIViewController {
         pageControl.numberOfPages = self.jsonResponse.count
         pageControl.currentPage = 0
         pageControl.addTarget(self, action: #selector(self.changePage(sender:)), for: .valueChanged)
+    }
+    
+    private func setUpTab() {
+        let selectedColor = LeaveCasaColors.PINK_COLOR
+        let unselectedColor = LeaveCasaColors.LIGHT_GRAY_COLOR
+        let clearColor = UIColor.clear
+
+        switch selectedTab
+        {
+        case 0:
+            btnOverview.setTitleColor(selectedColor, for: .normal)
+            underlineOverview.backgroundColor = selectedColor
+            
+            btnFacilities.titleLabel?.textColor = unselectedColor
+            underlineFacilities.backgroundColor = clearColor
+            
+            btnTerms.titleLabel?.textColor = unselectedColor
+            underlineTerms.backgroundColor = clearColor
+            break
+            
+        case 1:
+            btnOverview.titleLabel?.textColor = unselectedColor
+            underlineOverview.backgroundColor = clearColor
+            
+            btnFacilities.setTitleColor(selectedColor, for: .normal)
+            underlineFacilities.backgroundColor = selectedColor
+            
+            btnTerms.titleLabel?.textColor = unselectedColor
+            underlineTerms.backgroundColor = clearColor
+            break
+            
+        case 2:
+            btnOverview.titleLabel?.textColor = unselectedColor
+            underlineOverview.backgroundColor = clearColor
+            
+            btnFacilities.titleLabel?.textColor = unselectedColor
+            underlineFacilities.backgroundColor = clearColor
+            
+            btnTerms.setTitleColor(selectedColor, for: .normal)
+            underlineTerms.backgroundColor = selectedColor
+           break
+        default: break
+            
+        }
+        
+        self.facilitiesCollectionView.reloadData()
     }
 }
 
@@ -84,6 +147,22 @@ extension HotelDetailViewController {
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
+    
+    @IBAction func btnOverviewAction(_ sender: UIButton) {
+        selectedTab = 0
+        setUpTab()
+    }
+    
+    @IBAction func btnFacilitiesAction(_ sender: UIButton) {
+        selectedTab = 1
+        setUpTab()
+    }
+    
+    @IBAction func btnTermsNCondAction(_ sender: UIButton) {
+        selectedTab = 2
+        setUpTab()
+    }
+    
 }
 
 // MARK: - UICOLLECTIONVIEW METHODS
@@ -93,33 +172,81 @@ extension HotelDetailViewController: UICollectionViewDataSource, UICollectionVie
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return jsonResponse.count
+        if collectionView == self.collectionView {
+            return jsonResponse.count
+        } else if selectedTab == 0 {
+            return 1
+        } else if selectedTab == 1 {
+            return 10
+        } else if selectedTab == 2 {
+            return 5
+        } else {
+            return 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellIds.ImagesCell, for: indexPath) as! ImagesCell
-        let dict = jsonResponse[indexPath.row]
-        
-        if let imageUrl = dict[WSResponseParams.WS_RESP_PARAM_URL] as? String {
-            let block: SDExternalCompletionBlock? = {(image: UIImage?, error: Error?, cacheType: SDImageCacheType, imageURL: URL?) -> Void in
-                //print(image)
-                if (image == nil) {
-                    
+        if collectionView == self.collectionView, let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellIds.ImagesCell, for: indexPath) as? ImagesCell {
+            let dict = jsonResponse[indexPath.row]
+
+            if let imageUrl = dict[WSResponseParams.WS_RESP_PARAM_URL] as? String {
+                let block: SDExternalCompletionBlock? = {(image: UIImage?, error: Error?, cacheType: SDImageCacheType, imageURL: URL?) -> Void in
+                    //print(image)
+                    if (image == nil) {
+
+                    }
+                }
+
+                if let imageStr = imageUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
+                    if let url = URL(string: imageStr) {
+                        cell.imgHotel.sd_setImage(with: url, completed: block)
+                    }
                 }
             }
+
+            return cell
+        }
+        else if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellIds.FacilitiesCell, for: indexPath) as? FacilitiesCell {
             
-            if let imageStr = imageUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
-                if let url = URL(string: imageStr) {
-                    cell.imgHotel.sd_setImage(with: url, completed: block)
+                if selectedTab == 0 {
+                    cell.icon.isHidden = true
+                } else {
+                    cell.icon.isHidden = false
                 }
-            }
+            cell.label.sizeToFit()
+                
+            return cell
+        }
+        else {
+            return UICollectionViewCell()
         }
         
-        return cell
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize.init(width: collectionView.frame.width, height: collectionView.frame.height)
+        if collectionView == self.collectionView {
+            return CGSize.init(width: collectionView.frame.width, height: collectionView.frame.height)
+        }
+        else if collectionView == self.facilitiesCollectionView {
+            
+            var height = collectionView.frame.height
+            var width = collectionView.frame.width
+            if selectedTab == 1 {
+                width = collectionView.frame.width/2
+            }
+            let label = UILabel(frame: CGRect.zero)
+            label.frame.size.width = width - 32
+            label.text = "Hotel Golden Plaza 2 in Chandigarh is one of the best values for money hotel aituated in Chandigarh. A city known for its infrastructure, the hotel also has business class facilities at its guests disposal. The hotel is well connected because it enjoys a central location. Hotel Golden Plaza 2 offers amenties such as 24-hours front desk."
+            label.numberOfLines = 0
+            label.sizeToFit()
+            
+            height = label.frame.height
+            
+            return CGSize.init(width: width - 16, height: height + 20)
+        }
+        else {
+            return CGSize.init(width: collectionView.frame.width, height: collectionView.frame.height)
+        }
     }
 }
 
@@ -245,8 +372,8 @@ extension HotelDetailViewController {
             lblDescription.text = hotelDescription
         }
         if let facilities = hotelDetail?.sFacilities {
-            self.facilities = facilities.components(separatedBy: "; ")
-            btnFacilities.setTitle("\(String(self.facilities.count)) Facilities", for: UIControl.State())
+//            self.facilities = facilities.components(separatedBy: "; ")
+//            btnFacilities.setTitle("\(String(self.facilities.count)) Facilities", for: UIControl.State())
         }
         if let minRate = hotelDetail?.iMinRate {
             self.prices = minRate
