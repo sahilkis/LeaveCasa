@@ -205,6 +205,14 @@ extension HotelDetailViewController {
         setUpTab()
     }
     
+    @IBAction func btnBookNowAction(_ sender: UIButton) {
+        if let vc = ViewControllerHelper.getViewController(ofType: .HotelBookingViewController) as? HotelBookingViewController {
+            vc.hotels = self.hotels
+            vc.markups = self.markups
+            
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
 }
 
 // MARK: - UICOLLECTIONVIEW METHODS

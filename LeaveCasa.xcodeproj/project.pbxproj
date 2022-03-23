@@ -62,6 +62,7 @@
 		40169FCC27E1AC330046A7A2 /* FlightListCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40169FCB27E1AC330046A7A2 /* FlightListCollectionCell.swift */; };
 		40169FCE27E1C30E0046A7A2 /* Bus.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40169FCD27E1C30E0046A7A2 /* Bus.storyboard */; };
 		40300EFC27EAFCC60002C967 /* HotelBookingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40300EFB27EAFCC60002C967 /* HotelBookingViewController.swift */; };
+		40300EFE27EB497E0002C967 /* BookingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40300EFD27EB497E0002C967 /* BookingCell.swift */; };
 		4038B41827E2C2E90047E839 /* Hotel.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4038B41727E2C2E90047E839 /* Hotel.storyboard */; };
 		403EDF5C27E9AF6400096521 /* ImagesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 403EDF5B27E9AF6400096521 /* ImagesCell.xib */; };
 		406778B927DF050100565C52 /* Flight.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 406778B827DF050100565C52 /* Flight.storyboard */; };
@@ -155,6 +156,7 @@
 		40169FCB27E1AC330046A7A2 /* FlightListCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightListCollectionCell.swift; sourceTree = "<group>"; };
 		40169FCD27E1C30E0046A7A2 /* Bus.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Bus.storyboard; sourceTree = "<group>"; };
 		40300EFB27EAFCC60002C967 /* HotelBookingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelBookingViewController.swift; sourceTree = "<group>"; };
+		40300EFD27EB497E0002C967 /* BookingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingCell.swift; sourceTree = "<group>"; };
 		4038B41727E2C2E90047E839 /* Hotel.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Hotel.storyboard; sourceTree = "<group>"; };
 		403EDF5B27E9AF6400096521 /* ImagesCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImagesCell.xib; sourceTree = "<group>"; };
 		406778B827DF050100565C52 /* Flight.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Flight.storyboard; sourceTree = "<group>"; };
@@ -272,20 +274,20 @@
 		18C82838214FCEFF007FC65A /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				40300EFA27EAFC7C0002C967 /* HotelBookingViewController */,
-				1944949323DC61B800AD8492 /* FacilitiesViewController */,
 				193E1EF323ACE4E200DDA7C9 /* BusListViewController */,
-				19499D4623A790630025DB1F /* SearchBusViewController */,
-				19499D4323A790430025DB1F /* SearchFlightViewController */,
+				1944949323DC61B800AD8492 /* FacilitiesViewController */,
 				40CDAF1427E0B3DB00B5B8FA /* FlightListViewController */,
+				195C403B22FC0BFD0013A644 /* HomeViewController */,
+				40300EFA27EAFC7C0002C967 /* HotelBookingViewController */,
 				19FE9CF023352B8E0006BC2D /* HotelDetailViewController */,
 				19309A082334CB3800E189AE /* HotelListViewController */,
-				192495EF2333641500B0E36E /* SearchHotelViewController */,
-				19DAE65E23321179008D2F24 /* SidebarViewController */,
-				195C403B22FC0BFD0013A644 /* HomeViewController */,
-				195C403522FC08F70013A644 /* SignupViewController */,
 				18C8283B214FCF47007FC65A /* LoginViewController */,
 				195C403822FC09980013A644 /* MainViewController */,
+				19499D4623A790630025DB1F /* SearchBusViewController */,
+				19499D4323A790430025DB1F /* SearchFlightViewController */,
+				192495EF2333641500B0E36E /* SearchHotelViewController */,
+				19DAE65E23321179008D2F24 /* SidebarViewController */,
+				195C403522FC08F70013A644 /* SignupViewController */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -615,6 +617,7 @@
 			isa = PBXGroup;
 			children = (
 				40300EFB27EAFCC60002C967 /* HotelBookingViewController.swift */,
+				40300EFD27EB497E0002C967 /* BookingCell.swift */,
 			);
 			path = HotelBookingViewController;
 			sourceTree = "<group>";
@@ -889,6 +892,7 @@
 				1924095E23A244810012CFBF /* Int+Timepiece.swift in Sources */,
 				19309A072334C58800E189AE /* Hotels.swift in Sources */,
 				18C82846214FCF98007FC65A /* AppConstants.swift in Sources */,
+				40300EFE27EB497E0002C967 /* BookingCell.swift in Sources */,
 				193E1EF823ACE6DA00DDA7C9 /* BusListCell.swift in Sources */,
 				193E1EF523ACE4FF00DDA7C9 /* BusListViewController.swift in Sources */,
 				195C403A22FC09B40013A644 /* MainViewController.swift in Sources */,
