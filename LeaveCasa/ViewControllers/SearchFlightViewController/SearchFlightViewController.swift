@@ -20,6 +20,9 @@ class SearchFlightViewController: UIViewController {
     @IBOutlet weak var btnMultiCity: UIButton!
     @IBOutlet weak var btnSearch: UIButton!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var lblAdults: UILabel!
+    @IBOutlet weak var lblChildren: UILabel!
+    @IBOutlet weak var lblInfants: UILabel!
     
     lazy var cityCode = [String]()
     lazy var cityName = [String]()
@@ -27,7 +30,10 @@ class SearchFlightViewController: UIViewController {
     var selectedTab = 0 // 0 - One way, 1 - Round Trip, 2 - mutli city
     var array = [["Source": "New Delhi", "Destination": "Chandigarh" ,"From": "", "To" : "", "Class": "Economy", "Passengers": "1"]]
     var selectedIndex = 0 // selected cell in the array
-    var numberOfRooms = 1
+    var numberOfRows = 1
+    var numberOfAdults = 1
+    var numberOfChildren = 0
+    var numberOfInfants = 0
     var isFromCheckin = true
     var checkinDate = Date()
     var checkoutDate = Date()
@@ -38,6 +44,10 @@ class SearchFlightViewController: UIViewController {
         // Do any additional setup after loading the view.
         setUpTab()
         setLeftbarButton()
+        
+        lblInfants.text = "\(numberOfInfants)"
+        lblAdults.text = "\(numberOfAdults)"
+        lblChildren.text = "\(numberOfChildren)"
     }
     
     func setLeftbarButton() {
@@ -217,6 +227,48 @@ class SearchFlightViewController: UIViewController {
         array.append(obj) // add new city
         tableView.reloadData()
     }
+    
+    @IBAction func infantsPlusClicked(_ sender: UIButton) {
+        if numberOfInfants >= 0 {
+            numberOfInfants = numberOfInfants + 1
+            lblInfants.text = "\(numberOfInfants)"
+        }
+    }
+
+    @IBAction func adultPlusClicked(_ sender: UIButton) {
+        if numberOfAdults >= 1 {
+            numberOfAdults = numberOfAdults + 1
+            lblAdults.text = "\(numberOfAdults)"
+        }
+    }
+
+    @IBAction func childPlusClicked(_ sender: UIButton) {
+        if numberOfChildren >= 0 {
+            numberOfChildren = numberOfChildren + 1
+            lblChildren.text = "\(numberOfChildren)"
+        }
+    }
+
+    @IBAction func infantMinusClicked(_ sender: UIButton) {
+        if numberOfInfants > 0 {
+            numberOfInfants = numberOfInfants - 1
+            lblInfants.text = "\(numberOfInfants)"
+        }
+    }
+
+    @IBAction func adultMinusClicked(_ sender: UIButton) {
+        if numberOfAdults > 1 {
+            numberOfAdults = numberOfAdults - 1
+            lblAdults.text = "\(numberOfAdults)"
+        }
+    }
+    
+    @IBAction func childMinusClicked(_ sender: UIButton) {
+        if numberOfChildren > 0 {
+            numberOfChildren = numberOfChildren - 1
+            lblChildren.text = "\(numberOfChildren)"
+        }
+    }
 }
 
 // MARK: - UIBUTTON ACTIONS
@@ -298,7 +350,7 @@ extension SearchFlightViewController: UITableViewDataSource, UITableViewDelegate
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return selectedTab == 2 ? array.count : numberOfRooms
+        return selectedTab == 2 ? array.count : numberOfRows
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

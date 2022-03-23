@@ -21,6 +21,7 @@ struct ViewControllerIdentifiers {
     static let SearchBusViewController              = "SearchBusViewController"
     static let BusListViewController                = "BusListViewController"
     static let FacilitiesViewController             = "FacilitiesViewController"
+    static let HotelBookingViewController           = "HotelBookingViewController"
 }
 
 import UIKit
@@ -34,6 +35,7 @@ enum ViewControllerType {
     case SearchHotelViewController
     case HotelListViewController
     case HotelDetailViewController
+    case HotelBookingViewController
     case WWCalendarTimeSelector
     case SearchFlightViewController
     case FlightListViewController
@@ -87,6 +89,8 @@ class ViewControllerHelper: NSObject {
            viewController = hotelStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.HotelDetailViewController) as! HotelDetailViewController
        } else if viewControllerType == .FacilitiesViewController {
            viewController = hotelStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.FacilitiesViewController) as! FacilitiesViewController
+       } else if viewControllerType == .HotelBookingViewController {
+           viewController = hotelStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.HotelBookingViewController) as! HotelBookingViewController
        } else {
             print("Unknown view controller type")
         }
