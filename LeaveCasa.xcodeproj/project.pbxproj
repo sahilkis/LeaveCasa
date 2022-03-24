@@ -67,6 +67,7 @@
 		403EDF5C27E9AF6400096521 /* ImagesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 403EDF5B27E9AF6400096521 /* ImagesCell.xib */; };
 		406778B927DF050100565C52 /* Flight.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 406778B827DF050100565C52 /* Flight.storyboard */; };
 		406778BB27DF205900565C52 /* SearchFlightCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406778BA27DF205900565C52 /* SearchFlightCell.swift */; };
+		40A14A8A27EC977200102036 /* FlightDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A14A8927EC977200102036 /* FlightDetailViewController.swift */; };
 		40BAC11827E8968C00952E2E /* FacilitiesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BAC11727E8968C00952E2E /* FacilitiesCell.swift */; };
 		40CDAF1627E0B40800B5B8FA /* FlightListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CDAF1527E0B40800B5B8FA /* FlightListViewController.swift */; };
 		40CDAF1827E0B43F00B5B8FA /* FlightListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CDAF1727E0B43F00B5B8FA /* FlightListCell.swift */; };
@@ -161,6 +162,7 @@
 		403EDF5B27E9AF6400096521 /* ImagesCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImagesCell.xib; sourceTree = "<group>"; };
 		406778B827DF050100565C52 /* Flight.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Flight.storyboard; sourceTree = "<group>"; };
 		406778BA27DF205900565C52 /* SearchFlightCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFlightCell.swift; sourceTree = "<group>"; };
+		40A14A8927EC977200102036 /* FlightDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightDetailViewController.swift; sourceTree = "<group>"; };
 		40BAC11727E8968C00952E2E /* FacilitiesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacilitiesCell.swift; sourceTree = "<group>"; };
 		40CDAF1527E0B40800B5B8FA /* FlightListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightListViewController.swift; sourceTree = "<group>"; };
 		40CDAF1727E0B43F00B5B8FA /* FlightListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightListCell.swift; sourceTree = "<group>"; };
@@ -274,6 +276,7 @@
 		18C82838214FCEFF007FC65A /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				40A14A8827EC970800102036 /* FlightDetailViewController */,
 				193E1EF323ACE4E200DDA7C9 /* BusListViewController */,
 				1944949323DC61B800AD8492 /* FacilitiesViewController */,
 				40CDAF1427E0B3DB00B5B8FA /* FlightListViewController */,
@@ -622,6 +625,14 @@
 			path = HotelBookingViewController;
 			sourceTree = "<group>";
 		};
+		40A14A8827EC970800102036 /* FlightDetailViewController */ = {
+			isa = PBXGroup;
+			children = (
+				40A14A8927EC977200102036 /* FlightDetailViewController.swift */,
+			);
+			path = FlightDetailViewController;
+			sourceTree = "<group>";
+		};
 		40CDAF1427E0B3DB00B5B8FA /* FlightListViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -853,6 +864,7 @@
 			files = (
 				400DFE442786CA1D0030CE16 /* SettingsManager.swift in Sources */,
 				1924095B23A244810012CFBF /* NSDateComponents+Timepiece.swift in Sources */,
+				40A14A8A27EC977200102036 /* FlightDetailViewController.swift in Sources */,
 				1924095923A244810012CFBF /* String+Timepiece.swift in Sources */,
 				1924095C23A244810012CFBF /* NSDate+Timepiece.swift in Sources */,
 				19D6442E23263996009E199B /* Validator.swift in Sources */,
