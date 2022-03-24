@@ -22,7 +22,7 @@ class HomeViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        setNavigationBar()
+       // setNavigationBar()
     }
     
     func setClearNavigationBar() {

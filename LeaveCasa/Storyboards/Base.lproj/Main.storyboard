@@ -20,8 +20,11 @@
         <scene sceneID="CHF-s5-vdd">
             <objects>
                 <navigationController navigationBarHidden="YES" id="vJV-XE-je3" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="SdX-Ss-N8X">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" backIndicatorImage="ic_back_black" backIndicatorTransitionMaskImage="ic_back_black" id="SdX-Ss-N8X">
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </navigationBar>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="BCt-er-WEB"/>
@@ -155,7 +158,9 @@
                             <constraint firstItem="yoN-Hi-oR7" firstAttribute="top" secondItem="MGQ-Ch-vay" secondAttribute="bottom" constant="8" id="xJ4-SH-n0o"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="iLg-Qq-ZE6"/>
+                    <navigationItem key="navigationItem" id="iLg-Qq-ZE6">
+                        <barButtonItem key="backBarButtonItem" title=" " id="MZK-gZ-TiW"/>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -1062,9 +1067,12 @@
         <scene sceneID="O1c-0b-a8e">
             <objects>
                 <navigationController id="Yyv-3G-ind" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="O8E-qz-Gqr">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" backIndicatorImage="ic_back_black" backIndicatorTransitionMaskImage="ic_back_black" id="O8E-qz-Gqr">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </navigationBar>
                     <connections>
                         <segue destination="ttU-XP-HBv" kind="relationship" relationship="rootViewController" id="Vfa-OI-avA"/>
@@ -1435,6 +1443,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="ic_back_black" width="28" height="28"/>
         <image name="ic_bus" width="28" height="16"/>
         <image name="ic_checkbox_blue" width="128" height="128"/>
         <image name="ic_checkbox_gray" width="128" height="128"/>
