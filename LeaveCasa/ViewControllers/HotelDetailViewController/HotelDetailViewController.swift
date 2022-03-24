@@ -22,6 +22,7 @@ class HotelDetailViewController: UIViewController {
     @IBOutlet weak var underlineTerms: UIView!
     @IBOutlet weak var hotelRatingView: FloatRatingView!
     @IBOutlet weak var lblRefundable: UILabel!
+    @IBOutlet weak var lblNoRooms: UILabel!
 
     var hotels: Hotels?
     var markups = [Markup]()
@@ -34,7 +35,10 @@ class HotelDetailViewController: UIViewController {
     var checkOut = ""
     var finalRooms = [[String: AnyObject]]()
     var selectedTab = 0 // 0 - Overview, 1 - Facilities, 2 - TermsAndCondn
-    
+    var numberOfRooms = 1
+    var numberOfAdults = 1
+    var ageOfChildren: [Int] = []
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -123,6 +127,15 @@ class HotelDetailViewController: UIViewController {
         if let rating = hotel?.iCategory {
             self.hotelRatingView.rating = Double(rating)
         }
+        
+        // TODO: pending
+        if self.prices.count > 0 {
+            self.lblNoRooms.isHidden = true
+        }
+        else{
+            self.lblNoRooms.isHidden = false
+        }
+        
     }
     
     private func setUpTab() {
@@ -209,6 +222,15 @@ extension HotelDetailViewController {
         if let vc = ViewControllerHelper.getViewController(ofType: .HotelBookingViewController) as? HotelBookingViewController {
             vc.hotels = self.hotels
             vc.markups = self.markups
+            vc.searchId = self.searchId
+            vc.logId = logId
+            vc.markups = markups
+            vc.checkIn = checkIn
+            vc.checkOut = checkOut
+            vc.finalRooms = finalRooms
+            vc.numberOfRooms = self.numberOfRooms
+            vc.numberOfAdults = self.numberOfAdults
+            vc.ageOfChildren = self.ageOfChildren
             
             self.navigationController?.pushViewController(vc, animated: true)
         }
@@ -307,6 +329,13 @@ extension HotelDetailViewController: UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if self.prices.count > 0 {
+            self.lblNoRooms.isHidden = true
+        }
+        else{
+            self.lblNoRooms.isHidden = false
+        }
+        
         return self.prices.count
     }
     
@@ -353,6 +382,9 @@ extension HotelDetailViewController: UITableViewDataSource, UITableViewDelegate 
                 }
             }
         }
+        
+        cell.btnBookNow.tag = indexPath.row
+        cell.btnBookNow.addTarget(self, action: #selector(btnBookNowAction(_:)), for: .touchUpInside)
         
         return cell
     }

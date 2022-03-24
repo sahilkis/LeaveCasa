@@ -15,7 +15,10 @@ class HotelListViewController: UIViewController {
     var finalRooms = [[String: AnyObject]]()
     var hotelCount = ""
     var logId = 0
-    
+    var numberOfRooms = 1
+    var numberOfAdults = 1
+    var ageOfChildren: [Int] = []
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -120,6 +123,10 @@ extension HotelListViewController: UITableViewDataSource, UITableViewDelegate {
             vc.checkIn = checkIn
             vc.checkOut = checkOut
             vc.finalRooms = finalRooms
+            vc.numberOfRooms = self.numberOfRooms
+            vc.numberOfAdults = self.numberOfAdults
+            vc.ageOfChildren = self.ageOfChildren
+            
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }

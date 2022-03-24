@@ -7,9 +7,16 @@
 //
 
 import UIKit
+import SearchTextField
+import DropDown
 
 class BookingCell: UITableViewCell {
 
+    @IBOutlet weak var txtTitle: SearchTextField!
+    @IBOutlet weak var txtFirstName: UITextField!
+    @IBOutlet weak var txtLastName: UITextField!
+    @IBOutlet weak var txtState: SearchTextField!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

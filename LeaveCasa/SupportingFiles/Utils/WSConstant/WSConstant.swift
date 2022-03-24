@@ -32,6 +32,7 @@ struct WSRequestParams {
     static let WS_REQS_PARAM_CHILDREN                = "children"
     static let WS_REQS_PARAM_CHILDREN_AGES           = "children_ages"
     static let WS_REQS_PARAM_CLIENT_NATIONALITY      = "client_nationality"
+    static let WS_REQS_PARAM_CURRENT_REQUEST         = "current_request"
     static let WS_REQS_PARAM_CUTOFF_TIME             = "cutoff_tim"
     static let WS_REQS_PARAM_DESTINATION_CODE        = "destination_code"
     static let WS_REQS_PARAM_EMAIL                   = "email"

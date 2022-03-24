@@ -217,7 +217,7 @@ extension SearchHotelViewController {
         } else {
             var params: [String: AnyObject] = [:]
             
-            params[WSRequestParams.WS_REQS_PARAM_ADULTS] = "01" as AnyObject
+            params[WSRequestParams.WS_REQS_PARAM_ADULTS] = numberOfAdults as AnyObject
             params[WSRequestParams.WS_REQS_PARAM_CHILDREN_AGES] = ageOfChildren as AnyObject
             self.finalRooms.append(params)
             
@@ -360,7 +360,8 @@ extension SearchHotelViewController {
     
     func searchHotel() {
         if WSManager.isConnectedToInternet() {
-            let params: [String: AnyObject] = [WSRequestParams.WS_REQS_PARAM_DESTINATION_CODE: cityCodeStr as AnyObject,
+            let params: [String: AnyObject] = [WSRequestParams.WS_REQS_PARAM_CURRENT_REQUEST: 0 as AnyObject,
+                                               WSRequestParams.WS_REQS_PARAM_DESTINATION_CODE: cityCodeStr as AnyObject,
                                                WSRequestParams.WS_REQS_PARAM_CHECKIN: txtCheckIn.text as AnyObject,
                                                WSRequestParams.WS_REQS_PARAM_CHECKOUT: txtCheckOut.text as AnyObject,
                                                WSRequestParams.WS_REQS_PARAM_ROOMS: finalRooms as AnyObject
@@ -376,6 +377,10 @@ extension SearchHotelViewController {
                     vc.checkIn = self.txtCheckIn.text ?? ""
                     vc.checkOut = self.txtCheckOut.text ?? ""
                     vc.finalRooms = self.finalRooms
+                    vc.numberOfRooms = self.numberOfRooms
+                    vc.numberOfAdults = self.numberOfAdults
+                    vc.ageOfChildren = self.ageOfChildren
+                    
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
             }, failure: { (error) in

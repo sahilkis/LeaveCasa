@@ -64,6 +64,8 @@ struct LeaveCasaFonts {
 struct LeaveCasaIcons {
     static let BLACK_BACK = UIImage.init(named: "ic_back_black")
     static let THREE_DOTS = UIImage.init(named: "ic_three_dots")
+    static let CHECKBOX_BLUE = UIImage.init(named: "ic_square_tick_blue")
+    static let CHECKBOX_GREY = UIImage.init(named: "ic_square_tick_grey")
 }
 
 
