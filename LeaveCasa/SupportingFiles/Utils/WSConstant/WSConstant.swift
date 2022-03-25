@@ -12,7 +12,7 @@ struct WebService {
     static let login                                 = "\(baseUrl)/login"
     static let signup                                = "\(baseUrl)/register"
     static let citySearch                            = "\(baseUrl)/hotel-city-search/"
-    static let hotelSearch                           = "\(baseUrl)/search/hotel"
+    static let hotelSearch                           = "\(baseUrl)/advance-search/hotel"
     static let hotelDetail                           = "\(baseUrl)/hotel_detail"
     static let hotelImages                           = "\(baseUrl)/hotel_images/"
     static let hotelCancellationPolicy               = "\(baseUrl)/hotel-cancellation-policy"

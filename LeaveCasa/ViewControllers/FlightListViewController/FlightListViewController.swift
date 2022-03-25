@@ -88,18 +88,12 @@ extension FlightListViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let dict = results[indexPath.section]
+        let dict = results[indexPath.section]
         
-//        if let vc = ViewControllerHelper.getViewController(ofType: .HotelDetailViewController) as? HotelDetailViewController {
-//            vc.hotels = dict.hotels[indexPath.row]
-//            vc.searchId = dict.searchId
-//            vc.logId = logId
-//            vc.markups = markups
-//            vc.checkIn = checkIn
-//            vc.checkOut = checkOut
-//            vc.finalRooms = finalRooms
-//            self.navigationController?.pushViewController(vc, animated: true)
-//        }
+        if let vc = ViewControllerHelper.getViewController(ofType: .FlightDetailViewController) as? FlightDetailViewController {
+            
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
 }
 

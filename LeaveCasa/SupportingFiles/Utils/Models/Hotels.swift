@@ -10,6 +10,7 @@ class Results: Mappable, CustomStringConvertible {
     
     func mapping(map: Map) {
         hotels <- map[WSResponseParams.WS_RESP_PARAM_HOTELS]
+        numberOfHotels <- map[WSResponseParams.WS_RESP_PARAM_NUMBER_OF_HOTELS]
         searchId <- map[WSResponseParams.WS_RESP_PARAM_SEARCH_ID]
     }
     
@@ -31,6 +32,7 @@ class Results: Mappable, CustomStringConvertible {
     })
     
     lazy var hotels = [Hotels]()
+    lazy var numberOfHotels = Int()
     lazy var searchId = String()
 }
 

@@ -366,12 +366,12 @@ extension SearchHotelViewController {
                                                WSRequestParams.WS_REQS_PARAM_CHECKOUT: txtCheckOut.text as AnyObject,
                                                WSRequestParams.WS_REQS_PARAM_ROOMS: finalRooms as AnyObject
             ]
-            WSManager.wsCallFetchHotels(params, success: { (results, markup, hotelCount, logId) in
+            WSManager.wsCallFetchHotels(params, success: { (results, markup, logId) in
                 Helper.hideLoader(onVC: self)
                 if let vc = ViewControllerHelper.getViewController(ofType: .HotelListViewController) as? HotelListViewController {
                     vc.results = results
                     vc.markups = markup
-                    vc.hotelCount = "\(hotelCount)"
+                    vc.hotelCount = "\(results.reduce(0) {$0 + $1.numberOfHotels })"
                     vc.logId = logId
                     vc.checkInDate = Helper.convertCheckinDate(self.txtCheckIn.text ?? "")
                     vc.checkIn = self.txtCheckIn.text ?? ""

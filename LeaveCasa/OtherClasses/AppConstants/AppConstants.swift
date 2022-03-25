@@ -42,6 +42,7 @@ struct CellIds {
     static let FlightListCell               = "FlightListCell"
     static let FlightListCollectionCell     = "FlightListCollectionCell"
     static let BookingCell                  = "BookingCell"
+    static let FlightDetailCell             = "FlightDetailCell"
 
 }
 

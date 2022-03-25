@@ -100,7 +100,7 @@ class WSManager {
     }
     
     // MARK: FETCH HOTEL
-    class func wsCallFetchHotels(_ requestParams: [String: AnyObject], success:@escaping (_ arrHomeData: [Results], _ markups: [Markup],_ numberOfHotels: Int, _ logId: Int)->(),failure:@escaping (NSError)->()) {
+    class func wsCallFetchHotels(_ requestParams: [String: AnyObject], success:@escaping (_ arrHomeData: [Results], _ markups: [Markup], _ logId: Int)->(),failure:@escaping (NSError)->()) {
         AF.request(WebService.hotelSearch, method: .post, parameters: requestParams, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: {(responseData) -> Void in
             print(responseData.result)
             switch responseData.result {
@@ -111,7 +111,7 @@ class WSManager {
                         if let response = responseValue[WSResponseParams.WS_RESP_PARAM_RESULTS] as? [[String: Any]] {
                             if let markup = responseValue[WSResponseParams.WS_RESP_PARAM_MARKUP] as? [[String: Any]] {
                                 if let results = Mapper<Results>().mapArray(JSONArray: response) as [Results]?, let markupArr = Mapper<Markup>().mapArray(JSONArray: markup) as [Markup]? {
-                                    success(results, markupArr, responseValue[WSResponseParams.WS_RESP_PARAM_NUMBER_OF_HOTELS] as? Int ?? 0, responseValue[WSResponseParams.WS_RESP_PARAM_LOGID] as? Int ?? 0)
+                                    success(results, markupArr, responseValue[WSResponseParams.WS_RESP_PARAM_LOGID] as? Int ?? 0)
                                 }
                             }
                         } else {
