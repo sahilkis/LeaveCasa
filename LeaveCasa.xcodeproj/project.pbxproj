@@ -69,6 +69,8 @@
 		405AA00727ED79C7006BD68D /* FlightDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405AA00627ED79C7006BD68D /* FlightDetailCell.swift */; };
 		406778B927DF050100565C52 /* Flight.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 406778B827DF050100565C52 /* Flight.storyboard */; };
 		406778BB27DF205900565C52 /* SearchFlightCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406778BA27DF205900565C52 /* SearchFlightCell.swift */; };
+		408334D627EDCF010015F994 /* BusDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408334D527EDCF010015F994 /* BusDetailViewController.swift */; };
+		408334D927EDCF470015F994 /* BusBookingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408334D827EDCF470015F994 /* BusBookingViewController.swift */; };
 		40A14A8A27EC977200102036 /* FlightDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A14A8927EC977200102036 /* FlightDetailViewController.swift */; };
 		40BAC11827E8968C00952E2E /* FacilitiesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BAC11727E8968C00952E2E /* FacilitiesCell.swift */; };
 		40CDAF1627E0B40800B5B8FA /* FlightListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CDAF1527E0B40800B5B8FA /* FlightListViewController.swift */; };
@@ -166,6 +168,8 @@
 		405AA00627ED79C7006BD68D /* FlightDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightDetailCell.swift; sourceTree = "<group>"; };
 		406778B827DF050100565C52 /* Flight.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Flight.storyboard; sourceTree = "<group>"; };
 		406778BA27DF205900565C52 /* SearchFlightCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFlightCell.swift; sourceTree = "<group>"; };
+		408334D527EDCF010015F994 /* BusDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusDetailViewController.swift; sourceTree = "<group>"; };
+		408334D827EDCF470015F994 /* BusBookingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusBookingViewController.swift; sourceTree = "<group>"; };
 		40A14A8927EC977200102036 /* FlightDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightDetailViewController.swift; sourceTree = "<group>"; };
 		40BAC11727E8968C00952E2E /* FacilitiesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacilitiesCell.swift; sourceTree = "<group>"; };
 		40CDAF1527E0B40800B5B8FA /* FlightListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightListViewController.swift; sourceTree = "<group>"; };
@@ -280,20 +284,13 @@
 		18C82838214FCEFF007FC65A /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				40A14A8827EC970800102036 /* FlightDetailViewController */,
-				193E1EF323ACE4E200DDA7C9 /* BusListViewController */,
+				408334D127EDCDBB0015F994 /* Buses View Controller */,
+				408334D227EDCDDB0015F994 /* Flight View Controller */,
+				408334D327EDCDF40015F994 /* Hotel View Controller */,
 				1944949323DC61B800AD8492 /* FacilitiesViewController */,
-				405AA00327ED7716006BD68D /* FlightBookingViewController */,
-				40CDAF1427E0B3DB00B5B8FA /* FlightListViewController */,
 				195C403B22FC0BFD0013A644 /* HomeViewController */,
-				40300EFA27EAFC7C0002C967 /* HotelBookingViewController */,
-				19FE9CF023352B8E0006BC2D /* HotelDetailViewController */,
-				19309A082334CB3800E189AE /* HotelListViewController */,
 				18C8283B214FCF47007FC65A /* LoginViewController */,
 				195C403822FC09980013A644 /* MainViewController */,
-				19499D4623A790630025DB1F /* SearchBusViewController */,
-				19499D4323A790430025DB1F /* SearchFlightViewController */,
-				192495EF2333641500B0E36E /* SearchHotelViewController */,
 				19DAE65E23321179008D2F24 /* SidebarViewController */,
 				195C403522FC08F70013A644 /* SignupViewController */,
 			);
@@ -638,6 +635,55 @@
 			path = FlightBookingViewController;
 			sourceTree = "<group>";
 		};
+		408334D127EDCDBB0015F994 /* Buses View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				19499D4623A790630025DB1F /* SearchBusViewController */,
+				193E1EF323ACE4E200DDA7C9 /* BusListViewController */,
+				408334D427EDCEC80015F994 /* BusDetailViewController */,
+				408334D727EDCF0E0015F994 /* BusBookingViewController */,
+			);
+			path = "Buses View Controller";
+			sourceTree = "<group>";
+		};
+		408334D227EDCDDB0015F994 /* Flight View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				19499D4323A790430025DB1F /* SearchFlightViewController */,
+				40CDAF1427E0B3DB00B5B8FA /* FlightListViewController */,
+				40A14A8827EC970800102036 /* FlightDetailViewController */,
+				405AA00327ED7716006BD68D /* FlightBookingViewController */,
+			);
+			path = "Flight View Controller";
+			sourceTree = "<group>";
+		};
+		408334D327EDCDF40015F994 /* Hotel View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				192495EF2333641500B0E36E /* SearchHotelViewController */,
+				19309A082334CB3800E189AE /* HotelListViewController */,
+				19FE9CF023352B8E0006BC2D /* HotelDetailViewController */,
+				40300EFA27EAFC7C0002C967 /* HotelBookingViewController */,
+			);
+			path = "Hotel View Controller";
+			sourceTree = "<group>";
+		};
+		408334D427EDCEC80015F994 /* BusDetailViewController */ = {
+			isa = PBXGroup;
+			children = (
+				408334D527EDCF010015F994 /* BusDetailViewController.swift */,
+			);
+			path = BusDetailViewController;
+			sourceTree = "<group>";
+		};
+		408334D727EDCF0E0015F994 /* BusBookingViewController */ = {
+			isa = PBXGroup;
+			children = (
+				408334D827EDCF470015F994 /* BusBookingViewController.swift */,
+			);
+			path = BusBookingViewController;
+			sourceTree = "<group>";
+		};
 		40A14A8827EC970800102036 /* FlightDetailViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -904,12 +950,14 @@
 				40CDAF1627E0B40800B5B8FA /* FlightListViewController.swift in Sources */,
 				19FB4D09231A7998007C742C /* AlertMessages.swift in Sources */,
 				18C82809214FCEC8007FC65A /* AppDelegate.swift in Sources */,
+				408334D627EDCF010015F994 /* BusDetailViewController.swift in Sources */,
 				19DAE660233211B3008D2F24 /* SidebarViewController.swift in Sources */,
 				18C82842214FCF86007FC65A /* ViewControllerHelper.swift in Sources */,
 				40300EFC27EAFCC60002C967 /* HotelBookingViewController.swift in Sources */,
 				405AA00527ED775F006BD68D /* FlightBookingViewController.swift in Sources */,
 				19499D4823A790770025DB1F /* SearchBusViewController.swift in Sources */,
 				18C82856214FDB10007FC65A /* UIButton+Extension.swift in Sources */,
+				408334D927EDCF470015F994 /* BusBookingViewController.swift in Sources */,
 				195C403D22FC0C100013A644 /* HomeViewController.swift in Sources */,
 				19D6443123263A77009E199B /* UITextfield+Extension.swift in Sources */,
 				192495EE2333615B00B0E36E /* UIView+Extension.swift in Sources */,

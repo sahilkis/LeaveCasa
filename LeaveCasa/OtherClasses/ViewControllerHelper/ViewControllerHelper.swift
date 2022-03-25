@@ -15,6 +15,7 @@ struct ViewControllerIdentifiers {
     static let SearchHotelViewController            = "SearchHotelViewController"
     static let HotelListViewController              = "HotelListViewController"
     static let HotelDetailViewController            = "HotelDetailViewController"
+    static let HotelBookingViewController           = "HotelBookingViewController"
     static let WWCalendarTimeSelector               = "WWCalendarTimeSelector"
     static let SearchFlightViewController           = "SearchFlightViewController"
     static let FlightListViewController             = "FlightListViewController"
@@ -22,8 +23,9 @@ struct ViewControllerIdentifiers {
     static let FlightBookingViewController          = "FlightBookingViewController"
     static let SearchBusViewController              = "SearchBusViewController"
     static let BusListViewController                = "BusListViewController"
+    static let BusDetailViewController              = "BusDetailViewController"
+    static let BusBookingViewController             = "BusBookingViewController"
     static let FacilitiesViewController             = "FacilitiesViewController"
-    static let HotelBookingViewController           = "HotelBookingViewController"
 }
 
 import UIKit
@@ -45,6 +47,8 @@ enum ViewControllerType {
     case FlightBookingViewController
     case SearchBusViewController
     case BusListViewController
+    case BusDetailViewController
+    case BusBookingViewController
     case FacilitiesViewController
 }
 
@@ -87,6 +91,10 @@ class ViewControllerHelper: NSObject {
            viewController = busStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.SearchBusViewController) as! SearchBusViewController
        } else if viewControllerType == .BusListViewController {
            viewController = busStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.BusListViewController) as! BusListViewController
+       } else if viewControllerType == .BusDetailViewController {
+           viewController = busStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.BusDetailViewController) as! BusDetailViewController
+       } else if viewControllerType == .BusBookingViewController {
+           viewController = busStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.BusBookingViewController) as! BusBookingViewController
        }
         // Hotel storyboard
         else if viewControllerType == .SearchHotelViewController {
