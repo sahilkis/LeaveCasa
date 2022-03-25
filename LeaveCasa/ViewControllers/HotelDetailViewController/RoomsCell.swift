@@ -2,10 +2,11 @@ import UIKit
 
 class RoomsCell: UITableViewCell {
 
+    @IBOutlet weak var img: UIImageView!
     @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var lblPrice: UILabel!
     @IBOutlet weak var lblMealType: UILabel!
-    @IBOutlet weak var lblRefundable: UILabel!
+    //@IBOutlet weak var lblRefundable: UILabel!
     @IBOutlet weak var btnBookNow: UIButton!
 
     override func awakeFromNib() {

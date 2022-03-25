@@ -344,6 +344,23 @@ extension HotelDetailViewController: UITableViewDataSource, UITableViewDelegate 
         
         let dict = prices[indexPath.row]
         
+        if let image = dict[WSResponseParams.WS_RESP_PARAM_IMAGES] {
+            if let imageUrl = image[WSResponseParams.WS_RESP_PARAM_URL] as? String {
+                let block: SDExternalCompletionBlock? = {(image: UIImage?, error: Error?, cacheType: SDImageCacheType, imageURL: URL?) -> Void in
+                    //print(image)
+                    if (image == nil) {
+                        
+                    }
+                }
+                
+                if let imageStr = imageUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
+                    if let url = URL(string: imageStr) {
+                        cell.img.sd_setImage(with: url, completed: block)
+                    }
+                }
+            }
+        }
+        
         if var price = dict[WSResponseParams.WS_RESP_PARAM_PRICE] as? Int {
             for i in 0..<markups.count {
                 let markup: Markup?
@@ -365,13 +382,13 @@ extension HotelDetailViewController: UITableViewDataSource, UITableViewDelegate 
             }
         }
         
-        if let nonRefundable = dict[WSResponseParams.WS_RESP_PARAM_NON_REFUNDABLE] as? Bool {
-            if nonRefundable {
-                cell.lblRefundable.text = Strings.NON_REFUNDABLE
-            } else {
-                cell.lblRefundable.text = Strings.REFUNDABLE
-            }
-        }
+//        if let nonRefundable = dict[WSResponseParams.WS_RESP_PARAM_NON_REFUNDABLE] as? Bool {
+//            if nonRefundable {
+//                cell.lblRefundable.text = Strings.NON_REFUNDABLE
+//            } else {
+//                cell.lblRefundable.text = Strings.REFUNDABLE
+//            }
+//        }
         
         if let rooms = dict[WSRequestParams.WS_REQS_PARAM_ROOMS] as? [[String: AnyObject]] {
             for i in 0..<rooms.count {
