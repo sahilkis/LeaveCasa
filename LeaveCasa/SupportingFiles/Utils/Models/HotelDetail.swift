@@ -25,7 +25,7 @@ class HotelDetail: Mappable, CustomStringConvertible {
         sFacilities <- map[WSResponseParams.WS_RESP_PARAM_FACILITIES]
         sHotelCode <- map[WSResponseParams.WS_RESP_PARAM_HOTEL_CODE]
         iCategory <- map[WSResponseParams.WS_RESP_PARAM_CATEGORY]
-        iMinRate <- map[WSResponseParams.WS_RESP_PARAM_RATES]
+        rates <- map[WSResponseParams.WS_RESP_PARAM_RATES]
     }
     
     var description: String {
@@ -52,6 +52,6 @@ class HotelDetail: Mappable, CustomStringConvertible {
     lazy var sDescription = String()
     lazy var sFacilities = String()
     lazy var sHotelCode = String()
-    lazy var iMinRate = [[String: AnyObject]]()
+    lazy var rates = [[String: AnyObject]]()
     lazy var iCategory = Int()
 }

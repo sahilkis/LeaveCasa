@@ -25,7 +25,6 @@ struct ViewControllerIdentifiers {
     static let BusListViewController                = "BusListViewController"
     static let BusDetailViewController              = "BusDetailViewController"
     static let BusBookingViewController             = "BusBookingViewController"
-    static let FacilitiesViewController             = "FacilitiesViewController"
 }
 
 import UIKit
@@ -49,7 +48,6 @@ enum ViewControllerType {
     case BusListViewController
     case BusDetailViewController
     case BusBookingViewController
-    case FacilitiesViewController
 }
 
 class ViewControllerHelper: NSObject {
@@ -103,8 +101,6 @@ class ViewControllerHelper: NSObject {
            viewController = hotelStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.HotelListViewController) as! HotelListViewController
        } else if viewControllerType == .HotelDetailViewController {
            viewController = hotelStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.HotelDetailViewController) as! HotelDetailViewController
-       } else if viewControllerType == .FacilitiesViewController {
-           viewController = hotelStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.FacilitiesViewController) as! FacilitiesViewController
        } else if viewControllerType == .HotelBookingViewController {
            viewController = hotelStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.HotelBookingViewController) as! HotelBookingViewController
        } else {

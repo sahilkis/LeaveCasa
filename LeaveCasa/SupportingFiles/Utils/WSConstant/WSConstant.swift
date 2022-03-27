@@ -44,8 +44,10 @@ struct WSRequestParams {
     static let WS_REQS_PARAM_NAME                    = "name"
     static let WS_REQS_PARAM_PARM                    = "parm"
     static let WS_REQS_PARAM_PASSWORD                = "password"
+    static let WS_REQS_PARAM_RATE_KEY                = "rate_key"
     static let WS_REQS_PARAM_RATES                   = "rates"
     static let WS_REQS_PARAM_ROOMS                   = "rooms"
+    static let WS_REQS_PARAM_SEARCH_ID               = "search_id"
 }
 
 struct WSResponseParams {
@@ -92,6 +94,7 @@ struct WSResponseParams {
     static let WS_RESP_PARAM_NUMBER_OF_NIGHT         = "no_of_nights"
     static let WS_RESP_PARAM_NUMBER_OF_ROOMS         = "no_of_rooms"
     static let WS_RESP_PARAM_PRICE                   = "price"
+    static let WS_RESP_PARAM_RATE_KEY                = "rate_key"
     static let WS_RESP_PARAM_RATES                   = "rates"
     static let WS_RESP_PARAM_REGULAR                 = "regular"
     static let WS_RESP_PARAM_RESPONSE                = "response"
@@ -105,6 +108,7 @@ struct WSResponseParams {
     static let WS_RESP_PARAM_TOKEN                   = "token"
     static let WS_RESP_PARAM_TOKEN_TYPE              = "token_type"
     static let WS_RESP_PARAM_TOTAL_FARE              = "totalFare"
+    static let WS_RESP_PARAM_TOTAL_NUM_OF_REQUEST    = "total_num_of_request"
     static let WS_RESP_PARAM_TRAVELS                 = "travels"
     static let WS_RESP_PARAM_TRUE                    = 200
     static let WS_RESP_PARAM_URL                     = "url"

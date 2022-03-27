@@ -13,7 +13,6 @@ class HotelDetailViewController: UIViewController {
     @IBOutlet weak var lblHotelName: UILabel!
     @IBOutlet weak var lblHotelAddress: UILabel!
     @IBOutlet weak var lblHotelPrice: UILabel!
-    @IBOutlet weak var lblDescription: UILabel!
     @IBOutlet weak var btnOverview: UIButton!
     @IBOutlet weak var underlineOverview: UIView!
     @IBOutlet weak var btnFacilities: UIButton!
@@ -25,6 +24,7 @@ class HotelDetailViewController: UIViewController {
     @IBOutlet weak var lblNoRooms: UILabel!
 
     var hotels: Hotels?
+    var hotelDetail: HotelDetail?
     var markups = [Markup]()
     var facilities = [String]()
     var jsonResponse = [[String: AnyObject]]()
@@ -196,13 +196,6 @@ extension HotelDetailViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
-    @IBAction func facilitiesClicked(_ sender: UIButton) {
-        if let vc = ViewControllerHelper.getViewController(ofType: .FacilitiesViewController) as? FacilitiesViewController {
-            vc.facilities = self.facilities
-            self.navigationController?.pushViewController(vc, animated: true)
-        }
-    }
-    
     @IBAction func btnOverviewAction(_ sender: UIButton) {
         selectedTab = 0
         setUpTab()
@@ -235,6 +228,14 @@ extension HotelDetailViewController {
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
+    
+    @IBAction func cancellationPolicyClicked(_ sender: UIButton) {
+        let dict = prices[sender.tag]
+        
+        if let rateKey = dict[WSResponseParams.WS_RESP_PARAM_RATE_KEY] as? String {
+            self.cancellationPolicy(searchId, rateKey)
+        }
+    }
 }
 
 // MARK: - UICOLLECTIONVIEW METHODS
@@ -246,13 +247,17 @@ extension HotelDetailViewController: UICollectionViewDataSource, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.collectionView {
             return jsonResponse.count
-        } else if selectedTab == 0 {
+        }
+        else if selectedTab == 0 {
             return 1
-        } else if selectedTab == 1 {
-            return 10
-        } else if selectedTab == 2 {
+        }
+        else if selectedTab == 1 {
+            return facilities.count
+        }
+        else if selectedTab == 2 {
             return 5
-        } else {
+        }
+        else {
             return 0
         }
     }
@@ -280,11 +285,20 @@ extension HotelDetailViewController: UICollectionViewDataSource, UICollectionVie
         }
         else if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellIds.FacilitiesCell, for: indexPath) as? FacilitiesCell {
             
-                if selectedTab == 0 {
-                    cell.icon.isHidden = true
-                } else {
-                    cell.icon.isHidden = false
-                }
+            if selectedTab == 0 {
+                cell.icon.isHidden = true
+            } else {
+                cell.icon.isHidden = false
+            }
+            
+            if selectedTab == 0 {
+                cell.label.text = hotelDetail?.sDescription
+            }
+            
+            if selectedTab == 1 {
+                cell.label.text = facilities[indexPath.row]
+            }
+            
             cell.label.sizeToFit()
                 
             return cell
@@ -401,9 +415,20 @@ extension HotelDetailViewController: UITableViewDataSource, UITableViewDelegate 
         }
         
         cell.btnBookNow.tag = indexPath.row
+        cell.btnCancellationPolicy.tag = indexPath.row
+        
         cell.btnBookNow.addTarget(self, action: #selector(btnBookNowAction(_:)), for: .touchUpInside)
+        cell.btnCancellationPolicy.addTarget(self, action: #selector(cancellationPolicyClicked(_:)), for: .touchUpInside)
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let dict = prices[indexPath.row]
+        
+        if let rateKey = dict[WSResponseParams.WS_RESP_PARAM_RATE_KEY] as? String {
+            self.cancellationPolicy(searchId, rateKey)
+        }
     }
 }
 
@@ -444,7 +469,7 @@ extension HotelDetailViewController {
                                                WSRequestParams.WS_REQS_PARAM_CHECKIN: checkIn as AnyObject,
                                                WSRequestParams.WS_REQS_PARAM_CHECKOUT: checkOut as AnyObject,
                                                WSRequestParams.WS_REQS_PARAM_ROOMS: finalRooms as AnyObject]
-            WSManager.wsCallFetchHotelDetail(params, success: { (response) in
+            WSManager.wsCallFetchHotelDetail(params, success: { (response, searchId)  in
                 self.setData(response)
             }, failure: { (error) in
                 
@@ -455,26 +480,25 @@ extension HotelDetailViewController {
     }
     
     func setData(_ response: HotelDetail) {
-        let hotelDetail: HotelDetail?
         hotelDetail = response
         
         if let address = hotelDetail?.sAddress {
             lblHotelAddress.text = address
         }
+        
         if let name = hotelDetail?.sName {
             lblHotelName.text = name
         }
+        
         if let rating = hotelDetail?.iCategory {
             hotelRatingView.rating = Double(rating)
         }
-        if let hotelDescription = hotelDetail?.sDescription {
-            lblDescription.text = hotelDescription
+        
+        if let facility = hotelDetail?.sFacilities {
+            facilities = facility.components(separatedBy: "; ")
         }
-        if let facilities = hotelDetail?.sFacilities {
-//            self.facilities = facilities.components(separatedBy: "; ")
-//            btnFacilities.setTitle("\(String(self.facilities.count)) Facilities", for: UIControl.State())
-        }
-        if let minRate = hotelDetail?.iMinRate {
+        
+        if let minRate = hotelDetail?.rates {
             self.prices = minRate
             self.tableView.reloadData()
             
@@ -491,8 +515,21 @@ extension HotelDetailViewController {
                         }
                     }
                 }
+                
                 lblHotelPrice.text = "₹\(String(price))"
             }
+        }
+        
+        self.facilitiesCollectionView.reloadData()
+    }
+    
+    func cancellationPolicy(_ searchId: String, _ rateKey: String) {
+        let params: [String: AnyObject] = [WSRequestParams.WS_REQS_PARAM_SEARCH_ID: searchId as AnyObject,
+                                           WSRequestParams.WS_REQS_PARAM_RATE_KEY: rateKey as AnyObject]
+        WSManager.wsCallGetHotelCancellationPolicy(params) { response, message in
+            print(response)
+        } failure: { error in
+            print(error.localizedDescription)
         }
     }
 }

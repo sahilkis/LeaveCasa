@@ -40,7 +40,6 @@
 		193E1EF223ACDDDC00DDA7C9 /* Bus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193E1EF123ACDDDC00DDA7C9 /* Bus.swift */; };
 		193E1EF523ACE4FF00DDA7C9 /* BusListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193E1EF423ACE4FF00DDA7C9 /* BusListViewController.swift */; };
 		193E1EF823ACE6DA00DDA7C9 /* BusListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193E1EF623ACE6DA00DDA7C9 /* BusListCell.swift */; };
-		1944949523DC61CD00AD8492 /* FacilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1944949423DC61CD00AD8492 /* FacilitiesViewController.swift */; };
 		19499D4523A7905D0025DB1F /* SearchFlightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19499D4423A7905D0025DB1F /* SearchFlightViewController.swift */; };
 		19499D4823A790770025DB1F /* SearchBusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19499D4723A790770025DB1F /* SearchBusViewController.swift */; };
 		19561F292338975500AA4FF3 /* ImagesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19561F272338975500AA4FF3 /* ImagesCell.swift */; };
@@ -136,7 +135,6 @@
 		193E1EF123ACDDDC00DDA7C9 /* Bus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bus.swift; sourceTree = "<group>"; };
 		193E1EF423ACE4FF00DDA7C9 /* BusListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusListViewController.swift; sourceTree = "<group>"; };
 		193E1EF623ACE6DA00DDA7C9 /* BusListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusListCell.swift; sourceTree = "<group>"; };
-		1944949423DC61CD00AD8492 /* FacilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacilitiesViewController.swift; sourceTree = "<group>"; };
 		19499D4423A7905D0025DB1F /* SearchFlightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFlightViewController.swift; sourceTree = "<group>"; };
 		19499D4723A790770025DB1F /* SearchBusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBusViewController.swift; sourceTree = "<group>"; };
 		19561F272338975500AA4FF3 /* ImagesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesCell.swift; sourceTree = "<group>"; };
@@ -289,7 +287,6 @@
 				408334D127EDCDBB0015F994 /* Buses View Controller */,
 				408334D227EDCDDB0015F994 /* Flight View Controller */,
 				408334D327EDCDF40015F994 /* Hotel View Controller */,
-				1944949323DC61B800AD8492 /* FacilitiesViewController */,
 				195C403B22FC0BFD0013A644 /* HomeViewController */,
 				18C8283B214FCF47007FC65A /* LoginViewController */,
 				195C403822FC09980013A644 /* MainViewController */,
@@ -463,14 +460,6 @@
 				193E1EF623ACE6DA00DDA7C9 /* BusListCell.swift */,
 			);
 			path = BusListViewController;
-			sourceTree = "<group>";
-		};
-		1944949323DC61B800AD8492 /* FacilitiesViewController */ = {
-			isa = PBXGroup;
-			children = (
-				1944949423DC61CD00AD8492 /* FacilitiesViewController.swift */,
-			);
-			path = FacilitiesViewController;
 			sourceTree = "<group>";
 		};
 		19499D4323A790430025DB1F /* SearchFlightViewController */ = {
@@ -937,7 +926,6 @@
 				195C403722FC09170013A644 /* SignupViewController.swift in Sources */,
 				18C8283D214FCF57007FC65A /* LoginViewController.swift in Sources */,
 				19561F292338975500AA4FF3 /* ImagesCell.swift in Sources */,
-				1944949523DC61CD00AD8492 /* FacilitiesViewController.swift in Sources */,
 				400DFE492787028A0030CE16 /* SearchRoomsCell.swift in Sources */,
 				193E1EF223ACDDDC00DDA7C9 /* Bus.swift in Sources */,
 				19499D4523A7905D0025DB1F /* SearchFlightViewController.swift in Sources */,

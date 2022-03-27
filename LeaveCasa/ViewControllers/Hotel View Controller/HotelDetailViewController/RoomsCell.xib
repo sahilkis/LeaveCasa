@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -24,7 +24,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="288" height="347"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8Xs-AG-unk">
-                                        <rect key="frame" x="0.0" y="8" width="288" height="173"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="288" height="173"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="8Xs-AG-unk" secondAttribute="height" multiplier="5:3" id="gbm-ZI-HSW"/>
                                         </constraints>
@@ -35,16 +35,16 @@
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6MX-EN-cSl">
-                                        <rect key="frame" x="8" y="189" width="272" height="105.5"/>
+                                        <rect key="frame" x="8" y="181" width="272" height="113.5"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" ambiguous="YES" text="City Castel" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hl9-Pl-fgZ">
-                                                <rect key="frame" x="0.0" y="8" width="83" height="22"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="City Castel" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hl9-Pl-fgZ">
+                                                <rect key="frame" x="0.0" y="2.5" width="83" height="22"/>
                                                 <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7rh-x2-svw" customClass="FloatRatingView" customModule="LeaveCasa" customModuleProvider="target">
-                                                <rect key="frame" x="172" y="37.5" width="100" height="18"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7rh-x2-svw" customClass="FloatRatingView" customModule="LeaveCasa" customModuleProvider="target">
+                                                <rect key="frame" x="172" y="40.5" width="100" height="18"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="100" id="2cV-6F-Luu"/>
@@ -63,40 +63,56 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1400" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AcV-ic-9NK">
-                                                <rect key="frame" x="234.5" y="8" width="37.5" height="22"/>
+                                                <rect key="frame" x="234.5" y="2.5" width="37.5" height="22"/>
                                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="16"/>
                                                 <color key="textColor" red="0.74509803919999995" green="0.76078431369999999" blue="0.80784313730000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Totla price for 1 night(s) and 2 day(s)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xpu-PR-jG4">
-                                                <rect key="frame" x="0.0" y="38" width="164" height="16.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Totla price for 1 night(s) and 2 day(s)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xpu-PR-jG4">
+                                                <rect key="frame" x="0.0" y="32.5" width="164" height="33"/>
                                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="12"/>
                                                 <color key="textColor" red="0.1176470588" green="0.14117647059999999" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t61-PZ-Q18">
-                                                <rect key="frame" x="137.5" y="74.5" width="134.5" height="31"/>
-                                                <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="More Information">
-                                                    <color key="baseForegroundColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </buttonConfiguration>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fqL-kM-q0C">
+                                                <rect key="frame" x="152" y="73.5" width="120" height="32"/>
+                                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
+                                                <state key="normal" title="Cancellation Policy">
+                                                    <color key="titleColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="14"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                                        <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                                        <real key="value" value="2"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                                        <real key="value" value="0.5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                                        <size key="value" width="2" height="2"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="t61-PZ-Q18" secondAttribute="trailing" id="1j8-kF-8El"/>
-                                            <constraint firstItem="t61-PZ-Q18" firstAttribute="top" secondItem="Xpu-PR-jG4" secondAttribute="bottom" constant="20" id="4Ng-jP-sVq"/>
                                             <constraint firstItem="AcV-ic-9NK" firstAttribute="top" secondItem="Hl9-Pl-fgZ" secondAttribute="top" id="4g8-81-R91"/>
                                             <constraint firstAttribute="trailing" secondItem="AcV-ic-9NK" secondAttribute="trailing" id="5hL-Ef-w2C"/>
-                                            <constraint firstItem="Hl9-Pl-fgZ" firstAttribute="top" secondItem="6MX-EN-cSl" secondAttribute="top" constant="8" id="Fr1-3Y-gK6"/>
                                             <constraint firstItem="Xpu-PR-jG4" firstAttribute="top" secondItem="Hl9-Pl-fgZ" secondAttribute="bottom" constant="8" id="FrV-x5-y9X"/>
                                             <constraint firstItem="7rh-x2-svw" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Xpu-PR-jG4" secondAttribute="trailing" constant="8" id="KyH-iR-Ygr"/>
-                                            <constraint firstAttribute="bottom" secondItem="t61-PZ-Q18" secondAttribute="bottom" id="NMw-bT-fM5"/>
+                                            <constraint firstItem="7rh-x2-svw" firstAttribute="top" secondItem="AcV-ic-9NK" secondAttribute="bottom" constant="16" id="TKt-t1-i7i"/>
                                             <constraint firstItem="AcV-ic-9NK" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Hl9-Pl-fgZ" secondAttribute="trailing" id="dHy-Rs-aAA"/>
+                                            <constraint firstAttribute="bottom" secondItem="fqL-kM-q0C" secondAttribute="bottom" constant="8" id="gS3-0B-aOb"/>
                                             <constraint firstAttribute="trailing" secondItem="7rh-x2-svw" secondAttribute="trailing" id="jWe-H9-cP0"/>
                                             <constraint firstItem="Hl9-Pl-fgZ" firstAttribute="leading" secondItem="6MX-EN-cSl" secondAttribute="leading" id="jcr-L1-Bn1"/>
+                                            <constraint firstAttribute="trailing" secondItem="fqL-kM-q0C" secondAttribute="trailing" id="kDA-2B-dVV"/>
+                                            <constraint firstItem="fqL-kM-q0C" firstAttribute="top" secondItem="Xpu-PR-jG4" secondAttribute="bottom" constant="8" id="krx-QF-7rS"/>
                                             <constraint firstItem="Xpu-PR-jG4" firstAttribute="leading" secondItem="6MX-EN-cSl" secondAttribute="leading" id="rWn-bf-NJi"/>
-                                            <constraint firstItem="7rh-x2-svw" firstAttribute="top" relation="greaterThanOrEqual" secondItem="AcV-ic-9NK" secondAttribute="bottom" id="y0h-Yd-BEH"/>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ujr-Fo-JSj">
@@ -140,7 +156,6 @@
                                     <constraint firstAttribute="trailing" secondItem="8Xs-AG-unk" secondAttribute="trailing" id="a8m-8i-vEV"/>
                                     <constraint firstItem="8Xs-AG-unk" firstAttribute="leading" secondItem="Vzg-t7-sf2" secondAttribute="leading" id="eLD-pe-lCa"/>
                                     <constraint firstAttribute="bottom" secondItem="Ujr-Fo-JSj" secondAttribute="bottom" constant="16" id="kcL-AK-tQP"/>
-                                    <constraint firstItem="8Xs-AG-unk" firstAttribute="top" secondItem="Vzg-t7-sf2" secondAttribute="top" constant="8" id="nm6-wo-xVY"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -182,6 +197,7 @@
             <color key="backgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <connections>
                 <outlet property="btnBookNow" destination="Ujr-Fo-JSj" id="gRS-CW-NHz"/>
+                <outlet property="btnCancellationPolicy" destination="fqL-kM-q0C" id="cLf-09-FPy"/>
                 <outlet property="img" destination="8Xs-AG-unk" id="T2q-NF-Q9Y"/>
                 <outlet property="lblMealType" destination="Xpu-PR-jG4" id="x0i-LB-pgN"/>
                 <outlet property="lblName" destination="Hl9-Pl-fgZ" id="gSO-G1-Lqu"/>

@@ -20,8 +20,6 @@ class SearchHotelViewController: UIViewController {
     var numberOfAdults = 1
     var numberOfChildren = 0
     var ageOfChildren: [Int] = []
-//    var numberOfAdults = [1]
-//    var numberOfChilds = [""]
     var isFromCheckin = true
     var checkinDate = Date()
     var checkoutDate = Date()
@@ -61,8 +59,7 @@ class SearchHotelViewController: UIViewController {
     }
     
     func setLeftbarButton() {
-        self.title = " "
-        let leftBarButton = UIBarButtonItem.init(image: #imageLiteral(resourceName: "ic_back"), style: .plain, target: self, action: #selector(backClicked(_:)))
+        let leftBarButton = UIBarButtonItem.init(image: LeaveCasaIcons.BLACK_BACK, style: .plain, target: self, action: #selector(backClicked(_:)))
         self.navigationItem.leftBarButtonItem = leftBarButton
     }
     
@@ -122,7 +119,9 @@ extension SearchHotelViewController {
             self.cityCode.removeAll()
         }
         
-        fetchCityList()
+        if !(sender.text?.isEmpty ?? true) {
+            fetchCityList()
+        }
     }
     
     @IBAction func roomPlusClicked(_ sender: UIButton) {
@@ -156,9 +155,6 @@ extension SearchHotelViewController {
 
             if value < 12 {
                 value += 1
-
-//                ageOfChildren.remove(at: sender.tag)
-//                ageOfChildren.insert("\(value)", at: sender.tag)
                 ageOfChildren[sender.tag] = value
                 
                 cell.lblChildCount.text = "\(value)"
@@ -187,10 +183,7 @@ extension SearchHotelViewController {
             numberOfChildren = numberOfChildren - 1
             lblChildren.text = "\(numberOfChildren)"
 
-//            numberOfAdults.removeLast()
-//            numberOfChilds.removeLast()
             ageOfChildren.removeLast()
-
             tableView.reloadData()
         }
     }
@@ -202,10 +195,7 @@ extension SearchHotelViewController {
             if value > 1 {
                 value -= 1
 
-//                ageOfChildren.remove(at: sender.tag)
-//                ageOfChildren.insert("\(value)", at: sender.tag)
                 ageOfChildren[sender.tag] = value
-                
                 cell.lblChildCount.text = "\(value)"
             }
         }
@@ -220,20 +210,6 @@ extension SearchHotelViewController {
             params[WSRequestParams.WS_REQS_PARAM_ADULTS] = numberOfAdults as AnyObject
             params[WSRequestParams.WS_REQS_PARAM_CHILDREN_AGES] = ageOfChildren as AnyObject
             self.finalRooms.append(params)
-            
-//            for i in 0..<numberOfRooms {
-//                if let cell = tableView.cellForRow(at: IndexPath(row: i, section: 0)) as? SearchRoomsCell {
-//                    let childCount = Int(cell.lblChildCount.text ?? "0") ?? 0
-//
-//                    params[WSRequestParams.WS_REQS_PARAM_ADULTS] = cell.lblAdultCount.text as AnyObject
-//
-//                    if childCount > 0 {
-//                        params[WSRequestParams.WS_REQS_PARAM_CHILDREN_AGES] = [] as AnyObject
-//                    }
-//
-//                    self.finalRooms.append(params)
-//                }
-//            }
             
             Helper.showLoader(onVC: self, message: Alert.LOADING)
             searchHotel()
@@ -256,20 +232,13 @@ extension SearchHotelViewController: UITableViewDataSource, UITableViewDelegate 
 
         let formatter = NumberFormatter()
         formatter.numberStyle = .spellOut
-//        let roomNumber = formatter.string(from: NSNumber(value: indexPath.row + 1))
 
-//        cell.lblRoomCount.text = "In room \(roomNumber ?? "")"
-//        cell.lblAdultCount.text = "\(numberOfAdults[indexPath.row])"
         cell.lblChildCount.text = "\(ageOfChildren[indexPath.row])"
         cell.labelTitle.text = "Age of Child \(indexPath.row + 1)"
 
-//        cell.btnPlusAdult.tag = indexPath.row
-//        cell.btnMinusAdult.tag = indexPath.row
         cell.btnPlusChild.tag = indexPath.row
         cell.btnMinusChild.tag = indexPath.row
 
-//        cell.btnPlusAdult.addTarget(self, action: #selector(adultPlusClicked(_:)), for: .touchUpInside)
-//        cell.btnMinusAdult.addTarget(self, action: #selector(adultMinusClicked(_:)), for: .touchUpInside)
         cell.btnPlusChild.addTarget(self, action: #selector(childAgePlusClicked(_:)), for: .touchUpInside)
         cell.btnMinusChild.addTarget(self, action: #selector(childAgeMinusClicked(_:)), for: .touchUpInside)
 
@@ -376,11 +345,12 @@ extension SearchHotelViewController {
                     vc.checkInDate = Helper.convertCheckinDate(self.txtCheckIn.text ?? "")
                     vc.checkIn = self.txtCheckIn.text ?? ""
                     vc.checkOut = self.txtCheckOut.text ?? ""
+                    vc.cityCodeStr = self.cityCodeStr
                     vc.finalRooms = self.finalRooms
                     vc.numberOfRooms = self.numberOfRooms
                     vc.numberOfAdults = self.numberOfAdults
                     vc.ageOfChildren = self.ageOfChildren
-                    
+                    vc.totalRequest = results[0].totalRequests
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
             }, failure: { (error) in

@@ -11,27 +11,19 @@ class HomeViewController: UIViewController {
             self.signupViewHeightConstraint.priority = .defaultLow
             self.signupViewHeightConstraint.constant = 0
         }
-
-        setLeftbarButton()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setClearNavigationBar()
+        setNavigationBar()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-       // setNavigationBar()
-    }
-    
-    func setClearNavigationBar() {
+    func setNavigationBar() {
         if #available(iOS 13.0, *) {
             let navBarAppearance = UINavigationBarAppearance()
             navBarAppearance.configureWithTransparentBackground()
-            navBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: LeaveCasaFonts.FONT_PROXIMA_NOVA_REGULAR_18 ?? UIFont.systemFont(ofSize: 18)]
-            navBarAppearance.backgroundColor = UIColor.clear
-            self.navigationController?.navigationBar.tintColor = UIColor.white
+            navBarAppearance.backgroundColor = LeaveCasaColors.NAVIGATION_COLOR
+            self.navigationController?.navigationBar.tintColor = UIColor.black
             self.navigationController?.navigationBar.standardAppearance = navBarAppearance
             self.navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
         }
@@ -40,27 +32,8 @@ class HomeViewController: UIViewController {
             navigationBar?.setBackgroundImage(UIImage(), for: .default)
             navigationBar?.shadowImage = UIImage()
             navigationBar?.isTranslucent = true
-            navigationBar?.backgroundColor = UIColor.clear
-            navigationBar?.tintColor = UIColor.white
-        }
-    }
-    
-    func setNavigationBar() {
-        if #available(iOS 13.0, *) {
-            let navBarAppearance = UINavigationBarAppearance()
-            navBarAppearance.configureWithOpaqueBackground()
-            navBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: LeaveCasaFonts.FONT_PROXIMA_NOVA_REGULAR_18 ?? UIFont.systemFont(ofSize: 18)]
-            navBarAppearance.backgroundColor = LeaveCasaColors.BLUE_COLOR
-            self.navigationController?.navigationBar.tintColor = UIColor.white
-            self.navigationController?.navigationBar.standardAppearance = navBarAppearance
-            self.navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
-        } else {
-            let navigationBar = self.navigationController?.navigationBar
-            navigationBar?.barTintColor = LeaveCasaColors.BLUE_COLOR
-            navigationBar?.shadowImage = UIImage()
-            navigationBar?.isTranslucent = false
-            navigationBar?.isOpaque = true
-            navigationBar?.tintColor = UIColor.white
+            navigationBar?.backgroundColor = LeaveCasaColors.NAVIGATION_COLOR
+            navigationBar?.tintColor = UIColor.black
         }
     }
 }

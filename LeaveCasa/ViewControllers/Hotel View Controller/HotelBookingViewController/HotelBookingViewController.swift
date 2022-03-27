@@ -334,20 +334,25 @@ extension HotelBookingViewController {
         if let address = hotelDetail?.sAddress {
             lblHotelAddress.text = address
         }
+        
         if let name = hotelDetail?.sName {
             lblHotelName.text = name
         }
+        
         if let rating = hotelDetail?.iCategory {
             hotelRatingView.rating = Double(rating)
         }
+        
         if let hotelDescription = hotelDetail?.sDescription {
             lblDescription.text = hotelDescription
         }
+        
         if let facilities = hotelDetail?.sFacilities {
             //            self.facilities = facilities.components(separatedBy: "; ")
             //            btnFacilities.setTitle("\(String(self.facilities.count)) Facilities", for: UIControl.State())
         }
-        if let minRate = hotelDetail?.iMinRate {
+        
+        if let minRate = hotelDetail?.rates {
             self.prices = minRate
             self.tableView.reloadData()
             
@@ -364,6 +369,7 @@ extension HotelBookingViewController {
                         }
                     }
                 }
+                
                 lblTotalPrice.text = "₹\(String(price))"
             }
         }

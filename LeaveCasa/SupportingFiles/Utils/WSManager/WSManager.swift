@@ -132,7 +132,7 @@ class WSManager {
     }
     
     // MARK: FETCH HOTEL DETAIL
-    class func wsCallFetchHotelDetail(_ requestParams: [String: AnyObject], success:@escaping (_ arrHomeData: HotelDetail)->(),failure:@escaping (NSError)->()) {
+    class func wsCallFetchHotelDetail(_ requestParams: [String: AnyObject], success:@escaping (_ arrHomeData: HotelDetail, _ searchId: String)->(),failure:@escaping (NSError)->()) {
         AF.request(WebService.hotelDetail, method: .post, parameters: requestParams, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: {(responseData) -> Void in
             print(responseData.result)
             switch responseData.result {
@@ -143,7 +143,7 @@ class WSManager {
                         if let response = responseValue[WSResponseParams.WS_RESP_PARAM_RESULTS] as? [String: Any] {
                             if let hotelCount = response[WSResponseParams.WS_RESP_PARAM_HOTEL] as? [String: Any] {
                                 if let hotels = Mapper<HotelDetail>().map(JSON: hotelCount) as HotelDetail? {
-                                    success(hotels)
+                                    success(hotels, response[WSResponseParams.WS_RESP_PARAM_SEARCH_ID] as? String ?? "")
                                 } else {
                                     failure(AppConstants.errSomethingWentWrong)
                                 }
@@ -168,6 +168,27 @@ class WSManager {
     // MARK: HOTEL IMAGES
     class func wsCallGetHotelImages(_ requestParams: String, success:@escaping (_ response: [[String: AnyObject]],_ message:String?)->(),failure:@escaping (NSError)->()) {
         AF.request(WebService.hotelImages + requestParams, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil).responseJSON(completionHandler: {(responseData) -> Void in
+            print(responseData.result)
+            switch responseData.result {
+            case .success(let value):
+                if let responseValue = value as? [String: AnyObject] {
+                    print(responseValue)
+                    if let results = responseValue[WSResponseParams.WS_RESP_PARAM_RESULTS] as? [String: AnyObject] {
+                        if let regular = results[WSResponseParams.WS_RESP_PARAM_REGULAR] as? [[String: AnyObject]] {
+                            success(regular, "")
+                        }
+                    }
+                } else {
+                    failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: responseData.error?.localizedDescription ?? ""]))
+                }
+            case .failure(let error):
+                failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: error.localizedDescription]))
+            }
+        })
+    }
+    
+    class func wsCallGetHotelCancellationPolicy(_ requestParams: [String: AnyObject], success:@escaping (_ response: [[String: AnyObject]],_ message:String?)->(),failure:@escaping (NSError)->()) {
+        AF.request(WebService.hotelCancellationPolicy, method: .post, parameters: requestParams, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: {(responseData) -> Void in
             print(responseData.result)
             switch responseData.result {
             case .success(let value):

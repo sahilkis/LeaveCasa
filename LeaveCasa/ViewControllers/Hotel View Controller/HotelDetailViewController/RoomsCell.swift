@@ -6,9 +6,9 @@ class RoomsCell: UITableViewCell {
     @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var lblPrice: UILabel!
     @IBOutlet weak var lblMealType: UILabel!
-    //@IBOutlet weak var lblRefundable: UILabel!
     @IBOutlet weak var btnBookNow: UIButton!
-
+    @IBOutlet weak var btnCancellationPolicy: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

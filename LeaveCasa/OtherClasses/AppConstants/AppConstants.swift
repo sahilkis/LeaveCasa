@@ -50,8 +50,9 @@ struct CellIds {
 // Color Constants
 struct LeaveCasaColors {
     static let BLUE_COLOR                   = UIColor.init(hex: "2CB7F2")
-    static let PINK_COLOR                   = UIColor.init(hex: "FF2D55")
     static let LIGHT_GRAY_COLOR             = UIColor.init(hex: "BEC2CE")
+    static let NAVIGATION_COLOR             = UIColor.init(hex: "F8F8F8")
+    static let PINK_COLOR                   = UIColor.init(hex: "FF2D55")
     static let VIEW_BG_COLOR                = UIColor.init(hex: "F1F2F6")
 }
 

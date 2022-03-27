@@ -12,6 +12,7 @@ class Results: Mappable, CustomStringConvertible {
         hotels <- map[WSResponseParams.WS_RESP_PARAM_HOTELS]
         numberOfHotels <- map[WSResponseParams.WS_RESP_PARAM_NUMBER_OF_HOTELS]
         searchId <- map[WSResponseParams.WS_RESP_PARAM_SEARCH_ID]
+        totalRequests <- map[WSResponseParams.WS_RESP_PARAM_TOTAL_NUM_OF_REQUEST]
     }
     
     var description: String {
@@ -34,6 +35,7 @@ class Results: Mappable, CustomStringConvertible {
     lazy var hotels = [Hotels]()
     lazy var numberOfHotels = Int()
     lazy var searchId = String()
+    lazy var totalRequests = String()
 }
 
 class Hotels: Mappable, CustomStringConvertible {
