@@ -13,7 +13,8 @@ class FlightListViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var collectionView: UICollectionView!
 
-    var results = [Results]()
+    //var results = [Results]()
+    var flights = [Flight]()
     var dates = [Date]()
     var selectedDate = 0
 
@@ -76,7 +77,7 @@ extension FlightListViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return results.count
+        return flights.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -88,7 +89,7 @@ extension FlightListViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let dict = results[indexPath.section]
+        let dict = flights[indexPath.section]
         
         if let vc = ViewControllerHelper.getViewController(ofType: .FlightDetailViewController) as? FlightDetailViewController {
             

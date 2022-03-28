@@ -18,4 +18,7 @@ struct AlertMessages {
     static let ACCEPT_TERMS                 = "To complete sign up, you must read and accept our Terms & Conditions"
     static let SELECT_CITY                  = "Please enter your destination city"
     static let SELECT_SOURCE_CITY           = "Please enter your leaving city"
+    static let SELECT_FROM_CITY             = "Please enter your source city"
+    static let SELECT_DEPARUTRE_DATE        = "Please enter your departure date"
+    static let SELECT_RETURNING_DATE        = "Please enter your returning date"
 }

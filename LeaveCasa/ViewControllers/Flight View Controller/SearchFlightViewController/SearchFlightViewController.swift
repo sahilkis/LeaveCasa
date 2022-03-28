@@ -10,8 +10,21 @@ import UIKit
 import SearchTextField
 import DropDown
 
-class SearchFlightViewController: UIViewController {
+struct FlightStruct {
+    var source = ""
+    var destination = ""
+    var sourceCode = ""
+    var destinationCode = ""
+    var from = ""
+    var to = ""
+    var fromDate = Date()
+    var toDate = Date()
+    var flightClass = "Economy"
+    var passengers = 1
+}
 
+class SearchFlightViewController: UIViewController {
+    
     @IBOutlet weak var btnOneWay: UIButton!
     @IBOutlet weak var underlineOneWay: UIView!
     @IBOutlet weak var btnRoundTrip: UIButton!
@@ -26,9 +39,8 @@ class SearchFlightViewController: UIViewController {
     
     lazy var cityCode = [String]()
     lazy var cityName = [String]()
-    lazy var cityCodeStr = ""
     var selectedTab = 0 // 0 - One way, 1 - Round Trip, 2 - mutli city
-    var array = [["Source": "New Delhi", "Destination": "Chandigarh" ,"From": "", "To" : "", "Class": "Economy", "Passengers": "1"]]
+    var array = [FlightStruct()]
     var selectedIndex = 0 // selected cell in the array
     var numberOfRows = 1
     var numberOfAdults = 1
@@ -40,7 +52,7 @@ class SearchFlightViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         setUpTab()
         setLeftbarButton()
@@ -60,7 +72,7 @@ class SearchFlightViewController: UIViewController {
         let selectedColor = LeaveCasaColors.PINK_COLOR
         let unselectedColor = LeaveCasaColors.LIGHT_GRAY_COLOR
         let clearColor = UIColor.clear
-
+        
         switch selectedTab
         {
         case 0:
@@ -94,7 +106,7 @@ class SearchFlightViewController: UIViewController {
             
             btnMultiCity.setTitleColor(selectedColor, for: .normal)
             underlineMultiCity.backgroundColor = selectedColor
-           break
+            break
         default: break
             
         }
@@ -112,8 +124,10 @@ class SearchFlightViewController: UIViewController {
     func setDates() {
         checkinDate = Date()
         checkoutDate = Calendar.current.date(byAdding: .day, value: 1, to: Date()) ?? Date()
-        array[selectedIndex]["From"] = Helper.setCheckInDate()
-        array[selectedIndex]["To"] = Helper.setCheckOutDate()
+        array[selectedIndex].fromDate = checkinDate
+        array[selectedIndex].toDate = checkoutDate
+        array[selectedIndex].from = Helper.setCheckInDate()
+        array[selectedIndex].to = Helper.setCheckOutDate()
     }
     
     func openDateCalendar() {
@@ -134,45 +148,48 @@ class SearchFlightViewController: UIViewController {
         }
     }
     
-    func setupSearchTextField(_ searchedCities: [String], textField: SearchTextField) {
+    func setupSearchTextField(_ searchedCities: [String], _ searchedCodes: [String], textField: SearchTextField) {
         DispatchQueue.main.async {
-           
-        let row = textField.tag
-        
+            var cities = [String]()
+            
+            let row = textField.tag
+            
             let cell = self.tableView.cellForRow(at: IndexPath(row: row, section: 0)) as! SearchFlightCell
-        
-        if textField == cell.txtSource {
-        
-            cell.txtSource.theme = SearchTextFieldTheme.lightTheme()
-            cell.txtSource.theme.font = LeaveCasaFonts.FONT_PROXIMA_NOVA_REGULAR_12 ?? UIFont.systemFont(ofSize: 12)
-            cell.txtSource.theme.bgColor = UIColor.white
-            cell.txtSource.theme.fontColor = UIColor.black
-            cell.txtSource.theme.cellHeight = 40
-            cell.txtSource.filterStrings(searchedCities)
-            cell.txtSource.itemSelectionHandler = { filteredResults, itemPosition in
-                let item = filteredResults[itemPosition]
             
-                self.array[row]["Source"] = item.title
-                self.cityCodeStr = self.cityCode[itemPosition]
-                cell.txtSource.resignFirstResponder()
+            for i in 0..<searchedCities.count {
+                cities.append("\(searchedCities[i]) - \(searchedCodes[i].uppercased())")
             }
-        } else if textField == cell.txtDestination {
             
-            cell.txtDestination.theme = SearchTextFieldTheme.lightTheme()
-            cell.txtDestination.theme.font = LeaveCasaFonts.FONT_PROXIMA_NOVA_REGULAR_12 ?? UIFont.systemFont(ofSize: 12)
-            cell.txtDestination.theme.bgColor = UIColor.white
-            cell.txtDestination.theme.fontColor = UIColor.black
-            cell.txtDestination.theme.cellHeight = 40
-            cell.txtDestination.filterStrings(searchedCities)
-            cell.txtDestination.itemSelectionHandler = { filteredResults, itemPosition in
-                let item = filteredResults[itemPosition]
+            if textField == cell.txtSource {
                 
-                self.array[row]["Destination"] = item.title
-                self.cityCodeStr = self.cityCode[itemPosition]
-                cell.txtDestination.resignFirstResponder()
-
+                cell.txtSource.theme = SearchTextFieldTheme.lightTheme()
+                cell.txtSource.theme.font = LeaveCasaFonts.FONT_PROXIMA_NOVA_REGULAR_12 ?? UIFont.systemFont(ofSize: 12)
+                cell.txtSource.theme.bgColor = UIColor.white
+                cell.txtSource.theme.fontColor = UIColor.black
+                cell.txtSource.theme.cellHeight = 40
+                cell.txtSource.filterStrings(cities)
+                cell.txtSource.itemSelectionHandler = { filteredResults, itemPosition in
+                    self.array[row].source = self.cityName[itemPosition]
+                    self.array[row].sourceCode = self.cityCode[itemPosition]
+                    cell.txtSource.resignFirstResponder()
+                    self.tableView.reloadData()
+                }
+            } else if textField == cell.txtDestination {
+                
+                cell.txtDestination.theme = SearchTextFieldTheme.lightTheme()
+                cell.txtDestination.theme.font = LeaveCasaFonts.FONT_PROXIMA_NOVA_REGULAR_12 ?? UIFont.systemFont(ofSize: 12)
+                cell.txtDestination.theme.bgColor = UIColor.white
+                cell.txtDestination.theme.fontColor = UIColor.black
+                cell.txtDestination.theme.cellHeight = 40
+                cell.txtDestination.filterStrings(cities)
+                cell.txtDestination.itemSelectionHandler = { filteredResults, itemPosition in
+                    
+                    self.array[row].destination = self.cityName[itemPosition]
+                    self.array[row].destinationCode = self.cityCode[itemPosition]
+                    cell.txtDestination.resignFirstResponder()
+                    self.tableView.reloadData()
+                }
             }
-        }
         }
     }
     
@@ -192,16 +209,28 @@ class SearchFlightViewController: UIViewController {
     }
     
     @IBAction func btnSearchAction(_ sender: UIButton) {
-//        if txtCity.text?.isEmpty ?? true || cityCodeStr.isEmpty {
-//            Helper.showOKAlert(onVC: self, title: Alert.ALERT, message: AlertMessages.SELECT_CITY)
-//        } else {
-//        }
+         var alertMessage = ""
         
-        if let vc = ViewControllerHelper.getViewController(ofType: .FlightListViewController) as? FlightListViewController {
-            
-            vc.results = [Results(), Results(), Results()]
-            
-            self.navigationController?.pushViewController(vc, animated: true)
+        for item in array {
+            if item.source.isEmpty || item.sourceCode.isEmpty {
+                alertMessage = AlertMessages.SELECT_FROM_CITY
+                break
+            } else if item.destination.isEmpty || item.destinationCode.isEmpty {
+                alertMessage = AlertMessages.SELECT_CITY
+                break
+            } else if item.from.isEmpty {
+                alertMessage = AlertMessages.SELECT_DEPARUTRE_DATE
+                break
+            } else if item.to.isEmpty {
+                alertMessage = AlertMessages.SELECT_RETURNING_DATE
+                break
+            }
+        }
+        
+        if !alertMessage.isEmpty {
+            Helper.showOKAlert(onVC: self, title: Alert.ALERT, message: alertMessage)
+        } else {
+            searchFlight()
         }
     }
     
@@ -215,15 +244,16 @@ class SearchFlightViewController: UIViewController {
     
     @objc func btnAddCityClicked(_ sender: UIButton) {
         let index = sender.tag
-        var obj = ["Source": "", "Destination": "" ,"From": "", "To" : "", "Class": "Economy", "Passengers": "1"]
+        var obj = FlightStruct()
         
-        if let lastDestination = array[index]["Destination"], let lastClass = array[index]["Class"], let lastPassengers = array[index]["Passengers"], let lastTo = array[index]["To"] {
-            obj["Source"] = lastDestination
-            obj["Class"] = lastClass
-            obj["Passengers"] = lastPassengers
-            obj["From"] = lastTo
-        }
-        
+       let last = array[index]
+            
+            obj.source = last.destination
+            obj.sourceCode = last.destinationCode
+            obj.passengers = last.passengers
+            obj.from = last.to
+            obj.fromDate = last.toDate
+
         array.append(obj) // add new city
         tableView.reloadData()
     }
@@ -234,28 +264,28 @@ class SearchFlightViewController: UIViewController {
             lblInfants.text = "\(numberOfInfants)"
         }
     }
-
+    
     @IBAction func adultPlusClicked(_ sender: UIButton) {
         if numberOfAdults >= 1 {
             numberOfAdults = numberOfAdults + 1
             lblAdults.text = "\(numberOfAdults)"
         }
     }
-
+    
     @IBAction func childPlusClicked(_ sender: UIButton) {
         if numberOfChildren >= 0 {
             numberOfChildren = numberOfChildren + 1
             lblChildren.text = "\(numberOfChildren)"
         }
     }
-
+    
     @IBAction func infantMinusClicked(_ sender: UIButton) {
         if numberOfInfants > 0 {
             numberOfInfants = numberOfInfants - 1
             lblInfants.text = "\(numberOfInfants)"
         }
     }
-
+    
     @IBAction func adultMinusClicked(_ sender: UIButton) {
         if numberOfAdults > 1 {
             numberOfAdults = numberOfAdults - 1
@@ -320,12 +350,16 @@ extension SearchFlightViewController: WWCalendarTimeSelectorProtocol {
         if isFromCheckin {
             checkinDate = date
             checkoutDate = Calendar.current.date(byAdding: .day, value: 1, to: date) ?? Date()
-            array[selectedIndex]["From"] = Helper.convertDate(date)
-            array[selectedIndex]["To"] = Helper.nextCheckOutDate(date)
+            array[selectedIndex].fromDate = checkinDate
+            array[selectedIndex].toDate = checkoutDate
+            array[selectedIndex].from = Helper.convertDate(date)
+            array[selectedIndex].to = Helper.nextCheckOutDate(date)
             
         } else {
             checkoutDate = date
-            array[selectedIndex]["To"] = Helper.convertDate(date)
+            array[selectedIndex].toDate = checkoutDate
+            array[selectedIndex].to = Helper.convertDate(date)
+                        
         }
         
         setUpTable()
@@ -356,7 +390,7 @@ extension SearchFlightViewController: UITableViewDataSource, UITableViewDelegate
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CellIds.SearchFlightCell, for: indexPath) as! SearchFlightCell
         let row = indexPath.row
-        
+        let items = array[row]
         cell.setUpIndex(indexpath: indexPath)
         cell.setUpUI(indexpath: indexPath, selectedTab: selectedTab, isLast: array.count == row + 1)
         
@@ -365,20 +399,19 @@ extension SearchFlightViewController: UITableViewDataSource, UITableViewDelegate
         cell.txtFrom.delegate = self
         cell.txtTo.delegate = self
         cell.txtClass.delegate = self
-
+        
         cell.btnClose.addTarget(self, action: #selector(btnCloseClicked(_:)), for: .touchUpInside)
         cell.btnAddCity.addTarget(self, action: #selector(btnAddCityClicked(_:)), for: .touchUpInside)
         cell.txtSource.addTarget(self, action: #selector(searchCity(_:)), for: .editingChanged)
         cell.txtDestination.addTarget(self, action: #selector(searchCity(_:)), for: .editingChanged)
-
-        if let source = array[row]["Source"], let destination = array[row]["Destination"], let flightClass = array[row]["Class"], let passengers = array[row]["Passengers"], let from = array[row]["From"] , let to = array[row]["To"] {
-            cell.txtSource.text = source
-            cell.txtDestination.text = destination
-            cell.txtFrom.text = from
-            cell.txtTo.text = to
-            cell.txtClass.text = "\(passengers), \(flightClass)"
-        }
-
+        
+        cell.txtSource.text = items.source
+        cell.txtDestination.text = items.destination
+        cell.txtFrom.text = items.from
+        cell.txtTo.text = items.to
+        cell.txtClass.text = "\(items.passengers), \(items.flightClass)"
+        
+        
         return cell
     }
     
@@ -399,7 +432,7 @@ extension SearchFlightViewController: UITableViewDataSource, UITableViewDelegate
 extension SearchFlightViewController {
     func fetchCityList(_ sender: SearchTextField) {
         if WSManager.isConnectedToInternet() {
-            WSManager.wsCallGetCityCodes(sender.text ?? "", success: { (response, message) in
+            WSManager.wsCallGetCityAirportCodes(sender.text ?? "", success: { (response, message) in
                 if self.cityName.count > 0 {
                     self.cityName.removeAll()
                 }
@@ -408,10 +441,10 @@ extension SearchFlightViewController {
                 }
                 for i in 0..<response.count {
                     let dict = response[i]
-                    self.cityName.append(dict[WSRequestParams.WS_REQS_PARAM_NAME] as? String ?? "")
-                    self.cityCode.append(dict[WSResponseParams.WS_RESP_PARAM_CODE] as? String ?? "")
+                    self.cityName.append(dict[WSResponseParams.WS_RESP_PARAM_CITY_NAME] as? String ?? "")
+                    self.cityCode.append(dict[WSResponseParams.WS_RESP_PARAM_CITY_CODE] as? String ?? "")
                 }
-                self.setupSearchTextField(self.cityName, textField: sender)
+                self.setupSearchTextField(self.cityName, self.cityCode , textField: sender)
             }, failure: { (error) in
                 Helper.showOKAlert(onVC: self, title: Alert.ERROR, message: error.localizedDescription)
             })
@@ -421,5 +454,62 @@ extension SearchFlightViewController {
             })
         }
     }
-    
+
+    func searchFlight() {
+        if WSManager.isConnectedToInternet() {
+            var params: [String: AnyObject] = [:]
+             
+            for obj in array {
+               // var param: [String: AnyObject] = [:]
+
+                params = [WSRequestParams.WS_REQS_PARAM_CURRENT_REQUEST: 0 as AnyObject,
+                          WSRequestParams.WS_REQS_PARAM_ADULT: numberOfAdults as AnyObject,
+                          WSRequestParams.WS_REQS_PARAM_CHILD: numberOfChildren as AnyObject,
+                          WSRequestParams.WS_REQS_PARAM_INFANTS: numberOfInfants as AnyObject,
+                          WSRequestParams.WS_REQS_PARAM_FROM: obj.sourceCode as AnyObject,
+                          WSRequestParams.WS_REQS_PARAM_TO: obj.destinationCode as AnyObject,
+                          WSRequestParams.WS_REQS_PARAM_DEPART: obj.from as AnyObject
+                ]
+                
+                if selectedTab == 0 {
+                    params[WSRequestParams.WS_REQS_PARAM_TRIP_TYPE] = "one_way" as AnyObject
+                } else if selectedTab == 1 {
+                    params[WSRequestParams.WS_REQS_PARAM_TRIP_TYPE] = "round" as AnyObject
+                    params[WSRequestParams.WS_REQS_PARAM_RETURNING] = obj.to as AnyObject
+                }
+                
+               // params.append(param)
+            }
+            
+            WSManager.wsCallFetchFlights(params, success: { (results) in
+                Helper.hideLoader(onVC: self)
+                if let vc = ViewControllerHelper.getViewController(ofType: .FlightListViewController) as? FlightListViewController {
+                    vc.flights = results
+//                    vc.results = results
+//                    vc.markups = markup
+//                    vc.hotelCount = "\(results.reduce(0) {$0 + $1.numberOfHotels })"
+//                    vc.logId = logId
+//                    vc.checkInDate = Helper.convertCheckinDate(self.txtCheckIn.text ?? "")
+//                    vc.checkIn = self.txtCheckIn.text ?? ""
+//                    vc.checkOut = self.txtCheckOut.text ?? ""
+//                    vc.cityCodeStr = self.cityCodeStr
+//                    vc.finalRooms = self.finalRooms
+//                    vc.numberOfRooms = self.numberOfRooms
+//                    vc.numberOfAdults = self.numberOfAdults
+//                    vc.ageOfChildren = self.ageOfChildren
+//                    vc.totalRequest = results[0].totalRequests
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            }, failure: { (error) in
+                Helper.hideLoader(onVC: self)
+                Helper.showOKAlert(onVC: self, title: Alert.ERROR, message: error.localizedDescription)
+            })
+        } else {
+            Helper.hideLoader(onVC: self)
+            Helper.showOKCancelAlertWithCompletion(onVC: self, title: Alert.NO_INTERNET, message: AlertMessages.NO_INTERNET_CONNECTION, btnOkTitle: Alert.TRY_AGAIN, btnCancelTitle: Alert.CANCEL, onOk: {
+                Helper.showLoader(onVC: self, message: Alert.LOADING)
+                self.searchFlight()
+            })
+        }
+    }
 }

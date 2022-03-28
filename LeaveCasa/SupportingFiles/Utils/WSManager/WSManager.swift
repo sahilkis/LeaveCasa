@@ -210,7 +210,61 @@ class WSManager {
     
     // MARK: - FLIGHTS
     
+    // MARK: SEARCH CITY AIRPORT CODES
+    class func wsCallGetCityAirportCodes(_ requestParams: String, success:@escaping (_ response: [[String: AnyObject]],_ message:String?)->(),failure:@escaping (NSError)->()) {
+        AF.request(WebService.airportCityCode + requestParams, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil).responseJSON(completionHandler: {(responseData) -> Void in
+            print(responseData.result)
+            switch responseData.result {
+            case .success(let value):
+                if let response = value as? [String: AnyObject], let responseValue = response["codes"] as? [[String: AnyObject]] {
+                    success(responseValue, "")
+                } else {
+                    failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: responseData.error?.localizedDescription ?? ""]))
+                }
+            case .failure(let error):
+                failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: error.localizedDescription]))
+            }
+        })
+    }
     
+    // MARK: FETCH FLIGHTS
+    class func wsCallFetchFlights(_ requestParams: [String: AnyObject], success:@escaping (_ arrHomeData: [Flight])->(),failure:@escaping (NSError)->()) {
+        AF.request(WebService.flightSearch, method: .post, parameters: requestParams, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: {(responseData) -> Void in
+            print(responseData.result)
+            switch responseData.result {
+            case .success(let value):
+                if let responseValue = value as? [String: AnyObject] {
+                    print(responseValue)
+                    if let responseDict = responseValue[WSResponseParams.WS_RESP_PARAM_RESPONSE_CAP] as? [String:AnyObject] {
+                        if let results = responseDict[WSResponseParams.WS_RESP_PARAM_RESULTS_CAP] as? [AnyObject] {
+                            var flights = [[String: AnyObject]]()
+                            
+                            for result in results {
+                                if let flight = result as? [[String: AnyObject]] {
+                                    flights = flight
+                                }
+                            }
+                            
+                            if let results = Mapper<Flight>().mapArray(JSONArray: flights) as [Flight]? {
+                                success(results)
+                            }
+                        } else {
+                            failure(AppConstants.errSomethingWentWrong)
+                        }
+
+                    } else {
+                        if let message = responseValue[WSResponseParams.WS_RESP_PARAM_MESSAGE] as? String {
+                            failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: message]))
+                        }
+                    }
+                } else {
+                    failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: responseData.error?.localizedDescription ?? ""]))
+                }
+            case .failure(let error):
+                failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: error.localizedDescription]))
+            }
+        })
+    }
     // MARK: - BUS
     // MARK: SEARCH SOURCE CITY CODES
     class func wsCallGetBusSourceCityCodes(success:@escaping (_ response: [[String: AnyObject]],_ message:String?)->(),failure:@escaping (NSError)->()) {
