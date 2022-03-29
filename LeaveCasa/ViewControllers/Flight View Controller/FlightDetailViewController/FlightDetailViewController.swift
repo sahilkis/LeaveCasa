@@ -17,7 +17,11 @@ class FlightDetailViewController: UIViewController {
     @IBOutlet weak var lblFlightType: UILabel!
     
     var jsonResponse = [[String: AnyObject]]()
+    var flights = Flight()
+
     var numberOfAdults = 1
+    var numberOfChildren = 0
+    var numberOfInfants = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,7 +60,14 @@ class FlightDetailViewController: UIViewController {
     }
     
     
-    private func setupData() {}
+    private func setupData() {
+        self.lblFlightImage.image = UIImage()
+        self.lblFlightName.text = "\(flights.sSourceCode.uppercased()) - \(flights.sDestinationCode.uppercased())"
+        self.lblFlightTime.text = Helper.convertStoredDate(flights.sStartTime, "E, MMM d, yyyy")
+        self.lblFlightType.text = "\(numberOfAdults + numberOfChildren + numberOfInfants) passengers"
+        self.tableView.reloadData()
+        
+    }
     
 }
 
@@ -83,14 +94,30 @@ extension FlightDetailViewController: UITableViewDataSource, UITableViewDelegate
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-        return 1//self.jsonResponse.count
+        return self.flights.sSegments.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CellIds.FlightDetailCell, for: indexPath) as! FlightDetailCell
 
-       // let dict = jsonResponse[indexPath.row]
+        let item = self.flights.sSegments[indexPath.row]
 
+        cell.lblTitle.text = "Flight \(indexPath.row + 1)"
+        cell.lblSource.text = item.sOriginAirport.sCityName
+        cell.lblSourceCode.text = item.sOriginAirport.sCityCode
+        cell.lblDestination.text = item.sDestinationAirport.sCityName
+        cell.lblDestinationCode.text = item.sDestinationAirport.sCityCode
+
+        cell.lblStartDate.text = Helper.convertStoredDate(item.sOriginDeptTime, "E, MMM d, yyyy")
+        cell.lblStartTime.text = Helper.convertStoredDate(item.sOriginDeptTime, "HH:mm a")
+        cell.lblEndDate.text = Helper.convertStoredDate(item.sDestinationArrvTime, "E, MMM d, yyyy")
+        cell.lblEndTime.text = Helper.convertStoredDate(item.sDestinationArrvTime, "HH:mm a")
+
+        cell.lblDuration.text = Helper.getDuration(minutes: item.sDuration)
+        
+        cell.lblFlightNo.text = item.sAirline.sFlightNumber
+        cell.lblTerminal.text = item.sOriginAirport.sTerminal
+        
         return cell
     }
 }

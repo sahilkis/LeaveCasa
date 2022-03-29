@@ -1530,13 +1530,13 @@
                                                                                     <rect key="frame" x="78.333333333333343" y="0.0" width="70.333333333333343" height="50"/>
                                                                                     <subviews>
                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Terminals" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eSz-wR-AJx">
-                                                                                            <rect key="frame" x="0.0" y="0.0" width="70.333333333333329" height="20.666666666666668"/>
+                                                                                            <rect key="frame" x="0.0" y="0.0" width="70.333333333333329" height="21.333333333333332"/>
                                                                                             <fontDescription key="fontDescription" name="AvenirNext-UltraLight" family="Avenir Next" pointSize="15"/>
                                                                                             <color key="textColor" red="0.74509803919999995" green="0.76078431369999999" blue="0.80784313730000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                             <nil key="highlightedColor"/>
                                                                                         </label>
                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fgM-nd-yvU">
-                                                                                            <rect key="frame" x="0.0" y="28.666666666666686" width="70.333333333333329" height="21.333333333333329"/>
+                                                                                            <rect key="frame" x="0.0" y="29.333333333333343" width="70.333333333333329" height="20.666666666666671"/>
                                                                                             <fontDescription key="fontDescription" name="AvenirNext-UltraLight" family="Avenir Next" pointSize="15"/>
                                                                                             <color key="textColor" red="0.74509803919999995" green="0.76078431369999999" blue="0.80784313730000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                             <nil key="highlightedColor"/>
@@ -1690,6 +1690,22 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="lblDestination" destination="v75-dg-cVw" id="WLq-Fj-K0h"/>
+                                            <outlet property="lblDestinationCode" destination="HaJ-CB-4g6" id="Zmb-HZ-pqc"/>
+                                            <outlet property="lblDuration" destination="zRb-WA-nBA" id="cwn-NT-1qQ"/>
+                                            <outlet property="lblEndDate" destination="XHl-9I-WHk" id="Jhx-WI-fIK"/>
+                                            <outlet property="lblEndTime" destination="7TW-cq-HFV" id="47N-ID-Rxk"/>
+                                            <outlet property="lblFlightNo" destination="fJX-AY-uqe" id="5ZP-Zo-r3B"/>
+                                            <outlet property="lblGate" destination="8Ge-lq-IPN" id="P52-fM-qZ2"/>
+                                            <outlet property="lblSeats" destination="rP0-XU-2gM" id="8Ap-iL-js5"/>
+                                            <outlet property="lblSource" destination="b0W-3K-ph0" id="dsh-bf-GVy"/>
+                                            <outlet property="lblSourceCode" destination="RpJ-9q-58q" id="5js-Rr-DSe"/>
+                                            <outlet property="lblStartDate" destination="8AE-0O-vKM" id="1Pk-hQ-Y9t"/>
+                                            <outlet property="lblStartTime" destination="E1v-Zh-qtZ" id="jpW-hp-s3j"/>
+                                            <outlet property="lblTerminal" destination="fgM-nd-yvU" id="3MB-km-kjf"/>
+                                            <outlet property="lblTitle" destination="Lqb-3c-H38" id="2Fm-se-TW0"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>

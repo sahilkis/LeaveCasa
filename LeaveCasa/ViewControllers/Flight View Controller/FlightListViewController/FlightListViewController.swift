@@ -9,17 +9,20 @@
 import UIKit
 
 class FlightListViewController: UIViewController {
-
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var collectionView: UICollectionView!
-
+    
     //var results = [Results]()
     var flights = [Flight]()
     var startDate = Date()
     var dates = [Date]()
     var selectedDate = 0
     var searchParams: [String: AnyObject] = [:]
-
+    var numberOfAdults = 1
+    var numberOfChildren = 0
+    var numberOfInfants = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -84,16 +87,15 @@ extension FlightListViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CellIds.FlightListCell, for: indexPath) as! FlightListCell
-
+        
         let flight = flights[indexPath.row]
         
         cell.lblStartTime.text = Helper.convertStoredDate(flight.sStartTime, "HH:mm a")
         cell.lblEndTime.text = Helper.convertStoredDate(flight.sEndTime, "HH:mm a")
-        cell.lblSource.text = flight.sSourceCode.capitalized
-        cell.lblDestination.text = flight.sDestinationCode.capitalized
+        cell.lblSource.text = "\(flight.sSourceCode.uppercased()), \(Helper.convertStoredDate(flight.sStartTime, "E").uppercased())"
+        cell.lblDestination.text = "\(flight.sDestinationCode.uppercased()), \(Helper.convertStoredDate(flight.sEndTime, "E").uppercased())"
         cell.lblPrice.text = "₹ \(flight.sPrice)"
-        cell.lblDuration.text = Helper.getDuration(minutes: flight.sDuration)
-        cell.lblDestination.text = flight.sDestinationCode
+        cell.lblDuration.text = Helper.getDuration(minutes: flight.sAccDuration)
         cell.lblRoute.text = flight.sStopsCount == 0 ? "Non-stop" : "\(flight.sStopsCount) stop(s)"
         cell.lblAirline.text = flight.sAirlineName
         
@@ -113,10 +115,10 @@ extension FlightListViewController: UITableViewDataSource, UITableViewDelegate {
         
         if let startTime = Helper.getStoredDate(flight.sStartTime) {
             let components = Calendar.current.dateComponents([ .hour, .minute], from: Date(), to: startTime)
-
+            
             let hour = components.hour ?? 0
             let minute = components.minute ?? 0
-
+            
             if hour < 5 && hour > 0 {
                 cell.lblFLightInfo.text = "< \(hour) hours"
             } else if hour < 5 && minute > 0 {
@@ -131,6 +133,10 @@ extension FlightListViewController: UITableViewDataSource, UITableViewDelegate {
         let dict = flights[indexPath.section]
         
         if let vc = ViewControllerHelper.getViewController(ofType: .FlightDetailViewController) as? FlightDetailViewController {
+            vc.flights = dict
+            vc.numberOfChildren = self.numberOfChildren
+            vc.numberOfAdults = self.numberOfAdults
+            vc.numberOfInfants = self.numberOfInfants
             
             self.navigationController?.pushViewController(vc, animated: true)
         }
@@ -186,27 +192,27 @@ extension FlightListViewController {
             params[WSRequestParams.WS_REQS_PARAM_DEPART] = Helper.convertDate(date) as AnyObject
             
             DispatchQueue.main.async {
-                       
-            Helper.showLoader(onVC: self, message: Alert.LOADING)
-            WSManager.wsCallFetchFlights(params, success: { (results) in
-                Helper.hideLoader(onVC: self)
-                self.flights = results
-                self.selectedDate = index
-                self.startDate = date
-
-                self.collectionView.reloadData()
-                self.tableView.reloadData()
-                                    
-            }, failure: { (error) in
-                Helper.hideLoader(onVC: self)
-                Helper.showOKAlert(onVC: self, title: Alert.ERROR, message: error.localizedDescription)
-            })
+                
+                Helper.showLoader(onVC: self, message: Alert.LOADING)
+                WSManager.wsCallFetchFlights(params, success: { (results) in
+                    Helper.hideLoader(onVC: self)
+                    self.flights = results
+                    self.selectedDate = index
+                    self.startDate = date
+                    
+                    self.collectionView.reloadData()
+                    self.tableView.reloadData()
+                    
+                }, failure: { (error) in
+                    Helper.hideLoader(onVC: self)
+                    Helper.showOKAlert(onVC: self, title: Alert.ERROR, message: error.localizedDescription)
+                })
             }
         } else {
             Helper.hideLoader(onVC: self)
             Helper.showOKCancelAlertWithCompletion(onVC: self, title: Alert.NO_INTERNET, message: AlertMessages.NO_INTERNET_CONNECTION, btnOkTitle: Alert.TRY_AGAIN, btnCancelTitle: Alert.CANCEL, onOk: {
                 Helper.showLoader(onVC: self, message: Alert.LOADING)
-               // self.searchFlight()
+                // self.searchFlight()
             })
         }
     }

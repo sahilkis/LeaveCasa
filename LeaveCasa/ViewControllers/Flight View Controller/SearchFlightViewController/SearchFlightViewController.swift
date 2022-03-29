@@ -522,10 +522,10 @@ extension SearchFlightViewController {
 //                    vc.checkOut = self.txtCheckOut.text ?? ""
 //                    vc.cityCodeStr = self.cityCodeStr
 //                    vc.finalRooms = self.finalRooms
-//                    vc.numberOfRooms = self.numberOfRooms
-//                    vc.numberOfAdults = self.numberOfAdults
-//                    vc.ageOfChildren = self.ageOfChildren
-//                    vc.totalRequest = results[0].totalRequests
+                    //                    vc.totalRequest = results[0].totalRequests
+                    vc.numberOfChildren = self.numberOfChildren
+                    vc.numberOfAdults = self.numberOfAdults
+                    vc.numberOfInfants = self.numberOfInfants
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
             }, failure: { (error) in

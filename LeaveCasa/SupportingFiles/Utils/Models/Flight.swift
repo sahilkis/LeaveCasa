@@ -41,13 +41,14 @@ class Flight: Mappable, CustomStringConvertible {
             sSourceCode = firstSeg.sOriginAirport.sCityCode
             sAirlineName = firstSeg.sAirline.sAirlineName
             sStartTime = firstSeg.sOriginDeptTime
+            sDuration = firstSeg.sDuration
             sStopsCount = sSegments.count - 1
             
             if let secondSeg = sSegments.last {
                 sEndTime = secondSeg.sDestinationArrvTime
                 sDestination = secondSeg.sDestinationAirport.sCityName
                 sDestinationCode = secondSeg.sDestinationAirport.sCityCode
-                sDuration = secondSeg.sDuration
+                sAccDuration = secondSeg.sDuration
 
             }
         }
@@ -89,6 +90,7 @@ class Flight: Mappable, CustomStringConvertible {
     lazy var sStartTime = String()
     lazy var sEndTime = String()
     lazy var sDuration = Int()
+    lazy var sAccDuration = Int()
     lazy var sPrice = Int()
     lazy var sCurrency = Int()
     lazy var sType = [String: AnyObject]()
@@ -134,6 +136,7 @@ class FlightSegment: Mappable, CustomStringConvertible {
         
         sAirline <- map[WSResponseParams.WS_RESP_PARAM_AIRLINE]
         sDuration <- map[WSResponseParams.WS_RESP_PARAM_DURATION]
+        sAccDuration <- map[WSResponseParams.WS_RESP_PARAM_DURATION_ACCUM]
         sNumberOfSeats <- map[WSResponseParams.WS_RESP_PARAM_NUMBER_OF_SEATS]
     }
     
@@ -160,6 +163,7 @@ class FlightSegment: Mappable, CustomStringConvertible {
     lazy var sOriginDeptTime = String()
     lazy var sDestinationArrvTime = String()
     lazy var sDuration = Int()
+    lazy var sAccDuration = Int()
     lazy var sNumberOfSeats = Int()
 }
 
@@ -211,7 +215,7 @@ class FlightAirport: Mappable, CustomStringConvertible {
     func mapping(map: Map) {
         sAirportName <- map[WSResponseParams.WS_RESP_PARAM_AIRPORT_NAME]
         sAirportCode <- map[WSResponseParams.WS_RESP_PARAM_AIRPORT_CODE]
-        sCityCode <- map[WSResponseParams.WS_RESP_PARAM_CITY_CODE]
+        sCityCode <- map[WSResponseParams.WS_RESP_PARAM_CITYCODE_CAP]
         sCityName <- map[WSResponseParams.WS_RESP_PARAM_CITYNAME_CAP]
         sCountryName <- map[WSResponseParams.WS_RESP_PARAM_COUNTRYNAME_CAP]
         sCountryCode <- map[WSResponseParams.WS_RESP_PARAM_COUNTRYCODE_CAP]
