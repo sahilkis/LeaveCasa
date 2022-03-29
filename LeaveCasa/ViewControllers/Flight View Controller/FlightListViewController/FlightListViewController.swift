@@ -15,8 +15,10 @@ class FlightListViewController: UIViewController {
 
     //var results = [Results]()
     var flights = [Flight]()
+    var startDate = Date()
     var dates = [Date]()
     var selectedDate = 0
+    var searchParams: [String: AnyObject] = [:]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,7 +46,7 @@ class FlightListViewController: UIViewController {
     {
         dates.removeAll()
         
-        var dateObj = Date()
+        var dateObj = self.startDate
         
         dates.append(dateObj)
         
@@ -82,8 +84,45 @@ extension FlightListViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CellIds.FlightListCell, for: indexPath) as! FlightListCell
+
+        let flight = flights[indexPath.row]
         
+        cell.lblStartTime.text = Helper.convertStoredDate(flight.sStartTime, "HH:mm a")
+        cell.lblEndTime.text = Helper.convertStoredDate(flight.sEndTime, "HH:mm a")
+        cell.lblSource.text = flight.sSourceCode.capitalized
+        cell.lblDestination.text = flight.sDestinationCode.capitalized
+        cell.lblPrice.text = "₹ \(flight.sPrice)"
+        cell.lblDuration.text = Helper.getDuration(minutes: flight.sDuration)
+        cell.lblDestination.text = flight.sDestinationCode
+        cell.lblRoute.text = flight.sStopsCount == 0 ? "Non-stop" : "\(flight.sStopsCount) stop(s)"
+        cell.lblAirline.text = flight.sAirlineName
         
+        var stops = ""
+        
+        if flight.sStops.count == 1
+        {
+            stops = flight.sStops[0].sCityName
+        } else if flight.sStops.count > 1
+        {
+            stops = "\(flight.sStops[0].sCityName) + \(flight.sStops.count)"
+        }
+        
+        cell.lblStops.text = stops
+        
+        cell.lblFLightInfo.text = ""
+        
+        if let startTime = Helper.getStoredDate(flight.sStartTime) {
+            let components = Calendar.current.dateComponents([ .hour, .minute], from: Date(), to: startTime)
+
+            let hour = components.hour ?? 0
+            let minute = components.minute ?? 0
+
+            if hour < 5 && hour > 0 {
+                cell.lblFLightInfo.text = "< \(hour) hours"
+            } else if hour < 5 && minute > 0 {
+                cell.lblFLightInfo.text = "< \(minute) minutes"
+            }
+        }
         
         return cell
     }
@@ -130,8 +169,45 @@ extension FlightListViewController: UICollectionViewDelegate, UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        selectedDate = indexPath.row
+        searchFlight(index: indexPath.row)
         
-        collectionView.reloadData()
+        //collectionView.reloadData()
+    }
+}
+
+extension FlightListViewController {
+    
+    func searchFlight(index: Int) {
+        
+        if WSManager.isConnectedToInternet() {
+            let date = self.dates[index]
+            var params = searchParams
+            
+            params[WSRequestParams.WS_REQS_PARAM_DEPART] = Helper.convertDate(date) as AnyObject
+            
+            DispatchQueue.main.async {
+                       
+            Helper.showLoader(onVC: self, message: Alert.LOADING)
+            WSManager.wsCallFetchFlights(params, success: { (results) in
+                Helper.hideLoader(onVC: self)
+                self.flights = results
+                self.selectedDate = index
+                self.startDate = date
+
+                self.collectionView.reloadData()
+                self.tableView.reloadData()
+                                    
+            }, failure: { (error) in
+                Helper.hideLoader(onVC: self)
+                Helper.showOKAlert(onVC: self, title: Alert.ERROR, message: error.localizedDescription)
+            })
+            }
+        } else {
+            Helper.hideLoader(onVC: self)
+            Helper.showOKCancelAlertWithCompletion(onVC: self, title: Alert.NO_INTERNET, message: AlertMessages.NO_INTERNET_CONNECTION, btnOkTitle: Alert.TRY_AGAIN, btnCancelTitle: Alert.CANCEL, onOk: {
+                Helper.showLoader(onVC: self, message: Alert.LOADING)
+               // self.searchFlight()
+            })
+        }
     }
 }

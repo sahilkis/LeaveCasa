@@ -19,7 +19,8 @@ class FlightListCell: UITableViewCell {
     @IBOutlet weak var lblDuration: UILabel!
     @IBOutlet weak var lblRoute: UILabel!
     @IBOutlet weak var imgLogo: UIImageView!
-    
+    @IBOutlet weak var lblStops: UILabel!
+    @IBOutlet weak var lblAirline: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

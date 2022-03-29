@@ -263,6 +263,7 @@ class SearchFlightViewController: UIViewController {
             numberOfInfants = numberOfInfants + 1
             lblInfants.text = "\(numberOfInfants)"
         }
+        updatePassenger()
     }
     
     @IBAction func adultPlusClicked(_ sender: UIButton) {
@@ -270,6 +271,7 @@ class SearchFlightViewController: UIViewController {
             numberOfAdults = numberOfAdults + 1
             lblAdults.text = "\(numberOfAdults)"
         }
+        updatePassenger()
     }
     
     @IBAction func childPlusClicked(_ sender: UIButton) {
@@ -277,6 +279,7 @@ class SearchFlightViewController: UIViewController {
             numberOfChildren = numberOfChildren + 1
             lblChildren.text = "\(numberOfChildren)"
         }
+        updatePassenger()
     }
     
     @IBAction func infantMinusClicked(_ sender: UIButton) {
@@ -284,6 +287,7 @@ class SearchFlightViewController: UIViewController {
             numberOfInfants = numberOfInfants - 1
             lblInfants.text = "\(numberOfInfants)"
         }
+        updatePassenger()
     }
     
     @IBAction func adultMinusClicked(_ sender: UIButton) {
@@ -291,6 +295,7 @@ class SearchFlightViewController: UIViewController {
             numberOfAdults = numberOfAdults - 1
             lblAdults.text = "\(numberOfAdults)"
         }
+        updatePassenger()
     }
     
     @IBAction func childMinusClicked(_ sender: UIButton) {
@@ -298,6 +303,18 @@ class SearchFlightViewController: UIViewController {
             numberOfChildren = numberOfChildren - 1
             lblChildren.text = "\(numberOfChildren)"
         }
+        updatePassenger()
+    }
+    
+    func updatePassenger() {
+        let passengers = numberOfAdults + numberOfChildren + numberOfInfants
+        
+        for i in 0..<array.count {
+            array[i].passengers = passengers
+        }
+        
+        self.tableView.reloadData()
+        
     }
 }
 
@@ -325,7 +342,7 @@ extension SearchFlightViewController: UITextFieldDelegate {
         
         let cell = tableView.cellForRow(at: IndexPath(row: row, section: 0)) as! SearchFlightCell
         
-        if textField == cell.txtSource || textField == cell.txtDestination || textField == cell.txtClass{
+        if textField == cell.txtSource || textField == cell.txtDestination {//} || textField == cell.txtClass {
             return true
         }
         else if textField == cell.txtFrom {
@@ -456,6 +473,12 @@ extension SearchFlightViewController {
     }
 
     func searchFlight() {
+        
+        if selectedTab == 2 {
+            Helper.showOKAlert(onVC: self, title: Alert.ALERT, message: "Coming Soon")
+            return
+        }
+        
         if WSManager.isConnectedToInternet() {
             var params: [String: AnyObject] = [:]
              
@@ -481,10 +504,15 @@ extension SearchFlightViewController {
                // params.append(param)
             }
             
+            DispatchQueue.main.async {
+                       
+            Helper.showLoader(onVC: self, message: Alert.LOADING)
             WSManager.wsCallFetchFlights(params, success: { (results) in
                 Helper.hideLoader(onVC: self)
                 if let vc = ViewControllerHelper.getViewController(ofType: .FlightListViewController) as? FlightListViewController {
                     vc.flights = results
+                    vc.startDate = self.array[self.selectedIndex].fromDate
+                    vc.searchParams = params
 //                    vc.results = results
 //                    vc.markups = markup
 //                    vc.hotelCount = "\(results.reduce(0) {$0 + $1.numberOfHotels })"
@@ -504,6 +532,7 @@ extension SearchFlightViewController {
                 Helper.hideLoader(onVC: self)
                 Helper.showOKAlert(onVC: self, title: Alert.ERROR, message: error.localizedDescription)
             })
+            }
         } else {
             Helper.hideLoader(onVC: self)
             Helper.showOKCancelAlertWithCompletion(onVC: self, title: Alert.NO_INTERNET, message: AlertMessages.NO_INTERNET_CONNECTION, btnOkTitle: Alert.TRY_AGAIN, btnCancelTitle: Alert.CANCEL, onOk: {

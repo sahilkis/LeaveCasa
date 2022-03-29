@@ -17,38 +17,46 @@ class Flight: Mappable, CustomStringConvertible {
     
     func mapping(map: Map) {
         var segments: [AnyObject]?
+        var stops = [FlightAirport]()
         
         segments <- map[WSResponseParams.WS_RESP_PARAM_SEGMENTS]
         sFare <- map[WSResponseParams.WS_RESP_PARAM_FARE]
         
-        
         if let segments = segments {
-        var segmentsArray = [[String: AnyObject]]()
-        
-        for result in segments  {
-            if let seg = result as? [[String: AnyObject]] {
-                segmentsArray = seg
+            var segmentsArray = [[String: AnyObject]]()
+            
+            for result in segments  {
+                if let seg = result as? [[String: AnyObject]] {
+                    segmentsArray = seg
+                }
+            }
+            
+            if let results = Mapper<FlightSegment>().mapArray(JSONArray: segmentsArray) as [FlightSegment]? {
+                sSegments = results
             }
         }
-            if let results = Mapper<FlightSegment>().mapArray(JSONArray: segmentsArray) as [FlightSegment]? {
-                        sSegments = results
-                    }
-        }
-        
         
         if let firstSeg = sSegments.first {
             sSource = firstSeg.sOriginAirport.sCityName
             sSourceCode = firstSeg.sOriginAirport.sCityCode
-            sDuration = firstSeg.sDuration
             sAirlineName = firstSeg.sAirline.sAirlineName
             sStartTime = firstSeg.sOriginDeptTime
-            sStopsCount = sSegments.count
+            sStopsCount = sSegments.count - 1
             
             if let secondSeg = sSegments.last {
+                sEndTime = secondSeg.sDestinationArrvTime
                 sDestination = secondSeg.sDestinationAirport.sCityName
                 sDestinationCode = secondSeg.sDestinationAirport.sCityCode
+                sDuration = secondSeg.sDuration
+
             }
         }
+        
+        for i in 1..<sSegments.count {
+            stops.append(sSegments[i].sOriginAirport)
+        }
+        
+        sStops = stops
         
         if let fare = sFare as? FlightFare {
             sPrice = fare.sPublishedFare
@@ -80,17 +88,17 @@ class Flight: Mappable, CustomStringConvertible {
     lazy var sDestinationCode = String()
     lazy var sStartTime = String()
     lazy var sEndTime = String()
-    lazy var sStartDate = String()
-    lazy var sEndDate = String()
     lazy var sDuration = Int()
     lazy var sPrice = Int()
     lazy var sCurrency = Int()
     lazy var sType = [String: AnyObject]()
     lazy var sStopsCount = Int()
+    lazy var sStops = [FlightAirport]()
     lazy var sAirlineNo = Int()
     lazy var sAirlineName = String()
     lazy var sAirlineLogo = String()
     lazy var sAdditional = String()
+    
 }
 
 class FlightSegment: Mappable, CustomStringConvertible {
@@ -102,19 +110,28 @@ class FlightSegment: Mappable, CustomStringConvertible {
     }
     
     func mapping(map: Map) {
-        var origin : Map?
-        var destination: Map?
+        var origin = [String: AnyObject]()
+        var destination = [String: AnyObject]()
+        
         origin <- map[WSResponseParams.WS_RESP_PARAM_ORIGIN]
         destination <- map[WSResponseParams.WS_RESP_PARAM_DESTINATION]
 
-        if let origin = origin {
-            sOriginAirport <- origin[WSResponseParams.WS_RESP_PARAM_AIRPORT]
-            sOriginDeptTime <- origin[WSResponseParams.WS_RESP_PARAM_DEP_TIME]
+        if let originAirport = origin[WSResponseParams.WS_RESP_PARAM_AIRPORT] as? [String: AnyObject], let airport = Mapper<FlightAirport>().map(JSON: originAirport) {
+            sOriginAirport = airport
         }
-        if let destination = destination {
-            sDestinationAirport <- destination[WSResponseParams.WS_RESP_PARAM_AIRPORT]
-            sDestinationDeptTime <- destination[WSResponseParams.WS_RESP_PARAM_DEP_TIME]
+        
+        if let originDepartTime = origin[WSResponseParams.WS_RESP_PARAM_DEP_TIME] as? String {
+            sOriginDeptTime = originDepartTime
         }
+        
+        if let desAirport = destination[WSResponseParams.WS_RESP_PARAM_AIRPORT] as? [String: AnyObject], let airport = Mapper<FlightAirport>().map(JSON: desAirport) {
+            sDestinationAirport = airport
+        }
+        
+        if let desArrTime = destination[WSResponseParams.WS_RESP_PARAM_ARR_TIME] as? String {
+            sDestinationArrvTime = desArrTime
+        }
+        
         sAirline <- map[WSResponseParams.WS_RESP_PARAM_AIRLINE]
         sDuration <- map[WSResponseParams.WS_RESP_PARAM_DURATION]
         sNumberOfSeats <- map[WSResponseParams.WS_RESP_PARAM_NUMBER_OF_SEATS]
@@ -141,7 +158,7 @@ class FlightSegment: Mappable, CustomStringConvertible {
     lazy var sOriginAirport = FlightAirport()
     lazy var sDestinationAirport = FlightAirport()
     lazy var sOriginDeptTime = String()
-    lazy var sDestinationDeptTime = String()
+    lazy var sDestinationArrvTime = String()
     lazy var sDuration = Int()
     lazy var sNumberOfSeats = Int()
 }

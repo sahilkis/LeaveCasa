@@ -240,6 +240,27 @@ class Helper: NSObject {
         }
     }
     
+    class func getStoredDate(_ dateString: String) -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        let date = dateFormatter.date(from: dateString)
+        
+        return date
+    }
+    
+    class func convertStoredDate(_ dateString: String, _ format: String) -> String { 
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        let date = dateFormatter.date(from: dateString)
+        
+        if let date = date {
+            let newDateFormatter = DateFormatter()
+            newDateFormatter.dateFormat = format
+            return newDateFormatter.string(from: date)
+        }
+        return ""
+    }
+    
     class func setCheckInDate() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -295,5 +316,15 @@ class Helper: NSObject {
         dateFormatter.dateFormat = "MMM"
         
         return dateFormatter.string(from: date)
+    }
+    
+    class func getDuration(minutes: Int) -> String {
+        let hours = minutes / 60
+        let minutes = (minutes % 60)
+
+        let hoursString = hours < 10 ? "0\(hours)" : "\(hours)"
+        let minuteString = minutes < 10 ? "0\(minutes)" : "\(minutes)"
+        
+        return "\(hoursString)h \(minuteString)m"
     }
 }
