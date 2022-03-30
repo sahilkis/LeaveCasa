@@ -636,8 +636,8 @@
 			isa = PBXGroup;
 			children = (
 				19499D4323A790430025DB1F /* SearchFlightViewController */,
-				40C7B3D227F44561005027B1 /* FlightListRoundViewController */,
 				40CDAF1427E0B3DB00B5B8FA /* FlightListViewController */,
+				40C7B3D227F44561005027B1 /* FlightListRoundViewController */,
 				40A14A8827EC970800102036 /* FlightDetailViewController */,
 				405AA00327ED7716006BD68D /* FlightBookingViewController */,
 			);

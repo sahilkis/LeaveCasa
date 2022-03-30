@@ -85,7 +85,9 @@ extension FlightListRoundViewController {
     @IBAction func bookButton(_ sender: UIButton) {
         
         if let vc = ViewControllerHelper.getViewController(ofType: .FlightDetailViewController) as? FlightDetailViewController {
-            //                    vc.flights = dict
+            vc.flights = self.flights[selectedFlightIndex]
+            vc.returningFlights = self.returningFlights[selectedReturnFlightIndex]
+            vc.searchedFlight = self.searchedFlight
             vc.numberOfChildren = self.numberOfChildren
             vc.numberOfAdults = self.numberOfAdults
             vc.numberOfInfants = self.numberOfInfants
@@ -118,8 +120,26 @@ extension FlightListRoundViewController: UITableViewDataSource, UITableViewDeleg
         var flight = Flight()
         if tableView == self.tableView {
             flight = flights[indexPath.row]
+            
+            if indexPath.row == selectedFlightIndex {
+                cell.viewBg.borderColor = LeaveCasaColors.PINK_COLOR
+                cell.viewBg.borderWidth = 1
+            }
+            else{
+                cell.viewBg.borderColor = UIColor.clear
+                cell.viewBg.borderWidth = 0
+            }
         } else if tableView == self.returningTableView {
             flight = returningFlights[indexPath.row]
+            
+            if indexPath.row == selectedReturnFlightIndex {
+                cell.viewBg.borderColor = LeaveCasaColors.PINK_COLOR
+                cell.viewBg.borderWidth = 1
+            }
+            else{
+                cell.viewBg.borderColor = UIColor.clear
+                cell.viewBg.borderWidth = 0
+            }
         }
         
         cell.lblStartTime.text = Helper.convertStoredDate(flight.sStartTime, "HH:mm a")

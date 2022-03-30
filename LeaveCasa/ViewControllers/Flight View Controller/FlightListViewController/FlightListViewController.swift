@@ -19,6 +19,7 @@ class FlightListViewController: UIViewController {
     var dates = [Date]()
     var selectedDate = 0
     var searchParams: [String: AnyObject] = [:]
+    var searchedFlight = FlightStruct()
     var numberOfAdults = 1
     var numberOfChildren = 0
     var numberOfInfants = 0
@@ -134,6 +135,7 @@ extension FlightListViewController: UITableViewDataSource, UITableViewDelegate {
         
         if let vc = ViewControllerHelper.getViewController(ofType: .FlightDetailViewController) as? FlightDetailViewController {
             vc.flights = dict
+            vc.searchedFlight = self.searchedFlight
             vc.numberOfChildren = self.numberOfChildren
             vc.numberOfAdults = self.numberOfAdults
             vc.numberOfInfants = self.numberOfInfants

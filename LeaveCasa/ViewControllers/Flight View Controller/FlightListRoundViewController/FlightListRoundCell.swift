@@ -10,6 +10,7 @@ import UIKit
 
 class FlightListRoundCell: UITableViewCell {
     
+    @IBOutlet weak var viewBg: UIView!
     @IBOutlet weak var lblStartTime: UILabel!
     @IBOutlet weak var lblSource: UILabel!
     @IBOutlet weak var lblEndTime: UILabel!

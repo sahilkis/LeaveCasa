@@ -20,6 +20,7 @@ struct FlightStruct {
     var fromDate = Date()
     var toDate = Date()
     var flightClassIndex = 0
+    var flightClass = ""
     var passengers = 1
 }
 
@@ -43,7 +44,7 @@ class SearchFlightViewController: UIViewController {
     lazy var cityCode = [String]()
     lazy var cityName = [String]()
     var selectedTab = 0 // 0 - One way, 1 - Round Trip, 2 - mutli city
-    var array = [FlightStruct()]
+    var array = [FlightStruct]()
     var selectedIndex = 0 // selected cell in the array
     var numberOfRows = 1
     var numberOfAdults = 1
@@ -57,6 +58,10 @@ class SearchFlightViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        var first = FlightStruct()
+        first.flightClass = flightTypes[first.flightClassIndex]
+        
+        array.append(first)
         // Do any additional setup after loading the view.
         setUpTab()
         setLeftbarButton()
@@ -333,6 +338,8 @@ class SearchFlightViewController: UIViewController {
         classDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             
             self.array[indexPathRow].flightClassIndex = index
+            self.array[indexPathRow].flightClass = flightTypes[index]
+            
             self.tableView.reloadData()
         }
     }
@@ -451,7 +458,7 @@ extension SearchFlightViewController: UITableViewDataSource, UITableViewDelegate
         cell.txtDestination.text = items.destination
         cell.txtFrom.text = items.from
         cell.txtTo.text = items.to
-        cell.txtClass.text = flightTypes[items.flightClassIndex]
+        cell.txtClass.text = items.flightClass
         
         
         return cell
@@ -548,19 +555,19 @@ extension SearchFlightViewController {
                 WSManager.wsCallFetchFlights(params, success: { (results) in
                     Helper.hideLoader(onVC: self)
                     
-                    if self.selectedTab == 0 {
+                    if self.selectedTab != 1 { //Not round trip
                         if let vc = ViewControllerHelper.getViewController(ofType: .FlightListViewController) as? FlightListViewController {
                             vc.flights = results.first ?? []
                             vc.startDate = self.array[self.selectedIndex].fromDate
                             vc.searchParams = params
-                            
+                            vc.searchedFlight = self.array[self.selectedIndex]
                             vc.numberOfChildren = self.numberOfChildren
                             vc.numberOfAdults = self.numberOfAdults
                             vc.numberOfInfants = self.numberOfInfants
                             self.navigationController?.pushViewController(vc, animated: true)
                         }
                     }
-                    else if self.selectedTab == 1 {
+                    else if self.selectedTab == 1 { //round trip
                         if let vc = ViewControllerHelper.getViewController(ofType: .FlightListRoundViewController) as? FlightListRoundViewController {
                             vc.flights = results.first ?? []
                             vc.returningFlights = results.last ?? []

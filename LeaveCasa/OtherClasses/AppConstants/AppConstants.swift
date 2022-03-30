@@ -72,7 +72,6 @@ struct LeaveCasaIcons {
     static let CHECKBOX_GREY = UIImage.init(named: "ic_square_tick_grey")
 }
 
-
 // Alert Titles
 struct Alert {
     static let OK                           = "Ok"
