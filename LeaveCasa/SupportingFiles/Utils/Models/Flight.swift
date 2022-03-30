@@ -48,8 +48,8 @@ class Flight: Mappable, CustomStringConvertible {
                 sEndTime = secondSeg.sDestinationArrvTime
                 sDestination = secondSeg.sDestinationAirport.sCityName
                 sDestinationCode = secondSeg.sDestinationAirport.sCityCode
-                sAccDuration = secondSeg.sDuration
-
+                sAccDuration = secondSeg.sAccDuration == 0 ? firstSeg.sDuration : secondSeg.sAccDuration
+                
             }
         }
         
@@ -57,7 +57,9 @@ class Flight: Mappable, CustomStringConvertible {
             stops.append(sSegments[i].sOriginAirport)
         }
         
-        sStops = stops
+        if sSegments.count - 1 == stops.count {
+            sStops = stops
+        }
         
         if let fare = sFare as? FlightFare {
             sPrice = fare.sPublishedFare
@@ -117,7 +119,7 @@ class FlightSegment: Mappable, CustomStringConvertible {
         
         origin <- map[WSResponseParams.WS_RESP_PARAM_ORIGIN]
         destination <- map[WSResponseParams.WS_RESP_PARAM_DESTINATION]
-
+        
         if let originAirport = origin[WSResponseParams.WS_RESP_PARAM_AIRPORT] as? [String: AnyObject], let airport = Mapper<FlightAirport>().map(JSON: originAirport) {
             sOriginAirport = airport
         }

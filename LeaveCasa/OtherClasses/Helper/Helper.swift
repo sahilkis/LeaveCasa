@@ -288,6 +288,12 @@ class Helper: NSObject {
         return dateFormatter.string(from: date)
     }
     
+    class func convertDate(_ date: Date, format : String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        return dateFormatter.string(from: date)
+    }
+    
     class func convertCheckinDate(_ dateString: String) -> String { //EEEE, MMM d, yyyy
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -321,7 +327,7 @@ class Helper: NSObject {
     class func getDuration(minutes: Int) -> String {
         let hours = minutes / 60
         let minutes = (minutes % 60)
-
+        
         let hoursString = hours < 10 ? "0\(hours)" : "\(hours)"
         let minuteString = minutes < 10 ? "0\(minutes)" : "\(minutes)"
         

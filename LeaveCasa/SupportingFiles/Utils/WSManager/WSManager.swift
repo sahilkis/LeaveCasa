@@ -228,7 +228,7 @@ class WSManager {
     }
     
     // MARK: FETCH FLIGHTS
-    class func wsCallFetchFlights(_ requestParams: [String: AnyObject], success:@escaping (_ arrHomeData: [Flight])->(),failure:@escaping (NSError)->()) {
+    class func wsCallFetchFlights(_ requestParams: [String: AnyObject], success:@escaping (_ arrHomeData: [[Flight]])->(),failure:@escaping (NSError)->()) {
         AF.request(WebService.flightSearch, method: .post, parameters: requestParams, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: {(responseData) -> Void in
             print(responseData.result)
             switch responseData.result {
@@ -238,16 +238,18 @@ class WSManager {
                     if let responseDict = responseValue[WSResponseParams.WS_RESP_PARAM_RESPONSE_CAP] as? [String:AnyObject] {
                         if let results = responseDict[WSResponseParams.WS_RESP_PARAM_RESULTS_CAP] as? [AnyObject] {
                             var flights = [[String: AnyObject]]()
+                            var allFlights = [[Flight]] ()
                             
                             for result in results {
                                 if let flight = result as? [[String: AnyObject]] {
                                     flights = flight
                                 }
-                            }
-                            
+                                                    
                             if let results = Mapper<Flight>().mapArray(JSONArray: flights) as [Flight]? {
-                                success(results)
+                                allFlights.append(results)
                             }
+                        }
+                        success(allFlights)
                         } else {
                             failure(AppConstants.errSomethingWentWrong)
                         }
