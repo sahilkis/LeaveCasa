@@ -40,7 +40,7 @@ class WSManager {
                         completion(true, "")
                     }
                     else {
-                        completion(false, "")
+                        completion(false, responseValue[WSResponseParams.WS_RESP_PARAM_MESSAGE] as? String ?? "")
                     }
                 } else {
                     completion(false, responseData.error?.localizedDescription ?? "")
