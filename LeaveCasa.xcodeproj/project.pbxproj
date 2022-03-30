@@ -48,14 +48,14 @@
 		195C403722FC09170013A644 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 195C403622FC09170013A644 /* SignupViewController.swift */; };
 		195C403A22FC09B40013A644 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 195C403922FC09B40013A644 /* MainViewController.swift */; };
 		195C403D22FC0C100013A644 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 195C403C22FC0C100013A644 /* HomeViewController.swift */; };
-		195C404222FC0C800013A644 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 195C404022FC0C800013A644 /* SWRevealViewController.m */; };
 		195C404722FC10D80013A644 /* WSConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 195C404622FC10D80013A644 /* WSConstant.swift */; };
 		195C404A22FC10F90013A644 /* WSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 195C404922FC10F90013A644 /* WSManager.swift */; };
 		19D6442E23263996009E199B /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D6442D23263996009E199B /* Validator.swift */; };
 		19D6443123263A77009E199B /* UITextfield+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19D6443023263A77009E199B /* UITextfield+Extension.swift */; };
-		19DAE660233211B3008D2F24 /* SidebarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DAE65F233211B3008D2F24 /* SidebarViewController.swift */; };
 		19FB4D09231A7998007C742C /* AlertMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FB4D08231A7998007C742C /* AlertMessages.swift */; };
 		19FE9CF223352BAA0006BC2D /* HotelDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FE9CF123352BAA0006BC2D /* HotelDetailViewController.swift */; };
+		1FABDA8727F431DE006AD9A8 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FABDA8627F431DE006AD9A8 /* TabBarViewController.swift */; };
+		1FABDAF327F450AF006AD9A8 /* TripsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FABDAF227F450AF006AD9A8 /* TripsViewController.swift */; };
 		400DFE442786CA1D0030CE16 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DFE432786CA1D0030CE16 /* SettingsManager.swift */; };
 		400DFE492787028A0030CE16 /* SearchRoomsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DFE482787028A0030CE16 /* SearchRoomsCell.swift */; };
 		40169FCC27E1AC330046A7A2 /* FlightListCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40169FCB27E1AC330046A7A2 /* FlightListCollectionCell.swift */; };
@@ -144,16 +144,14 @@
 		195C403622FC09170013A644 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		195C403922FC09B40013A644 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		195C403C22FC0C100013A644 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		195C403F22FC0C800013A644 /* LeaveCasa-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LeaveCasa-Bridging-Header.h"; sourceTree = "<group>"; };
-		195C404022FC0C800013A644 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
-		195C404122FC0C800013A644 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		195C404622FC10D80013A644 /* WSConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSConstant.swift; sourceTree = "<group>"; };
 		195C404922FC10F90013A644 /* WSManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSManager.swift; sourceTree = "<group>"; };
 		19D6442D23263996009E199B /* Validator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
 		19D6443023263A77009E199B /* UITextfield+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextfield+Extension.swift"; sourceTree = "<group>"; };
-		19DAE65F233211B3008D2F24 /* SidebarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarViewController.swift; sourceTree = "<group>"; };
 		19FB4D08231A7998007C742C /* AlertMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertMessages.swift; sourceTree = "<group>"; };
 		19FE9CF123352BAA0006BC2D /* HotelDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelDetailViewController.swift; sourceTree = "<group>"; };
+		1FABDA8627F431DE006AD9A8 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		1FABDAF227F450AF006AD9A8 /* TripsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsViewController.swift; sourceTree = "<group>"; };
 		2938878705CEC9DEF73768C5 /* Pods_LeaveCasa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LeaveCasa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B451D01AA1029BFC6156992 /* Pods-LeaveCasa.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeaveCasa.release.xcconfig"; path = "Target Support Files/Pods-LeaveCasa/Pods-LeaveCasa.release.xcconfig"; sourceTree = "<group>"; };
 		400DFE432786CA1D0030CE16 /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
@@ -270,12 +268,10 @@
 			children = (
 				18C82840214FCF73007FC65A /* AppConstants */,
 				19FB4D07231A7985007C742C /* AlertMessages */,
-				195C404322FC0C850013A644 /* BridgingHeaderFile */,
 				400DFE422786CA080030CE16 /* SettingsManager */,
 				1924095023A244470012CFBF /* WWCalendarTimeSelector */,
 				19309A0F2334D48000E189AE /* FloatRatingView */,
 				19D6442C23263986009E199B /* Validator */,
-				195C403E22FC0C5A0013A644 /* SWRevealViewController */,
 				18C82847214FD05F007FC65A /* Extensions */,
 				18C8283F214FCF68007FC65A /* ViewControllerHelper */,
 				18C8283E214FCF61007FC65A /* Helper */,
@@ -286,13 +282,14 @@
 		18C82838214FCEFF007FC65A /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				1FABDAF127F45094006AD9A8 /* TripsViewController */,
+				1FABDA8527F431B6006AD9A8 /* TabBarViewController */,
 				408334D127EDCDBB0015F994 /* Buses View Controller */,
 				408334D227EDCDDB0015F994 /* Flight View Controller */,
 				408334D327EDCDF40015F994 /* Hotel View Controller */,
 				195C403B22FC0BFD0013A644 /* HomeViewController */,
 				18C8283B214FCF47007FC65A /* LoginViewController */,
 				195C403822FC09980013A644 /* MainViewController */,
-				19DAE65E23321179008D2F24 /* SidebarViewController */,
 				195C403522FC08F70013A644 /* SignupViewController */,
 			);
 			path = ViewControllers;
@@ -506,23 +503,6 @@
 			path = HomeViewController;
 			sourceTree = "<group>";
 		};
-		195C403E22FC0C5A0013A644 /* SWRevealViewController */ = {
-			isa = PBXGroup;
-			children = (
-				195C404122FC0C800013A644 /* SWRevealViewController.h */,
-				195C404022FC0C800013A644 /* SWRevealViewController.m */,
-			);
-			path = SWRevealViewController;
-			sourceTree = "<group>";
-		};
-		195C404322FC0C850013A644 /* BridgingHeaderFile */ = {
-			isa = PBXGroup;
-			children = (
-				195C403F22FC0C800013A644 /* LeaveCasa-Bridging-Header.h */,
-			);
-			path = BridgingHeaderFile;
-			sourceTree = "<group>";
-		};
 		195C404422FC10B60013A644 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -565,14 +545,6 @@
 			path = "UITextfield+Extension";
 			sourceTree = "<group>";
 		};
-		19DAE65E23321179008D2F24 /* SidebarViewController */ = {
-			isa = PBXGroup;
-			children = (
-				19DAE65F233211B3008D2F24 /* SidebarViewController.swift */,
-			);
-			path = SidebarViewController;
-			sourceTree = "<group>";
-		};
 		19FB4D07231A7985007C742C /* AlertMessages */ = {
 			isa = PBXGroup;
 			children = (
@@ -592,6 +564,22 @@
 				19561F2C2338B8F000AA4FF3 /* RoomsCell.xib */,
 			);
 			path = HotelDetailViewController;
+			sourceTree = "<group>";
+		};
+		1FABDA8527F431B6006AD9A8 /* TabBarViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1FABDA8627F431DE006AD9A8 /* TabBarViewController.swift */,
+			);
+			path = TabBarViewController;
+			sourceTree = "<group>";
+		};
+		1FABDAF127F45094006AD9A8 /* TripsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1FABDAF227F450AF006AD9A8 /* TripsViewController.swift */,
+			);
+			path = TripsViewController;
 			sourceTree = "<group>";
 		};
 		400DFE422786CA080030CE16 /* SettingsManager */ = {
@@ -930,6 +918,7 @@
 				195C403722FC09170013A644 /* SignupViewController.swift in Sources */,
 				18C8283D214FCF57007FC65A /* LoginViewController.swift in Sources */,
 				19561F292338975500AA4FF3 /* ImagesCell.swift in Sources */,
+				1FABDA8727F431DE006AD9A8 /* TabBarViewController.swift in Sources */,
 				400DFE492787028A0030CE16 /* SearchRoomsCell.swift in Sources */,
 				193E1EF223ACDDDC00DDA7C9 /* Bus.swift in Sources */,
 				19499D4523A7905D0025DB1F /* SearchFlightViewController.swift in Sources */,
@@ -937,6 +926,7 @@
 				192495F12333643000B0E36E /* SearchHotelViewController.swift in Sources */,
 				19309A112334D4C100E189AE /* FloatRatingView.swift in Sources */,
 				406778BB27DF205900565C52 /* SearchFlightCell.swift in Sources */,
+				1FABDAF327F450AF006AD9A8 /* TripsViewController.swift in Sources */,
 				1924095D23A244810012CFBF /* Duration.swift in Sources */,
 				19309A0D2334CDED00E189AE /* HotelListCell.swift in Sources */,
 				18C82849214FD06C007FC65A /* Extensions.swift in Sources */,
@@ -946,7 +936,6 @@
 				19FB4D09231A7998007C742C /* AlertMessages.swift in Sources */,
 				18C82809214FCEC8007FC65A /* AppDelegate.swift in Sources */,
 				408334D627EDCF010015F994 /* BusDetailViewController.swift in Sources */,
-				19DAE660233211B3008D2F24 /* SidebarViewController.swift in Sources */,
 				18C82842214FCF86007FC65A /* ViewControllerHelper.swift in Sources */,
 				40300EFC27EAFCC60002C967 /* HotelBookingViewController.swift in Sources */,
 				405AA00527ED775F006BD68D /* FlightBookingViewController.swift in Sources */,
@@ -972,7 +961,6 @@
 				40BAC11827E8968C00952E2E /* FacilitiesCell.swift in Sources */,
 				19107A5A2336397C003E8CF3 /* Markup.swift in Sources */,
 				40169FCC27E1AC330046A7A2 /* FlightListCollectionCell.swift in Sources */,
-				195C404222FC0C800013A644 /* SWRevealViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1153,7 +1141,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.LeaveCasa.iOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "LeaveCasa/OtherClasses/BridgingHeaderFile/LeaveCasa-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1173,7 +1161,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.LeaveCasa.iOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "LeaveCasa/OtherClasses/BridgingHeaderFile/LeaveCasa-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

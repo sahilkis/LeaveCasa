@@ -23,6 +23,10 @@ class LoginViewController: UIViewController {
 
 //MARK: - UIBUTTON ACTIONS
 extension LoginViewController {
+    @IBAction func backClicked(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     @objc func signupClicked(_ sender: UITapGestureRecognizer) {
         let text = lblSignup.text
         let signUpRange = (text! as NSString).range(of: "Create Account")
@@ -81,7 +85,7 @@ extension LoginViewController {
             WSManager.wsCallLogin(params, rememberMe, completion: { (isSuccess, message) in
                 if isSuccess {
                     Helper.hideLoader(onVC: self)
-                    if let vc = ViewControllerHelper.getViewController(ofType: .SWRevealViewController) as? SWRevealViewController {
+                    if let vc = ViewControllerHelper.getViewController(ofType: .TabBarViewController) as? TabBarViewController {
                         vc.modalPresentationStyle = .overFullScreen
                         self.present(vc, animated: true, completion: nil)
                     }

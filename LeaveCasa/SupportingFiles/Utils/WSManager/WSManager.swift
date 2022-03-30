@@ -59,14 +59,12 @@ class WSManager {
             case .success(let value):
                 if let responseValue = value as? [String: AnyObject] {
                     print(responseValue)
-                    if (responseValue[WSResponseParams.WS_RESP_PARAM_STATUS] as? Int == WSResponseParams.WS_RESP_PARAM_TRUE) {
-                        if let token = responseValue[WSResponseParams.WS_RESP_PARAM_ACCESS_TOKEN] as? String, let bearer = responseValue[WSResponseParams.WS_RESP_PARAM_TOKEN_TYPE] as? String {
-                            
-                            self.settings?.accessToken = "\(token)\(bearer)"
-                            self.settings?.rememberMe = true
-                            
-                            completion(true, "")
-                        }
+                    if let token = responseValue[WSResponseParams.WS_RESP_PARAM_ACCESS_TOKEN] as? String, let bearer = responseValue[WSResponseParams.WS_RESP_PARAM_TOKEN_TYPE] as? String {
+                        
+                        self.settings?.accessToken = "\(token)\(bearer)"
+                        self.settings?.rememberMe = true
+                        
+                        completion(true, "")
                     } else {
                         if let responseMessage = responseValue[WSResponseParams.WS_RESP_PARAM_MESSAGE] as? String {
                             completion(false, responseMessage)

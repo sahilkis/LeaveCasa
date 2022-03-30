@@ -29,7 +29,7 @@ class MainViewController: UIViewController {
     
     func checkUserStatus() {
         if self.settings?.rememberMe ?? false {
-            if let vc = ViewControllerHelper.getViewController(ofType: .SWRevealViewController) as? SWRevealViewController {
+            if let vc = ViewControllerHelper.getViewController(ofType: .TabBarViewController) as? TabBarViewController {
                 vc.modalPresentationStyle = .overFullScreen
                 self.present(vc, animated: true, completion: nil)
             }
@@ -39,22 +39,9 @@ class MainViewController: UIViewController {
 
 // MARK: - UIBUTTON ACTIONS
 extension MainViewController {
-    @IBAction func signupClicked(_ sender: UIButton) {
-        if let vc = ViewControllerHelper.getViewController(ofType: .SignupViewController) as? SignupViewController {
-            self.navigationController?.pushViewController(vc, animated: true)
-        }
-    }
-    
     @IBAction func signinClicked(_ sender: UIButton) {
         if let vc = ViewControllerHelper.getViewController(ofType: .LoginViewController) as? LoginViewController {
             self.navigationController?.pushViewController(vc, animated: true)
-        }
-    }
-    
-    @IBAction func skipClicked(_ sender: UIButton) {
-        if let vc = ViewControllerHelper.getViewController(ofType: .SWRevealViewController) as? SWRevealViewController {
-            vc.modalPresentationStyle = .overFullScreen
-            self.present(vc, animated: true, completion: nil)
         }
     }
 }
