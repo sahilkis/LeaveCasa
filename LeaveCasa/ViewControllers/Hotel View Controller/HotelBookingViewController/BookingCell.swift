@@ -8,18 +8,16 @@
 
 import UIKit
 import SearchTextField
-import DropDown
 
 class BookingCell: UITableViewCell {
 
-    @IBOutlet weak var txtTitle: SearchTextField!
+    @IBOutlet weak var txtTitle: UITextField!
     @IBOutlet weak var txtFirstName: UITextField!
     @IBOutlet weak var txtLastName: UITextField!
     @IBOutlet weak var txtState: SearchTextField!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -27,5 +25,4 @@ class BookingCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
 }

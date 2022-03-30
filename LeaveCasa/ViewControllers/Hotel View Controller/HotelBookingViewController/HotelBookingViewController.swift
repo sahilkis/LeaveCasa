@@ -18,22 +18,17 @@ class HotelBookingViewController: UIViewController {
     @IBOutlet weak var lblHotelAddress: UILabel!
     @IBOutlet weak var lblDescription: UILabel!
     @IBOutlet weak var hotelRatingView: FloatRatingView!
-    //    @IBOutlet weak var lblRefundable: UILabel!
-    
     @IBOutlet weak var txtCheckIn: UITextField!
     @IBOutlet weak var txtCheckOut: UITextField!
     @IBOutlet weak var txtRoomCount: UITextField!
     @IBOutlet weak var txtRoomType: UITextField!
-    
     @IBOutlet weak var lblAdultCount: UILabel!
     @IBOutlet weak var lblChildCount: UILabel!
     @IBOutlet weak var lblNumOfNights: UILabel!
-    
     @IBOutlet weak var lblHotelRoomPrice: UILabel!
     @IBOutlet weak var lblHotelDiscount: UILabel!
     @IBOutlet weak var lblHotelGST: UILabel!
     @IBOutlet weak var lblTotalPrice: UILabel!
-    
     @IBOutlet weak var txtGuestName: UITextField!
     @IBOutlet weak var txtGuestPhone: UITextField!
     @IBOutlet weak var txtGuestEmail: UITextField!
@@ -48,6 +43,8 @@ class HotelBookingViewController: UIViewController {
     var logId = 0
     var checkIn = ""
     var checkOut = ""
+    var titleDropDown = DropDown()
+    var titles = ["Mr", "Ms", "Mrs", "Mstr", "Miss"]
     var finalRooms = [[String: AnyObject]]()
     var guestDetails = [[String: AnyObject]]()
     var numberOfRooms = 1
@@ -84,13 +81,11 @@ class HotelBookingViewController: UIViewController {
     }
     
     func setLeftbarButton() {
-        self.title = " "
         let leftBarButton = UIBarButtonItem.init(image: LeaveCasaIcons.BLACK_BACK, style: .plain, target: self, action: #selector(backClicked(_:)))
         self.navigationItem.leftBarButtonItem = leftBarButton
     }
     
     private func setupData() {
-        
         let hotel: Hotels?
         hotel = self.hotels
         
@@ -145,7 +140,18 @@ class HotelBookingViewController: UIViewController {
             guestDetails.append(["id" : i+1 as AnyObject]) // TODO: Pending
             
         }
-        
+    }
+    
+    func openDropDown(_ textfield: UITextField) {
+        titleDropDown.show()
+        titleDropDown.textColor = UIColor.black
+        titleDropDown.textFont = LeaveCasaFonts.FONT_PROXIMA_NOVA_REGULAR_12 ?? UIFont.systemFont(ofSize: 12)
+        titleDropDown.backgroundColor = UIColor.white
+        titleDropDown.anchorView = textfield
+        titleDropDown.dataSource = self.titles
+        titleDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+            textfield.text = item
+        }
     }
 }
 
@@ -197,7 +203,11 @@ extension HotelBookingViewController: UITableViewDataSource, UITableViewDelegate
         cell.txtLastName.delegate = self
         cell.txtState.delegate = self
         
-        //        cell.txtTitle.addTarget(self, action: #selector(selectTitle(_:)), for: .editingDidBegin)
+        cell.txtTitle.tag = indexPath.row
+        cell.txtFirstName.tag = indexPath.row
+        cell.txtLastName.tag = indexPath.row
+        cell.txtState.tag = indexPath.row
+        
         cell.txtState.addTarget(self, action: #selector(searchCity(_:)), for: .editingChanged)
         // TODO: Pending - search state only
         
@@ -213,11 +223,9 @@ extension HotelBookingViewController: UITableViewDataSource, UITableViewDelegate
             self.cityCode.removeAll()
         }
         
-        fetchCityList(sender)
-    }
-    
-    @objc func selectTitle(_ sender: SearchTextField) {
-        setupSearchTextField(["Mr", "Mrs", "Ms"], textField: sender)
+        if !(sender.text?.isEmpty ?? true) {
+            fetchCityList(sender)
+        }
     }
 }
 
@@ -231,14 +239,14 @@ extension HotelBookingViewController: UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         let row = textField.tag
         
-        let cell = tableView.cellForRow(at: IndexPath(row: row, section: 0)) as! BookingCell
+        if let cell = tableView.cellForRow(at: IndexPath(row: row, section: 0)) as? BookingCell {
+            if textField == cell.txtTitle {
+                openDropDown(textField)
+                return false
+            }
+        }
         
-        if textField == cell.txtTitle || textField == cell.txtState || textField == cell.txtFirstName || textField == cell.txtLastName {
-            return true
-        }
-        else {
-            return false
-        }
+        return true
     }
     
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
@@ -248,11 +256,14 @@ extension HotelBookingViewController: UITextFieldDelegate {
         
         if textField == cell.txtFirstName {
             guestDetails[row]["first_name"] = textField.text as AnyObject
-        } else if textField == cell.txtLastName {
+        }
+        else if textField == cell.txtLastName {
             guestDetails[row]["last_name"] = textField.text as AnyObject
-        } else if textField == cell.txtTitle {
+        }
+        else if textField == cell.txtTitle {
             guestDetails[row]["title"] = textField.text as AnyObject
-        } else if textField == cell.txtState {
+        }
+        else if textField == cell.txtState {
             guestDetails[row]["state"] = textField.text as AnyObject
         }
     }
@@ -260,47 +271,29 @@ extension HotelBookingViewController: UITextFieldDelegate {
 
 // MARK: - API CALL
 extension HotelBookingViewController {
-    
     func setupSearchTextField(_ searchedArray: [String], textField: SearchTextField) {
         DispatchQueue.main.async {
-            
             let row = textField.tag
-            
-            let cell = self.tableView.cellForRow(at: IndexPath(row: row, section: 0)) as! BookingCell
-            
-            if textField == cell.txtTitle {
-                
-                textField.theme = SearchTextFieldTheme.lightTheme()
-                textField.theme.font = LeaveCasaFonts.FONT_PROXIMA_NOVA_REGULAR_12 ?? UIFont.systemFont(ofSize: 12)
-                textField.theme.bgColor = UIColor.white
-                textField.theme.fontColor = UIColor.black
-                textField.theme.cellHeight = 40
-                textField.filterStrings(searchedArray)
-                textField.itemSelectionHandler = { filteredResults, itemPosition in
-                    let item = filteredResults[itemPosition]
-                    
-                    self.guestDetails[row]["title"] = item
-                    cell.txtTitle.resignFirstResponder()
-                }
-            } else if textField == cell.txtState {
-                
-                textField.theme = SearchTextFieldTheme.lightTheme()
-                textField.theme.font = LeaveCasaFonts.FONT_PROXIMA_NOVA_REGULAR_12 ?? UIFont.systemFont(ofSize: 12)
-                textField.theme.bgColor = UIColor.white
-                textField.theme.fontColor = UIColor.black
-                textField.theme.cellHeight = 40
-                textField.filterStrings(searchedArray)
-                textField.itemSelectionHandler = { filteredResults, itemPosition in
-                    let item = filteredResults[itemPosition]
-                    
-                    self.guestDetails[row]["state"] = item
-                    self.cityCodeStr = self.cityCode[itemPosition]
-                    cell.txtState.resignFirstResponder()
+            if let cell = self.tableView.cellForRow(at: IndexPath(row: row, section: 0)) as? BookingCell {
+                if textField == cell.txtState {
+                    textField.theme = SearchTextFieldTheme.lightTheme()
+                    textField.theme.font = LeaveCasaFonts.FONT_PROXIMA_NOVA_REGULAR_12 ?? UIFont.systemFont(ofSize: 12)
+                    textField.theme.bgColor = UIColor.white
+                    textField.theme.fontColor = UIColor.black
+                    textField.theme.cellHeight = 40
+                    textField.filterStrings(searchedArray)
+                    textField.itemSelectionHandler = { filteredResults, itemPosition in
+                        let item = filteredResults[itemPosition]
+                        
+                        self.guestDetails[row]["state"] = item
+                        self.cityCodeStr = self.cityCode[itemPosition]
+                        cell.txtState.text = self.cityName[itemPosition]
+                        cell.txtState.resignFirstResponder()
+                    }
                 }
             }
         }
     }
-    
     
     func fetchCityList(_ sender: SearchTextField) {
         if WSManager.isConnectedToInternet() {

@@ -24,9 +24,6 @@ struct FlightStruct {
     var passengers = 1
 }
 
-var classDropDown = DropDown()
-
-
 class SearchFlightViewController: UIViewController {
     
     @IBOutlet weak var btnOneWay: UIButton!
@@ -53,6 +50,7 @@ class SearchFlightViewController: UIViewController {
     var isFromCheckin = true
     var checkinDate = Date()
     var checkoutDate = Date()
+    var classDropDown = DropDown()
     var flightTypes = ["All", "Economy", "Premium Economy", "Business", "Premium Business", "First"]
     
     override func viewDidLoad() {
