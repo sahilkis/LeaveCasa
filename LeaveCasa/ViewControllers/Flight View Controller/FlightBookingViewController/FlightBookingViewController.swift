@@ -15,6 +15,7 @@ class FlightBookingViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var lblPriceTitle: UILabel!
     @IBOutlet weak var lblPrice: UILabel!
     @IBOutlet weak var lblFee: UILabel!
     @IBOutlet weak var lblTotalPrice: UILabel!
@@ -23,12 +24,17 @@ class FlightBookingViewController: UIViewController {
     @IBOutlet weak var txtGuestPhone: UITextField!
     @IBOutlet weak var txtGuestEmail: UITextField!
     
+    var flights = Flight()
+    var returningFlights = Flight()
+    var searchedFlight = FlightStruct()
     lazy var cityCode = [String]()
     lazy var cityName = [String]()
     lazy var cityCodeStr = ""
     var guestDetails = [[String: AnyObject]]()
     var numberOfAdults = 1
-
+    var numberOfChildren = 0
+    var numberOfInfants = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -66,13 +72,29 @@ class FlightBookingViewController: UIViewController {
     
     private func setupData() {
         
-        lblPrice.text = lblTotalPrice.text // TODO: Pending
-
         for i in 0..<numberOfAdults {
             guestDetails.append(["id" : i+1 as AnyObject]) // TODO: Pending
             
         }
         
+        let totalFares: [FlightFare] = [flights.sFare, returningFlights.sFare]
+        let basefare = totalFares.map({$0.sBaseFare}).reduce(0, +)
+        let publishedfare = totalFares.map({$0.sPublishedFare}).reduce(0, +)
+        let tax = totalFares.map({$0.sTax}).reduce(0, +)
+        
+        lblPrice.text = "₹ \(basefare)"
+        lblFee.text = "₹ \(tax)"
+        lblTotalPrice.text = "₹ \(publishedfare)"
+        
+        var baseTitle = "Adults * \(numberOfAdults)"
+        if numberOfChildren > 0 {
+            baseTitle += ", Children * \(numberOfChildren)"
+        }
+        if numberOfInfants > 0 {
+            baseTitle += ", Infants * \(numberOfInfants)"
+        }
+        
+        lblPriceTitle.text = baseTitle
     }
 }
 

@@ -64,7 +64,7 @@ class FlightListRoundViewController: UIViewController {
         let flightOne = flights[selectedFlightIndex].sPrice
         let flightTwo = returningFlights[selectedReturnFlightIndex].sPrice
         
-        self.lblTotalPrice.text = "\(flightOne + flightTwo)"
+        self.lblTotalPrice.text = "₹ \(flightOne + flightTwo)"
         
         self.tableView.reloadData()
         

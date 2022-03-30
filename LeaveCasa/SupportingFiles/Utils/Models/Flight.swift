@@ -260,6 +260,7 @@ class FlightFare: Mappable, CustomStringConvertible {
     func mapping(map: Map) {
         sCurrency <- map[WSResponseParams.WS_RESP_PARAM_CURRENCY]
         sBaseFare <- map[WSResponseParams.WS_RESP_PARAM_BASE_FARE]
+        sTax <- map[WSResponseParams.WS_RESP_PARAM_TAX]
         sPublishedFare <- map[WSResponseParams.WS_RESP_PUBLISHED_FARE]
     }
     
@@ -282,5 +283,6 @@ class FlightFare: Mappable, CustomStringConvertible {
     
     lazy var sCurrency = String()
     lazy var sBaseFare = Int()
+    lazy var sTax = Int()
     lazy var sPublishedFare = Int()
 }
