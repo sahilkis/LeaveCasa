@@ -19,9 +19,12 @@ struct FlightStruct {
     var to = ""
     var fromDate = Date()
     var toDate = Date()
-    var flightClass = "Economy"
+    var flightClassIndex = 0
     var passengers = 1
 }
+
+var classDropDown = DropDown()
+
 
 class SearchFlightViewController: UIViewController {
     
@@ -49,6 +52,7 @@ class SearchFlightViewController: UIViewController {
     var isFromCheckin = true
     var checkinDate = Date()
     var checkoutDate = Date()
+    var flightTypes = ["All", "Economy", "Premium Economy", "Business", "Premium Business", "First"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -209,7 +213,7 @@ class SearchFlightViewController: UIViewController {
     }
     
     @IBAction func btnSearchAction(_ sender: UIButton) {
-         var alertMessage = ""
+        var alertMessage = ""
         
         for item in array {
             if item.source.isEmpty || item.sourceCode.isEmpty {
@@ -246,14 +250,14 @@ class SearchFlightViewController: UIViewController {
         let index = sender.tag
         var obj = FlightStruct()
         
-       let last = array[index]
-            
-            obj.source = last.destination
-            obj.sourceCode = last.destinationCode
-            obj.passengers = last.passengers
-            obj.from = last.to
-            obj.fromDate = last.toDate
-
+        let last = array[index]
+        
+        obj.source = last.destination
+        obj.sourceCode = last.destinationCode
+        obj.passengers = last.passengers
+        obj.from = last.to
+        obj.fromDate = last.toDate
+        
         array.append(obj) // add new city
         tableView.reloadData()
     }
@@ -316,6 +320,22 @@ class SearchFlightViewController: UIViewController {
         self.tableView.reloadData()
         
     }
+    
+    func openDropDown(_ textfield: UITextField) {
+        let indexPathRow = textfield.tag
+        
+        classDropDown.show()
+        classDropDown.textColor = UIColor.black
+        classDropDown.textFont = LeaveCasaFonts.FONT_PROXIMA_NOVA_REGULAR_12 ?? UIFont.systemFont(ofSize: 12)
+        classDropDown.backgroundColor = UIColor.white
+        classDropDown.anchorView = textfield
+        classDropDown.dataSource = self.flightTypes
+        classDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+            
+            self.array[indexPathRow].flightClassIndex = index
+            self.tableView.reloadData()
+        }
+    }
 }
 
 // MARK: - UIBUTTON ACTIONS
@@ -342,15 +362,16 @@ extension SearchFlightViewController: UITextFieldDelegate {
         
         let cell = tableView.cellForRow(at: IndexPath(row: row, section: 0)) as! SearchFlightCell
         
-        if textField == cell.txtSource || textField == cell.txtDestination {//} || textField == cell.txtClass {
+        if textField == cell.txtSource || textField == cell.txtDestination {
             return true
-        }
-        else if textField == cell.txtFrom {
+        } else if textField == cell.txtClass {
+            openDropDown(textField)
+            return false
+        } else if textField == cell.txtFrom {
             isFromCheckin = true
             openDateCalendar()
             return false
-        }
-        else if textField == cell.txtTo {
+        } else if textField == cell.txtTo {
             isFromCheckin = false
             openDateCalendar()
             return false
@@ -376,7 +397,7 @@ extension SearchFlightViewController: WWCalendarTimeSelectorProtocol {
             checkoutDate = date
             array[selectedIndex].toDate = checkoutDate
             array[selectedIndex].to = Helper.convertDate(date)
-                        
+            
         }
         
         setUpTable()
@@ -417,6 +438,10 @@ extension SearchFlightViewController: UITableViewDataSource, UITableViewDelegate
         cell.txtTo.delegate = self
         cell.txtClass.delegate = self
         
+        cell.txtClass.tag = row
+        cell.btnClose.tag = row
+        cell.btnAddCity.tag = row
+        
         cell.btnClose.addTarget(self, action: #selector(btnCloseClicked(_:)), for: .touchUpInside)
         cell.btnAddCity.addTarget(self, action: #selector(btnAddCityClicked(_:)), for: .touchUpInside)
         cell.txtSource.addTarget(self, action: #selector(searchCity(_:)), for: .editingChanged)
@@ -426,7 +451,7 @@ extension SearchFlightViewController: UITableViewDataSource, UITableViewDelegate
         cell.txtDestination.text = items.destination
         cell.txtFrom.text = items.from
         cell.txtTo.text = items.to
-        cell.txtClass.text = "\(items.passengers), \(items.flightClass)"
+        cell.txtClass.text = flightTypes[items.flightClassIndex]
         
         
         return cell
@@ -471,67 +496,90 @@ extension SearchFlightViewController {
             })
         }
     }
-
+    
     func searchFlight() {
-        
-        if selectedTab == 2 {
-            Helper.showOKAlert(onVC: self, title: Alert.ALERT, message: "Coming Soon")
-            return
-        }
         
         if WSManager.isConnectedToInternet() {
             var params: [String: AnyObject] = [:]
-             
-            for obj in array {
-               // var param: [String: AnyObject] = [:]
-
-                params = [WSRequestParams.WS_REQS_PARAM_CURRENT_REQUEST: 0 as AnyObject,
-                          WSRequestParams.WS_REQS_PARAM_ADULT: numberOfAdults as AnyObject,
-                          WSRequestParams.WS_REQS_PARAM_CHILD: numberOfChildren as AnyObject,
-                          WSRequestParams.WS_REQS_PARAM_INFANTS: numberOfInfants as AnyObject,
-                          WSRequestParams.WS_REQS_PARAM_FROM: obj.sourceCode as AnyObject,
-                          WSRequestParams.WS_REQS_PARAM_TO: obj.destinationCode as AnyObject,
-                          WSRequestParams.WS_REQS_PARAM_DEPART: obj.from as AnyObject
-                ]
+            
+            params = [
+                WSRequestParams.WS_REQS_PARAM_ADULTS: numberOfAdults as AnyObject,
+                WSRequestParams.WS_REQS_PARAM_CHILDS: numberOfChildren as AnyObject,
+                WSRequestParams.WS_REQS_PARAM_INFANT: numberOfInfants as AnyObject,
                 
+            ]
+            
+            var sourceArray = [String]()
+            var destinationArray = [String]()
+            var departDateArray = [String]()
+            
+            for obj in array {
                 if selectedTab == 0 {
                     params[WSRequestParams.WS_REQS_PARAM_TRIP_TYPE] = "one_way" as AnyObject
+                    sourceArray.append(obj.sourceCode)
+                    destinationArray.append(obj.destinationCode)
+                    departDateArray.append(obj.from)
                 } else if selectedTab == 1 {
                     params[WSRequestParams.WS_REQS_PARAM_TRIP_TYPE] = "round" as AnyObject
-                    params[WSRequestParams.WS_REQS_PARAM_RETURNING] = obj.to as AnyObject
+                    sourceArray.append(obj.sourceCode)
+                    sourceArray.append(obj.destinationCode)
+                    destinationArray.append(obj.destinationCode)
+                    destinationArray.append(obj.sourceCode)
+                    departDateArray.append(obj.from)
+                    departDateArray.append(obj.to)
+                } else if selectedTab == 2 {
+                    params[WSRequestParams.WS_REQS_PARAM_TRIP_TYPE] = "multi_city" as AnyObject
+                    sourceArray.append(obj.sourceCode)
+                    destinationArray.append(obj.destinationCode)
+                    departDateArray.append(obj.from)
                 }
                 
-               // params.append(param)
+                params[WSRequestParams.WS_REQS_PARAM_CLASS] = obj.flightClassIndex + 1 as AnyObject
+                
             }
             
+            params[WSRequestParams.WS_REQS_PARAM_FROM] = sourceArray as AnyObject
+            params[WSRequestParams.WS_REQS_PARAM_TO] = destinationArray as AnyObject
+            params[WSRequestParams.WS_REQS_PARAM_DEPARTING] = departDateArray as AnyObject
+            
             DispatchQueue.main.async {
-                       
-            Helper.showLoader(onVC: self, message: Alert.LOADING)
-            WSManager.wsCallFetchFlights(params, success: { (results) in
-                Helper.hideLoader(onVC: self)
-                if let vc = ViewControllerHelper.getViewController(ofType: .FlightListViewController) as? FlightListViewController {
-                    vc.flights = results
-                    vc.startDate = self.array[self.selectedIndex].fromDate
-                    vc.searchParams = params
-//                    vc.results = results
-//                    vc.markups = markup
-//                    vc.hotelCount = "\(results.reduce(0) {$0 + $1.numberOfHotels })"
-//                    vc.logId = logId
-//                    vc.checkInDate = Helper.convertCheckinDate(self.txtCheckIn.text ?? "")
-//                    vc.checkIn = self.txtCheckIn.text ?? ""
-//                    vc.checkOut = self.txtCheckOut.text ?? ""
-//                    vc.cityCodeStr = self.cityCodeStr
-//                    vc.finalRooms = self.finalRooms
-                    //                    vc.totalRequest = results[0].totalRequests
-                    vc.numberOfChildren = self.numberOfChildren
-                    vc.numberOfAdults = self.numberOfAdults
-                    vc.numberOfInfants = self.numberOfInfants
-                    self.navigationController?.pushViewController(vc, animated: true)
-                }
-            }, failure: { (error) in
-                Helper.hideLoader(onVC: self)
-                Helper.showOKAlert(onVC: self, title: Alert.ERROR, message: error.localizedDescription)
-            })
+                
+                Helper.showLoader(onVC: self, message: Alert.LOADING)
+                WSManager.wsCallFetchFlights(params, success: { (results) in
+                    Helper.hideLoader(onVC: self)
+                    
+                    if self.selectedTab == 0 {
+                        if let vc = ViewControllerHelper.getViewController(ofType: .FlightListViewController) as? FlightListViewController {
+                            vc.flights = results.first ?? []
+                            vc.startDate = self.array[self.selectedIndex].fromDate
+                            vc.searchParams = params
+                            
+                            vc.numberOfChildren = self.numberOfChildren
+                            vc.numberOfAdults = self.numberOfAdults
+                            vc.numberOfInfants = self.numberOfInfants
+                            self.navigationController?.pushViewController(vc, animated: true)
+                        }
+                    }
+                    else if self.selectedTab == 1 {
+                        if let vc = ViewControllerHelper.getViewController(ofType: .FlightListRoundViewController) as? FlightListRoundViewController {
+                            vc.flights = results.first ?? []
+                            vc.returningFlights = results.last ?? []
+                            vc.startDate = self.array[self.selectedIndex].fromDate
+                            vc.returnDate = self.array[self.selectedIndex].toDate
+                            vc.searchedFlight = self.array[self.selectedIndex]
+                            vc.searchParams = params
+                            
+                            vc.numberOfChildren = self.numberOfChildren
+                            vc.numberOfAdults = self.numberOfAdults
+                            vc.numberOfInfants = self.numberOfInfants
+                            self.navigationController?.pushViewController(vc, animated: true)
+                            
+                        }
+                    }
+                }, failure: { (error) in
+                    Helper.hideLoader(onVC: self)
+                    Helper.showOKAlert(onVC: self, title: Alert.ERROR, message: error.localizedDescription)
+                })
             }
         } else {
             Helper.hideLoader(onVC: self)

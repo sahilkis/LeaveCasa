@@ -74,6 +74,8 @@
 		40A14A8A27EC977200102036 /* FlightDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A14A8927EC977200102036 /* FlightDetailViewController.swift */; };
 		40B0A37E27F17B8800EF2BB6 /* Flight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40B0A37D27F17B8800EF2BB6 /* Flight.swift */; };
 		40BAC11827E8968C00952E2E /* FacilitiesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BAC11727E8968C00952E2E /* FacilitiesCell.swift */; };
+		40C7B3D427F445C3005027B1 /* FlightListRoundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C7B3D327F445C3005027B1 /* FlightListRoundViewController.swift */; };
+		40C7B3D627F4463B005027B1 /* FlightListRoundCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C7B3D527F4463B005027B1 /* FlightListRoundCell.swift */; };
 		40CDAF1627E0B40800B5B8FA /* FlightListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CDAF1527E0B40800B5B8FA /* FlightListViewController.swift */; };
 		40CDAF1827E0B43F00B5B8FA /* FlightListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CDAF1727E0B43F00B5B8FA /* FlightListCell.swift */; };
 		A71135AD1284FFCD1745A8CA /* Pods_LeaveCasa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2938878705CEC9DEF73768C5 /* Pods_LeaveCasa.framework */; };
@@ -172,6 +174,8 @@
 		40A14A8927EC977200102036 /* FlightDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightDetailViewController.swift; sourceTree = "<group>"; };
 		40B0A37D27F17B8800EF2BB6 /* Flight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flight.swift; sourceTree = "<group>"; };
 		40BAC11727E8968C00952E2E /* FacilitiesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacilitiesCell.swift; sourceTree = "<group>"; };
+		40C7B3D327F445C3005027B1 /* FlightListRoundViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightListRoundViewController.swift; sourceTree = "<group>"; };
+		40C7B3D527F4463B005027B1 /* FlightListRoundCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightListRoundCell.swift; sourceTree = "<group>"; };
 		40CDAF1527E0B40800B5B8FA /* FlightListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightListViewController.swift; sourceTree = "<group>"; };
 		40CDAF1727E0B43F00B5B8FA /* FlightListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightListCell.swift; sourceTree = "<group>"; };
 		D57CC5C06870644F4F5A9B61 /* Pods-LeaveCasa.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeaveCasa.debug.xcconfig"; path = "Target Support Files/Pods-LeaveCasa/Pods-LeaveCasa.debug.xcconfig"; sourceTree = "<group>"; };
@@ -632,6 +636,7 @@
 			isa = PBXGroup;
 			children = (
 				19499D4323A790430025DB1F /* SearchFlightViewController */,
+				40C7B3D227F44561005027B1 /* FlightListRoundViewController */,
 				40CDAF1427E0B3DB00B5B8FA /* FlightListViewController */,
 				40A14A8827EC970800102036 /* FlightDetailViewController */,
 				405AA00327ED7716006BD68D /* FlightBookingViewController */,
@@ -674,6 +679,15 @@
 				405AA00627ED79C7006BD68D /* FlightDetailCell.swift */,
 			);
 			path = FlightDetailViewController;
+			sourceTree = "<group>";
+		};
+		40C7B3D227F44561005027B1 /* FlightListRoundViewController */ = {
+			isa = PBXGroup;
+			children = (
+				40C7B3D327F445C3005027B1 /* FlightListRoundViewController.swift */,
+				40C7B3D527F4463B005027B1 /* FlightListRoundCell.swift */,
+			);
+			path = FlightListRoundViewController;
 			sourceTree = "<group>";
 		};
 		40CDAF1427E0B3DB00B5B8FA /* FlightListViewController */ = {
@@ -942,6 +956,7 @@
 				19499D4823A790770025DB1F /* SearchBusViewController.swift in Sources */,
 				18C82856214FDB10007FC65A /* UIButton+Extension.swift in Sources */,
 				408334D927EDCF470015F994 /* BusBookingViewController.swift in Sources */,
+				40C7B3D427F445C3005027B1 /* FlightListRoundViewController.swift in Sources */,
 				195C403D22FC0C100013A644 /* HomeViewController.swift in Sources */,
 				19D6443123263A77009E199B /* UITextfield+Extension.swift in Sources */,
 				192495EE2333615B00B0E36E /* UIView+Extension.swift in Sources */,
@@ -949,6 +964,7 @@
 				18C82844214FCF8F007FC65A /* Helper.swift in Sources */,
 				1924096023A244920012CFBF /* WWCalendarTimeSelector.swift in Sources */,
 				195C404A22FC10F90013A644 /* WSManager.swift in Sources */,
+				40C7B3D627F4463B005027B1 /* FlightListRoundCell.swift in Sources */,
 				1924095E23A244810012CFBF /* Int+Timepiece.swift in Sources */,
 				19309A072334C58800E189AE /* Hotels.swift in Sources */,
 				18C82846214FCF98007FC65A /* AppConstants.swift in Sources */,
