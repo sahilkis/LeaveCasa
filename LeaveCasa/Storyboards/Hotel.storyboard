@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -2398,6 +2398,37 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pLn-f7-zLX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-96239.130434782623" y="-14034.375"/>
+        </scene>
+        <!--Hotel Cancellation Policy View Controller-->
+        <scene sceneID="28v-jE-u36">
+            <objects>
+                <viewController storyboardIdentifier="HotelCancellationPolicyViewController" id="tuv-tk-18i" customClass="HotelCancellationPolicyViewController" customModule="LeaveCasa" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="b8a-vF-ZdH">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TJp-wk-Fza">
+                                <rect key="frame" x="16" y="20" width="343" height="0.0"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="16"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="4pK-NL-Ozw"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="TJp-wk-Fza" firstAttribute="leading" secondItem="4pK-NL-Ozw" secondAttribute="leading" constant="16" id="L4c-PU-Q4V"/>
+                            <constraint firstItem="TJp-wk-Fza" firstAttribute="top" secondItem="4pK-NL-Ozw" secondAttribute="top" constant="20" id="XjW-w7-dtf"/>
+                            <constraint firstItem="4pK-NL-Ozw" firstAttribute="trailing" secondItem="TJp-wk-Fza" secondAttribute="trailing" constant="16" id="YV8-iB-zo0"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="lblCancellationPolicy" destination="TJp-wk-Fza" id="35k-zA-TT7"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bYI-RG-lzf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-95495.199999999997" y="-14337.481259370315"/>
         </scene>
     </scenes>
     <resources>

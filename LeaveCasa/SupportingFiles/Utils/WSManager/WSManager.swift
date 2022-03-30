@@ -185,27 +185,6 @@ class WSManager {
         })
     }
     
-    class func wsCallGetHotelCancellationPolicy(_ requestParams: [String: AnyObject], success:@escaping (_ response: [[String: AnyObject]],_ message:String?)->(),failure:@escaping (NSError)->()) {
-        AF.request(WebService.hotelCancellationPolicy, method: .post, parameters: requestParams, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: {(responseData) -> Void in
-            print(responseData.result)
-            switch responseData.result {
-            case .success(let value):
-                if let responseValue = value as? [String: AnyObject] {
-                    print(responseValue)
-                    if let results = responseValue[WSResponseParams.WS_RESP_PARAM_RESULTS] as? [String: AnyObject] {
-                        if let regular = results[WSResponseParams.WS_RESP_PARAM_REGULAR] as? [[String: AnyObject]] {
-                            success(regular, "")
-                        }
-                    }
-                } else {
-                    failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: responseData.error?.localizedDescription ?? ""]))
-                }
-            case .failure(let error):
-                failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: error.localizedDescription]))
-            }
-        })
-    }
-    
     // MARK: - FLIGHTS
     
     // MARK: SEARCH CITY AIRPORT CODES

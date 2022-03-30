@@ -232,8 +232,11 @@ extension HotelDetailViewController {
     @IBAction func cancellationPolicyClicked(_ sender: UIButton) {
         let dict = prices[sender.tag]
         
-        if let rateKey = dict[WSResponseParams.WS_RESP_PARAM_RATE_KEY] as? String {
-            self.cancellationPolicy(searchId, rateKey)
+        if let cancellationPolicy = dict[WSResponseParams.WS_RESP_PARAM_CANCELLATION_POLICY] as? [String: AnyObject] {
+            if let vc = ViewControllerHelper.getViewController(ofType: .HotelCancellationPolicyViewController) as? HotelCancellationPolicyViewController {
+                vc.hotelCancellationPolicy = cancellationPolicy
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
         }
     }
 }
@@ -414,6 +417,15 @@ extension HotelDetailViewController: UITableViewDataSource, UITableViewDelegate 
             }
         }
         
+        if let supportsCancellation = dict[WSResponseParams.WS_RESP_PARAM_SUPPORTS_CANCELLATION] as? Bool {
+            if supportsCancellation {
+                cell.btnCancellationPolicy.setTitle("Cancellation policy", for: UIControl.State())
+            }
+            else {
+                cell.btnCancellationPolicy.setTitle("No cancellation", for: UIControl.State())
+            }
+        }
+        
         cell.btnBookNow.tag = indexPath.row
         cell.btnCancellationPolicy.tag = indexPath.row
         
@@ -423,13 +435,16 @@ extension HotelDetailViewController: UITableViewDataSource, UITableViewDelegate 
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let dict = prices[indexPath.row]
-        
-        if let rateKey = dict[WSResponseParams.WS_RESP_PARAM_RATE_KEY] as? String {
-            self.cancellationPolicy(searchId, rateKey)
-        }
-    }
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let dict = prices[indexPath.row]
+//        
+//        if let cancellationPolicy = dict[WSResponseParams.WS_RESP_PARAM_CANCELLATION_POLICY] as? [String: AnyObject] {
+//            if let vc = ViewControllerHelper.getViewController(ofType: .HotelCancellationPolicyViewController) as? HotelCancellationPolicyViewController {
+//                vc.hotelCancellationPolicy = cancellationPolicy
+//                self.navigationController?.pushViewController(vc, animated: true)
+//            }
+//        }
+//    }
 }
 
 // MARK: - UISCROLLVIEW DELEGATE
@@ -521,15 +536,5 @@ extension HotelDetailViewController {
         }
         
         self.facilitiesCollectionView.reloadData()
-    }
-    
-    func cancellationPolicy(_ searchId: String, _ rateKey: String) {
-        let params: [String: AnyObject] = [WSRequestParams.WS_REQS_PARAM_SEARCH_ID: searchId as AnyObject,
-                                           WSRequestParams.WS_REQS_PARAM_RATE_KEY: rateKey as AnyObject]
-        WSManager.wsCallGetHotelCancellationPolicy(params) { response, message in
-            print(response)
-        } failure: { error in
-            print(error.localizedDescription)
-        }
     }
 }

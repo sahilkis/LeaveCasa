@@ -42,6 +42,7 @@
 		193E1EF823ACE6DA00DDA7C9 /* BusListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193E1EF623ACE6DA00DDA7C9 /* BusListCell.swift */; };
 		19499D4523A7905D0025DB1F /* SearchFlightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19499D4423A7905D0025DB1F /* SearchFlightViewController.swift */; };
 		19499D4823A790770025DB1F /* SearchBusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19499D4723A790770025DB1F /* SearchBusViewController.swift */; };
+		1951EC8027F4866600170AA5 /* HotelCancellationPolicyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1951EC7F27F4866600170AA5 /* HotelCancellationPolicyViewController.swift */; };
 		19561F292338975500AA4FF3 /* ImagesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19561F272338975500AA4FF3 /* ImagesCell.swift */; };
 		19561F2D2338B8F000AA4FF3 /* RoomsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19561F2B2338B8F000AA4FF3 /* RoomsCell.swift */; };
 		19561F2E2338B8F000AA4FF3 /* RoomsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19561F2C2338B8F000AA4FF3 /* RoomsCell.xib */; };
@@ -140,6 +141,7 @@
 		193E1EF623ACE6DA00DDA7C9 /* BusListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusListCell.swift; sourceTree = "<group>"; };
 		19499D4423A7905D0025DB1F /* SearchFlightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFlightViewController.swift; sourceTree = "<group>"; };
 		19499D4723A790770025DB1F /* SearchBusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBusViewController.swift; sourceTree = "<group>"; };
+		1951EC7F27F4866600170AA5 /* HotelCancellationPolicyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelCancellationPolicyViewController.swift; sourceTree = "<group>"; };
 		19561F272338975500AA4FF3 /* ImagesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesCell.swift; sourceTree = "<group>"; };
 		19561F2B2338B8F000AA4FF3 /* RoomsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsCell.swift; sourceTree = "<group>"; };
 		19561F2C2338B8F000AA4FF3 /* RoomsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoomsCell.xib; sourceTree = "<group>"; };
@@ -483,6 +485,14 @@
 			path = SearchBusViewController;
 			sourceTree = "<group>";
 		};
+		1951EC7E27F4864C00170AA5 /* HotelCancellationPolicyViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1951EC7F27F4866600170AA5 /* HotelCancellationPolicyViewController.swift */,
+			);
+			path = HotelCancellationPolicyViewController;
+			sourceTree = "<group>";
+		};
 		195C403522FC08F70013A644 /* SignupViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -651,6 +661,7 @@
 				19309A082334CB3800E189AE /* HotelListViewController */,
 				19FE9CF023352B8E0006BC2D /* HotelDetailViewController */,
 				40300EFA27EAFC7C0002C967 /* HotelBookingViewController */,
+				1951EC7E27F4864C00170AA5 /* HotelCancellationPolicyViewController */,
 			);
 			path = "Hotel View Controller";
 			sourceTree = "<group>";
@@ -962,6 +973,7 @@
 				192495EE2333615B00B0E36E /* UIView+Extension.swift in Sources */,
 				40CDAF1827E0B43F00B5B8FA /* FlightListCell.swift in Sources */,
 				18C82844214FCF8F007FC65A /* Helper.swift in Sources */,
+				1951EC8027F4866600170AA5 /* HotelCancellationPolicyViewController.swift in Sources */,
 				1924096023A244920012CFBF /* WWCalendarTimeSelector.swift in Sources */,
 				195C404A22FC10F90013A644 /* WSManager.swift in Sources */,
 				40C7B3D627F4463B005027B1 /* FlightListRoundCell.swift in Sources */,

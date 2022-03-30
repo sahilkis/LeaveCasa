@@ -7,25 +7,26 @@
 //
 
 struct ViewControllerIdentifiers {
-    static let MainViewController                   = "MainViewController"
-    static let LoginViewController                  = "LoginViewController"
-    static let SignupViewController                 = "SignupViewController"
-    static let HomeViewController                   = "HomeViewController"
-    static let SearchHotelViewController            = "SearchHotelViewController"
-    static let HotelListViewController              = "HotelListViewController"
-    static let HotelDetailViewController            = "HotelDetailViewController"
-    static let HotelBookingViewController           = "HotelBookingViewController"
-    static let WWCalendarTimeSelector               = "WWCalendarTimeSelector"
-    static let SearchFlightViewController           = "SearchFlightViewController"
-    static let FlightListViewController             = "FlightListViewController"
-    static let FlightListRoundViewController        = "FlightListRoundViewController"
-    static let FlightDetailViewController           = "FlightDetailViewController"
-    static let FlightBookingViewController          = "FlightBookingViewController"
-    static let SearchBusViewController              = "SearchBusViewController"
-    static let BusListViewController                = "BusListViewController"
-    static let BusDetailViewController              = "BusDetailViewController"
-    static let BusBookingViewController             = "BusBookingViewController"
-    static let TabBarViewController                 = "TabBarViewController"
+    static let MainViewController                       = "MainViewController"
+    static let LoginViewController                      = "LoginViewController"
+    static let SignupViewController                     = "SignupViewController"
+    static let HomeViewController                       = "HomeViewController"
+    static let SearchHotelViewController                = "SearchHotelViewController"
+    static let HotelListViewController                  = "HotelListViewController"
+    static let HotelDetailViewController                = "HotelDetailViewController"
+    static let HotelBookingViewController               = "HotelBookingViewController"
+    static let HotelCancellationPolicyViewController    = "HotelCancellationPolicyViewController"
+    static let WWCalendarTimeSelector                   = "WWCalendarTimeSelector"
+    static let SearchFlightViewController               = "SearchFlightViewController"
+    static let FlightListViewController                 = "FlightListViewController"
+    static let FlightListRoundViewController            = "FlightListRoundViewController"
+    static let FlightDetailViewController               = "FlightDetailViewController"
+    static let FlightBookingViewController              = "FlightBookingViewController"
+    static let SearchBusViewController                  = "SearchBusViewController"
+    static let BusListViewController                    = "BusListViewController"
+    static let BusDetailViewController                  = "BusDetailViewController"
+    static let BusBookingViewController                 = "BusBookingViewController"
+    static let TabBarViewController                     = "TabBarViewController"
 }
 
 import UIKit
@@ -39,6 +40,7 @@ enum ViewControllerType {
     case HotelListViewController
     case HotelDetailViewController
     case HotelBookingViewController
+    case HotelCancellationPolicyViewController
     case WWCalendarTimeSelector
     case SearchFlightViewController
     case FlightListRoundViewController
@@ -107,9 +109,11 @@ class ViewControllerHelper: NSObject {
            viewController = hotelStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.HotelDetailViewController) as! HotelDetailViewController
        } else if viewControllerType == .HotelBookingViewController {
            viewController = hotelStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.HotelBookingViewController) as! HotelBookingViewController
+       } else if viewControllerType == .HotelCancellationPolicyViewController {
+           viewController = hotelStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.HotelCancellationPolicyViewController) as! HotelCancellationPolicyViewController
        } else {
             print("Unknown view controller type")
-        }
+       }
         
         if let vc = viewController {
             return vc
