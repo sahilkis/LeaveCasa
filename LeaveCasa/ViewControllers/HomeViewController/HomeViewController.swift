@@ -1,16 +1,10 @@
 import UIKit
 
 class HomeViewController: UIViewController {
-
-    @IBOutlet weak var signupViewHeightConstraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        DispatchQueue.main.async {
-            self.signupViewHeightConstraint.priority = .defaultLow
-            self.signupViewHeightConstraint.constant = 0
-        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -38,31 +32,6 @@ class HomeViewController: UIViewController {
     }
 }
 
-// MARK: - SWREVEALVIEWCONTROLLER DELEGATE
-extension HomeViewController: SWRevealViewControllerDelegate {
-    func setLeftbarButton() {
-        self.title = "Home"
-        self.navigationController?.navigationBar.tintColor = UIColor.white
-        
-        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-        let revealController = self.revealViewController()
-        revealController?.panGestureRecognizer().isEnabled = true
-        revealController?.tapGestureRecognizer()?.isEnabled = true
-        revealController?.delegate = self
-        
-        let leftBarButton = UIBarButtonItem.init(image: #imageLiteral(resourceName: "ic_menu"), style: .plain, target: revealController, action: #selector(SWRevealViewController.revealToggle(_:)))
-        self.navigationItem.leftBarButtonItem = leftBarButton
-    }
-    
-    func revealController(_ revealController: SWRevealViewController!, willMoveTo position: FrontViewPosition) {
-        if position == .right {
-            self.view.isUserInteractionEnabled = false
-        } else {
-            self.view.isUserInteractionEnabled = true
-        }
-    }
-}
-
 // MARK: - UIBUTTON ACTIONS
 extension HomeViewController {
     @IBAction func flightsClicked(_ sender: UIButton) {
@@ -81,21 +50,5 @@ extension HomeViewController {
         if let vc = ViewControllerHelper.getViewController(ofType: .SearchBusViewController) as? SearchBusViewController {
             self.navigationController?.pushViewController(vc, animated: true)
         }
-    }
-    
-    @IBAction func ToursClicked(_ sender: UIButton) {
-        
-    }
-    
-    @IBAction func transfersClicked(_ sender: UIButton) {
-        
-    }
-    
-    @IBAction func signupClicked(_ sender: UIButton) {
-        
-    }
-    
-    @IBAction func knowMoreClicked(_ sender: UIButton) {
-        
     }
 }

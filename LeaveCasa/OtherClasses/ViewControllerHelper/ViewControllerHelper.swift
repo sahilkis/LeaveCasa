@@ -10,7 +10,6 @@ struct ViewControllerIdentifiers {
     static let MainViewController                   = "MainViewController"
     static let LoginViewController                  = "LoginViewController"
     static let SignupViewController                 = "SignupViewController"
-    static let SWRevealViewController               = "SWRevealViewController"
     static let HomeViewController                   = "HomeViewController"
     static let SearchHotelViewController            = "SearchHotelViewController"
     static let HotelListViewController              = "HotelListViewController"
@@ -26,6 +25,7 @@ struct ViewControllerIdentifiers {
     static let BusListViewController                = "BusListViewController"
     static let BusDetailViewController              = "BusDetailViewController"
     static let BusBookingViewController             = "BusBookingViewController"
+    static let TabBarViewController                 = "TabBarViewController"
 }
 
 import UIKit
@@ -34,7 +34,6 @@ enum ViewControllerType {
     case MainViewController
     case LoginViewController
     case SignupViewController
-    case SWRevealViewController
     case HomeViewController
     case SearchHotelViewController
     case HotelListViewController
@@ -50,6 +49,7 @@ enum ViewControllerType {
     case BusListViewController
     case BusDetailViewController
     case BusBookingViewController
+    case TabBarViewController
 }
 
 class ViewControllerHelper: NSObject {
@@ -69,8 +69,8 @@ class ViewControllerHelper: NSObject {
             viewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.LoginViewController) as! LoginViewController
         } else if viewControllerType == .SignupViewController {
             viewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.SignupViewController) as! SignupViewController
-        } else if viewControllerType == .SWRevealViewController {
-            viewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.SWRevealViewController) as! SWRevealViewController
+        } else if viewControllerType == .TabBarViewController {
+            viewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.TabBarViewController) as! TabBarViewController
         } else if viewControllerType == .HomeViewController {
             viewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.HomeViewController) as! HomeViewController
         } else if viewControllerType == .WWCalendarTimeSelector {

@@ -59,6 +59,10 @@ class SignupViewController: UIViewController {
 
 // MARK: - UIBUTTON ACTIONS
 extension SignupViewController {
+    @IBAction func backClicked(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     @objc func termsClicked(_ sender: UITapGestureRecognizer) {
         let text = lblTerms.text
         let range = (text! as NSString).range(of: "Terms & Conditions")
@@ -133,7 +137,7 @@ extension SignupViewController {
             WSManager.wsCallSignup(params, completion: { (isSuccess, message) in
                 if isSuccess {
                     Helper.hideLoader(onVC: self)
-                    if let vc = ViewControllerHelper.getViewController(ofType: .SWRevealViewController) as? SWRevealViewController {
+                    if let vc = ViewControllerHelper.getViewController(ofType: .TabBarViewController) as? TabBarViewController {
                         vc.modalPresentationStyle = .overFullScreen
                         self.present(vc, animated: true, completion: nil)
                     }
