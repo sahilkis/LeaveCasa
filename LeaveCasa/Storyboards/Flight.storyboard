@@ -2227,6 +2227,7 @@
                     <connections>
                         <outlet property="lblFee" destination="bLf-PA-sOf" id="TSd-DY-4j9"/>
                         <outlet property="lblPrice" destination="7w3-Cj-AzF" id="qlo-BV-cHf"/>
+                        <outlet property="lblPriceTitle" destination="IS2-V5-9Ql" id="YOs-9u-qRt"/>
                         <outlet property="lblTotalPrice" destination="scI-9q-eT3" id="gzy-SO-4Jf"/>
                         <outlet property="tableView" destination="YE6-CP-M4X" id="xiL-GI-Xki"/>
                         <outlet property="tableViewHeightConstraint" destination="5yd-I9-btR" id="9Ot-YR-vaM"/>
