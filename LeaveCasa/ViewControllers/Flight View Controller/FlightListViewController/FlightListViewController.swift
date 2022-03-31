@@ -24,6 +24,12 @@ class FlightListViewController: UIViewController {
     var numberOfChildren = 0
     var numberOfInfants = 0
     
+    var selectedflightTime: Int = 0
+    var selectedflightStop:Int = 0
+    var selectedflightType: [Int] = []
+    var selectedflightAirline: Int = 0
+    var selectedfundType: [Int] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -71,8 +77,34 @@ extension FlightListViewController {
     }
     
     @IBAction func rightBarButton(_ sender: UIBarButtonItem) {
-        
+        if let vc = ViewControllerHelper.getViewController(ofType: .FlightFilterViewController) as? FlightFilterViewController {
+            vc.delegate = self
+            
+            vc.flightTime = selectedflightTime
+            vc.flightStop = selectedflightStop
+            vc.flightType = selectedflightType
+            vc.flightAirline = selectedflightAirline
+            vc.fundType = selectedfundType
+            self.present(vc, animated: true, completion: nil)
+            // self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
+}
+
+extension FlightListViewController: FlightFilterDelegate {
+    func applyFilter(flightTime: Int, flightStop: Int, flightType: [Int], flightAirline: Int, fundType: [Int]) {
+        selectedflightTime = flightTime
+        selectedflightStop = flightStop
+        selectedflightType = flightType
+        selectedfundType = fundType
+        selectedflightAirline = flightAirline
+        
+        searchFlight(index: selectedDate)
+        
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    
 }
 
 

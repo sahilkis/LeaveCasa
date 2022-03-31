@@ -70,6 +70,8 @@ struct LeaveCasaIcons {
     static let THREE_DOTS = UIImage.init(named: "ic_three_dots")
     static let CHECKBOX_BLUE = UIImage.init(named: "ic_square_tick_blue")
     static let CHECKBOX_GREY = UIImage.init(named: "ic_square_tick_grey")
+    static let RADIO_BLUE = UIImage.init(named: "ic_radio_unselected")
+    static let RADIO_GREY = UIImage.init(named: "ic_radio_unselected")
 }
 
 // Alert Titles

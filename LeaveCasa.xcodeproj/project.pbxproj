@@ -65,6 +65,7 @@
 		40300EFC27EAFCC60002C967 /* HotelBookingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40300EFB27EAFCC60002C967 /* HotelBookingViewController.swift */; };
 		40300EFE27EB497E0002C967 /* BookingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40300EFD27EB497E0002C967 /* BookingCell.swift */; };
 		4038B41827E2C2E90047E839 /* Hotel.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4038B41727E2C2E90047E839 /* Hotel.storyboard */; };
+		403D080427F55D7E00E2D13A /* FlightFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403D080327F55D7E00E2D13A /* FlightFilterViewController.swift */; };
 		403EDF5C27E9AF6400096521 /* ImagesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 403EDF5B27E9AF6400096521 /* ImagesCell.xib */; };
 		405AA00527ED775F006BD68D /* FlightBookingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405AA00427ED775F006BD68D /* FlightBookingViewController.swift */; };
 		405AA00727ED79C7006BD68D /* FlightDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405AA00627ED79C7006BD68D /* FlightDetailCell.swift */; };
@@ -167,6 +168,7 @@
 		40300EFB27EAFCC60002C967 /* HotelBookingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelBookingViewController.swift; sourceTree = "<group>"; };
 		40300EFD27EB497E0002C967 /* BookingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingCell.swift; sourceTree = "<group>"; };
 		4038B41727E2C2E90047E839 /* Hotel.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Hotel.storyboard; sourceTree = "<group>"; };
+		403D080327F55D7E00E2D13A /* FlightFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightFilterViewController.swift; sourceTree = "<group>"; };
 		403EDF5B27E9AF6400096521 /* ImagesCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImagesCell.xib; sourceTree = "<group>"; };
 		405AA00427ED775F006BD68D /* FlightBookingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightBookingViewController.swift; sourceTree = "<group>"; };
 		405AA00627ED79C7006BD68D /* FlightDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightDetailCell.swift; sourceTree = "<group>"; };
@@ -634,6 +636,14 @@
 			path = HotelBookingViewController;
 			sourceTree = "<group>";
 		};
+		403D080227F55D4000E2D13A /* FlightFilterViewController */ = {
+			isa = PBXGroup;
+			children = (
+				403D080327F55D7E00E2D13A /* FlightFilterViewController.swift */,
+			);
+			path = FlightFilterViewController;
+			sourceTree = "<group>";
+		};
 		405AA00327ED7716006BD68D /* FlightBookingViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -659,6 +669,7 @@
 				19499D4323A790430025DB1F /* SearchFlightViewController */,
 				40CDAF1427E0B3DB00B5B8FA /* FlightListViewController */,
 				40C7B3D227F44561005027B1 /* FlightListRoundViewController */,
+				403D080227F55D4000E2D13A /* FlightFilterViewController */,
 				40A14A8827EC970800102036 /* FlightDetailViewController */,
 				405AA00327ED7716006BD68D /* FlightBookingViewController */,
 			);
@@ -949,6 +960,7 @@
 				19D6442E23263996009E199B /* Validator.swift in Sources */,
 				40B0A37E27F17B8800EF2BB6 /* Flight.swift in Sources */,
 				19309A0A2334CB5100E189AE /* HotelListViewController.swift in Sources */,
+				403D080427F55D7E00E2D13A /* FlightFilterViewController.swift in Sources */,
 				405AA00727ED79C7006BD68D /* FlightDetailCell.swift in Sources */,
 				19FE9CF223352BAA0006BC2D /* HotelDetailViewController.swift in Sources */,
 				195C403722FC09170013A644 /* SignupViewController.swift in Sources */,
