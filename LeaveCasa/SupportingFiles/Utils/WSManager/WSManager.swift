@@ -20,6 +20,8 @@ class WSManager {
         return NetworkReachabilityManager()!.isReachable
     }
     
+    static var authorizationHeader: HTTPHeaders = ["Authorization": "Bearer \(settings?.accessToken ?? "")"]
+    
     // MARK: LOGIN USER
     class func wsCallLogin(_ requestParams: [String: AnyObject], _ rememberMe: Bool, completion:@escaping (_ isSuccess: Bool, _ message: String)->()) {
         AF.request(WebService.login, method: .post, parameters: requestParams, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: {(responseData) -> Void in
@@ -28,8 +30,8 @@ class WSManager {
             case .success(let value):
                 if let responseValue = value as? [String: AnyObject] {
                     print(responseValue)
-                    if let token = responseValue[WSResponseParams.WS_RESP_PARAM_ACCESS_TOKEN] as? String, let bearer = responseValue[WSResponseParams.WS_RESP_PARAM_TOKEN_TYPE] as? String {
-                        self.settings?.accessToken = "\(token)\(bearer)"
+                    if let token = responseValue[WSResponseParams.WS_RESP_PARAM_ACCESS_TOKEN] as? String {
+                        self.settings?.accessToken = "\(token)"
                         
                         if rememberMe {
                             self.settings?.rememberMe = true
@@ -313,6 +315,29 @@ class WSManager {
                 }
             case .failure(let error):
                 failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: error.localizedDescription]))
+            }
+        })
+    }
+    
+    // MARK: - WALLET
+    class func wsCallFetchWalletBalence(completion:@escaping (_ isSuccess: Bool, _ balance: Double, _ message: String)->()) {
+        AF.request(WebService.checkWalletBalance, method: .get, parameters: nil, headers: authorizationHeader).responseJSON(completionHandler: {(responseData) -> Void in
+            print(responseData.result)
+            switch responseData.result {
+            case .success(let value):
+                if let responseValue = value as? [String: AnyObject] {
+                    print(responseValue)
+                    if let availableBalance = responseValue[WSResponseParams.WS_RESP_PARAM_AVAILABLE_BALANCE] as? Double {
+                        completion(true, availableBalance, "")
+                    }
+                    else {
+                        completion(false, 0.0, "Wrong data type")
+                    }
+                } else {
+                    completion(false, 0.0, responseData.error?.localizedDescription ?? "")
+                }
+            case .failure(let error):
+                completion(false, 0, error.localizedDescription)
             }
         })
     }
