@@ -28,6 +28,9 @@ struct WebService {
     static let busSourceSearch                       = "\(baseUrl)/bus/cities"
     static let busDestinationSearch                  = "\(baseUrl)/bus/destination/"
     static let busSearch                             = "\(baseUrl)/bus/search"
+    
+    // MARK: WALLET
+    static let checkWalletBalance                    = "\(baseUrl)/wallet-balance"
 }
 
 struct WSRequestParams {
@@ -89,6 +92,7 @@ struct WSResponseParams {
     static let WS_RESP_PARAM_AMOUNT_BY               = "amount_by"
     static let WS_RESP_PARAM_AMOUNT_TYPE             = "amount_type"
     static let WS_RESP_PARAM_ARRIVAL_TIME            = "arrivalTime"
+    static let WS_RESP_PARAM_AVAILABLE_BALANCE       = "available_balance"
     static let WS_RESP_PARAM_SEATS_AVAILABLE         = "availableSeats"
     static let WS_RESP_PARAM_AVAILABLE_TRIPS         = "availableTrips"
     static let WS_RESP_PARAM_BASE_FARE               = "BaseFare"

@@ -54,8 +54,6 @@ class HotelBookingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
-        
         setupData()
         setLeftbarButton()
     }
@@ -103,7 +101,7 @@ class HotelBookingViewController: UIViewController {
                 //                    self.lblRefundable.text = Strings.REFUNDABLE
                 //                }
             }
-            if var price = minRate[WSResponseParams.WS_RESP_PARAM_PRICE] as? Int {
+            if var price = minRate[WSResponseParams.WS_RESP_PARAM_PRICE] as? Double {
                 for i in 0..<markups.count {
                     let markup: Markup?
                     markup = markups[i]
@@ -115,7 +113,7 @@ class HotelBookingViewController: UIViewController {
                         }
                     }
                 }
-                self.lblTotalPrice.text = "₹\(String(price))"
+                self.lblTotalPrice.text = "₹\(String(format: "%.0f", price))"
             }
         }
         if let rating = hotel?.iCategory {
@@ -138,7 +136,6 @@ class HotelBookingViewController: UIViewController {
 
         for i in 0..<numberOfAdults {
             guestDetails.append(["id" : i+1 as AnyObject]) // TODO: Pending
-            
         }
     }
     
@@ -157,7 +154,6 @@ class HotelBookingViewController: UIViewController {
 
 // MARK: - UIBUTTON ACTIONS
 extension HotelBookingViewController {
-    
     @IBAction func backClicked(_ sender: UIBarButtonItem) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -175,12 +171,9 @@ extension HotelBookingViewController {
     }
     
     @IBAction func btnProceedToPaymentAction(_ sender: UIButton) {
-        //        if let vc = ViewControllerHelper.getViewController(ofType: .HotelBookingViewController) as? HotelBookingViewController {
-        //            vc.hotels = self.hotels
-        //            vc.markups = self.markups
-        //
-        //            self.navigationController?.pushViewController(vc, animated: true)
-        //        }
+        if let vc = ViewControllerHelper.getViewController(ofType: .WalletPaymentViewController) as? WalletPaymentViewController {
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
 }
 
@@ -319,53 +312,4 @@ extension HotelBookingViewController {
             })
         }
     }
-    
-    func setResponseData(_ response: HotelDetail) {
-        let hotelDetail: HotelDetail?
-        hotelDetail = response
-        
-        if let address = hotelDetail?.sAddress {
-            lblHotelAddress.text = address
-        }
-        
-        if let name = hotelDetail?.sName {
-            lblHotelName.text = name
-        }
-        
-        if let rating = hotelDetail?.iCategory {
-            hotelRatingView.rating = Double(rating)
-        }
-        
-        if let hotelDescription = hotelDetail?.sDescription {
-            lblDescription.text = hotelDescription
-        }
-        
-        if let facilities = hotelDetail?.sFacilities {
-            //            self.facilities = facilities.components(separatedBy: "; ")
-            //            btnFacilities.setTitle("\(String(self.facilities.count)) Facilities", for: UIControl.State())
-        }
-        
-        if let minRate = hotelDetail?.rates {
-            self.prices = minRate
-            self.tableView.reloadData()
-            
-            let dict = minRate[0]
-            if var price = dict[WSResponseParams.WS_RESP_PARAM_PRICE] as? Int {
-                for i in 0..<markups.count {
-                    let markup: Markup?
-                    markup = markups[i]
-                    if markup?.starRating == hotelDetail?.iCategory {
-                        if markup?.amountBy == Strings.PERCENT {
-                            price += (price * (markup?.amount ?? 0) / 100)
-                        } else {
-                            price += (markup?.amount ?? 0)
-                        }
-                    }
-                }
-                
-                lblTotalPrice.text = "₹\(String(price))"
-            }
-        }
-    }
-    
 }

@@ -39,7 +39,7 @@ class Markup: Mappable, CustomStringConvertible {
         return nil
     })
     
-    lazy var amount = Int()
+    lazy var amount = Double()
     lazy var amountBy = String()
     lazy var starRating = Int()
 }
