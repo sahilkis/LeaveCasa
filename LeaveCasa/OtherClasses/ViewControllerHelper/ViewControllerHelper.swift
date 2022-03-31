@@ -28,6 +28,7 @@ struct ViewControllerIdentifiers {
     static let BusDetailViewController                  = "BusDetailViewController"
     static let BusBookingViewController                 = "BusBookingViewController"
     static let TabBarViewController                     = "TabBarViewController"
+    static let WalletPaymentViewController              = "WalletPaymentViewController"
 }
 
 import UIKit
@@ -54,6 +55,7 @@ enum ViewControllerType {
     case BusDetailViewController
     case BusBookingViewController
     case TabBarViewController
+    case WalletPaymentViewController
 }
 
 class ViewControllerHelper: NSObject {
@@ -79,6 +81,8 @@ class ViewControllerHelper: NSObject {
             viewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.HomeViewController) as! HomeViewController
         } else if viewControllerType == .WWCalendarTimeSelector {
             viewController = UIStoryboard.init(name: ViewControllerIdentifiers.WWCalendarTimeSelector, bundle: nil).instantiateInitialViewController() as! WWCalendarTimeSelector
+        } else if viewControllerType == .WalletPaymentViewController {
+            viewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.WalletPaymentViewController) as! WalletPaymentViewController
         }
         // Flight Storyboard
         else if viewControllerType == .SearchFlightViewController {

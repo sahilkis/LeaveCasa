@@ -57,6 +57,7 @@
 		19FE9CF223352BAA0006BC2D /* HotelDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FE9CF123352BAA0006BC2D /* HotelDetailViewController.swift */; };
 		1FABDA8727F431DE006AD9A8 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FABDA8627F431DE006AD9A8 /* TabBarViewController.swift */; };
 		1FABDAF327F450AF006AD9A8 /* TripsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FABDAF227F450AF006AD9A8 /* TripsViewController.swift */; };
+		1FF2962F27F5728F008502C7 /* WalletPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF2962E27F5728F008502C7 /* WalletPaymentViewController.swift */; };
 		400DFE442786CA1D0030CE16 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DFE432786CA1D0030CE16 /* SettingsManager.swift */; };
 		400DFE492787028A0030CE16 /* SearchRoomsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DFE482787028A0030CE16 /* SearchRoomsCell.swift */; };
 		40169FCC27E1AC330046A7A2 /* FlightListCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40169FCB27E1AC330046A7A2 /* FlightListCollectionCell.swift */; };
@@ -157,6 +158,7 @@
 		19FE9CF123352BAA0006BC2D /* HotelDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelDetailViewController.swift; sourceTree = "<group>"; };
 		1FABDA8627F431DE006AD9A8 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		1FABDAF227F450AF006AD9A8 /* TripsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsViewController.swift; sourceTree = "<group>"; };
+		1FF2962E27F5728F008502C7 /* WalletPaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletPaymentViewController.swift; sourceTree = "<group>"; };
 		2938878705CEC9DEF73768C5 /* Pods_LeaveCasa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LeaveCasa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B451D01AA1029BFC6156992 /* Pods-LeaveCasa.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeaveCasa.release.xcconfig"; path = "Target Support Files/Pods-LeaveCasa/Pods-LeaveCasa.release.xcconfig"; sourceTree = "<group>"; };
 		400DFE432786CA1D0030CE16 /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
@@ -290,6 +292,7 @@
 		18C82838214FCEFF007FC65A /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				1FF2962D27F57270008502C7 /* WalletPaymentViewController */,
 				1FABDAF127F45094006AD9A8 /* TripsViewController */,
 				1FABDA8527F431B6006AD9A8 /* TabBarViewController */,
 				408334D127EDCDBB0015F994 /* Buses View Controller */,
@@ -596,6 +599,14 @@
 				1FABDAF227F450AF006AD9A8 /* TripsViewController.swift */,
 			);
 			path = TripsViewController;
+			sourceTree = "<group>";
+		};
+		1FF2962D27F57270008502C7 /* WalletPaymentViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1FF2962E27F5728F008502C7 /* WalletPaymentViewController.swift */,
+			);
+			path = WalletPaymentViewController;
 			sourceTree = "<group>";
 		};
 		400DFE422786CA080030CE16 /* SettingsManager */ = {
@@ -988,6 +999,7 @@
 				1951EC8027F4866600170AA5 /* HotelCancellationPolicyViewController.swift in Sources */,
 				1924096023A244920012CFBF /* WWCalendarTimeSelector.swift in Sources */,
 				195C404A22FC10F90013A644 /* WSManager.swift in Sources */,
+				1FF2962F27F5728F008502C7 /* WalletPaymentViewController.swift in Sources */,
 				40C7B3D627F4463B005027B1 /* FlightListRoundCell.swift in Sources */,
 				1924095E23A244810012CFBF /* Int+Timepiece.swift in Sources */,
 				19309A072334C58800E189AE /* Hotels.swift in Sources */,

@@ -77,7 +77,8 @@ extension HotelListViewController: UITableViewDataSource, UITableViewDelegate {
                     cell.lblRefundable.text = Strings.REFUNDABLE
                 }
             }
-            if var price = minRate[WSResponseParams.WS_RESP_PARAM_PRICE] as? Int {
+            
+            if var price = minRate[WSResponseParams.WS_RESP_PARAM_PRICE] as? Double {
                 for i in 0..<markups.count {
                     let markup: Markup?
                     markup = markups[i]
@@ -89,7 +90,7 @@ extension HotelListViewController: UITableViewDataSource, UITableViewDelegate {
                         }
                     }
                 }
-                cell.lblHotelPrice.text = "₹\(String(price))"
+                cell.lblHotelPrice.text = "₹\(String(format: "%.0f", price))"
             }
         }
         

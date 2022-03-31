@@ -109,7 +109,7 @@ class HotelDetailViewController: UIViewController {
                     self.lblRefundable.text = Strings.REFUNDABLE
                 }
             }
-            if var price = minRate[WSResponseParams.WS_RESP_PARAM_PRICE] as? Int {
+            if var price = minRate[WSResponseParams.WS_RESP_PARAM_PRICE] as? Double {
                 for i in 0..<markups.count {
                     let markup: Markup?
                     markup = markups[i]
@@ -121,7 +121,7 @@ class HotelDetailViewController: UIViewController {
                         }
                     }
                 }
-                self.lblHotelPrice.text = "₹\(String(price))"
+                self.lblHotelPrice.text = "₹\(String(format: "%.0f", price))"
             }
         }
         if let rating = hotel?.iCategory {
@@ -295,7 +295,13 @@ extension HotelDetailViewController: UICollectionViewDataSource, UICollectionVie
             }
             
             if selectedTab == 0 {
-                cell.label.text = hotelDetail?.sDescription
+                let data = Data((hotelDetail?.sDescription ?? "").utf8)
+                if let attributedString = try? NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil) {
+                    cell.label.attributedText = attributedString
+                }
+                else {
+                    cell.label.text = hotelDetail?.sDescription ?? ""
+                }
             }
             
             if selectedTab == 1 {
@@ -378,7 +384,7 @@ extension HotelDetailViewController: UITableViewDataSource, UITableViewDelegate 
             }
         }
         
-        if var price = dict[WSResponseParams.WS_RESP_PARAM_PRICE] as? Int {
+        if var price = dict[WSResponseParams.WS_RESP_PARAM_PRICE] as? Double {
             for i in 0..<markups.count {
                 let markup: Markup?
                 markup = markups[i]
@@ -390,7 +396,7 @@ extension HotelDetailViewController: UITableViewDataSource, UITableViewDelegate 
                     }
                 }
             }
-            cell.lblPrice.text = "₹\(String(price))"
+            cell.lblPrice.text = "₹\(String(format: "%.0f", price))"
         }
         
         if let boardingDetails = dict[WSResponseParams.WS_RESP_PARAM_BOARDING_DETAIL] as? [String] {
@@ -518,7 +524,7 @@ extension HotelDetailViewController {
             self.tableView.reloadData()
             
             let dict = minRate[0]
-            if var price = dict[WSResponseParams.WS_RESP_PARAM_PRICE] as? Int {
+            if var price = dict[WSResponseParams.WS_RESP_PARAM_PRICE] as? Double {
                 for i in 0..<markups.count {
                     let markup: Markup?
                     markup = markups[i]
@@ -531,7 +537,7 @@ extension HotelDetailViewController {
                     }
                 }
                 
-                lblHotelPrice.text = "₹\(String(price))"
+                lblHotelPrice.text = "₹\(String(format: "%.0f", price))"
             }
         }
         
