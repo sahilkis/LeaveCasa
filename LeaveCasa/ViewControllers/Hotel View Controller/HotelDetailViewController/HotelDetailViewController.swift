@@ -295,7 +295,13 @@ extension HotelDetailViewController: UICollectionViewDataSource, UICollectionVie
             }
             
             if selectedTab == 0 {
-                cell.label.text = hotelDetail?.sDescription
+                let data = Data((hotelDetail?.sDescription ?? "").utf8)
+                if let attributedString = try? NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil) {
+                    cell.label.attributedText = attributedString
+                }
+                else {
+                    cell.label.text = hotelDetail?.sDescription ?? ""
+                }
             }
             
             if selectedTab == 1 {
