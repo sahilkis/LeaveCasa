@@ -19,7 +19,9 @@ class FlightListRoundViewController: UIViewController {
     @IBOutlet weak var lblReturnDate: UILabel!
     @IBOutlet weak var lblTotalPrice: UILabel!
     
-    
+    var logId = 0
+    var tokenId = ""
+    var traceId = ""
     //var results = [Results]()
     var flights = [Flight]()
     var returningFlights = [Flight]()
@@ -91,6 +93,9 @@ extension FlightListRoundViewController {
             vc.numberOfChildren = self.numberOfChildren
             vc.numberOfAdults = self.numberOfAdults
             vc.numberOfInfants = self.numberOfInfants
+            vc.tokenId = self.tokenId
+            vc.logId = self.logId
+            vc.traceId = self.traceId
             
             self.navigationController?.pushViewController(vc, animated: true)
         }
@@ -206,11 +211,13 @@ extension FlightListRoundViewController {
             DispatchQueue.main.async {
                 
                 Helper.showLoader(onVC: self, message: Alert.LOADING)
-                WSManager.wsCallFetchFlights(params, success: { (results) in
+                WSManager.wsCallFetchFlights(params, success: { (results, logId, tokenId, traceId) in
                     Helper.hideLoader(onVC: self)
                     self.flights = results.first ?? []
                     self.returningFlights = results.last ?? []
-                    
+                    self.logId = logId
+                    self.tokenId = tokenId
+                    self.traceId = traceId
                     self.tableView.reloadData()
                     
                 }, failure: { (error) in

@@ -17,7 +17,9 @@ class FlightDetailViewController: UIViewController {
     @IBOutlet weak var lblFlightType: UILabel!
     
     var flightsArray = [Flight]()
-    
+    var logId = 0
+    var tokenId = ""
+    var traceId = ""
     var flights = Flight()
     var returningFlights = Flight()
     var searchedFlight = FlightStruct()
@@ -98,6 +100,7 @@ extension FlightDetailViewController {
     @IBAction func btnBookNowAction(_ sender: UIButton) {
         if let vc = ViewControllerHelper.getViewController(ofType: .FlightBookingViewController) as? FlightBookingViewController {
             
+            
             vc.flights = self.flights
             vc.returningFlights = self.returningFlights
             vc.searchedFlight = self.searchedFlight
@@ -147,7 +150,27 @@ extension FlightDetailViewController: UITableViewDataSource, UITableViewDelegate
         cell.lblFlightNo.text = item.sAirline.sFlightNumber
         cell.lblTerminal.text = item.sOriginAirport.sTerminal
         
+        cell.btnFareRules.tag = (indexPath.section * 1000) + indexPath.row
+        cell.btnFareRules.addTarget(self, action: #selector(btnFareRules(_:)), for: .touchUpInside)
+        
         return cell
+    }
+    
+    @objc func btnFareRules(_ sender: UIButton) {
+//        let row: Int = sender.tag % 1000
+        let section: Int = sender.tag / 1000
+        
+        let item = flightsArray[section]
+        
+        if let vc = ViewControllerHelper.getViewController(ofType: .FlightFareRulesViewController) as? FlightFareRulesViewController {
+            
+            vc.flights = item
+            vc.tokenId = self.tokenId
+            vc.logId = self.logId
+            vc.traceId = self.traceId
+            
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
 }
 

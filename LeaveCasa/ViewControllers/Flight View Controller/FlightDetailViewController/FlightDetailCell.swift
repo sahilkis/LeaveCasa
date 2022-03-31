@@ -24,7 +24,8 @@ class FlightDetailCell: UITableViewCell {
     @IBOutlet weak var lblTerminal: UILabel!
     @IBOutlet weak var lblGate: UILabel!
     @IBOutlet weak var lblSeats: UILabel!
-    
+    @IBOutlet weak var btnFareRules: UIButton!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

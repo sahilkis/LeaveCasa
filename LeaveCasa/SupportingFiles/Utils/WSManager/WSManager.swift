@@ -205,7 +205,7 @@ class WSManager {
     }
     
     // MARK: FETCH FLIGHTS
-    class func wsCallFetchFlights(_ requestParams: [String: AnyObject], success:@escaping (_ arrHomeData: [[Flight]])->(),failure:@escaping (NSError)->()) {
+    class func wsCallFetchFlights(_ requestParams: [String: AnyObject], success:@escaping (_ arrHomeData: [[Flight]], _ logId: Int, _ tokenId: String, _ traceId: String)->(),failure:@escaping (NSError)->()) {
         AF.request(WebService.flightSearch, method: .post, parameters: requestParams, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: {(responseData) -> Void in
             print(responseData.result)
             switch responseData.result {
@@ -213,9 +213,14 @@ class WSManager {
                 if let responseValue = value as? [String: AnyObject] {
                     print(responseValue)
                     if let responseDict = responseValue[WSResponseParams.WS_RESP_PARAM_RESPONSE_CAP] as? [String:AnyObject] {
+                        
+                        var allFlights = [[Flight]] ()
+                        var tokenId = ""
+                        var traceId = ""
+                        var logId = 0
+                        
                         if let results = responseDict[WSResponseParams.WS_RESP_PARAM_RESULTS_CAP] as? [AnyObject] {
                             var flights = [[String: AnyObject]]()
-                            var allFlights = [[Flight]] ()
                             
                             for result in results {
                                 if let flight = result as? [[String: AnyObject]] {
@@ -226,7 +231,48 @@ class WSManager {
                                 allFlights.append(results)
                             }
                         }
-                        success(allFlights)
+                            if let item = responseValue[WSResponseParams.WS_RESP_PARAM_LOGID] as? Int {
+                                logId = item
+                            }
+                            if let item = responseValue[WSResponseParams.WS_RESP_PARAM_TOKEN_ID] as? String {
+                                tokenId = item
+                            }
+                            if let item = responseDict[WSResponseParams.WS_RESP_PARAM_TRACE_ID] as? String {
+                                traceId = item
+                            }
+                            
+                            success(allFlights, logId, tokenId, traceId)
+                        } else {
+                            failure(AppConstants.errSomethingWentWrong)
+                        }
+
+                    } else {
+                        if let message = responseValue[WSResponseParams.WS_RESP_PARAM_MESSAGE] as? String {
+                            failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: message]))
+                        }
+                    }
+                } else {
+                    failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: responseData.error?.localizedDescription ?? ""]))
+                }
+            case .failure(let error):
+                failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: error.localizedDescription]))
+            }
+        })
+    }
+    
+    // MARK: FETCH FLIGHTS FARE
+    class func wsCallFetchFlightFareDetails(_ requestParams: [String: AnyObject], success:@escaping (_ response:  [String: AnyObject])->(),failure:@escaping (NSError)->()) {
+        AF.request(WebService.flightFareDetails, method: .post, parameters: requestParams, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: {(responseData) -> Void in
+            print(responseData.result)
+            switch responseData.result {
+            case .success(let value):
+                if let responseValue = value as? [String: AnyObject] {
+                    print(responseValue)
+                    if let responseDict = responseValue[WSResponseParams.WS_RESP_PARAM_FARES_RULES] as? [String:AnyObject] {
+                        
+                        if let results = responseDict[WSResponseParams.WS_RESP_PARAM_RESPONSE_CAP] as? [String:AnyObject] {
+                            
+                            success(results)
                         } else {
                             failure(AppConstants.errSomethingWentWrong)
                         }

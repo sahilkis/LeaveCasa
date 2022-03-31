@@ -22,6 +22,7 @@ struct WebService {
     // MARK: FLIGHT
     static let airportCityCode                       = "\(baseUrl)/airport/codes/"
     static let flightSearch                          = "\(baseUrl)/flight/advance_flight_search"
+    static let flightFareDetails                     = "\(baseUrl)/flight/fare_rule_quote_ssr"
 
     // MARK: BUS
     static let busSourceSearch                       = "\(baseUrl)/bus/cities"
@@ -121,6 +122,9 @@ struct WSResponseParams {
     static let WS_RESP_PARAM_FALSE                   = "false"
     static let WS_RESP_PARAM_FARE                    = "Fare"
     static let WS_RESP_PARAM_FARES_DETAILS           = "fareDetails"
+    static let WS_RESP_PARAM_FARES_RULES             = "fare_rule"
+    static let WS_RESP_PARAM_FARES_RULES_CAP         = "FareRules"
+    static let WS_RESP_PARAM_FARES_RULE_DETAIL       = "FareRuleDetail"
     static let WS_RESP_PARAM_FIRST_NAME              = "first_name"
     static let WS_RESP_PARAM_FLAT_FEE                = "flat_fee"
     static let WS_RESP_PARAM_FLIGHT_NO               = "FlightNumber"
@@ -154,6 +158,7 @@ struct WSResponseParams {
     static let WS_RESP_PARAM_RESPONSE_CAP            = "Response"
     static let WS_RESP_PARAM_RESULTS                 = "results"
     static let WS_RESP_PARAM_RESULTS_CAP             = "Results"
+    static let WS_RESP_PARAM_RESULTS_INDEX           = "ResultIndex"
     static let WS_RESP_PARAM_SEARCH_ID               = "search_id"
     static let WS_RESP_PARAM_SEGMENTS                = "Segments"
     static let WS_RESP_PARAM_SLEEPER                 = "sleeper"
@@ -166,6 +171,7 @@ struct WSResponseParams {
     static let WS_RESP_PARAM_TRACE_ID                = "TraceId"
     static let WS_RESP_PARAM_TERMINAL                = "Terminal"
     static let WS_RESP_PARAM_TOKEN                   = "token"
+    static let WS_RESP_PARAM_TOKEN_ID                = "token_id"
     static let WS_RESP_PARAM_TOKEN_TYPE              = "token_type"
     static let WS_RESP_PARAM_TOTAL_FARE              = "totalFare"
     static let WS_RESP_PARAM_TOTAL_NUM_OF_REQUEST    = "total_num_of_request"

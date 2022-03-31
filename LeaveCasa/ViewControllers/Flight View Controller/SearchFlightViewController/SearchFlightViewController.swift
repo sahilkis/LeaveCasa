@@ -52,6 +52,9 @@ class SearchFlightViewController: UIViewController {
     var checkoutDate = Date()
     var classDropDown = DropDown()
     var flightTypes = ["All", "Economy", "Premium Economy", "Business", "Premium Business", "First"]
+    var logId = 0
+    var tokenId = ""
+    var traceId = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -550,11 +553,17 @@ extension SearchFlightViewController {
             DispatchQueue.main.async {
                 
                 Helper.showLoader(onVC: self, message: Alert.LOADING)
-                WSManager.wsCallFetchFlights(params, success: { (results) in
+                WSManager.wsCallFetchFlights(params, success: { (results, logId, tokenId, traceId) in
                     Helper.hideLoader(onVC: self)
+                    self.logId = logId
+                    self.tokenId = tokenId
+                    self.traceId = traceId
                     
                     if self.selectedTab != 1 { //Not round trip
                         if let vc = ViewControllerHelper.getViewController(ofType: .FlightListViewController) as? FlightListViewController {
+                            vc.tokenId = self.tokenId
+                            vc.traceId = self.traceId
+                            vc.logId = self.logId
                             vc.flights = results.first ?? []
                             vc.startDate = self.array[self.selectedIndex].fromDate
                             vc.searchParams = params
@@ -567,6 +576,9 @@ extension SearchFlightViewController {
                     }
                     else if self.selectedTab == 1 { //round trip
                         if let vc = ViewControllerHelper.getViewController(ofType: .FlightListRoundViewController) as? FlightListRoundViewController {
+                            vc.tokenId = self.tokenId
+                            vc.logId = self.logId
+                            vc.traceId = self.traceId
                             vc.flights = results.first ?? []
                             vc.returningFlights = results.last ?? []
                             vc.startDate = self.array[self.selectedIndex].fromDate

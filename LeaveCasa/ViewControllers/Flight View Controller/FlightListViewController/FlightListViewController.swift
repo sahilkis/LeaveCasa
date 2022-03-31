@@ -14,6 +14,9 @@ class FlightListViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     //var results = [Results]()
+    var logId = 0
+    var tokenId = ""
+    var traceId = ""
     var flights = [Flight]()
     var startDate = Date()
     var dates = [Date]()
@@ -171,6 +174,9 @@ extension FlightListViewController: UITableViewDataSource, UITableViewDelegate {
             vc.numberOfChildren = self.numberOfChildren
             vc.numberOfAdults = self.numberOfAdults
             vc.numberOfInfants = self.numberOfInfants
+            vc.tokenId = self.tokenId
+            vc.logId = self.logId
+            vc.traceId = self.traceId
             
             self.navigationController?.pushViewController(vc, animated: true)
         }
@@ -233,11 +239,14 @@ extension FlightListViewController {
             DispatchQueue.main.async {
                 
                 Helper.showLoader(onVC: self, message: Alert.LOADING)
-                WSManager.wsCallFetchFlights(params, success: { (results) in
+                WSManager.wsCallFetchFlights(params, success: { (results, logId, tokenId, traceId) in
                     Helper.hideLoader(onVC: self)
                     self.flights = results.first ?? []
                     self.selectedDate = index
                     self.startDate = self.dates[index]
+                    self.logId = logId
+                    self.tokenId = tokenId
+                    self.traceId = traceId
                     
                     self.collectionView.reloadData()
                     self.tableView.reloadData()

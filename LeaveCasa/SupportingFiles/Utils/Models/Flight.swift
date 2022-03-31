@@ -21,6 +21,7 @@ class Flight: Mappable, CustomStringConvertible {
         
         segments <- map[WSResponseParams.WS_RESP_PARAM_SEGMENTS]
         sFare <- map[WSResponseParams.WS_RESP_PARAM_FARE]
+        sResultIndex <- map[WSResponseParams.WS_RESP_PARAM_RESULTS_INDEX]
         
         if let segments = segments {
             var segmentsArray = [[String: AnyObject]]()
@@ -85,6 +86,7 @@ class Flight: Mappable, CustomStringConvertible {
     
     lazy var sSegments = [FlightSegment]()
     lazy var sFare = FlightFare()
+    lazy var sResultIndex = String()
     lazy var sSource = String()
     lazy var sDestination = String()
     lazy var sSourceCode = String()

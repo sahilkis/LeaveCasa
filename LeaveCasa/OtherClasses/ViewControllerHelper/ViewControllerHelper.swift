@@ -22,6 +22,7 @@ struct ViewControllerIdentifiers {
     static let FlightListRoundViewController            = "FlightListRoundViewController"
     static let FlightFilterViewController               = "FlightFilterViewController"
     static let FlightDetailViewController               = "FlightDetailViewController"
+    static let FlightFareRulesViewController            = "FlightFareRulesViewController"
     static let FlightBookingViewController              = "FlightBookingViewController"
     static let SearchBusViewController                  = "SearchBusViewController"
     static let BusListViewController                    = "BusListViewController"
@@ -48,6 +49,7 @@ enum ViewControllerType {
     case FlightListViewController
     case FlightFilterViewController
     case FlightDetailViewController
+    case FlightFareRulesViewController
     case FlightBookingViewController
     case SearchBusViewController
     case BusListViewController
@@ -91,6 +93,8 @@ class ViewControllerHelper: NSObject {
             viewController = flightStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.FlightDetailViewController) as! FlightDetailViewController
         } else if viewControllerType == .FlightFilterViewController {
             viewController = flightStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.FlightFilterViewController) as! FlightFilterViewController
+        } else if viewControllerType == .FlightFareRulesViewController {
+            viewController = flightStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.FlightFareRulesViewController) as! FlightFareRulesViewController
         } else if viewControllerType == .FlightBookingViewController {
             viewController = flightStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.FlightBookingViewController) as! FlightBookingViewController
         }
