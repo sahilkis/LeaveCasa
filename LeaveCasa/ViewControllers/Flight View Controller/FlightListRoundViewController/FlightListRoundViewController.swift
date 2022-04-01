@@ -30,6 +30,9 @@ class FlightListRoundViewController: UIViewController {
     var selectedDate = 0
     var searchParams: [String: AnyObject] = [:]
     var searchedFlight = FlightStruct()
+    var selectedflightTime: Int = 0
+    var selectedflightStop:Int = 0
+    var selectedflightType: Int = 0
     var numberOfAdults = 1
     var numberOfChildren = 0
     var numberOfInfants = 0
@@ -80,9 +83,6 @@ extension FlightListRoundViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
-    @IBAction func rightBarButton(_ sender: UIBarButtonItem) {
-        
-    }
     
     @IBAction func bookButton(_ sender: UIButton) {
         
@@ -100,6 +100,35 @@ extension FlightListRoundViewController {
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
+    
+    @IBAction func rightBarButton(_ sender: UIBarButtonItem) {
+        if let vc = ViewControllerHelper.getViewController(ofType: .FlightFilterViewController) as? FlightFilterViewController {
+            vc.delegate = self
+            
+            vc.flightTime = selectedflightTime
+            vc.flightStop = selectedflightStop
+            vc.flightType = selectedflightType
+            //            vc.flightAirline = selectedflightAirline
+            //            vc.fundType = selectedfundType
+            self.present(vc, animated: true, completion: nil)
+            // self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+}
+
+extension FlightListRoundViewController: FlightFilterDelegate {
+    func applyFilter(flightTime: Int, flightStop: Int, flightType: Int) {
+        selectedflightTime = flightTime
+        selectedflightStop = flightStop
+        selectedflightType = flightType
+        //        selectedfundType = fundType
+        //        selectedflightAirline = flightAirline
+        
+        searchFlight()
+        
+        self.dismiss(animated: true, completion: nil)
+    }
+    
 }
 
 
@@ -207,6 +236,20 @@ extension FlightListRoundViewController {
         if WSManager.isConnectedToInternet() {
             var params = searchParams
             
+            
+            if selectedflightType > 0 {
+                params[WSRequestParams.WS_REQS_PARAM_CLASS] = selectedflightType as AnyObject
+            }
+            
+            if selectedflightStop == 1 {
+                params[WSRequestParams.WS_REQS_PARAM_ONESTOP_FLIGHT] = true as AnyObject
+            }
+            if selectedflightStop == 2 {
+                params[WSRequestParams.WS_REQS_PARAM_DIRECT_FLIGHT] = true as AnyObject
+            }
+            if selectedflightTime > 0 {
+                params[WSRequestParams.WS_REQS_PARAM_PREF_DEPART_TIME] = [AppConstants.flightTimes[selectedflightTime-1].lowercased()] as AnyObject
+            }
             
             DispatchQueue.main.async {
                 
