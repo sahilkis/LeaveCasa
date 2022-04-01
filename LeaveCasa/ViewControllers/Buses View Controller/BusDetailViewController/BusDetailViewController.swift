@@ -30,6 +30,9 @@ class BusDetailViewController: UIViewController {
     lazy var cityCodeStr = ""
     var busDetails = [[String: AnyObject]]()
     var numberOfSeats = 1
+    var boardingArray = [BusBoarding]()
+    var selectedboardingPoint = ""
+    var classDropDown = DropDown()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,13 +71,19 @@ class BusDetailViewController: UIViewController {
         self.txtSource.text = self.souceName
         self.txtDestination.text = self.destinationName
         self.txtDate.text = Helper.convertDate(self.date)
+        
         for i in 0..<numberOfSeats {
             busDetails.append(["id" : i as AnyObject])
         }
         
         self.collectionView.reloadData()
         
+        self.boardingArray = buses.sBusBoarding
+        self.txtBoardingPoint.text = boardingArray.first?.sLocation ?? ""
+        txtBoardingPoint.addTarget(self, action: #selector(searchCity(_:)), for: .editingChanged)
+        
     }
+    
 }
 
 // MARK: - UIBUTTON ACTIONS
@@ -125,6 +134,7 @@ extension BusDetailViewController: UITextFieldDelegate {
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         if textField == self.txtBoardingPoint {
+            
             return true
         }
         else {
@@ -148,8 +158,12 @@ extension BusDetailViewController {
         if self.cityCode.count > 0 {
             self.cityCode.removeAll()
         }
+        let text = sender.text ?? ""
+        let filter: [String] = buses.sBusBoarding.filter({$0.sLocation.lowercased().contains(text.lowercased())}).map({$0.sLocation})
         
-        fetchCityList(sender)
+        setupSearchTextField(filter, textField: txtBoardingPoint)
+        
+        //fetchCityList(sender)
     }
     
     func setupSearchTextField(_ searchedArray: [String], textField: SearchTextField) {
@@ -164,6 +178,7 @@ extension BusDetailViewController {
                 textField.itemSelectionHandler = { filteredResults, itemPosition in
                     let item = filteredResults[itemPosition]
                     
+                   // textField.text = item
                     self.txtBoardingPoint.resignFirstResponder()
                
             }
