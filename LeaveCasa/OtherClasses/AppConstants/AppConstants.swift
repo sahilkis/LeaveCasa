@@ -28,6 +28,10 @@ struct AppConstants {
     static let PORTRAIT_SCREEN_HEIGHT = UIScreen.main.bounds.size.height
     static let CURRENT_IOS_VERSION = UIDevice.current.systemVersion
     static let errSomethingWentWrong  = NSError(domain: Alert.ALERT_SOMETHING_WENT_WRONG, code: 0, userInfo: nil)
+    
+    static let flightTypes = ["All", "Economy", "Premium Economy", "Business", "Premium Business", "First"]
+    static let flightTimes = ["MOR", "AFT", "EVE"]
+
 }
 
 // App custom cells name

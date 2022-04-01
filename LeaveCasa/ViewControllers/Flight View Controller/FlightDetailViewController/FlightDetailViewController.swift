@@ -34,7 +34,6 @@ class FlightDetailViewController: UIViewController {
         
         setupData()
         setLeftbarButton()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {

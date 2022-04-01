@@ -12,7 +12,7 @@ class WSManager {
         else {
             WSManager._settings = SettingsManager()
         }
-
+        
         return WSManager._settings
     }
     
@@ -228,11 +228,11 @@ class WSManager {
                                 if let flight = result as? [[String: AnyObject]] {
                                     flights = flight
                                 }
-                                                    
-                            if let results = Mapper<Flight>().mapArray(JSONArray: flights) as [Flight]? {
-                                allFlights.append(results)
+                                
+                                if let results = Mapper<Flight>().mapArray(JSONArray: flights) as [Flight]? {
+                                    allFlights.append(results)
+                                }
                             }
-                        }
                             if let item = responseValue[WSResponseParams.WS_RESP_PARAM_LOGID] as? Int {
                                 logId = item
                             }
@@ -247,7 +247,7 @@ class WSManager {
                         } else {
                             failure(AppConstants.errSomethingWentWrong)
                         }
-
+                        
                     } else {
                         if let message = responseValue[WSResponseParams.WS_RESP_PARAM_MESSAGE] as? String {
                             failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: message]))
@@ -278,7 +278,7 @@ class WSManager {
                         } else {
                             failure(AppConstants.errSomethingWentWrong)
                         }
-
+                        
                     } else {
                         if let message = responseValue[WSResponseParams.WS_RESP_PARAM_MESSAGE] as? String {
                             failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: message]))

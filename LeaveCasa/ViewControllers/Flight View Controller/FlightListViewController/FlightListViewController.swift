@@ -29,9 +29,9 @@ class FlightListViewController: UIViewController {
     
     var selectedflightTime: Int = 0
     var selectedflightStop:Int = 0
-    var selectedflightType: [Int] = []
-    var selectedflightAirline: Int = 0
-    var selectedfundType: [Int] = []
+    var selectedflightType: Int = 0
+//    var selectedflightAirline: Int = 0
+//    var selectedfundType: [Int] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,8 +86,8 @@ extension FlightListViewController {
             vc.flightTime = selectedflightTime
             vc.flightStop = selectedflightStop
             vc.flightType = selectedflightType
-            vc.flightAirline = selectedflightAirline
-            vc.fundType = selectedfundType
+//            vc.flightAirline = selectedflightAirline
+//            vc.fundType = selectedfundType
             self.present(vc, animated: true, completion: nil)
             // self.navigationController?.pushViewController(vc, animated: true)
         }
@@ -95,12 +95,12 @@ extension FlightListViewController {
 }
 
 extension FlightListViewController: FlightFilterDelegate {
-    func applyFilter(flightTime: Int, flightStop: Int, flightType: [Int], flightAirline: Int, fundType: [Int]) {
+    func applyFilter(flightTime: Int, flightStop: Int, flightType: Int) {
         selectedflightTime = flightTime
         selectedflightStop = flightStop
         selectedflightType = flightType
-        selectedfundType = fundType
-        selectedflightAirline = flightAirline
+//        selectedfundType = fundType
+//        selectedflightAirline = flightAirline
         
         searchFlight(index: selectedDate)
         
@@ -234,6 +234,18 @@ extension FlightListViewController {
                 
                 deptArry[0] = date
                 params[WSRequestParams.WS_REQS_PARAM_DEPARTING] = dept as AnyObject
+            }
+            
+            params[WSRequestParams.WS_REQS_PARAM_CLASS] = ((selectedflightType == 0) ?  1 : selectedflightType) as AnyObject
+            
+            if selectedflightStop == 1 {
+                params[WSRequestParams.WS_REQS_PARAM_ONESTOP_FLIGHT] = true as AnyObject
+            }
+            if selectedflightStop == 2 {
+                params[WSRequestParams.WS_REQS_PARAM_DIRECT_FLIGHT] = true as AnyObject
+            }
+            if selectedflightTime > 0 {
+                params[WSRequestParams.WS_REQS_PARAM_PREF_DEPART_TIME] = [AppConstants.flightTimes[selectedflightTime-1].lowercased()] as AnyObject
             }
             
             DispatchQueue.main.async {
