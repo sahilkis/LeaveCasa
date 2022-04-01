@@ -19,6 +19,12 @@ class BusDetailViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
     
+    var buses = Bus()
+        var checkInDate = ""
+    var date = Date()
+        var searchedParams = [String: AnyObject] ()
+        var souceName = ""
+        var destinationName = ""
     lazy var cityCode = [String]()
     lazy var cityName = [String]()
     lazy var cityCodeStr = ""
@@ -59,6 +65,9 @@ class BusDetailViewController: UIViewController {
     
     private func setupData() {
     
+        self.txtSource.text = self.souceName
+        self.txtDestination.text = self.destinationName
+        self.txtDate.text = Helper.convertDate(self.date)
         for i in 0..<numberOfSeats {
             busDetails.append(["id" : i as AnyObject])
         }

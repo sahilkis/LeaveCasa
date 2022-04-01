@@ -333,4 +333,16 @@ class Helper: NSObject {
         
         return "\(hoursString)h \(minuteString)m"
     }
+    
+    class func getTimeString(time: String) -> String {
+        let time = Int(time) ?? 60
+        let hours = time / 60
+        let minutes = (time % 60)
+        
+        var date = Date()
+        
+        date = date.change(year: 0, month: 0, day: 0, hour: hours, minute: minutes, second: 0)
+        
+        return Helper.convertDate(date, format: "HH:mm a")
+    }
 }

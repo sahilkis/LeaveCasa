@@ -9,27 +9,30 @@
 import UIKit
 
 class BusListViewController: UIViewController {
-
+    
     @IBOutlet weak var tableView: UITableView!
-//    @IBOutlet weak var lblBusCount: UILabel!
-//    @IBOutlet weak var lblDate: UILabel!
+    //    @IBOutlet weak var lblBusCount: UILabel!
+    //    @IBOutlet weak var lblDate: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
-
+    
     var buses = [Bus]()
     var checkInDate = ""
     var dates = [Date]()
     var selectedDate = 0
+    var searchedParams = [String: AnyObject] ()
+    var souceName = ""
+    var destinationName = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setLeftbarButton()
         setDates()
-
-//        lblBusCount.text = "\(buses.count) Buses found"
-//        lblDate.text = checkInDate
+        
+        //        lblBusCount.text = "\(buses.count) Buses found"
+        //        lblDate.text = checkInDate
     }
-
+    
     func setLeftbarButton() {
         self.title = "Buses"
         let leftBarButton = UIBarButtonItem.init(image: LeaveCasaIcons.BLACK_BACK, style: .plain, target: self, action: #selector(backClicked(_:)))
@@ -78,7 +81,7 @@ extension BusListViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: CellIds.BusListCell, for: indexPath) as! BusListCell
         let bus: Bus?
         bus = buses[indexPath.row]
-        /*
+        
         if let seats = bus?.sSeats {
             cell.lblSeats.text = "\(seats) Seats"
         }
@@ -101,11 +104,11 @@ extension BusListViewController: UITableViewDataSource, UITableViewDelegate {
         
         if var arrivalTime = bus?.sArrivalTime {
             if var departureTime = bus?.sDepartureTime {
-                arrivalTime = String((Int(arrivalTime) ?? 60) / 60)
-                departureTime = String((Int(departureTime) ?? 60) / 60)
-                //cell.lblTimings.text = "\(String(departureTime)) - \(String(arrivalTime))"
+                arrivalTime = Helper.getTimeString(time:arrivalTime)
+                departureTime = Helper.getTimeString(time: departureTime)
                 cell.lblStartTime.text = departureTime
                 cell.lblEndTime.text = arrivalTime
+                
             }
         }
         
@@ -121,11 +124,13 @@ extension BusListViewController: UITableViewDataSource, UITableViewDelegate {
         if let travels = bus?.sTravels {
             cell.lblBusName.text = travels
         }
-        */
         
-//        if let busType = bus?.sBusType {
-//            cell.lblBusType.text = busType
-//        }
+        cell.lblSource.text = souceName
+        cell.lblDestination.text = destinationName
+        
+        //        if let busType = bus?.sBusType {
+        //            cell.lblBusType.text = busType
+        //        }
         
         return cell
     }
@@ -134,7 +139,12 @@ extension BusListViewController: UITableViewDataSource, UITableViewDelegate {
         if let vc = ViewControllerHelper.getViewController(ofType: .BusDetailViewController) as? BusDetailViewController {
             
             vc.numberOfSeats = 50
-            
+            vc.buses = self.buses[indexPath.row]
+            vc.searchedParams = self.searchedParams
+            vc.souceName = self.souceName
+            vc.destinationName = self.destinationName
+            vc.date = self.dates[selectedDate]
+             
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
@@ -173,9 +183,41 @@ extension BusListViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        selectedDate = indexPath.row
+        searchBus(index: indexPath.row)
         
-        collectionView.reloadData()
+    }
+    
+    
+    func searchBus(index: Int) {
+        
+        Helper.hideLoader(onVC: self)
+        
+        
+        if WSManager.isConnectedToInternet() {
+            var params: [String: AnyObject] = searchedParams
+            
+            let date = Helper.convertDate(self.dates[index])
+            params[WSRequestParams.WS_REQS_PARAM_JOURNEY_DATE] = date as AnyObject
+            
+            WSManager.wsCallFetchBuses(params, success: { (response) in
+                Helper.hideLoader(onVC: self)
+                
+                self.buses = response
+                self.selectedDate = index
+                self.collectionView.reloadData()
+                
+            }, failure: { (error) in
+                Helper.hideLoader(onVC: self)
+                Helper.showOKAlert(onVC: self, title: Alert.ERROR, message: error.localizedDescription)
+            })
+        } else {
+            Helper.hideLoader(onVC: self)
+            Helper.showOKCancelAlertWithCompletion(onVC: self, title: Alert.NO_INTERNET, message: AlertMessages.NO_INTERNET_CONNECTION, btnOkTitle: Alert.TRY_AGAIN, btnCancelTitle: Alert.CANCEL, onOk: {
+                Helper.showLoader(onVC: self, message: Alert.LOADING)
+                //         self.searchBus()
+            })
+        }
+        
     }
 }
-    
+

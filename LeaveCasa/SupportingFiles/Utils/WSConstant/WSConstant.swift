@@ -25,7 +25,7 @@ struct WebService {
     static let flightFareDetails                     = "\(baseUrl)/flight/fare_rule_quote_ssr"
 
     // MARK: BUS
-    static let busSourceSearch                       = "\(baseUrl)/bus/cities"
+    static let busSourceSearch                       = "\(baseUrl)/bus/cities/"
     static let busDestinationSearch                  = "\(baseUrl)/bus/destination/"
     static let busSearch                             = "\(baseUrl)/bus/search"
     
@@ -102,6 +102,7 @@ struct WSResponseParams {
     static let WS_RESP_PARAM_CATEGORY                = "category"
     static let WS_RESP_PARAM_CANCELLATION_POLICY     = "cancellation_policy"
     static let WS_RESP_PARAM_CANCEL_BY_DATE          = "cancel_by_date"
+    static let WS_RESP_PARAM_CITES                   = "cities"
     static let WS_RESP_PARAM_CITY_CODE               = "city_code"
     static let WS_RESP_PARAM_CITYCODE_CAP            = "CityCode"
     static let WS_RESP_PARAM_CITY_NAME               = "city_name"

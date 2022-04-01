@@ -11,7 +11,7 @@ import SearchTextField
 import DropDown
 
 class SearchBusViewController: UIViewController {
-
+    
     @IBOutlet weak var txtSource: SearchTextField!
     @IBOutlet weak var txtDestination: SearchTextField!
     @IBOutlet weak var txtDate: UITextField!
@@ -20,15 +20,21 @@ class SearchBusViewController: UIViewController {
     lazy var cityName = [String]()
     lazy var destinationCode = [String]()
     lazy var destinationName = [String]()
-    lazy var sourceCityCodeStr = Int()
-    lazy var destinationCityCodeStr = ""
+    lazy var searchedDestinationCode = [String]()
+    lazy var searchedDestinationName = [String]()
+    lazy var sourceCityCode = Int()
+    lazy var destinationCityCode = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         txtDate.text = Helper.setCheckInDate()
         setLeftbarButton()
-//        fetchSourceCityList()
+        //        fetchSourceCityList()
+        
+        txtSource.addTarget(self, action: #selector(searchSourceCity(_:)), for: .editingChanged)
+        txtDestination.addTarget(self, action: #selector(searchDestinationCity(_:)), for: .editingChanged)
+        
     }
     
     func setLeftbarButton() {
@@ -49,7 +55,7 @@ class SearchBusViewController: UIViewController {
             self.txtSource.text = item.title
             for i in 0..<self.cityName.count {
                 if item.title == self.cityName[i] {
-                    self.sourceCityCodeStr = self.cityCode[i]
+                    self.sourceCityCode = self.cityCode[i]
                 }
             }
             self.txtSource.resignFirstResponder()
@@ -69,7 +75,7 @@ class SearchBusViewController: UIViewController {
             self.txtDestination.text = item.title
             for i in 0..<self.destinationName.count {
                 if item.title == self.destinationName[i] {
-                    self.destinationCityCodeStr = self.destinationCode[i]
+                    self.destinationCityCode = self.destinationCode[i]
                 }
             }
             self.txtDestination.resignFirstResponder()
@@ -92,6 +98,54 @@ class SearchBusViewController: UIViewController {
 
 // MARK: - UIBUTTON ACTIONS
 extension SearchBusViewController {
+    
+    @objc func searchSourceCity(_ sender: UITextField) {
+        if self.cityName.count > 0 {
+            self.cityName.removeAll()
+        }
+        
+        if self.cityCode.count > 0 {
+            self.cityCode.removeAll()
+        }
+        
+        if !(sender.text?.isEmpty ?? true) {
+            fetchSourceCityList()
+        }
+    }
+    
+    @objc func searchDestinationCity(_ sender: UITextField) {
+        
+        if self.searchedDestinationCode.count > 0 {
+            self.searchedDestinationCode.removeAll()
+        }
+        
+        if self.searchedDestinationName.count > 0 {
+            self.searchedDestinationName.removeAll()
+        }
+        
+        if (txtSource.text?.isEmpty ?? false) {
+            Helper.showOKAlert(onVC: self, title: Alert.ALERT, message: AlertMessages.SELECT_SOURCE_CITY)
+            return
+        }
+        
+        let city = sender.text ?? ""
+        if !(city.isEmpty ) {
+            
+            for (index, item) in destinationName.enumerated() {
+                
+                if item.lowercased().contains(city.lowercased()) {
+                    searchedDestinationName.append(destinationName[index])
+                    searchedDestinationCode.append(destinationCode[index])
+                }
+            }
+        } else {
+            searchedDestinationCode = destinationCode
+            searchedDestinationName = destinationName
+        }
+        
+        setupDestinationSearchTextField(searchedDestinationName)
+    }
+    
     @IBAction func backClicked(_ sender: UIBarButtonItem) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -142,8 +196,9 @@ extension SearchBusViewController: UITextFieldDelegate {
 // MARK: - API CALLS
 extension SearchBusViewController {
     func fetchSourceCityList() {
+        let city = self.txtSource.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) ?? ""
         if WSManager.isConnectedToInternet() {
-            WSManager.wsCallGetBusSourceCityCodes(success: { (response, message) in
+            WSManager.wsCallGetBusSourceCityCodes(city, success: { (response, message) in
                 if self.cityName.count > 0 {
                     self.cityName.removeAll()
                 }
@@ -168,10 +223,16 @@ extension SearchBusViewController {
     
     func fetchDestinationCityList() {
         if WSManager.isConnectedToInternet() {
-            WSManager.wsCallGetBusDestinationCityCodes(String(sourceCityCodeStr), success: { (response, message) in
-                for (key, value) in response {
-                    self.destinationCode.append(key)
-                    self.destinationName.append(value as? String ?? "")
+            //            let city = self.txtDestination.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) ?? ""
+            
+            WSManager.wsCallGetBusDestinationCityCodes(String(sourceCityCode), success: { (response, message) in
+                
+                if let results = response[WSResponseParams.WS_RESP_PARAM_CITES] as? [[String: AnyObject]] {
+                    for i in 0..<results.count {
+                        let dict = results[i]
+                        self.destinationName.append(dict[WSRequestParams.WS_REQS_PARAM_NAME] as? String ?? "")
+                        self.destinationCode.append(dict[WSResponseParams.WS_RESP_PARAM_ID] as? String ?? "")
+                    }
                 }
                 self.setupDestinationSearchTextField(self.destinationName)
             }, failure: { (error) in
@@ -186,20 +247,19 @@ extension SearchBusViewController {
     
     func searchBus() {
         Helper.hideLoader(onVC: self)
-        if let vc = ViewControllerHelper.getViewController(ofType: .BusListViewController) as? BusListViewController {
-            vc.buses = [Bus(), Bus()]
-            vc.checkInDate = Helper.convertCheckinDate(self.txtDate.text ?? "")
-            self.navigationController?.pushViewController(vc, animated: true)
-        }
-        /*
+        
+        
         if WSManager.isConnectedToInternet() {
             let params: [String: AnyObject] = [WSRequestParams.WS_REQS_PARAM_JOURNEY_DATE: txtDate.text as AnyObject,
-                                               WSRequestParams.WS_REQS_PARAM_BUS_FROM: sourceCityCodeStr as AnyObject,
-                                               WSRequestParams.WS_REQS_PARAM_BUS_TO: destinationCityCodeStr as AnyObject]
+                                               WSRequestParams.WS_REQS_PARAM_BUS_FROM: sourceCityCode as AnyObject,
+                                               WSRequestParams.WS_REQS_PARAM_BUS_TO: destinationCityCode as AnyObject]
             WSManager.wsCallFetchBuses(params, success: { (response) in
                 Helper.hideLoader(onVC: self)
                 if let vc = ViewControllerHelper.getViewController(ofType: .BusListViewController) as? BusListViewController {
                     vc.buses = response
+                    vc.searchedParams = params
+                    vc.souceName = self.txtSource.text ?? ""
+                    vc.destinationName = self.txtDestination.text ?? ""
                     vc.checkInDate = Helper.convertCheckinDate(self.txtDate.text ?? "")
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
@@ -214,6 +274,6 @@ extension SearchBusViewController {
                 self.searchBus()
             })
         }
-         */
+        
     }
 }

@@ -82,6 +82,8 @@ class WSManager {
         })
     }
     
+    // MARK: HOTEL
+    
     // MARK: SEARCH CITY CODES
     class func wsCallGetCityCodes(_ requestParams: String, success:@escaping (_ response: [[String: AnyObject]],_ message:String?)->(),failure:@escaping (NSError)->()) {
         AF.request(WebService.citySearch + requestParams, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil).responseJSON(completionHandler: {(responseData) -> Void in
@@ -91,7 +93,7 @@ class WSManager {
                 if let responseValue = value as? [[String: AnyObject]] {
                     success(responseValue, "")
                 } else {
-                    failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: responseData.error?.localizedDescription ?? ""]))
+                    //                    failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: responseData.error?.localizedDescription ?? ""]))
                 }
             case .failure(let error):
                 failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: error.localizedDescription]))
@@ -198,7 +200,7 @@ class WSManager {
                 if let response = value as? [String: AnyObject], let responseValue = response["codes"] as? [[String: AnyObject]] {
                     success(responseValue, "")
                 } else {
-                    failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: responseData.error?.localizedDescription ?? ""]))
+                    //                    failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: responseData.error?.localizedDescription ?? ""]))
                 }
             case .failure(let error):
                 failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: error.localizedDescription]))
@@ -294,8 +296,8 @@ class WSManager {
     }
     // MARK: - BUS
     // MARK: SEARCH SOURCE CITY CODES
-    class func wsCallGetBusSourceCityCodes(success:@escaping (_ response: [[String: AnyObject]],_ message:String?)->(),failure:@escaping (NSError)->()) {
-        AF.request(WebService.busSourceSearch, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil).responseJSON(completionHandler: {(responseData) -> Void in
+    class func wsCallGetBusSourceCityCodes(_ requestParams: String, success:@escaping (_ response: [[String: AnyObject]],_ message:String?)->(),failure:@escaping (NSError)->()) {
+        AF.request(WebService.busSourceSearch + requestParams, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil).responseJSON(completionHandler: {(responseData) -> Void in
             print(responseData.result)
             switch responseData.result {
             case .success(let value):
@@ -304,7 +306,7 @@ class WSManager {
                         success(results, "")
                     }
                 } else {
-                    failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: responseData.error?.localizedDescription ?? ""]))
+                    //                    failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: responseData.error?.localizedDescription ?? ""]))
                 }
             case .failure(let error):
                 failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: error.localizedDescription]))
@@ -323,7 +325,7 @@ class WSManager {
                         success(results, "")
                     }
                 } else {
-                    failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: responseData.error?.localizedDescription ?? ""]))
+                    //                    failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: responseData.error?.localizedDescription ?? ""]))
                 }
             case .failure(let error):
                 failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: error.localizedDescription]))
