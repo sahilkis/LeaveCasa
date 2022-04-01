@@ -722,8 +722,8 @@
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qFn-4U-V9T">
                                                             <rect key="frame" x="8" y="237.5" width="327" height="103.5"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="City Castel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tkr-YQ-aZP">
-                                                                    <rect key="frame" x="0.0" y="8" width="83" height="22"/>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" ddasd ssda dsadsa das das dsa das  asdfdsfsdf f" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tkr-YQ-aZP">
+                                                                    <rect key="frame" x="0.0" y="8" width="265" height="22"/>
                                                                     <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="16"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -760,8 +760,11 @@
                                                                         <userDefinedRuntimeAttribute type="image" keyPath="fullImage" value="ic_fillStar"/>
                                                                     </userDefinedRuntimeAttributes>
                                                                 </view>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="1400" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rtb-Db-mid">
-                                                                    <rect key="frame" x="289.5" y="8" width="37.5" height="22"/>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12gfdg" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rtb-Db-mid">
+                                                                    <rect key="frame" x="273" y="8" width="54" height="22"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" priority="250" constant="84" id="vzC-k1-Owi"/>
+                                                                    </constraints>
                                                                     <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="16"/>
                                                                     <color key="textColor" red="0.74509803921568629" green="0.76078431372549016" blue="0.80784313725490198" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
@@ -792,9 +795,9 @@
                                                                 <constraint firstAttribute="trailing" secondItem="4Xh-wt-hBj" secondAttribute="trailing" id="PSH-zC-g2H"/>
                                                                 <constraint firstItem="JwH-0U-Heb" firstAttribute="top" secondItem="esY-CV-IP4" secondAttribute="bottom" constant="8" id="Pff-tI-ihL"/>
                                                                 <constraint firstItem="4Xh-wt-hBj" firstAttribute="leading" secondItem="qFn-4U-V9T" secondAttribute="leading" id="Pnu-2Z-Y3C"/>
-                                                                <constraint firstItem="Rtb-Db-mid" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="tkr-YQ-aZP" secondAttribute="trailing" constant="8" id="RRi-dC-8GL"/>
                                                                 <constraint firstItem="esY-CV-IP4" firstAttribute="leading" secondItem="Kwc-1R-WtI" secondAttribute="trailing" constant="8" id="Y8e-pF-6Cw"/>
                                                                 <constraint firstItem="OXy-ey-IFT" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="esY-CV-IP4" secondAttribute="trailing" constant="8" id="fiJ-oa-BuY"/>
+                                                                <constraint firstItem="Rtb-Db-mid" firstAttribute="leading" secondItem="tkr-YQ-aZP" secondAttribute="trailing" constant="8" id="gk8-2r-a6a"/>
                                                                 <constraint firstItem="esY-CV-IP4" firstAttribute="top" secondItem="tkr-YQ-aZP" secondAttribute="bottom" constant="7.5" id="ny9-oW-Oae"/>
                                                                 <constraint firstItem="JwH-0U-Heb" firstAttribute="leading" secondItem="qFn-4U-V9T" secondAttribute="leading" id="p5D-g1-lfR"/>
                                                                 <constraint firstItem="Kwc-1R-WtI" firstAttribute="leading" secondItem="qFn-4U-V9T" secondAttribute="leading" id="qmM-Kn-iti"/>

@@ -40,12 +40,12 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="D8L-iY-65p" secondAttribute="bottom" id="2qm-ob-aV0"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="0S2-58-o6V" secondAttribute="trailing" constant="16" id="CSp-WF-dMn"/>
-                            <constraint firstItem="D8L-iY-65p" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="URx-uN-OIu"/>
+                            <constraint firstAttribute="bottom" secondItem="D8L-iY-65p" secondAttribute="bottom" id="Dra-rE-myU"/>
+                            <constraint firstItem="D8L-iY-65p" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="K2W-p0-GW8"/>
                             <constraint firstItem="XwA-dl-jdg" firstAttribute="top" secondItem="0S2-58-o6V" secondAttribute="bottom" constant="8" symbolic="YES" id="arj-La-Z5T"/>
-                            <constraint firstItem="D8L-iY-65p" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="cnR-sF-C1P"/>
-                            <constraint firstItem="D8L-iY-65p" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="geg-EX-TCX"/>
+                            <constraint firstItem="D8L-iY-65p" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="cJl-ZC-Nx6"/>
+                            <constraint firstItem="D8L-iY-65p" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="hJo-JQ-dGH"/>
                             <constraint firstItem="18g-j8-4TG" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="105" id="kSA-GT-aJY"/>
                             <constraint firstItem="18g-j8-4TG" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="mt2-Uj-FYa"/>
                             <constraint firstItem="0S2-58-o6V" firstAttribute="top" secondItem="18g-j8-4TG" secondAttribute="bottom" constant="16" id="sFJ-Vv-2O0"/>
