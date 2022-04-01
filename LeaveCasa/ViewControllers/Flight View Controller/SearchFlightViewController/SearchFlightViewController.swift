@@ -51,7 +51,6 @@ class SearchFlightViewController: UIViewController {
     var checkinDate = Date()
     var checkoutDate = Date()
     var classDropDown = DropDown()
-    var flightTypes = ["All", "Economy", "Premium Economy", "Business", "Premium Business", "First"]
     var logId = 0
     var tokenId = ""
     var traceId = ""
@@ -60,7 +59,7 @@ class SearchFlightViewController: UIViewController {
         super.viewDidLoad()
         
         var first = FlightStruct()
-        first.flightClass = flightTypes[first.flightClassIndex]
+        first.flightClass = AppConstants.flightTypes[first.flightClassIndex]
         
         array.append(first)
         // Do any additional setup after loading the view.
@@ -231,7 +230,7 @@ class SearchFlightViewController: UIViewController {
             } else if item.from.isEmpty {
                 alertMessage = AlertMessages.SELECT_DEPARUTRE_DATE
                 break
-            } else if item.to.isEmpty {
+            } else if item.to.isEmpty && selectedTab == 1 { // is round trip
                 alertMessage = AlertMessages.SELECT_RETURNING_DATE
                 break
             }
@@ -263,6 +262,8 @@ class SearchFlightViewController: UIViewController {
         obj.passengers = last.passengers
         obj.from = last.to
         obj.fromDate = last.toDate
+        obj.flightClass = last.flightClass
+        obj.flightClassIndex = last.flightClassIndex
         
         array.append(obj) // add new city
         tableView.reloadData()
@@ -335,11 +336,11 @@ class SearchFlightViewController: UIViewController {
         classDropDown.textFont = LeaveCasaFonts.FONT_PROXIMA_NOVA_REGULAR_12 ?? UIFont.systemFont(ofSize: 12)
         classDropDown.backgroundColor = UIColor.white
         classDropDown.anchorView = textfield
-        classDropDown.dataSource = self.flightTypes
+        classDropDown.dataSource = AppConstants.flightTypes
         classDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             
             self.array[indexPathRow].flightClassIndex = index
-            self.array[indexPathRow].flightClass = flightTypes[index]
+            self.array[indexPathRow].flightClass = AppConstants.flightTypes[index]
             
             self.tableView.reloadData()
         }
