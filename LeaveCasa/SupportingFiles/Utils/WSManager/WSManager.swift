@@ -389,4 +389,59 @@ class WSManager {
             }
         })
     }
+    
+    class func wsCallRecheckBooking(_ requestParams: [String: AnyObject], success:@escaping (_ arrHomeData: HotelDetail, _ searchId: String)->(),failure:@escaping (NSError)->()) {
+        AF.request(WebService.recheckBooking, method: .post, parameters: requestParams, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: {(responseData) -> Void in
+            print(responseData.result)
+            switch responseData.result {
+            case .success(let value):
+                if let responseValue = value as? [String: AnyObject] {
+                    print(responseValue)
+                    if (responseValue[WSResponseParams.WS_RESP_PARAM_STATUS] as? String == WSResponseParams.WS_REPS_PARAM_SUCCESS) {
+                        if let response = responseValue[WSResponseParams.WS_RESP_PARAM_RESULTS] as? [String: Any] {
+                            if let hotelCount = response[WSResponseParams.WS_RESP_PARAM_HOTEL] as? [String: Any] {
+                                if let hotels = Mapper<HotelDetail>().map(JSON: hotelCount) as HotelDetail? {
+                                    success(hotels, response[WSResponseParams.WS_RESP_PARAM_SEARCH_ID] as? String ?? "")
+                                } else {
+                                    failure(AppConstants.errSomethingWentWrong)
+                                }
+                            }
+                        } else {
+                            failure(AppConstants.errSomethingWentWrong)
+                        }
+                    } else {
+                        if let message = responseValue[WSResponseParams.WS_RESP_PARAM_MESSAGE] as? String {
+                            failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: message]))
+                        }
+                    }
+                } else {
+                    failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: responseData.error?.localizedDescription ?? ""]))
+                }
+            case .failure(let error):
+                failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: error.localizedDescription]))
+            }
+        })
+    }
+    
+    class func wsCallFinalBooking(_ requestParam: [String:AnyObject], completion:@escaping (_ isSuccess: Bool, _ response: [String:AnyObject]?, _ message: String)->()) {
+                AF.request(WebService.finalBooking, method: .post, parameters: requestParam, headers: authorizationHeader).responseJSON(completionHandler: {(responseData) -> Void in
+                    print(responseData.result)
+                    switch responseData.result {
+                    case .success(let value):
+                        if let responseValue = value as? [String: AnyObject] {
+                            print(responseValue)
+                            if let res = responseValue[WSResponseParams.WS_RESP_PARAM_RESPONSE] as? [String:AnyObject] {
+                                completion(true, res, "")
+                            }
+                            else {
+                                completion(false, nil, "Wrong data type")
+                            }
+                        } else {
+                            completion(false, nil, responseData.error?.localizedDescription ?? "")
+                        }
+                    case .failure(let error):
+                        completion(false, nil, error.localizedDescription)
+                    }
+                })
+            }
 }

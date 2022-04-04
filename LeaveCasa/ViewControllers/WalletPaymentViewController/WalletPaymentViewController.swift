@@ -1,24 +1,30 @@
 import UIKit
 
 class WalletPaymentViewController: UIViewController {
-
+    
     @IBOutlet weak var lblWalletBalance: UILabel!
     @IBOutlet weak var btnUseWalletBalance: UIButton!
     @IBOutlet weak var lblTotalAmountPayable: UILabel!
     
     var totalPayable = Int()
     var walletBalance = Double()
+    var params = [String:AnyObject]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setLeftbarButton()
         fetchWalletBalance()
+        setupData()
     }
     
     func setLeftbarButton() {
         let leftBarButton = UIBarButtonItem.init(image: LeaveCasaIcons.BLACK_BACK, style: .plain, target: self, action: #selector(backClicked(_:)))
         self.navigationItem.leftBarButtonItem = leftBarButton
+    }
+    
+    func setupData() {
+        
     }
 }
 
@@ -38,7 +44,7 @@ extension WalletPaymentViewController {
     }
     
     @IBAction func proceedToPaymentClicked(_ sender: UIButton) {
-        
+        finalBooking()
     }
 }
 
@@ -50,6 +56,27 @@ extension WalletPaymentViewController {
                 self.walletBalance = balance
                 self.lblWalletBalance.text = "₹\(balance)"
             }
+        }
+    }
+    
+    func finalBooking() {
+        if WSManager.isConnectedToInternet() {
+            let params: [String: AnyObject] = params
+            Helper.showLoader(onVC: self, message: "")
+            
+            WSManager.wsCallFinalBooking(params, completion: { (isSuccess, balance, message) in
+                Helper.hideLoader(onVC: self)
+                if isSuccess {
+                    
+                }
+                else {
+                    Helper.showOKAlert(onVC: self, title: Alert.ALERT, message: "Please try again")
+                }
+            })
+        }
+        else {
+            Helper.showOKAlert(onVC: self, title: Alert.ALERT, message: AlertMessages.NO_INTERNET_CONNECTION)
+            
         }
     }
 }

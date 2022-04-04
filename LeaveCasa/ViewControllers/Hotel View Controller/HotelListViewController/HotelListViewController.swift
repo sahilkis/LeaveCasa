@@ -19,6 +19,8 @@ class HotelListViewController: UIViewController {
     var currentRequest = 0
     var numberOfRooms = 1
     var numberOfAdults = 1
+    var numberOfChild = 0
+    var numberOfNights = 1
     var ageOfChildren: [Int] = []
     var totalRequest = ""
 
@@ -70,7 +72,7 @@ extension HotelListViewController: UITableViewDataSource, UITableViewDelegate {
         }
         
         if let minRate = hotel?.iMinRate {
-            if let nonRefundable = minRate[WSResponseParams.WS_RESP_PARAM_NON_REFUNDABLE] as? Bool {
+            if let nonRefundable = minRate.sNonRefundable as? Bool {
                 if nonRefundable {
                     cell.lblRefundable.text = Strings.NON_REFUNDABLE
                 } else {
@@ -78,7 +80,7 @@ extension HotelListViewController: UITableViewDataSource, UITableViewDelegate {
                 }
             }
             
-            if var price = minRate[WSResponseParams.WS_RESP_PARAM_PRICE] as? Double {
+            if var price = minRate.sPrice as? Double {
                 for i in 0..<markups.count {
                     let markup: Markup?
                     markup = markups[i]
@@ -129,8 +131,10 @@ extension HotelListViewController: UITableViewDataSource, UITableViewDelegate {
             vc.checkIn = checkIn
             vc.checkOut = checkOut
             vc.finalRooms = finalRooms
-            vc.numberOfRooms = self.numberOfRooms
-            vc.numberOfAdults = self.numberOfAdults
+            vc.numberOfRooms = dict.sNoOfRooms
+            vc.numberOfAdults = dict.sNoOfAdults
+            vc.numberOfChild = dict.sNoOfChildren
+            vc.numberOfNights = dict.sNoOfNights
             vc.ageOfChildren = self.ageOfChildren
             
             self.navigationController?.pushViewController(vc, animated: true)

@@ -2,7 +2,7 @@ import UIKit
 import SDWebImage
 
 class HotelDetailViewController: UIViewController {
-
+    
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint!
@@ -22,13 +22,12 @@ class HotelDetailViewController: UIViewController {
     @IBOutlet weak var hotelRatingView: FloatRatingView!
     @IBOutlet weak var lblRefundable: UILabel!
     @IBOutlet weak var lblNoRooms: UILabel!
-
+    
     var hotels: Hotels?
     var hotelDetail: HotelDetail?
     var markups = [Markup]()
     var facilities = [String]()
     var jsonResponse = [[String: AnyObject]]()
-    var prices = [[String: AnyObject]]()
     var searchId = ""
     var logId = 0
     var checkIn = ""
@@ -37,11 +36,13 @@ class HotelDetailViewController: UIViewController {
     var selectedTab = 0 // 0 - Overview, 1 - Facilities, 2 - TermsAndCondn
     var numberOfRooms = 1
     var numberOfAdults = 1
+    var numberOfChild = 0
+    var numberOfNights = 1
     var ageOfChildren: [Int] = []
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         collectionView.register(UINib.init(nibName: CellIds.ImagesCell, bundle: nil), forCellWithReuseIdentifier: CellIds.ImagesCell)
         tableView.register(UINib.init(nibName: CellIds.RoomsCell, bundle: nil), forCellReuseIdentifier: CellIds.RoomsCell)
         
@@ -51,7 +52,7 @@ class HotelDetailViewController: UIViewController {
         fetchHotelImages()
         fetchHotelDetail()
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tableView.addObserver(self, forKeyPath: Strings.CONTENT_SIZE, options: .new, context: nil)
@@ -102,14 +103,14 @@ class HotelDetailViewController: UIViewController {
             self.lblHotelName.text = name
         }
         if let minRate = hotel?.iMinRate {
-            if let nonRefundable = minRate[WSResponseParams.WS_RESP_PARAM_NON_REFUNDABLE] as? Bool {
+            if let nonRefundable = minRate.sNonRefundable as? Bool {
                 if nonRefundable {
                     self.lblRefundable.text = Strings.NON_REFUNDABLE
                 } else {
                     self.lblRefundable.text = Strings.REFUNDABLE
                 }
             }
-            if var price = minRate[WSResponseParams.WS_RESP_PARAM_PRICE] as? Double {
+            if var price = minRate.sPrice as? Double {
                 for i in 0..<markups.count {
                     let markup: Markup?
                     markup = markups[i]
@@ -129,7 +130,7 @@ class HotelDetailViewController: UIViewController {
         }
         
         // TODO: pending
-        if self.prices.count > 0 {
+        if self.hotelDetail?.rates.count ?? 0 > 0 {
             self.lblNoRooms.isHidden = true
         }
         else{
@@ -142,7 +143,7 @@ class HotelDetailViewController: UIViewController {
         let selectedColor = LeaveCasaColors.PINK_COLOR
         let unselectedColor = LeaveCasaColors.LIGHT_GRAY_COLOR
         let clearColor = UIColor.clear
-
+        
         switch selectedTab
         {
         case 0:
@@ -176,7 +177,7 @@ class HotelDetailViewController: UIViewController {
             
             btnTerms.setTitleColor(selectedColor, for: .normal)
             underlineTerms.backgroundColor = selectedColor
-           break
+            break
         default: break
             
         }
@@ -212,8 +213,9 @@ extension HotelDetailViewController {
     }
     
     @IBAction func btnBookNowAction(_ sender: UIButton) {
-        if let vc = ViewControllerHelper.getViewController(ofType: .HotelBookingViewController) as? HotelBookingViewController {
-            vc.hotels = self.hotels
+        if let hotelDetails = self.hotelDetail , let vc = ViewControllerHelper.getViewController(ofType: .HotelBookingViewController) as? HotelBookingViewController {
+            vc.hotelDetail = hotelDetails
+            vc.selectedRoomRate = sender.tag
             vc.markups = self.markups
             vc.searchId = self.searchId
             vc.logId = logId
@@ -223,6 +225,8 @@ extension HotelDetailViewController {
             vc.finalRooms = finalRooms
             vc.numberOfRooms = self.numberOfRooms
             vc.numberOfAdults = self.numberOfAdults
+            vc.numberOfChild = self.numberOfChild
+            vc.numberOfNights = self.numberOfNights
             vc.ageOfChildren = self.ageOfChildren
             
             self.navigationController?.pushViewController(vc, animated: true)
@@ -230,9 +234,9 @@ extension HotelDetailViewController {
     }
     
     @IBAction func cancellationPolicyClicked(_ sender: UIButton) {
-        let dict = prices[sender.tag]
+        let dict = self.hotelDetail?.rates[sender.tag]
         
-        if let cancellationPolicy = dict[WSResponseParams.WS_RESP_PARAM_CANCELLATION_POLICY] as? [String: AnyObject] {
+        if let cancellationPolicy = dict?.sCancellationPolicy {
             if let vc = ViewControllerHelper.getViewController(ofType: .HotelCancellationPolicyViewController) as? HotelCancellationPolicyViewController {
                 vc.hotelCancellationPolicy = cancellationPolicy
                 self.navigationController?.pushViewController(vc, animated: true)
@@ -268,22 +272,22 @@ extension HotelDetailViewController: UICollectionViewDataSource, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == self.collectionView, let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellIds.ImagesCell, for: indexPath) as? ImagesCell {
             let dict = jsonResponse[indexPath.row]
-
+            
             if let imageUrl = dict[WSResponseParams.WS_RESP_PARAM_URL] as? String {
                 let block: SDExternalCompletionBlock? = {(image: UIImage?, error: Error?, cacheType: SDImageCacheType, imageURL: URL?) -> Void in
                     //print(image)
                     if (image == nil) {
-
+                        
                     }
                 }
-
+                
                 if let imageStr = imageUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
                     if let url = URL(string: imageStr) {
                         cell.imgHotel.sd_setImage(with: url, completed: block)
                     }
                 }
             }
-
+            
             return cell
         }
         else if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellIds.FacilitiesCell, for: indexPath) as? FacilitiesCell {
@@ -309,7 +313,7 @@ extension HotelDetailViewController: UICollectionViewDataSource, UICollectionVie
             }
             
             cell.label.sizeToFit()
-                
+            
             return cell
         }
         else {
@@ -317,7 +321,7 @@ extension HotelDetailViewController: UICollectionViewDataSource, UICollectionVie
         }
         
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == self.collectionView {
             return CGSize.init(width: collectionView.frame.width, height: collectionView.frame.height)
@@ -352,39 +356,22 @@ extension HotelDetailViewController: UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.prices.count > 0 {
+        if self.hotelDetail?.rates.count ?? 0 > 0 {
             self.lblNoRooms.isHidden = true
         }
         else{
             self.lblNoRooms.isHidden = false
         }
         
-        return self.prices.count
+        return self.hotelDetail?.rates.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CellIds.RoomsCell, for: indexPath) as! RoomsCell
         
-        let dict = prices[indexPath.row]
+        let dict = hotelDetail?.rates[indexPath.row]
         
-        if let image = dict[WSResponseParams.WS_RESP_PARAM_IMAGES] {
-            if let imageUrl = image[WSResponseParams.WS_RESP_PARAM_URL] as? String {
-                let block: SDExternalCompletionBlock? = {(image: UIImage?, error: Error?, cacheType: SDImageCacheType, imageURL: URL?) -> Void in
-                    //print(image)
-                    if (image == nil) {
-                        
-                    }
-                }
-                
-                if let imageStr = imageUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
-                    if let url = URL(string: imageStr) {
-                        cell.img.sd_setImage(with: url, completed: block)
-                    }
-                }
-            }
-        }
-        
-        if var price = dict[WSResponseParams.WS_RESP_PARAM_PRICE] as? Double {
+        if var price = dict?.sPrice as? Double {
             for i in 0..<markups.count {
                 let markup: Markup?
                 markup = markups[i]
@@ -399,31 +386,31 @@ extension HotelDetailViewController: UITableViewDataSource, UITableViewDelegate 
             cell.lblPrice.text = "₹\(String(format: "%.0f", price))"
         }
         
-        if let boardingDetails = dict[WSResponseParams.WS_RESP_PARAM_BOARDING_DETAIL] as? [String] {
+        if let boardingDetails = dict?.sBoardingDetails as? [String] {
             for i in 0..<boardingDetails.count {
                 cell.lblMealType.text = boardingDetails[i]
             }
         }
         
-//        if let nonRefundable = dict[WSResponseParams.WS_RESP_PARAM_NON_REFUNDABLE] as? Bool {
-//            if nonRefundable {
-//                cell.lblRefundable.text = Strings.NON_REFUNDABLE
-//            } else {
-//                cell.lblRefundable.text = Strings.REFUNDABLE
-//            }
-//        }
+        //        if let nonRefundable = dict[WSResponseParams.WS_RESP_PARAM_NON_REFUNDABLE] as? Bool {
+        //            if nonRefundable {
+        //                cell.lblRefundable.text = Strings.NON_REFUNDABLE
+        //            } else {
+        //                cell.lblRefundable.text = Strings.REFUNDABLE
+        //            }
+        //        }
         
-        if let rooms = dict[WSRequestParams.WS_REQS_PARAM_ROOMS] as? [[String: AnyObject]] {
+        if let rooms = dict?.sRooms {
             for i in 0..<rooms.count {
                 let newDict = rooms[i]
                 
-                if let roomDescription = newDict[WSResponseParams.WS_RESP_PARAM_DESCRIPTION] as? String {
+                if let roomDescription = newDict.sRoomType as? String {
                     cell.lblName.text = "1 x \(roomDescription)"
                 }
             }
         }
         
-        if let supportsCancellation = dict[WSResponseParams.WS_RESP_PARAM_SUPPORTS_CANCELLATION] as? Bool {
+        if let supportsCancellation = dict?.sSupportsCancellation {
             if supportsCancellation {
                 cell.btnCancellationPolicy.setTitle("Cancellation policy", for: UIControl.State())
             }
@@ -441,16 +428,16 @@ extension HotelDetailViewController: UITableViewDataSource, UITableViewDelegate 
         return cell
     }
     
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let dict = prices[indexPath.row]
-//        
-//        if let cancellationPolicy = dict[WSResponseParams.WS_RESP_PARAM_CANCELLATION_POLICY] as? [String: AnyObject] {
-//            if let vc = ViewControllerHelper.getViewController(ofType: .HotelCancellationPolicyViewController) as? HotelCancellationPolicyViewController {
-//                vc.hotelCancellationPolicy = cancellationPolicy
-//                self.navigationController?.pushViewController(vc, animated: true)
-//            }
-//        }
-//    }
+    //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    //        let dict = prices[indexPath.row]
+    //
+    //        if let cancellationPolicy = dict[WSResponseParams.WS_RESP_PARAM_CANCELLATION_POLICY] as? [String: AnyObject] {
+    //            if let vc = ViewControllerHelper.getViewController(ofType: .HotelCancellationPolicyViewController) as? HotelCancellationPolicyViewController {
+    //                vc.hotelCancellationPolicy = cancellationPolicy
+    //                self.navigationController?.pushViewController(vc, animated: true)
+    //            }
+    //        }
+    //    }
 }
 
 // MARK: - UISCROLLVIEW DELEGATE
@@ -492,6 +479,7 @@ extension HotelDetailViewController {
                                                WSRequestParams.WS_REQS_PARAM_ROOMS: finalRooms as AnyObject]
             WSManager.wsCallFetchHotelDetail(params, success: { (response, searchId)  in
                 self.setData(response)
+                self.searchId = searchId
             }, failure: { (error) in
                 
             })
@@ -520,11 +508,9 @@ extension HotelDetailViewController {
         }
         
         if let minRate = hotelDetail?.rates {
-            self.prices = minRate
-            self.tableView.reloadData()
             
             let dict = minRate[0]
-            if var price = dict[WSResponseParams.WS_RESP_PARAM_PRICE] as? Double {
+            if var price = dict.sPrice as? Double {
                 for i in 0..<markups.count {
                     let markup: Markup?
                     markup = markups[i]
@@ -541,6 +527,7 @@ extension HotelDetailViewController {
             }
         }
         
+        self.tableView.reloadData()
         self.facilitiesCollectionView.reloadData()
     }
 }

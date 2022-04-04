@@ -11,6 +11,10 @@ class Results: Mappable, CustomStringConvertible {
     func mapping(map: Map) {
         hotels <- map[WSResponseParams.WS_RESP_PARAM_HOTELS]
         numberOfHotels <- map[WSResponseParams.WS_RESP_PARAM_NUMBER_OF_HOTELS]
+        sNoOfRooms <- map[WSResponseParams.WS_RESP_PARAM_NUMBER_OF_ROOMS]
+        sNoOfAdults <- map[WSResponseParams.WS_RESP_PARAM_NUMBER_OF_ADULT]
+        sNoOfChildren <- map[WSResponseParams.WS_RESP_PARAM_NUMBER_OF_CHILDREN]
+        sNoOfNights <- map[WSResponseParams.WS_RESP_PARAM_NUMBER_OF_NIGHT]
         searchId <- map[WSResponseParams.WS_RESP_PARAM_SEARCH_ID]
         totalRequests <- map[WSResponseParams.WS_RESP_PARAM_TOTAL_NUM_OF_REQUEST]
     }
@@ -34,6 +38,10 @@ class Results: Mappable, CustomStringConvertible {
     
     lazy var hotels = [Hotels]()
     lazy var numberOfHotels = Int()
+    lazy var sNoOfRooms = Int()
+    lazy var sNoOfAdults = Int()
+    lazy var sNoOfChildren = Int()
+    lazy var sNoOfNights = Int()
     lazy var searchId = String()
     lazy var totalRequests = String()
 }
@@ -56,7 +64,13 @@ class Hotels: Mappable, CustomStringConvertible {
         sHotelCode <- map[WSResponseParams.WS_RESP_PARAM_HOTEL_CODE]
         sImages <- map[WSResponseParams.WS_RESP_PARAM_IMAGES]
         iCategory <- map[WSResponseParams.WS_RESP_PARAM_CATEGORY]
+        iMinRateObj <- map[WSResponseParams.WS_RESP_PARAM_MIN_RATE]
         iMinRate <- map[WSResponseParams.WS_RESP_PARAM_MIN_RATE]
+        
+        if let imagesUrl = sImages[WSResponseParams.WS_RESP_PARAM_URL] as? String {
+            sImageUrl = imagesUrl
+        }
+        
     }
     
     var description: String {
@@ -84,6 +98,8 @@ class Hotels: Mappable, CustomStringConvertible {
     lazy var sFacilities = String()
     lazy var sHotelCode = String()
     lazy var sImages = [String: AnyObject]()
-    lazy var iMinRate = [String: AnyObject]()
+    lazy var sImageUrl = String()
+    lazy var iMinRateObj = [String: AnyObject]()
+    lazy var iMinRate = HotelRate()
     lazy var iCategory = Int()
 }
