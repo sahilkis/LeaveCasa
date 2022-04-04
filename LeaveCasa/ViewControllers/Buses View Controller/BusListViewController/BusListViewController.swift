@@ -116,7 +116,8 @@ extension BusListViewController: UITableViewDataSource, UITableViewDelegate {
             for i in 0..<price.count {
                 let dict = price[i]
                 if let fare = dict[WSResponseParams.WS_RESP_PARAM_TOTAL_FARE] as? String {
-                    cell.lblPrice.text = "₹ \(fare)"
+                    cell.lblPrice.text = "₹\(fare)"
+                    break
                 }
             }
         }

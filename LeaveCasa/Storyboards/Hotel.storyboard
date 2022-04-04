@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -489,7 +489,7 @@
                                         </constraints>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchRoomsCell" id="brG-5T-9dr" customClass="SearchRoomsCell" customModule="LeaveCasa" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="28" width="343" height="45.5"/>
+                                                <rect key="frame" x="0.0" y="44.5" width="343" height="45.5"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="brG-5T-9dr" id="0nV-K0-Qsk">
                                                     <rect key="frame" x="0.0" y="0.0" width="343" height="45.5"/>
@@ -699,7 +699,7 @@
                                 </view>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="HotelListCell" rowHeight="365" id="4Ez-Lq-l2S" customClass="HotelListCell" customModule="LeaveCasa" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="74" width="375" height="365"/>
+                                        <rect key="frame" x="0.0" y="90.5" width="375" height="365"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4Ez-Lq-l2S" id="5Y8-8H-qJZ">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="365"/>
@@ -2037,7 +2037,7 @@
                                                     <constraint firstAttribute="height" constant="604" id="LJo-SR-2ZA"/>
                                                 </constraints>
                                                 <view key="tableFooterView" contentMode="scaleToFill" id="If0-gQ-1Hf">
-                                                    <rect key="frame" x="0.0" y="198" width="414" height="142"/>
+                                                    <rect key="frame" x="0.0" y="209" width="414" height="142"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ucp-X1-MJs">
@@ -2116,7 +2116,7 @@
                                                 </view>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="BookingCell" rowHeight="142" id="mS6-Tm-tai" customClass="BookingCell" customModule="LeaveCasa" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="28" width="414" height="142"/>
+                                                        <rect key="frame" x="0.0" y="44.5" width="414" height="142"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mS6-Tm-tai" id="7El-Bm-xjg">
                                                             <rect key="frame" x="0.0" y="0.0" width="414" height="142"/>
