@@ -13,6 +13,7 @@ struct ViewControllerIdentifiers {
     static let HomeViewController                       = "HomeViewController"
     static let SearchHotelViewController                = "SearchHotelViewController"
     static let HotelListViewController                  = "HotelListViewController"
+    static let HotelFilterViewController                = "HotelFilterViewController"
     static let HotelDetailViewController                = "HotelDetailViewController"
     static let HotelBookingViewController               = "HotelBookingViewController"
     static let HotelCancellationPolicyViewController    = "HotelCancellationPolicyViewController"
@@ -41,6 +42,7 @@ enum ViewControllerType {
     case HomeViewController
     case SearchHotelViewController
     case HotelListViewController
+    case HotelFilterViewController
     case HotelDetailViewController
     case HotelBookingViewController
     case HotelCancellationPolicyViewController
@@ -117,6 +119,8 @@ class ViewControllerHelper: NSObject {
            viewController = hotelStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.SearchHotelViewController) as! SearchHotelViewController
        }  else if viewControllerType == .HotelListViewController {
            viewController = hotelStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.HotelListViewController) as! HotelListViewController
+       }  else if viewControllerType == .HotelFilterViewController {
+           viewController = hotelStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.HotelFilterViewController) as! HotelFilterViewController
        } else if viewControllerType == .HotelDetailViewController {
            viewController = hotelStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.HotelDetailViewController) as! HotelDetailViewController
        } else if viewControllerType == .HotelBookingViewController {

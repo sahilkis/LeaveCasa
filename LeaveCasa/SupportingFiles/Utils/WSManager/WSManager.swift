@@ -61,9 +61,8 @@ class WSManager {
             case .success(let value):
                 if let responseValue = value as? [String: AnyObject] {
                     print(responseValue)
-                    if let token = responseValue[WSResponseParams.WS_RESP_PARAM_ACCESS_TOKEN] as? String, let bearer = responseValue[WSResponseParams.WS_RESP_PARAM_TOKEN_TYPE] as? String {
-                        
-                        self.settings?.accessToken = "\(token)\(bearer)"
+                    if let token = responseValue[WSResponseParams.WS_RESP_PARAM_ACCESS_TOKEN] as? String {
+                        self.settings?.accessToken = "\(token)"
                         self.settings?.rememberMe = true
                         
                         completion(true, "")
@@ -90,11 +89,11 @@ class WSManager {
                     case .success(let value):
                         if let responseValue = value as? [String: AnyObject] {
                             print(responseValue)
-                            if let custID = responseValue[WSRequestParams.WS_REQS_PARAM_CUSTOMER_ID] as? String {
+                            if let custID = responseValue[WSResponseParams.WS_RESP_PARAM_ID] as? Int {
                                 
                                 self.settings?.customerId = "\(custID)"
                                 
-                                completion(true, custID, "")
+                                completion(true, "\(custID)", "")
                             }
                             else {
                                 completion(false, nil, "Wrong data type")
@@ -454,7 +453,7 @@ class WSManager {
         
         requestParams[WSRequestParams.WS_REQS_PARAM_CUSTOMER_ID] = "\(settings?.customerId ?? "")" as AnyObject
         
-                AF.request(WebService.finalBooking, method: .post, parameters: requestParams, headers: authorizationHeader).responseJSON(completionHandler: {(responseData) -> Void in
+                AF.request(WebService.finalBooking, method: .post, parameters: requestParams, headers: nil).responseJSON(completionHandler: {(responseData) -> Void in
                     print(responseData.result)
                     switch responseData.result {
                     case .success(let value):

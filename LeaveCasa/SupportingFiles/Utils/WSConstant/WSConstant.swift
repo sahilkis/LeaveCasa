@@ -81,6 +81,7 @@ struct WSRequestParams {
     static let WS_REQS_PARAM_RETURNING               = "returning"
     static let WS_REQS_PARAM_ROOMS                   = "rooms"
     static let WS_REQS_PARAM_SEARCH_ID               = "search_id"
+    static let WS_REQS_PARAM_STAR_RATING             = "star_rating"
     static let WS_REQS_PARAM_SURNAME                 = "surname"
     static let WS_REQS_PARAM_TITLE                   = "title"
     static let WS_REQS_PARAM_TO                      = "to"

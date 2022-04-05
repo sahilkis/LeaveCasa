@@ -54,7 +54,7 @@ extension HomeViewController {
 }
 extension HomeViewController {
     func getCustomerId() {
-        if ((WSManager.settings?.customerId.isEmpty) != nil) {
+        if (WSManager.settings?.customerId.isEmpty ?? true){
             WSManager.wsCallFetchCustomerId { isSuccess, response, message in
                 
             }

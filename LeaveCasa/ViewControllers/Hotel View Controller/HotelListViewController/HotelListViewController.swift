@@ -22,12 +22,15 @@ class HotelListViewController: UIViewController {
     var numberOfChild = 0
     var numberOfNights = 1
     var ageOfChildren: [Int] = []
+    var selectedRatings: [Int] = []
     var totalRequest = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setLeftbarButton()
+        setRightbarButton()
+
         lblHotelCount.text = "\(hotelCount) Hotels found"
         lblDate.text = checkInDate
     }
@@ -36,12 +39,41 @@ class HotelListViewController: UIViewController {
         let leftBarButton = UIBarButtonItem.init(image: LeaveCasaIcons.BLACK_BACK, style: .plain, target: self, action: #selector(backClicked(_:)))
         self.navigationItem.leftBarButtonItem = leftBarButton
     }
+    
+    func setRightbarButton() {
+        let rightBarButton = UIBarButtonItem.init(image: LeaveCasaIcons.THREE_DOTS, style: .plain, target: self, action: #selector(rightBarButton(_:)))
+        self.navigationItem.rightBarButtonItem = rightBarButton
+    }
 }
 
 // MARK: - UIBUTTON ACTIONS
 extension HotelListViewController {
     @IBAction func backClicked(_ sender: UIBarButtonItem) {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func rightBarButton(_ sender: UIBarButtonItem) {
+        if let vc = ViewControllerHelper.getViewController(ofType: .HotelFilterViewController) as? HotelFilterViewController {
+            vc.delegate = self
+            vc.selectedRatings = self.selectedRatings
+            
+            self.present(vc, animated: true, completion: nil)
+            // self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+}
+
+extension HotelListViewController: HotelFilterDelegate {
+    func applyFilter(rating: [Int]) {
+       
+        self.currentRequest = 0
+        self.results = []
+        self.selectedRatings = rating
+        self.tableView.reloadData()
+        
+        self.searchHotel()
+        
+        self.dismiss(animated: true, completion: nil)
     }
 }
 
@@ -159,12 +191,18 @@ extension HotelListViewController: UITableViewDataSource, UITableViewDelegate {
 extension HotelListViewController {
     func searchHotel() {
         if WSManager.isConnectedToInternet() {
-            let params: [String: AnyObject] = [WSRequestParams.WS_REQS_PARAM_CURRENT_REQUEST: currentRequest as AnyObject,
+            var params: [String: AnyObject] = [WSRequestParams.WS_REQS_PARAM_CURRENT_REQUEST: currentRequest as AnyObject,
                                                WSRequestParams.WS_REQS_PARAM_DESTINATION_CODE: cityCodeStr as AnyObject,
                                                WSRequestParams.WS_REQS_PARAM_CHECKIN: checkIn as AnyObject,
                                                WSRequestParams.WS_REQS_PARAM_CHECKOUT: checkOut as AnyObject,
-                                               WSRequestParams.WS_REQS_PARAM_ROOMS: finalRooms as AnyObject
+                                               WSRequestParams.WS_REQS_PARAM_ROOMS: finalRooms as AnyObject,
+                                               
             ]
+            
+            if !selectedRatings.isEmpty {
+                params[WSRequestParams.WS_REQS_PARAM_STAR_RATING] = selectedRatings as AnyObject
+            }
+            
             WSManager.wsCallFetchHotels(params, success: { (results, markup, logId) in
                 Helper.hideLoader(onVC: self)
                 

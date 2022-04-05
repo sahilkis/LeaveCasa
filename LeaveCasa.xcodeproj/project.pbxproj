@@ -82,6 +82,7 @@
 		40C7B3D627F4463B005027B1 /* FlightListRoundCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C7B3D527F4463B005027B1 /* FlightListRoundCell.swift */; };
 		40CDAF1627E0B40800B5B8FA /* FlightListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CDAF1527E0B40800B5B8FA /* FlightListViewController.swift */; };
 		40CDAF1827E0B43F00B5B8FA /* FlightListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CDAF1727E0B43F00B5B8FA /* FlightListCell.swift */; };
+		40E56C6227FC499300981CDF /* HotelFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E56C6127FC499300981CDF /* HotelFilterViewController.swift */; };
 		A71135AD1284FFCD1745A8CA /* Pods_LeaveCasa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2938878705CEC9DEF73768C5 /* Pods_LeaveCasa.framework */; };
 /* End PBXBuildFile section */
 
@@ -186,6 +187,7 @@
 		40C7B3D527F4463B005027B1 /* FlightListRoundCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightListRoundCell.swift; sourceTree = "<group>"; };
 		40CDAF1527E0B40800B5B8FA /* FlightListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightListViewController.swift; sourceTree = "<group>"; };
 		40CDAF1727E0B43F00B5B8FA /* FlightListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightListCell.swift; sourceTree = "<group>"; };
+		40E56C6127FC499300981CDF /* HotelFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelFilterViewController.swift; sourceTree = "<group>"; };
 		D57CC5C06870644F4F5A9B61 /* Pods-LeaveCasa.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeaveCasa.debug.xcconfig"; path = "Target Support Files/Pods-LeaveCasa/Pods-LeaveCasa.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -692,6 +694,7 @@
 			children = (
 				192495EF2333641500B0E36E /* SearchHotelViewController */,
 				19309A082334CB3800E189AE /* HotelListViewController */,
+				40E56C6027FC495100981CDF /* HotelFilterViewController */,
 				19FE9CF023352B8E0006BC2D /* HotelDetailViewController */,
 				40300EFA27EAFC7C0002C967 /* HotelBookingViewController */,
 				1951EC7E27F4864C00170AA5 /* HotelCancellationPolicyViewController */,
@@ -742,6 +745,14 @@
 				40169FCB27E1AC330046A7A2 /* FlightListCollectionCell.swift */,
 			);
 			path = FlightListViewController;
+			sourceTree = "<group>";
+		};
+		40E56C6027FC495100981CDF /* HotelFilterViewController */ = {
+			isa = PBXGroup;
+			children = (
+				40E56C6127FC499300981CDF /* HotelFilterViewController.swift */,
+			);
+			path = HotelFilterViewController;
 			sourceTree = "<group>";
 		};
 		7410C43B0668D9FA3D3716CF /* Frameworks */ = {
@@ -971,6 +982,7 @@
 				19D6442E23263996009E199B /* Validator.swift in Sources */,
 				40B0A37E27F17B8800EF2BB6 /* Flight.swift in Sources */,
 				405F35BB27F5A3260039E5A0 /* FlightFareRulesViewController.swift in Sources */,
+				40E56C6227FC499300981CDF /* HotelFilterViewController.swift in Sources */,
 				19309A0A2334CB5100E189AE /* HotelListViewController.swift in Sources */,
 				403D080427F55D7E00E2D13A /* FlightFilterViewController.swift in Sources */,
 				405AA00727ED79C7006BD68D /* FlightDetailCell.swift in Sources */,
