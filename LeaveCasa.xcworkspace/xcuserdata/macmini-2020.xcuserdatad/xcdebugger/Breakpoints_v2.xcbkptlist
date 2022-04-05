@@ -110,8 +110,8 @@
             filePath = "LeaveCasa/ViewControllers/Flight View Controller/SearchFlightViewController/SearchFlightViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "489"
-            endingLineNumber = "489"
+            startingLineNumber = "499"
+            endingLineNumber = "499"
             landmarkName = "fetchCityList(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -278,8 +278,8 @@
             filePath = "LeaveCasa/ViewControllers/Flight View Controller/SearchFlightViewController/SearchFlightViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "577"
-            endingLineNumber = "577"
+            startingLineNumber = "587"
+            endingLineNumber = "587"
             landmarkName = "searchFlight()"
             landmarkType = "7">
          </BreakpointContent>
@@ -294,25 +294,9 @@
             filePath = "LeaveCasa/SupportingFiles/Utils/WSManager/WSManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "270"
-            endingLineNumber = "270"
+            startingLineNumber = "295"
+            endingLineNumber = "295"
             landmarkName = "wsCallFetchFlightFareDetails(_:success:failure:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2C19DA9C-B102-4BFB-BD77-00B22FF3D0A1"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LeaveCasa/SupportingFiles/Utils/WSManager/WSManager.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "246"
-            endingLineNumber = "246"
-            landmarkName = "wsCallFetchFlights(_:success:failure:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -342,8 +326,8 @@
             filePath = "LeaveCasa/SupportingFiles/Utils/WSManager/WSManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "215"
-            endingLineNumber = "215"
+            startingLineNumber = "240"
+            endingLineNumber = "240"
             landmarkName = "wsCallFetchFlights(_:success:failure:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -374,8 +358,8 @@
             filePath = "LeaveCasa/ViewControllers/Buses View Controller/SearchBusViewController/SearchBusViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "237"
-            endingLineNumber = "237"
+            startingLineNumber = "247"
+            endingLineNumber = "247"
             landmarkName = "fetchDestinationCityList()"
             landmarkType = "7">
          </BreakpointContent>
@@ -422,8 +406,8 @@
             filePath = "LeaveCasa/ViewControllers/Buses View Controller/SearchBusViewController/SearchBusViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "256"
-            endingLineNumber = "256"
+            startingLineNumber = "266"
+            endingLineNumber = "266"
             landmarkName = "searchBus()"
             landmarkType = "7">
          </BreakpointContent>
@@ -534,8 +518,8 @@
             filePath = "LeaveCasa/SupportingFiles/Utils/WSManager/WSManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "429"
-            endingLineNumber = "429"
+            startingLineNumber = "459"
+            endingLineNumber = "459"
             landmarkName = "wsCallFinalBooking(_:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -569,6 +553,182 @@
             startingLineNumber = "120"
             endingLineNumber = "120"
             landmarkName = "mapping(map:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "08F758EC-8A7F-4841-B40F-599DA90B7B33"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LeaveCasa/ViewControllers/Hotel View Controller/HotelBookingViewController/HotelBookingViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "422"
+            endingLineNumber = "422"
+            landmarkName = "recheckBooking()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6B416CFD-E73F-4487-818B-E3D3CD94517D"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LeaveCasa/ViewControllers/Hotel View Controller/HotelBookingViewController/HotelBookingViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "263"
+            endingLineNumber = "263"
+            landmarkName = "textFieldShouldReturn(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0573A066-FAFA-44E4-964C-811D79D3BF96"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LeaveCasa/SupportingFiles/Utils/WSManager/WSManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "97"
+            endingLineNumber = "97"
+            landmarkName = "wsCallFetchCustomerId(completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D1F20702-179A-43B1-B6DC-CE063FC561DC"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LeaveCasa/SupportingFiles/Utils/WSManager/WSManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "87"
+            endingLineNumber = "87"
+            landmarkName = "wsCallFetchCustomerId(completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B028D5B0-594D-4F7F-9E0B-5AD88733548E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LeaveCasa/SupportingFiles/Utils/WSManager/WSManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "93"
+            endingLineNumber = "93"
+            landmarkName = "wsCallFetchCustomerId(completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B137AA16-7084-4B2E-95F3-39D1E80787E3"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LeaveCasa/SupportingFiles/Utils/WSManager/WSManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
+            landmarkName = "wsCallFetchCustomerId(completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C4A97DD6-8056-4C03-897C-47EC535EF240"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LeaveCasa/SupportingFiles/Utils/WSManager/WSManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "457"
+            endingLineNumber = "457"
+            landmarkName = "wsCallFinalBooking(_:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A2432379-74F2-4AE4-93B0-9573F9F149B8"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LeaveCasa/OtherClasses/SettingsManager/SettingsManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
+            landmarkName = "SettingsManager"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3F350B0F-9332-4194-8FE5-118949C22142"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LeaveCasa/ViewControllers/Flight View Controller/SearchFlightViewController/SearchFlightViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "595"
+            endingLineNumber = "595"
+            landmarkName = "searchFlight()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "182DF57B-0EFD-4759-A2B8-1E56E3BBB819"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LeaveCasa/SupportingFiles/Utils/WSManager/WSManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "260"
+            endingLineNumber = "260"
+            landmarkName = "wsCallFetchFlights(_:success:failure:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "246CD1EC-0341-434A-AB9D-1BD160BB4388"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LeaveCasa/ViewControllers/Buses View Controller/BusDetailViewController/BusDetailViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "200"
+            endingLineNumber = "200"
+            landmarkName = "fetchCityList(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

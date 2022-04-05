@@ -303,8 +303,17 @@ extension SearchHotelViewController: UITextFieldDelegate {
 // MARK: - API CALL
 extension SearchHotelViewController {
     func fetchCityList() {
+        let string = txtCity.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).replacingOccurrences(of: " ", with: "%20") ?? ""
+                
+                if string.isEmpty
+                {
+                    self.cityName.removeAll()
+                    self.cityCode.removeAll()
+                    self.setupSearchTextField(self.cityName)
+                    return
+                }
         if WSManager.isConnectedToInternet() {
-            WSManager.wsCallGetCityCodes(txtCity.text ?? "", success: { (response, message) in
+            WSManager.wsCallGetCityCodes(string, success: { (response, message) in
                 if self.cityName.count > 0 {
                     self.cityName.removeAll()
                 }

@@ -482,8 +482,18 @@ extension SearchFlightViewController: UITableViewDataSource, UITableViewDelegate
 // MARK: - API CALL
 extension SearchFlightViewController {
     func fetchCityList(_ sender: SearchTextField) {
+        
+        let string = sender.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).replacingOccurrences(of: " ", with: "%20") ?? ""
+        
+        if string.isEmpty
+        {
+            self.cityName.removeAll()
+            self.cityCode.removeAll()
+            self.setupSearchTextField(self.cityName, self.cityCode , textField: sender)
+            return
+        }
         if WSManager.isConnectedToInternet() {
-            WSManager.wsCallGetCityAirportCodes(sender.text ?? "", success: { (response, message) in
+            WSManager.wsCallGetCityAirportCodes(string, success: { (response, message) in
                 if self.cityName.count > 0 {
                     self.cityName.removeAll()
                 }
@@ -560,7 +570,7 @@ extension SearchFlightViewController {
                     self.tokenId = tokenId
                     self.traceId = traceId
                     
-                    if self.selectedTab != 1 { //Not round trip
+                    if self.selectedTab != 1 || results.count == 1  { //Not round trip
                         if let vc = ViewControllerHelper.getViewController(ofType: .FlightListViewController) as? FlightListViewController {
                             vc.tokenId = self.tokenId
                             vc.traceId = self.traceId
@@ -575,7 +585,7 @@ extension SearchFlightViewController {
                             self.navigationController?.pushViewController(vc, animated: true)
                         }
                     }
-                    else if self.selectedTab == 1 { //round trip
+                    else if self.selectedTab == 1 && results.count > 1 { //round trip
                         if let vc = ViewControllerHelper.getViewController(ofType: .FlightListRoundViewController) as? FlightListRoundViewController {
                             vc.tokenId = self.tokenId
                             vc.logId = self.logId

@@ -187,8 +187,17 @@ extension BusDetailViewController {
     
     
     func fetchCityList(_ sender: SearchTextField) {
+        let string = sender.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).replacingOccurrences(of: " ", with: "%20") ?? ""
+                
+                if string.isEmpty
+                {
+                    self.cityName.removeAll()
+                    self.cityCode.removeAll()
+                    self.setupSearchTextField(self.cityName , textField: sender)
+                    return
+                }
         if WSManager.isConnectedToInternet() {
-            WSManager.wsCallGetCityCodes(sender.text ?? "", success: { (response, message) in
+            WSManager.wsCallGetCityCodes(string, success: { (response, message) in
                 if self.cityName.count > 0 {
                     self.cityName.removeAll()
                 }

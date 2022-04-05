@@ -82,6 +82,31 @@ class WSManager {
         })
     }
     
+    // MARK: Fetch Customer ID
+    class func wsCallFetchCustomerId( completion:@escaping (_ isSuccess: Bool, _ response: String?, _ message: String)->()) {
+                AF.request(WebService.customerId, method: .get, parameters: nil, headers: authorizationHeader).responseJSON(completionHandler: {(responseData) -> Void in
+                    print(responseData.result)
+                    switch responseData.result {
+                    case .success(let value):
+                        if let responseValue = value as? [String: AnyObject] {
+                            print(responseValue)
+                            if let custID = responseValue[WSRequestParams.WS_REQS_PARAM_CUSTOMER_ID] as? String {
+                                
+                                self.settings?.customerId = "\(custID)"
+                                
+                                completion(true, custID, "")
+                            }
+                            else {
+                                completion(false, nil, "Wrong data type")
+                            }
+                        } else {
+                            completion(false, nil, responseData.error?.localizedDescription ?? "")
+                        }
+                    case .failure(let error):
+                        completion(false, nil, error.localizedDescription)
+                    }
+                })
+            }
     // MARK: HOTEL
     
     // MARK: SEARCH CITY CODES
@@ -424,7 +449,12 @@ class WSManager {
     }
     
     class func wsCallFinalBooking(_ requestParam: [String:AnyObject], completion:@escaping (_ isSuccess: Bool, _ response: [String:AnyObject]?, _ message: String)->()) {
-                AF.request(WebService.finalBooking, method: .post, parameters: requestParam, headers: authorizationHeader).responseJSON(completionHandler: {(responseData) -> Void in
+        
+        var requestParams = requestParam
+        
+        requestParams[WSRequestParams.WS_REQS_PARAM_CUSTOMER_ID] = "\(settings?.customerId ?? "")" as AnyObject
+        
+                AF.request(WebService.finalBooking, method: .post, parameters: requestParams, headers: authorizationHeader).responseJSON(completionHandler: {(responseData) -> Void in
                     print(responseData.result)
                     switch responseData.result {
                     case .success(let value):

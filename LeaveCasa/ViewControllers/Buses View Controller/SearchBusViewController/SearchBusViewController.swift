@@ -196,9 +196,18 @@ extension SearchBusViewController: UITextFieldDelegate {
 // MARK: - API CALLS
 extension SearchBusViewController {
     func fetchSourceCityList() {
-        let city = self.txtSource.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) ?? ""
+        let string = txtSource.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).replacingOccurrences(of: " ", with: "%20") ?? ""
+                        
+                        if string.isEmpty
+                        {
+                            self.cityName.removeAll()
+                            self.cityCode.removeAll()
+                            self.setupSourceSearchTextField(self.cityName )
+                            return
+                        }
+        
         if WSManager.isConnectedToInternet() {
-            WSManager.wsCallGetBusSourceCityCodes(city, success: { (response, message) in
+            WSManager.wsCallGetBusSourceCityCodes(string, success: { (response, message) in
                 if self.cityName.count > 0 {
                     self.cityName.removeAll()
                 }
@@ -222,6 +231,7 @@ extension SearchBusViewController {
     }
     
     func fetchDestinationCityList() {
+        
         if WSManager.isConnectedToInternet() {
             //            let city = self.txtDestination.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) ?? ""
             

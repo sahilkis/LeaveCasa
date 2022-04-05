@@ -72,14 +72,14 @@ class HotelBookingViewController: UIViewController {
         super.viewWillAppear(animated)
         self.tableView.addObserver(self, forKeyPath: Strings.CONTENT_SIZE, options: .new, context: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(sender:)), name: UIResponder.keyboardWillShowNotification, object: nil);
-
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.tableView.removeObserver(self, forKeyPath: Strings.CONTENT_SIZE)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(sender:)), name: UIResponder.keyboardWillHideNotification, object: nil);
-
+        
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -93,11 +93,11 @@ class HotelBookingViewController: UIViewController {
     }
     
     @objc func keyboardWillShow(sender: NSNotification) {
-         self.view.frame.origin.y = -150 // Move view 150 points upward
+        self.view.frame.origin.y = -150 // Move view 150 points upward
     }
-
+    
     @objc func keyboardWillHide(sender: NSNotification) {
-         self.view.frame.origin.y = 0 // Move view to original position
+        self.view.frame.origin.y = 0 // Move view to original position
     }
     
     func setLeftbarButton() {
@@ -134,7 +134,7 @@ class HotelBookingViewController: UIViewController {
             self.lblHotelRoomPrice.text = "₹\(String(minRate.sNetPrice))"
             self.lblHotelGST.text = "₹\(String(minRate.sGSTPrice))"
             self.lblAvailability.text = minRate.sAvailabiltyStatus.capitalized
-
+            
             if let roomtype = minRate.sRooms.first?.sRoomType {
                 txtRoomType.text = roomtype
             }
@@ -163,7 +163,7 @@ class HotelBookingViewController: UIViewController {
         lblChildCount.text = "Child: \(ageOfChildren.count)"
         
         lblNumOfNights.text = "\(numberOfNights)"
-       
+        
         for i in 0..<numberOfAdults {
             guestDetails.append(["id" : i+1 as AnyObject]) // TODO: Pending
         }
@@ -235,8 +235,8 @@ extension HotelBookingViewController: UITableViewDataSource, UITableViewDelegate
         cell.txtLastName.tag = indexPath.row
         cell.txtState.tag = indexPath.row
         
-//        cell.txtState.addTarget(self, action: #selector(searchCity(_:)), for: .editingChanged)
-//        // TODO: Pending - search state only
+        //        cell.txtState.addTarget(self, action: #selector(searchCity(_:)), for: .editingChanged)
+        //        // TODO: Pending - search state only
         
         return cell
     }
@@ -294,9 +294,9 @@ extension HotelBookingViewController: UITextFieldDelegate {
         else if textField == cell.txtTitle {
             guestDetails[row]["title"] = textField.text as AnyObject
         }
-//        else if textField == cell.txtState {
-//            guestDetails[row]["state"] = textField.text as AnyObject
-//        }
+        //        else if textField == cell.txtState {
+        //            guestDetails[row]["state"] = textField.text as AnyObject
+        //        }
     }
 }
 
@@ -327,8 +327,17 @@ extension HotelBookingViewController {
     }
     
     func fetchCityList(_ sender: SearchTextField) {
+        let string = sender.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).replacingOccurrences(of: " ", with: "%20") ?? ""
+                
+                if string.isEmpty
+                {
+                    self.cityName.removeAll()
+                    self.cityCode.removeAll()
+                    self.setupSearchTextField(self.cityName, textField: sender)
+                    return
+                }
         if WSManager.isConnectedToInternet() {
-            WSManager.wsCallGetCityCodes(sender.text ?? "", success: { (response, message) in
+            WSManager.wsCallGetCityCodes(string, success: { (response, message) in
                 if self.cityName.count > 0 {
                     self.cityName.removeAll()
                 }
@@ -350,8 +359,19 @@ extension HotelBookingViewController {
             })
         }
     }
-  
+    
     func recheckBooking() {
+        let holderTitle = self.txtHolderTitle.text ?? ""
+        let holderFName = self.txtHolderFirstName.text ?? ""
+        let holderLName = self.txtHolderLastName.text ?? ""
+        let holderEmail = self.txtHolderEmail.text ?? ""
+        let holderPhone = self.txtHolderPhone.text ?? ""
+        
+        if holderTitle.isEmpty || holderEmail.isEmpty || holderFName.isEmpty || holderLName.isEmpty || holderPhone.isEmpty {
+            Helper.showOKAlert(onVC: self, title: Alert.ALERT, message: AlertMessages.Fill_FIELDS_REQUIRED)
+            return
+        }
+        
         if WSManager.isConnectedToInternet() {
             let params: [String: AnyObject] = [
                 WSRequestParams.WS_REQS_PARAM_SEARCH_ID: searchId as AnyObject,
@@ -367,28 +387,35 @@ extension HotelBookingViewController {
                     self.searchId = searchId
                     if let vc = ViewControllerHelper.getViewController(ofType: .WalletPaymentViewController) as? WalletPaymentViewController {
                         
-//                        "search_id": "mlbrcndoknwimao5ne7n6eggfi",
-//                                "hotel_code": "H!0238826",
-//                                "city_code": "C!021405",
-//                                "group_code": "xgirbylkwb6xtgk3v2ngegwu5hkq",
-//                                "checkin": "2019-02-25",
-//                                "checkout": "2019-02-26",
-//                                "booking_comments": "Testing",
-//                                "payment_type": "AT_WEB",
-//                                "booking_items": [{"room_code": "4xguvmrv5arerojf",
-//                                                    "rate_key": "4phflpjw4avcrfstusng4hou4lkohjxe6gzo3htz3zbrv5pnl2yar67pkz3wlfmd5atef6ptx52rqebuxcygq5m72pobjlns3skc5qhrscoaj5z2z53dmpisfyy6cospwlcgzjznn46rasfz7c23sn754dclmlxdakgehosy7ffyrw5jav3srd3k5hzbxddga7gw4lin",
-//                                        "rooms": [{ "paxes": [{"title": "Mr.","name": "Paljinder","surname": "Singh","type": "AD"}]}]
-//                                    }],
-//                                "holder": {"title": "Mr.","name": "paljinder","surname": "singh","email": "paljinder3@gmail.com","phone_number": "9915482378",
-//                                    "client_nationality": "in"
-//                                }
-                        var params: [String: AnyObject] = [
-                            WSRequestParams.WS_REQS_PARAM_SEARCH_ID: searchId as AnyObject,
+                        let holder: [String: AnyObject] = [
+                            WSRequestParams.WS_REQS_PARAM_TITLE: holderTitle as AnyObject,
+                            WSRequestParams.WS_REQS_PARAM_NAME: holderFName as AnyObject,
+                            WSRequestParams.WS_REQS_PARAM_SURNAME: holderLName as AnyObject,
+                            WSRequestParams.WS_REQS_PARAM_EMAIL: holderEmail as AnyObject,
+                            WSRequestParams.WS_REQS_PARAM_PHONE_NUMBER: holderPhone as AnyObject,
+                        ]
+                        
+                        let bookingItem: [String: AnyObject] = [
+                            WSRequestParams.WS_REQS_PARAM_BOOKING_ITEMS: [
+                                WSResponseParams.WS_RESP_PARAM_ROOM_CODE: self.hotelDetail.rates[self.selectedRoomRate].sRoomCode as AnyObject,
+                                WSRequestParams.WS_REQS_PARAM_RATE_KEY: self.hotelDetail.rates[self.selectedRoomRate].sRateKey as AnyObject,
+                                WSRequestParams.WS_REQS_PARAM_ROOMS: [
+                                    WSRequestParams.WS_REQS_PARAM_PAXES: self.guestDetails as AnyObject,
+                                ] as AnyObject,
+                            ] as AnyObject,
+                        ]
+                        
+                        let params: [String: AnyObject] = [
+                            WSResponseParams.WS_RESP_PARAM_LOGID: self.logId as AnyObject,
+                            WSRequestParams.WS_REQS_PARAM_SEARCH_ID: self.searchId as AnyObject,
                             WSResponseParams.WS_RESP_PARAM_HOTEL_CODE: self.hotelDetail.sHotelCode as AnyObject,
                             WSResponseParams.WS_RESP_PARAM_CITY_CODE: self.hotelDetail.sCityCode as AnyObject,
                             WSRequestParams.WS_REQS_PARAM_GROUP_CODE: self.hotelDetail.rates[self.selectedRoomRate].sGroupCode as AnyObject,
                             WSRequestParams.WS_REQS_PARAM_CHECKIN: self.checkIn as AnyObject,
                             WSRequestParams.WS_REQS_PARAM_CHECKOUT: self.checkOut as AnyObject,
+                            WSResponseParams.WS_RESP_PARAM_PAYMENT_TYPE: (self.hotelDetail.rates[self.selectedRoomRate].sPaymentTypes.first ?? "") as AnyObject,
+                            WSRequestParams.WS_REQS_PARAM_HOLDER: holder as AnyObject,
+                            WSRequestParams.WS_REQS_PARAM_BOOKING_ITEMS: bookingItem as AnyObject
                         ]
                         
                         vc.params = params

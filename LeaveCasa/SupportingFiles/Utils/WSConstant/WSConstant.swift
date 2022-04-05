@@ -11,7 +11,8 @@ struct WebService {
     static let termsAndConditions                    = ""
     static let login                                 = "\(baseUrl)/login"
     static let signup                                = "\(baseUrl)/register"
-    
+    static let customerId                            = "\(baseUrl)/user"
+
     // MARK: HOTEL
     static let citySearch                            = "\(baseUrl)/hotel-city-search/"
     static let hotelSearch                           = "\(baseUrl)/advance-search/hotel"
@@ -38,6 +39,7 @@ struct WebService {
 struct WSRequestParams {
     static let WS_REQS_PARAM_ADULT                   = "adult"
     static let WS_REQS_PARAM_ADULTS                  = "adults"
+    static let WS_REQS_PARAM_BOOKING_ITEMS           = "booking_items"
     static let WS_REQS_PARAM_BUS_FROM                = "bus_from"
     static let WS_REQS_PARAM_BUS_TO                  = "bus_to"
     static let WS_REQS_PARAM_CHECKIN                 = "checkin"
@@ -49,6 +51,7 @@ struct WSRequestParams {
     static let WS_REQS_PARAM_CLIENT_NATIONALITY      = "client_nationality"
     static let WS_REQS_PARAM_CLASS                   = "class"
     static let WS_REQS_PARAM_CURRENT_REQUEST         = "current_request"
+    static let WS_REQS_PARAM_CUSTOMER_ID             = "customer_id"
     static let WS_REQS_PARAM_CUTOFF_TIME             = "cutoff_tim"
     static let WS_REQS_PARAM_DEPART                  = "depart"
     static let WS_REQS_PARAM_DEPARTING               = "departing"
@@ -57,6 +60,7 @@ struct WSRequestParams {
     static let WS_REQS_PARAM_EMAIL                   = "email"
     static let WS_REQS_PARAM_FROM                    = "from"
     static let WS_REQS_PARAM_GROUP_CODE              = "group_code"
+    static let WS_REQS_PARAM_HOLDER                  = "holder"
     static let WS_REQS_PARAM_HOTEL_CATEGORY          = "hotel_category"
     static let WS_REQS_PARAM_HOTEL_INFO              = "hotel_info"
     static let WS_REQS_PARAM_INFANT                  = "infant"
@@ -68,6 +72,8 @@ struct WSRequestParams {
     static let WS_REQS_PARAM_ONESTOP_FLIGHT          = "OneStopFlight"
     static let WS_REQS_PARAM_PARM                    = "parm"
     static let WS_REQS_PARAM_PASSWORD                = "password"
+    static let WS_REQS_PARAM_PAXES                   = "paxes"
+    static let WS_REQS_PARAM_PHONE_NUMBER            = "phone_number"
     static let WS_REQS_PARAM_PREF_AIRLINE            = "PreferredAirlines"
     static let WS_REQS_PARAM_PREF_DEPART_TIME        = "preference_departure_time"
     static let WS_REQS_PARAM_RATE_KEY                = "rate_key"
@@ -75,6 +81,8 @@ struct WSRequestParams {
     static let WS_REQS_PARAM_RETURNING               = "returning"
     static let WS_REQS_PARAM_ROOMS                   = "rooms"
     static let WS_REQS_PARAM_SEARCH_ID               = "search_id"
+    static let WS_REQS_PARAM_SURNAME                 = "surname"
+    static let WS_REQS_PARAM_TITLE                   = "title"
     static let WS_REQS_PARAM_TO                      = "to"
     static let WS_REQS_PARAM_TRIP_TYPE               = "trip_type"
 }

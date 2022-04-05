@@ -4,7 +4,7 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        getCustomerId()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -49,6 +49,15 @@ extension HomeViewController {
     @IBAction func busClicked(_ sender: UIButton) {
         if let vc = ViewControllerHelper.getViewController(ofType: .SearchBusViewController) as? SearchBusViewController {
             self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+}
+extension HomeViewController {
+    func getCustomerId() {
+        if ((WSManager.settings?.customerId.isEmpty) != nil) {
+            WSManager.wsCallFetchCustomerId { isSuccess, response, message in
+                
+            }
         }
     }
 }

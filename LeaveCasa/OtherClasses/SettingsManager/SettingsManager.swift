@@ -8,6 +8,11 @@ protocol SettingsManagerProtocol: AnyObject
         get set
     }
     
+    var customerId: String
+    {
+        get set
+    }
+    
     var rememberMe: Bool
     {
         get set
@@ -20,6 +25,7 @@ class SettingsManager: NSObject, SettingsManagerProtocol
 {
 
     let SETTING_ACCESS_TOKEN    = "SETTING_ACCESS_TOKEN"
+    let SETTING_CUSTOMER_ID     = "SETTING_CUSTOMER_ID"
     let SETTING_REMEMBER_ME     = "SETTING_REMEMBER_ME"
 
     private var _defaults: UserDefaults?
@@ -44,6 +50,18 @@ class SettingsManager: NSObject, SettingsManagerProtocol
         set
         {
             defaults.set(newValue, forKey: SETTING_ACCESS_TOKEN)
+        }
+    }
+    
+    var customerId: String
+    {
+        get
+        {
+            return defaults.value(forKey: SETTING_CUSTOMER_ID) as? String ?? ""
+        }
+        set
+        {
+            defaults.set(newValue, forKey: SETTING_CUSTOMER_ID)
         }
     }
     
