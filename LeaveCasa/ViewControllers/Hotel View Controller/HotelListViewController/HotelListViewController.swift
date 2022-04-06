@@ -70,6 +70,8 @@ extension HotelListViewController: HotelFilterDelegate {
         self.results = []
         self.selectedRatings = rating
         self.tableView.reloadData()
+        self.hotelCount = "\(self.hotelCount)"
+        self.lblHotelCount.text = "\(self.hotelCount) Hotels found"
         
         Helper.showLoader(onVC: self, message: "")
         self.searchHotel()

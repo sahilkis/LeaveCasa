@@ -253,14 +253,14 @@ extension FlightBookingViewController {
     
     func fetchCityList(_ sender: SearchTextField) {
         let string = sender.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).replacingOccurrences(of: " ", with: "%20") ?? ""
-                
-                if string.isEmpty
-                {
-                    self.cityName.removeAll()
-                    self.cityCode.removeAll()
-                    self.setupSearchTextField(self.cityName, textField: sender)
-                    return
-                }
+        
+        if string.isEmpty
+        {
+            self.cityName.removeAll()
+            self.cityCode.removeAll()
+            self.setupSearchTextField(self.cityName, textField: sender)
+            return
+        }
         
         if WSManager.isConnectedToInternet() {
             WSManager.wsCallGetCityCodes(string, success: { (response, message) in

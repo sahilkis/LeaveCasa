@@ -25,7 +25,7 @@ class SearchBusViewController: UIViewController {
     lazy var sourceCityCode = Int()
     lazy var destinationCityCode = String()
     var checkinDate = Date()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -199,14 +199,14 @@ extension SearchBusViewController: UITextFieldDelegate {
 extension SearchBusViewController {
     func fetchSourceCityList() {
         let string = txtSource.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).replacingOccurrences(of: " ", with: "%20") ?? ""
-                        
-                        if string.isEmpty
-                        {
-                            self.cityName.removeAll()
-                            self.cityCode.removeAll()
-                            self.setupSourceSearchTextField(self.cityName )
-                            return
-                        }
+        
+        if string.isEmpty
+        {
+            self.cityName.removeAll()
+            self.cityCode.removeAll()
+            self.setupSourceSearchTextField(self.cityName )
+            return
+        }
         
         if WSManager.isConnectedToInternet() {
             WSManager.wsCallGetBusSourceCityCodes(string, success: { (response, message) in
@@ -260,7 +260,6 @@ extension SearchBusViewController {
     func searchBus() {
         Helper.hideLoader(onVC: self)
         
-        
         if WSManager.isConnectedToInternet() {
             let params: [String: AnyObject] = [WSRequestParams.WS_REQS_PARAM_JOURNEY_DATE: txtDate.text as AnyObject,
                                                WSRequestParams.WS_REQS_PARAM_BUS_FROM: sourceCityCode as AnyObject,
@@ -286,6 +285,5 @@ extension SearchBusViewController {
                 self.searchBus()
             })
         }
-        
     }
 }

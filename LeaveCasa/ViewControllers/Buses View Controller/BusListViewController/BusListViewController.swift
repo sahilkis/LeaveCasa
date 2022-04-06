@@ -39,7 +39,6 @@ class BusListViewController: UIViewController {
         self.navigationItem.leftBarButtonItem = leftBarButton
     }
     
-    
     func setDates()
     {
         dates.removeAll()

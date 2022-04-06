@@ -134,21 +134,24 @@ class HotelBookingViewController: UIViewController {
             self.lblTotalPrice.text = "₹\(String(format: "%.0f", price))"
             self.lblHotelRoomPrice.text = "₹\(String(minRate.sNetPrice))"
             self.lblHotelGST.text = "₹\(String(minRate.sGSTPrice))"
-            self.lblAvailability.text = minRate.sAvailabiltyStatus.capitalized
             
             if let roomtype = minRate.sRooms.first?.sRoomType {
                 txtRoomType.text = roomtype
             }
             
             let otherinclusion = minRate.sOtherInclusions
-            if otherinclusion.isEmpty
-            {
+            if otherinclusion.isEmpty {
                 self.lblDescription.text = ""
                 self.stackInclusions.isHidden = true
             }
-            else{
+            else {
                 self.stackInclusions.isHidden = false
                 self.lblDescription.text = "\(otherinclusion.joined(separator: "\n"))\n"
+            }
+            
+            let availability = minRate.sAvailabiltyStatus.capitalized
+            if !availability.isEmpty {
+                self.lblAvailability.text = availability
             }
         }
         if let rating = hotel?.iCategory {
