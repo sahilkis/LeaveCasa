@@ -83,29 +83,29 @@ class WSManager {
     
     // MARK: Fetch Customer ID
     class func wsCallFetchCustomerId( completion:@escaping (_ isSuccess: Bool, _ response: String?, _ message: String)->()) {
-                AF.request(WebService.customerId, method: .get, parameters: nil, headers: authorizationHeader).responseJSON(completionHandler: {(responseData) -> Void in
-                    print(responseData.result)
-                    switch responseData.result {
-                    case .success(let value):
-                        if let responseValue = value as? [String: AnyObject] {
-                            print(responseValue)
-                            if let custID = responseValue[WSResponseParams.WS_RESP_PARAM_ID] as? Int {
-                                
-                                self.settings?.customerId = "\(custID)"
-                                
-                                completion(true, "\(custID)", "")
-                            }
-                            else {
-                                completion(false, nil, "Wrong data type")
-                            }
-                        } else {
-                            completion(false, nil, responseData.error?.localizedDescription ?? "")
-                        }
-                    case .failure(let error):
-                        completion(false, nil, error.localizedDescription)
+        AF.request(WebService.customerId, method: .get, parameters: nil, headers: authorizationHeader).responseJSON(completionHandler: {(responseData) -> Void in
+            print(responseData.result)
+            switch responseData.result {
+            case .success(let value):
+                if let responseValue = value as? [String: AnyObject] {
+                    print(responseValue)
+                    if let custID = responseValue[WSResponseParams.WS_RESP_PARAM_ID] as? Int {
+                        
+                        self.settings?.customerId = "\(custID)"
+                        
+                        completion(true, "\(custID)", "")
                     }
-                })
+                    else {
+                        completion(false, nil, "Wrong data type")
+                    }
+                } else {
+                    completion(false, nil, responseData.error?.localizedDescription ?? "")
+                }
+            case .failure(let error):
+                completion(false, nil, error.localizedDescription)
             }
+        })
+    }
     // MARK: HOTEL
     
     // MARK: SEARCH CITY CODES
@@ -453,24 +453,24 @@ class WSManager {
         
         requestParams[WSRequestParams.WS_REQS_PARAM_CUSTOMER_ID] = "\(settings?.customerId ?? "")" as AnyObject
         
-                AF.request(WebService.finalBooking, method: .post, parameters: requestParams, headers: nil).responseJSON(completionHandler: {(responseData) -> Void in
-                    print(responseData.result)
-                    switch responseData.result {
-                    case .success(let value):
-                        if let responseValue = value as? [String: AnyObject] {
-                            print(responseValue)
-                            if let res = responseValue[WSResponseParams.WS_RESP_PARAM_RESPONSE] as? [String:AnyObject] {
-                                completion(true, res, "")
-                            }
-                            else {
-                                completion(false, nil, "Wrong data type")
-                            }
-                        } else {
-                            completion(false, nil, responseData.error?.localizedDescription ?? "")
-                        }
-                    case .failure(let error):
-                        completion(false, nil, error.localizedDescription)
+        AF.request(WebService.finalBooking, method: .post, parameters: requestParams, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: {(responseData) -> Void in
+            print(responseData.result)
+            switch responseData.result {
+            case .success(let value):
+                if let responseValue = value as? [String: AnyObject] {
+                    print(responseValue)
+                    if let res = responseValue[WSResponseParams.WS_RESP_PARAM_RESPONSE] as? [String:AnyObject] {
+                        completion(true, res, "")
                     }
-                })
+                    else {
+                        completion(false, nil, "Wrong data type")
+                    }
+                } else {
+                    completion(false, nil, responseData.error?.localizedDescription ?? "")
+                }
+            case .failure(let error):
+                completion(false, nil, error.localizedDescription)
             }
+        })
+    }
 }

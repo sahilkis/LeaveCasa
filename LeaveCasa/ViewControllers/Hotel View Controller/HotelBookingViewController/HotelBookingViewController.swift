@@ -72,14 +72,15 @@ class HotelBookingViewController: UIViewController {
         super.viewWillAppear(animated)
         self.tableView.addObserver(self, forKeyPath: Strings.CONTENT_SIZE, options: .new, context: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(sender:)), name: UIResponder.keyboardWillShowNotification, object: nil);
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(sender:)), name: UIResponder.keyboardWillHideNotification, object: nil);
         
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.tableView.removeObserver(self, forKeyPath: Strings.CONTENT_SIZE)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(sender:)), name: UIResponder.keyboardWillHideNotification, object: nil);
-        
+        NotificationCenter.default.removeObserver(UIResponder.keyboardWillShowNotification)
+        NotificationCenter.default.removeObserver(UIResponder.keyboardWillHideNotification)
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -165,7 +166,9 @@ class HotelBookingViewController: UIViewController {
         lblNumOfNights.text = "\(numberOfNights)"
         
         for i in 0..<numberOfAdults {
-            guestDetails.append(["id" : i+1 as AnyObject]) // TODO: Pending
+            guestDetails.append(["title" : (titles.first ?? "") as AnyObject, "type": "AD" as AnyObject])
+            
+            // TODO: Pending
         }
         
         self.tableView.reloadData()
@@ -328,14 +331,14 @@ extension HotelBookingViewController {
     
     func fetchCityList(_ sender: SearchTextField) {
         let string = sender.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).replacingOccurrences(of: " ", with: "%20") ?? ""
-                
-                if string.isEmpty
-                {
-                    self.cityName.removeAll()
-                    self.cityCode.removeAll()
-                    self.setupSearchTextField(self.cityName, textField: sender)
-                    return
-                }
+        
+        if string.isEmpty
+        {
+            self.cityName.removeAll()
+            self.cityCode.removeAll()
+            self.setupSearchTextField(self.cityName, textField: sender)
+            return
+        }
         if WSManager.isConnectedToInternet() {
             WSManager.wsCallGetCityCodes(string, success: { (response, message) in
                 if self.cityName.count > 0 {
@@ -393,17 +396,16 @@ extension HotelBookingViewController {
                             WSRequestParams.WS_REQS_PARAM_SURNAME: holderLName as AnyObject,
                             WSRequestParams.WS_REQS_PARAM_EMAIL: holderEmail as AnyObject,
                             WSRequestParams.WS_REQS_PARAM_PHONE_NUMBER: holderPhone as AnyObject,
+                            WSResponseParams.WS_RESP_PARAM_CLIENT_NATIONALITY: "IN" as AnyObject
                         ]
                         
-                        let bookingItem: [String: AnyObject] = [
-                            WSRequestParams.WS_REQS_PARAM_BOOKING_ITEMS: [
-                                WSResponseParams.WS_RESP_PARAM_ROOM_CODE: self.hotelDetail.rates[self.selectedRoomRate].sRoomCode as AnyObject,
-                                WSRequestParams.WS_REQS_PARAM_RATE_KEY: self.hotelDetail.rates[self.selectedRoomRate].sRateKey as AnyObject,
-                                WSRequestParams.WS_REQS_PARAM_ROOMS: [
-                                    WSRequestParams.WS_REQS_PARAM_PAXES: self.guestDetails as AnyObject,
-                                ] as AnyObject,
+                        let bookingItem: [[String: AnyObject]] = [[
+                            WSResponseParams.WS_RESP_PARAM_ROOM_CODE: self.hotelDetail.rates[self.selectedRoomRate].sRoomCode as AnyObject,
+                            WSRequestParams.WS_REQS_PARAM_RATE_KEY: self.hotelDetail.rates[self.selectedRoomRate].sRateKey as AnyObject,
+                            WSRequestParams.WS_REQS_PARAM_ROOMS: [
+                                WSRequestParams.WS_REQS_PARAM_PAXES: self.guestDetails as AnyObject,
                             ] as AnyObject,
-                        ]
+                        ]]
                         
                         let params: [String: AnyObject] = [
                             WSResponseParams.WS_RESP_PARAM_LOGID: self.logId as AnyObject,

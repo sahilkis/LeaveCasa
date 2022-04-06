@@ -263,12 +263,15 @@ extension SearchHotelViewController: WWCalendarTimeSelectorProtocol {
     func WWCalendarTimeSelectorShouldSelectDate(_ selector: WWCalendarTimeSelector, date: Date) -> Bool {
         if date < Date() {
             return false
-        } else {
+        } else if !isFromCheckin {
             if date < checkinDate {
                 return false
             } else {
                 return true
             }
+        }
+        else {
+            return true
         }
     }
 }

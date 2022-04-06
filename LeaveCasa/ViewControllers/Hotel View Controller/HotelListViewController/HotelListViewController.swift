@@ -65,12 +65,13 @@ extension HotelListViewController {
 
 extension HotelListViewController: HotelFilterDelegate {
     func applyFilter(rating: [Int]) {
-       
+        self.hotelCount = "0"
         self.currentRequest = 0
         self.results = []
         self.selectedRatings = rating
         self.tableView.reloadData()
         
+        Helper.showLoader(onVC: self, message: "")
         self.searchHotel()
         
         self.dismiss(animated: true, completion: nil)

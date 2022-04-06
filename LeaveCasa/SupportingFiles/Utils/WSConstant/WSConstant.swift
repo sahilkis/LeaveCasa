@@ -125,6 +125,7 @@ struct WSResponseParams {
     static let WS_RESP_PARAM_CITY_NAME               = "city_name"
     static let WS_RESP_PARAM_CITYNAME_CAP            = "CityName"
     static let WS_RESP_PARAM_CODE                    = "code"
+    static let WS_RESP_PARAM_CLIENT_NATIONALITY      = "client_nationality"
     static let WS_RESP_PARAM_CONTACT_NO              = "contactNumber"
     static let WS_RESP_PARAM_COUNTRY                 = "country"
     static let WS_RESP_PARAM_COUNTRYCODE_CAP         = "CountryCode"

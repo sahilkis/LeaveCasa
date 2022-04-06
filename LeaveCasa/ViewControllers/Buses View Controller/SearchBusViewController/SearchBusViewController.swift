@@ -24,7 +24,8 @@ class SearchBusViewController: UIViewController {
     lazy var searchedDestinationName = [String]()
     lazy var sourceCityCode = Int()
     lazy var destinationCityCode = String()
-    
+    var checkinDate = Date()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -85,7 +86,7 @@ class SearchBusViewController: UIViewController {
     func openDateCalendar() {
         if let calendar = ViewControllerHelper.getViewController(ofType: .WWCalendarTimeSelector) as? WWCalendarTimeSelector {
             calendar.delegate = self
-            calendar.optionCurrentDate = Date()
+            calendar.optionCurrentDate = checkinDate
             calendar.optionStyles.showDateMonth(true)
             calendar.optionStyles.showMonth(false)
             calendar.optionStyles.showYear(true)
@@ -166,6 +167,7 @@ extension SearchBusViewController {
 extension SearchBusViewController: WWCalendarTimeSelectorProtocol {
     func WWCalendarTimeSelectorDone(_ selector: WWCalendarTimeSelector, date: Date) {
         txtDate.text = Helper.convertDate(date)
+        checkinDate = date
     }
     
     func WWCalendarTimeSelectorShouldSelectDate(_ selector: WWCalendarTimeSelector, date: Date) -> Bool {

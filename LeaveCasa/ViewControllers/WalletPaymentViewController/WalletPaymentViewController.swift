@@ -64,13 +64,13 @@ extension WalletPaymentViewController {
             let params: [String: AnyObject] = params
             Helper.showLoader(onVC: self, message: "")
             
-            WSManager.wsCallFinalBooking(params, completion: { (isSuccess, balance, message) in
+            WSManager.wsCallFinalBooking(params, completion: { (isSuccess, response, message) in
                 Helper.hideLoader(onVC: self)
                 if isSuccess {
                     
                 }
                 else {
-                    Helper.showOKAlert(onVC: self, title: Alert.ALERT, message: "Please try again")
+                    Helper.showOKAlert(onVC: self, title: Alert.ALERT, message: message)
                 }
             })
         }
