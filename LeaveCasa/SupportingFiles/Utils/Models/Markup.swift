@@ -20,6 +20,11 @@ class Markup: Mappable, CustomStringConvertible {
         amount <- map[WSResponseParams.WS_RESP_PARAM_AMOUNT]
         amountBy <- map[WSResponseParams.WS_RESP_PARAM_AMOUNT_BY]
         starRating <- map[WSResponseParams.WS_RESP_PARAM_STAR_RATTING]
+        amountOrPercent <- map[WSResponseParams.WS_RESP_PARAM_AMOUNT_OR_PERCENT]
+        
+        if amount.isZero && !amountOrPercent.isZero {
+            amount = amountOrPercent
+        }
     }
     
     var description: String {
@@ -42,4 +47,6 @@ class Markup: Mappable, CustomStringConvertible {
     lazy var amount = Double()
     lazy var amountBy = String()
     lazy var starRating = Int()
+    lazy var amountOrPercent = Double()
+
 }

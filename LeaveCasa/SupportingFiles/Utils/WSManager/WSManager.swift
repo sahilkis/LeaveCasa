@@ -358,7 +358,7 @@ class WSManager {
     }
     
     // MARK: FETCH Buses
-    class func wsCallFetchBuses(_ requestParams: [String: AnyObject], success:@escaping (_ arrData: [Bus])->(),failure:@escaping (NSError)->()) {
+    class func wsCallFetchBuses(_ requestParams: [String: AnyObject], success:@escaping (_ arrData: [Bus], _ markups: Markup?)->(),failure:@escaping (NSError)->()) {
         AF.request(WebService.busSearch, method: .post, parameters: requestParams, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: {(responseData) -> Void in
             print(responseData.result)
             switch responseData.result {
@@ -367,12 +367,21 @@ class WSManager {
                     print(responseValue)
                     if (responseValue[WSResponseParams.WS_RESP_PARAM_STATUS] as? String == WSResponseParams.WS_REPS_PARAM_SUCCESS) {
                         if let response = responseValue[WSResponseParams.WS_RESP_PARAM_RESULTS] as? [String: Any] {
+                            var buses = [Bus]()
+                            var markups = [Markup] ()
+                            
                             if let availableTrips = response[WSResponseParams.WS_RESP_PARAM_AVAILABLE_TRIPS] as? [[String: Any]] {
-                                if let buses = Mapper<Bus>().mapArray(JSONArray: availableTrips) as [Bus]? {
-                                    success(buses)
+                                if let busArr = Mapper<Bus>().mapArray(JSONArray: availableTrips) as [Bus]? {
+                                    buses = busArr
                                 } else {
                                     failure(AppConstants.errSomethingWentWrong)
                                 }
+                            }
+                            if let markups = response[WSResponseParams.WS_RESP_PARAM_MARKUP] as? [String: Any] , let markup = Mapper<Markup>().map(JSON: markups) as Markup? {
+                                success(buses, markup)
+                            }
+                            else {
+                                success(buses, nil)
                             }
                         } else {
                             failure(AppConstants.errSomethingWentWrong)
@@ -384,6 +393,29 @@ class WSManager {
                     }
                 } else {
                     failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: responseData.error?.localizedDescription ?? ""]))
+                }
+            case .failure(let error):
+                failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: error.localizedDescription]))
+            }
+        })
+    }
+    
+    // MARK: FETCH Bus Seat Layout
+    class func wsCallFetchBusSeatLayout(_ requestParams: [String: AnyObject], success:@escaping (_ arrData: BusLayout)->(),failure:@escaping (NSError)->()) {
+        AF.request(WebService.busSeatLayout, method: .post, parameters: requestParams, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: {(responseData) -> Void in
+            print(responseData.result)
+            switch responseData.result {
+            case .success(let value):
+                if let responseValue = value as? [String: AnyObject] {
+                    print(responseValue)
+                    if (responseValue[WSResponseParams.WS_RESP_PARAM_STATUS] as? String == WSResponseParams.WS_REPS_PARAM_SUCCESS) {
+                        
+                            if let layouts = responseValue[WSResponseParams.WS_RESP_PARAM_LAYOUT] as? [String: Any] , let layout = Mapper<BusLayout>().map(JSON: layouts) as BusLayout? {
+                                success(layout)
+                            }
+                        } else {
+                            failure(AppConstants.errSomethingWentWrong)
+                        }
                 }
             case .failure(let error):
                 failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: error.localizedDescription]))

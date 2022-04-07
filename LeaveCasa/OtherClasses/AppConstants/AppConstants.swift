@@ -70,12 +70,19 @@ struct LeaveCasaFonts {
 
 // Icons Constants
 struct LeaveCasaIcons {
-    static let BLACK_BACK = UIImage.init(named: "ic_back_black")
-    static let THREE_DOTS = UIImage.init(named: "ic_three_dots")
-    static let CHECKBOX_BLUE = UIImage.init(named: "ic_square_tick_blue")
-    static let CHECKBOX_GREY = UIImage.init(named: "ic_square_tick_grey")
-    static let RADIO_BLUE = UIImage.init(named: "ic_radio_unselected")
-    static let RADIO_GREY = UIImage.init(named: "ic_radio_unselected")
+    static let BLACK_BACK                    = UIImage.init(named: "ic_back_black")
+    static let THREE_DOTS                    = UIImage.init(named: "ic_three_dots")
+    static let CHECKBOX_BLUE                 = UIImage.init(named: "ic_square_tick_blue")
+    static let CHECKBOX_GREY                 = UIImage.init(named: "ic_square_tick_grey")
+    static let RADIO_BLUE                    = UIImage.init(named: "ic_radio_unselected")
+    static let RADIO_GREY                    = UIImage.init(named: "ic_radio_unselected")
+    static let SEARCH                        = UIImage.init(named: "ic_search")
+    static let SIDE_MENU                     = UIImage.init(named: "ic_side_menu")
+    static let SEAT_BLACK                    = UIImage.init(named: "ic_seat_black")
+    static let SEAT_BLUE                     = UIImage.init(named: "ic_seat_blue")
+    static let SEAT_GREY                     = UIImage.init(named: "ic_seat_grey")
+    static let SEAT_RED                      = UIImage.init(named: "ic_seat_red")
+    static let SEAT_YELLOW                   = UIImage.init(named: "ic_seat_yellow")
 }
 
 // Alert Titles

@@ -20,7 +20,7 @@ class Flight: Mappable, CustomStringConvertible {
         var stops = [FlightAirport]()
         
         segments <- map[WSResponseParams.WS_RESP_PARAM_SEGMENTS]
-        sFare <- map[WSResponseParams.WS_RESP_PARAM_FARE]
+        sFare <- map[WSResponseParams.WS_RESP_PARAM_FARE_CAP]
         sResultIndex <- map[WSResponseParams.WS_RESP_PARAM_RESULTS_INDEX]
         
         if let segments = segments {

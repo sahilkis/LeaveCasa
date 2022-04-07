@@ -9,5 +9,6 @@
 import UIKit
 
 class SeatCell: UICollectionViewCell {
+    @IBOutlet weak var image: UIImageView!
     
 }

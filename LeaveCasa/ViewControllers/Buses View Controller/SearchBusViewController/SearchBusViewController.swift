@@ -233,6 +233,12 @@ extension SearchBusViewController {
     }
     
     func fetchDestinationCityList() {
+        self.txtDestination.text = ""
+        self.destinationCityCode = ""
+        self.destinationName.removeAll()
+        self.destinationCode.removeAll()
+        
+        self.setupDestinationSearchTextField(self.destinationName)
         
         if WSManager.isConnectedToInternet() {
             //            let city = self.txtDestination.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) ?? ""
@@ -258,20 +264,20 @@ extension SearchBusViewController {
     }
     
     func searchBus() {
-        Helper.hideLoader(onVC: self)
         
         if WSManager.isConnectedToInternet() {
             let params: [String: AnyObject] = [WSRequestParams.WS_REQS_PARAM_JOURNEY_DATE: txtDate.text as AnyObject,
                                                WSRequestParams.WS_REQS_PARAM_BUS_FROM: sourceCityCode as AnyObject,
                                                WSRequestParams.WS_REQS_PARAM_BUS_TO: destinationCityCode as AnyObject]
-            WSManager.wsCallFetchBuses(params, success: { (response) in
+            WSManager.wsCallFetchBuses(params, success: { (response, markups)  in
                 Helper.hideLoader(onVC: self)
                 if let vc = ViewControllerHelper.getViewController(ofType: .BusListViewController) as? BusListViewController {
                     vc.buses = response
+                    vc.markups = markups
                     vc.searchedParams = params
                     vc.souceName = self.txtSource.text ?? ""
                     vc.destinationName = self.txtDestination.text ?? ""
-                    vc.checkInDate = Helper.convertCheckinDate(self.txtDate.text ?? "")
+                    vc.checkInDate = self.checkinDate
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
             }, failure: { (error) in

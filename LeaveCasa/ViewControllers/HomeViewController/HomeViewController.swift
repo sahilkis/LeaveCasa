@@ -5,11 +5,23 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         getCustomerId()
+        setLeftbarButton()
+        setRightbarButton()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setNavigationBar()
+    }
+    
+    func setLeftbarButton() {
+        let leftBarButton = UIBarButtonItem.init(image: LeaveCasaIcons.SIDE_MENU, style: .plain, target: self, action: #selector(leftBarButton(_:)))
+        self.navigationItem.leftBarButtonItem = leftBarButton
+    }
+    
+    func setRightbarButton() {
+        let rightBarButton = UIBarButtonItem.init(image: LeaveCasaIcons.SEARCH, style: .plain, target: self, action: #selector(rightBarButton(_:)))
+        self.navigationItem.rightBarButtonItem = rightBarButton
     }
     
     func setNavigationBar() {
@@ -34,6 +46,15 @@ class HomeViewController: UIViewController {
 
 // MARK: - UIBUTTON ACTIONS
 extension HomeViewController {
+    @IBAction func leftBarButton(_ sender: UIBarButtonItem) {
+
+    }
+    
+    @IBAction func rightBarButton(_ sender: UIBarButtonItem) {
+        
+        
+    }
+    
     @IBAction func flightsClicked(_ sender: UIButton) {
         if let vc = ViewControllerHelper.getViewController(ofType: .SearchFlightViewController) as? SearchFlightViewController {
             self.navigationController?.pushViewController(vc, animated: true)

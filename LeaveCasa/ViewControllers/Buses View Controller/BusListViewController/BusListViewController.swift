@@ -16,7 +16,8 @@ class BusListViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     var buses = [Bus]()
-    var checkInDate = ""
+    var markups : Markup?
+    var checkInDate = Date()
     var dates = [Date]()
     var selectedDate = 0
     var searchedParams = [String: AnyObject] ()
@@ -43,7 +44,7 @@ class BusListViewController: UIViewController {
     {
         dates.removeAll()
         
-        var dateObj = Date()
+        var dateObj = checkInDate
         
         dates.append(dateObj)
         
@@ -112,13 +113,30 @@ extension BusListViewController: UITableViewDataSource, UITableViewDelegate {
         }
         
         if let price = bus?.fareDetails {
-            for i in 0..<price.count {
-                let dict = price[i]
+            var farePrice = 0.0
+            
+            if let fare = price[WSResponseParams.WS_RESP_PARAM_TOTAL_FARE] as? String {
+                farePrice = Double(fare) ?? 0
+            }
+            
+            if let priceArray = bus?.fareDetailsArray {
+            for i in 0..<priceArray.count {
+                let dict = priceArray[i]
                 if let fare = dict[WSResponseParams.WS_RESP_PARAM_TOTAL_FARE] as? String {
-                    cell.lblPrice.text = "₹\(fare)"
+                    farePrice = Double(fare) ?? 0
                     break
                 }
             }
+            }
+            
+            if let markup = markups as? Markup {
+                if markup.amountBy == Strings.PERCENT {
+                    farePrice += (farePrice * (markup.amount) / 100)
+                    } else {
+                        farePrice += (markup.amount)
+                    }
+            }
+            cell.lblPrice.text = "₹\(String(format: "%.0f", farePrice))"
         }
         
         if let travels = bus?.sTravels {
@@ -138,8 +156,8 @@ extension BusListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let vc = ViewControllerHelper.getViewController(ofType: .BusDetailViewController) as? BusDetailViewController {
             
-            vc.numberOfSeats = 50
             vc.buses = self.buses[indexPath.row]
+            vc.markups = self.markups
             vc.searchedParams = self.searchedParams
             vc.souceName = self.souceName
             vc.destinationName = self.destinationName
@@ -184,14 +202,16 @@ extension BusListViewController: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         searchBus(index: indexPath.row)
-        
     }
     
+}
+
+// MARK: - API CALLS
+extension BusListViewController {
     
     func searchBus(index: Int) {
         
-        Helper.hideLoader(onVC: self)
-        
+        Helper.showLoader(onVC: self, message: "")
         
         if WSManager.isConnectedToInternet() {
             var params: [String: AnyObject] = searchedParams
@@ -199,12 +219,14 @@ extension BusListViewController: UICollectionViewDelegate, UICollectionViewDataS
             let date = Helper.convertDate(self.dates[index])
             params[WSRequestParams.WS_REQS_PARAM_JOURNEY_DATE] = date as AnyObject
             
-            WSManager.wsCallFetchBuses(params, success: { (response) in
+            WSManager.wsCallFetchBuses(params, success: { (response, markups) in
                 Helper.hideLoader(onVC: self)
                 
                 self.buses = response
+                self.markups = markups
                 self.selectedDate = index
                 self.collectionView.reloadData()
+                self.tableView.reloadData()
                 
             }, failure: { (error) in
                 Helper.hideLoader(onVC: self)

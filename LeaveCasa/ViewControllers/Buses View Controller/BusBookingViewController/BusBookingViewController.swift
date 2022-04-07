@@ -15,6 +15,12 @@ class BusBookingViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var lblName: UILabel!
+    @IBOutlet weak var lblSeatCount: UILabel!
+    @IBOutlet weak var lblstartDate: UILabel!
+    @IBOutlet weak var lblPassangerCount: UILabel!
+    @IBOutlet weak var lblBoardingPoint: UILabel!
+    @IBOutlet weak var lblDroppingPoint: UILabel!
     @IBOutlet weak var lblTotalPrice: UILabel!
     
     @IBOutlet weak var txtGuestName: UITextField!
@@ -26,7 +32,12 @@ class BusBookingViewController: UIViewController {
     lazy var cityCodeStr = ""
     var guestDetails = [[String: AnyObject]]()
     var numberOfAdults = 1
-
+    var bus = Bus()
+    var markups : Markup?
+    var checkInDate = Date()
+    var selectedSeats = [BusSeat]()
+    var selectedboardingPointIndex = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -64,6 +75,26 @@ class BusBookingViewController: UIViewController {
     
     private func setupData() {
         
+        self.lblName.text = bus.sTravels
+        
+        let date = Helper.convertDate(self.checkInDate)
+        self.lblstartDate.text = date
+        
+        self.lblBoardingPoint.text = bus.sBusBoardingArr.count > 0 ? bus.sBusBoardingArr[selectedboardingPointIndex].sLocation : bus.sBusBoarding.sLocation
+        self.lblDroppingPoint.text = bus.sBusDroppingArr.count > 0 ? (bus.sBusDroppingArr.last?.sLocation ?? "") : bus.sBusDropping.sLocation //
+        var price: Double = selectedSeats.reduce(0) { $0 + $1.sFare }
+        
+        if let markup = markups as? Markup {
+            if markup.amountBy == Strings.PERCENT {
+                price += (price * (markup.amount) / 100)
+                } else {
+                    price += (markup.amount)
+                }
+        }
+        self.lblTotalPrice.text = "₹\(String(format: "%.0f", price))"
+        self.lblSeatCount.text = "\(selectedSeats.count)"
+        self.lblPassangerCount.text = "\(selectedSeats.count)"
+
         for i in 0..<numberOfAdults {
             guestDetails.append(["id" : i+1 as AnyObject]) // TODO: Pending
             
