@@ -189,6 +189,7 @@ struct WSResponseParams {
     static let WS_RESP_PARAM_LAST_NAME               = "last_name"
     static let WS_RESP_PARAM_LANDMARK                = "landmark"
     static let WS_RESP_PARAM_LAYOUT                  = "layout"
+    static let WS_RESP_PARAM_LENGTH                  = "length"
     static let WS_RESP_PARAM_LOCATION                = "location"
     static let WS_RESP_PARAM_LOGID                   = "logid"
     static let WS_RESP_PARAM_MALES_SEAT              = "malesSeat"
@@ -255,5 +256,6 @@ struct WSResponseParams {
     static let WS_RESP_PARAM_VACCINATED_BUS          = "vaccinatedBus"
     static let WS_RESP_PARAM_VACCINATED_STAFF        = "vaccinatedStaff"
     static let WS_RESP_PARAM_ZINDEX                  = "zIndex"
+    static let WS_RESP_PARAM_WIDTH                   = "width"
 }
 

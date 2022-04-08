@@ -220,6 +220,8 @@ class BusSeat: Mappable, CustomStringConvertible {
         sColumn <- map[WSResponseParams.WS_RESP_PARAM_COLUMN]
         sZIndex <- map[WSResponseParams.WS_RESP_PARAM_ZINDEX]
         sDoubleBirth <- map[WSResponseParams.WS_RESP_PARAM_DOUBLE_BIRTH]
+        sLength <- map[WSResponseParams.WS_RESP_PARAM_LENGTH]
+        sWidth <- map[WSResponseParams.WS_RESP_PARAM_WIDTH]
 
         var mapObject : AnyObject?
         mapObject <- map[WSResponseParams.WS_RESP_PARAM_AVAILABLE]
@@ -273,6 +275,18 @@ class BusSeat: Mappable, CustomStringConvertible {
         {
             sZIndex = zIndexValue
         }
+        
+        mapObject <- map[WSResponseParams.WS_RESP_PARAM_LENGTH]
+        if let length = mapObject as? String, let lengthValue = Int(length)
+        {
+            sLength = lengthValue
+        }
+        
+        mapObject <- map[WSResponseParams.WS_RESP_PARAM_WIDTH]
+        if let width = mapObject as? String, let widthValue = Int(width)
+        {
+            sWidth = widthValue
+        }
     }
     
     var description: String {
@@ -303,6 +317,8 @@ class BusSeat: Mappable, CustomStringConvertible {
     lazy var sDoubleBirth = Bool()
     lazy var sColumn = Int()
     lazy var sZIndex = Int()
+    lazy var sWidth = Int()
+    lazy var sLength = Int()
 }
 
 

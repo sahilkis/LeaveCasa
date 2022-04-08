@@ -230,7 +230,16 @@ extension BusDetailViewController: UICollectionViewDelegateFlowLayout {
 func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
     let collectionWidth = collectionView.bounds.width
-    return CGSize(width: collectionWidth/CGFloat(noOfColumns), height: collectionWidth/CGFloat(noOfColumns))
+    var length = 1.0
+    var width = 1.0
+    
+    if let index = self.seats.firstIndex(where: { seat in
+        seat.sColumn == indexPath.section && seat.sRow == indexPath.row && seat.sZIndex == 0 // TODO: Pending upper seats selection
+    }) {
+        length = Double(seats[index].sLength)
+        width = Double(seats[index].sWidth)
+    }
+    return CGSize(width: (collectionWidth/CGFloat(noOfColumns))*length, height: (collectionWidth/CGFloat(noOfColumns))*width)
 
 }
 
