@@ -60,7 +60,9 @@ extension LoginViewController {
     }
     
     @IBAction func forgotPasswordClicked(_ sender: UIButton) {
-        
+//        if let vc = ViewControllerHelper.getViewController(ofType: .ForgotPasswordViewController) as? ForgotPasswordViewController {
+//            self.navigationController?.pushViewController(vc, animated: true)
+//        }
     }
 }
 

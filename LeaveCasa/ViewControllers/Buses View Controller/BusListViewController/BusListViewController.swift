@@ -23,6 +23,8 @@ class BusListViewController: UIViewController {
     var searchedParams = [String: AnyObject] ()
     var souceName = ""
     var destinationName = ""
+    var souceCode = ""
+    var destinationCode = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,21 +88,21 @@ extension BusListViewController: UITableViewDataSource, UITableViewDelegate {
             cell.lblSeats.text = "\(seats) Seats"
         }
         
-        if var ac = bus?.sAC {
-            if ac == Strings.FALSE {
-                ac = Strings.NO
-            } else {
-                ac = Strings.YES
-            }
-            if var sleeper = bus?.sSleeper {
-                if sleeper == Strings.FALSE {
-                    sleeper = Strings.NO
-                } else {
-                    sleeper = Strings.YES
-                }
-                cell.lblBusCondition.text = "Ac: \(ac) | Sleeper: \(sleeper)"
-            }
+        var ac = Strings.NO
+        var sleeper = Strings.NO
+        if !(bus?.sAC ?? false) {
+            ac = Strings.NO
+        } else {
+            ac = Strings.YES
         }
+        if !(bus?.sSleeper ?? false) {
+            sleeper = Strings.NO
+        } else {
+            sleeper = Strings.YES
+        }
+        cell.lblBusCondition.text = "Ac: \(ac) | Sleeper: \(sleeper)"
+        
+        
         
         if var arrivalTime = bus?.sArrivalTime {
             if var departureTime = bus?.sDepartureTime {
@@ -120,21 +122,21 @@ extension BusListViewController: UITableViewDataSource, UITableViewDelegate {
             }
             
             if let priceArray = bus?.fareDetailsArray {
-            for i in 0..<priceArray.count {
-                let dict = priceArray[i]
-                if let fare = dict[WSResponseParams.WS_RESP_PARAM_TOTAL_FARE] as? String {
-                    farePrice = Double(fare) ?? 0
-                    break
+                for i in 0..<priceArray.count {
+                    let dict = priceArray[i]
+                    if let fare = dict[WSResponseParams.WS_RESP_PARAM_TOTAL_FARE] as? String {
+                        farePrice = Double(fare) ?? 0
+                        break
+                    }
                 }
-            }
             }
             
             if let markup = markups as? Markup {
                 if markup.amountBy == Strings.PERCENT {
                     farePrice += (farePrice * (markup.amount) / 100)
-                    } else {
-                        farePrice += (markup.amount)
-                    }
+                } else {
+                    farePrice += (markup.amount)
+                }
             }
             cell.lblPrice.text = "₹\(String(format: "%.0f", farePrice))"
         }
@@ -156,13 +158,17 @@ extension BusListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let vc = ViewControllerHelper.getViewController(ofType: .BusDetailViewController) as? BusDetailViewController {
             
-            vc.buses = self.buses[indexPath.row]
+            let bus = self.buses[indexPath.row]
+            
+            bus.sSourceCode = self.souceCode
+            bus.sDestinationCode = self.destinationCode
+            vc.bus = bus
             vc.markups = self.markups
             vc.searchedParams = self.searchedParams
             vc.souceName = self.souceName
             vc.destinationName = self.destinationName
             vc.date = self.dates[selectedDate]
-             
+            
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }

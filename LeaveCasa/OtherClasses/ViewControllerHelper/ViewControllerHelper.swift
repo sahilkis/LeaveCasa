@@ -10,6 +10,7 @@ struct ViewControllerIdentifiers {
     static let MainViewController                       = "MainViewController"
     static let LoginViewController                      = "LoginViewController"
     static let SignupViewController                     = "SignupViewController"
+    static let ForgotPasswordViewController             = "ForgotPasswordViewController"
     static let HomeViewController                       = "HomeViewController"
     static let SearchHotelViewController                = "SearchHotelViewController"
     static let HotelListViewController                  = "HotelListViewController"
@@ -39,6 +40,7 @@ enum ViewControllerType {
     case MainViewController
     case LoginViewController
     case SignupViewController
+    case ForgotPasswordViewController
     case HomeViewController
     case SearchHotelViewController
     case HotelListViewController
@@ -72,13 +74,15 @@ class ViewControllerHelper: NSObject {
         let flightStoryboard = UIStoryboard(name: "Flight", bundle: nil)
         let busStoryboard = UIStoryboard(name: "Bus", bundle: nil)
         let hotelStoryboard = UIStoryboard(name: "Hotel", bundle: nil)
-
+        
         if viewControllerType == .MainViewController {
             viewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.MainViewController) as! MainViewController
         } else if viewControllerType == .LoginViewController {
             viewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.LoginViewController) as! LoginViewController
         } else if viewControllerType == .SignupViewController {
             viewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.SignupViewController) as! SignupViewController
+        } else if viewControllerType == .ForgotPasswordViewController {
+            viewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.ForgotPasswordViewController) as! ForgotPasswordViewController
         } else if viewControllerType == .TabBarViewController {
             viewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.TabBarViewController) as! TabBarViewController
         } else if viewControllerType == .HomeViewController {

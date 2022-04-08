@@ -70,6 +70,37 @@ class WSManager {
                         if let responseMessage = responseValue[WSResponseParams.WS_RESP_PARAM_MESSAGE] as? String {
                             completion(false, responseMessage)
                         }
+                        else  {
+                            if let responseMessage = responseValue[WSResponseParams.WS_RESP_PARAM_ERRORS] as? [String: AnyObject] {
+                                for i in responseMessage.values {
+                                    if let error = i as? [AnyObject] {
+                                        completion(false, error.first as? String ?? "")
+                                        break
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    completion(false, responseData.error?.localizedDescription ?? "")
+                }
+            case .failure(let error):
+                completion(false, error.localizedDescription)
+            }
+            
+        })
+    }
+    
+    // MARK: FORGOT PASSWORD
+    class func wsCallForgotPassword(_ requestParams: [String: AnyObject], completion:@escaping (_ isSuccess: Bool, _ message: String)->()) {
+        AF.request(WebService.forgotPassword, method: .post, parameters: requestParams, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: {(responseData) -> Void in
+            print(responseData.result)
+            switch responseData.result {
+            case .success(let value):
+                if let responseValue = value as? [String: AnyObject] {
+                    print(responseValue)
+                    if let responseMessage = responseValue[WSResponseParams.WS_RESP_PARAM_MESSAGE] as? String {
+                        completion(true, responseMessage)
                     }
                 } else {
                     completion(false, responseData.error?.localizedDescription ?? "")
@@ -410,12 +441,64 @@ class WSManager {
                     print(responseValue)
                     if (responseValue[WSResponseParams.WS_RESP_PARAM_STATUS] as? String == WSResponseParams.WS_REPS_PARAM_SUCCESS) {
                         
-                            if let layouts = responseValue[WSResponseParams.WS_RESP_PARAM_LAYOUT] as? [String: Any] , let layout = Mapper<BusLayout>().map(JSON: layouts) as BusLayout? {
-                                success(layout)
-                            }
-                        } else {
-                            failure(AppConstants.errSomethingWentWrong)
+                        if let layouts = responseValue[WSResponseParams.WS_RESP_PARAM_LAYOUT] as? [String: Any] , let layout = Mapper<BusLayout>().map(JSON: layouts) as BusLayout? {
+                            success(layout)
                         }
+                    } else {
+                        failure(AppConstants.errSomethingWentWrong)
+                    }
+                }
+            case .failure(let error):
+                failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: error.localizedDescription]))
+            }
+        })
+    }
+    
+    // MARK: FETCH Bus Ticket Block
+    class func wsCallBusTicketBlock(_ requestParams: [String: AnyObject], success:@escaping (_ blockKey: String)->(),failure:@escaping (NSError)->()) {
+        AF.request(WebService.busTicketBlock, method: .post, parameters: requestParams, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: {(responseData) -> Void in
+            print(responseData.result)
+            switch responseData.result {
+            case .success(let value):
+                if let responseValue = value as? [String: AnyObject] {
+                    print(responseValue)
+                    if (responseValue[WSResponseParams.WS_RESP_PARAM_STATUS] as? String == WSResponseParams.WS_REPS_PARAM_SUCCESS) {
+                        if let response = responseValue[WSResponseParams.WS_RESP_PARAM_BLOCK_KEY] as? String {
+                            success(response)
+                        }
+                    } else {
+                        if let message = responseValue[WSResponseParams.WS_RESP_PARAM_MESSAGE] as? String {
+                            failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: message]))
+                        }
+                    }
+                } else {
+                    failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: responseData.error?.localizedDescription ?? ""]))
+                }
+            case .failure(let error):
+                failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: error.localizedDescription]))
+            }
+        })
+    }
+    
+    // MARK: FETCH Bus Final Booking
+    class func wsCallBusFinalBooking(_ requestParams: [String: AnyObject], success:@escaping (_ blockKey: [String: AnyObject])->(),failure:@escaping (NSError)->()) {
+        AF.request(WebService.finalBooking, method: .post, parameters: requestParams, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: {(responseData) -> Void in
+            print(responseData.result)
+            switch responseData.result {
+            case .success(let value):
+                if let responseValue = value as? [String: AnyObject] {
+                    print(responseValue)
+                    if (responseValue[WSResponseParams.WS_RESP_PARAM_STATUS] as? String == WSResponseParams.WS_REPS_PARAM_SUCCESS) {
+                        
+                        success(responseValue)
+                        
+                    } else {
+                        if let message = responseValue[WSResponseParams.WS_RESP_PARAM_MESSAGE] as? String {
+                            failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: message]))
+                        }
+                    }
+                } else {
+                    failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: responseData.error?.localizedDescription ?? ""]))
                 }
             case .failure(let error):
                 failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: error.localizedDescription]))

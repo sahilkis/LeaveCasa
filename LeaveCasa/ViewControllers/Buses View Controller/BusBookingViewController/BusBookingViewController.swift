@@ -23,9 +23,13 @@ class BusBookingViewController: UIViewController {
     @IBOutlet weak var lblDroppingPoint: UILabel!
     @IBOutlet weak var lblTotalPrice: UILabel!
     
-    @IBOutlet weak var txtGuestName: UITextField!
-    @IBOutlet weak var txtGuestPhone: UITextField!
-    @IBOutlet weak var txtGuestEmail: UITextField!
+    @IBOutlet weak var txtHolderAddress: UITextField!
+    @IBOutlet weak var txtHolderIdType: UITextField!
+    @IBOutlet weak var txtHolderIdNumber: UITextField!
+    @IBOutlet weak var txtHolderPhone: UITextField!
+    @IBOutlet weak var txtHolderEmail: UITextField!
+    
+    @IBOutlet weak var btnAgreement: UIButton!
     
     lazy var cityCode = [String]()
     lazy var cityName = [String]()
@@ -37,6 +41,10 @@ class BusBookingViewController: UIViewController {
     var checkInDate = Date()
     var selectedSeats = [BusSeat]()
     var selectedboardingPointIndex = 0
+    var selectedDroppingPointIndex = 0
+    var titleDropDown = DropDown()
+    var titles = ["Mr", "Ms", "Mrs", "Mstr", "Miss"]
+    var genders = ["Male", "Female"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,25 +89,43 @@ class BusBookingViewController: UIViewController {
         self.lblstartDate.text = date
         
         self.lblBoardingPoint.text = bus.sBusBoardingArr.count > 0 ? bus.sBusBoardingArr[selectedboardingPointIndex].sLocation : bus.sBusBoarding.sLocation
-        self.lblDroppingPoint.text = bus.sBusDroppingArr.count > 0 ? (bus.sBusDroppingArr.last?.sLocation ?? "") : bus.sBusDropping.sLocation //
+        self.lblDroppingPoint.text = bus.sBusDroppingArr.count > 0 ? (bus.sBusDroppingArr[selectedDroppingPointIndex].sLocation) : bus.sBusDropping.sLocation //
         var price: Double = selectedSeats.reduce(0) { $0 + $1.sFare }
         
         if let markup = markups as? Markup {
             if markup.amountBy == Strings.PERCENT {
                 price += (price * (markup.amount) / 100)
-                } else {
-                    price += (markup.amount)
-                }
+            } else {
+                price += (markup.amount)
+            }
         }
         self.lblTotalPrice.text = "₹\(String(format: "%.0f", price))"
         self.lblSeatCount.text = "\(selectedSeats.count)"
         self.lblPassangerCount.text = "\(selectedSeats.count)"
-
-        for i in 0..<numberOfAdults {
-            guestDetails.append(["id" : i+1 as AnyObject]) // TODO: Pending
+        
+        for i in 0..<selectedSeats.count {
+            guestDetails.append(["title" : (titles.first ?? "") as AnyObject, "gender":  (genders.first ?? "") as AnyObject])
             
         }
         
+        self.tableView.reloadData()
+        
+    }
+    
+    func openDropDown(_ textfield: UITextField,_ array: [String], _ cellIndex : Int?, _ valueFor: String) {
+        titleDropDown.show()
+        titleDropDown.textColor = UIColor.black
+        titleDropDown.textFont = LeaveCasaFonts.FONT_PROXIMA_NOVA_REGULAR_12 ?? UIFont.systemFont(ofSize: 12)
+        titleDropDown.backgroundColor = UIColor.white
+        titleDropDown.anchorView = textfield
+        titleDropDown.dataSource = array
+        titleDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+            textfield.text = item
+            
+            if let row = cellIndex {
+                guestDetails[row][valueFor] = item as AnyObject
+            }
+        }
     }
 }
 
@@ -123,12 +149,7 @@ extension BusBookingViewController {
     }
     
     @IBAction func btnProceedToPaymentAction(_ sender: UIButton) {
-        //        if let vc = ViewControllerHelper.getViewController(ofType: .BusBookingViewController) as? BusBookingViewController {
-        //            vc.hotels = self.hotels
-        //            vc.markups = self.markups
-        //
-        //            self.navigationController?.pushViewController(vc, animated: true)
-        //        }
+        blockTicket()
     }
 }
 
@@ -151,28 +172,31 @@ extension BusBookingViewController: UITableViewDataSource, UITableViewDelegate {
         cell.txtLastName.delegate = self
         cell.txtState.delegate = self
         
-        //        cell.txtTitle.addTarget(self, action: #selector(selectTitle(_:)), for: .editingDidBegin)
-        cell.txtState.addTarget(self, action: #selector(searchCity(_:)), for: .editingChanged)
-        // TODO: Pending - search state only
+        cell.txtTitle.tag = indexPath.row
+        cell.txtFirstName.tag = indexPath.row
+        cell.txtLastName.tag = indexPath.row
+        cell.txtState.tag = indexPath.row
+        
+        cell.lblNumber.text = "Seat: \(self.selectedSeats[indexPath.row].sName)"
+        
+        let detail = guestDetails[indexPath.row]
+        
+        if let item = detail["name"] as? String {
+            cell.txtFirstName.text = item
+        }
+        if let item = detail["age"] as? String {
+            cell.txtLastName.text = item
+        }
+        if let item = detail["title"] as? String {
+            cell.txtTitle.text = item
+        }
+        if let item = detail["gender"] as? String {
+            cell.txtState.text = item
+        }
         
         return cell
     }
     
-    @objc func searchCity(_ sender: SearchTextField) {
-        if self.cityName.count > 0 {
-            self.cityName.removeAll()
-        }
-        
-        if self.cityCode.count > 0 {
-            self.cityCode.removeAll()
-        }
-        
-        fetchCityList(sender)
-    }
-    
-    @objc func selectTitle(_ sender: SearchTextField) {
-        setupSearchTextField(["Mr", "Mrs", "Ms"], textField: sender)
-    }
 }
 
 // MARK: - UITEXTFIELD DELEGATE
@@ -185,29 +209,38 @@ extension BusBookingViewController: UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         let row = textField.tag
         
-        let cell = tableView.cellForRow(at: IndexPath(row: row, section: 0)) as! BookingCell
+        if let cell = tableView.cellForRow(at: IndexPath(row: row, section: 0)) as? BookingCell {
+            if textField == cell.txtTitle {
+                openDropDown(textField, self.titles , row, "title")
+                return false
+            }
+            
+            if textField == cell.txtState {
+                openDropDown(textField, self.genders , row, "gender")
+                return false
+            }
+        }
         
-        if textField == cell.txtTitle || textField == cell.txtState || textField == cell.txtFirstName || textField == cell.txtLastName {
-            return true
-        }
-        else {
-            return false
-        }
+        return true
     }
     
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
         let row = textField.tag
         
-        let cell = tableView.cellForRow(at: IndexPath(row: row, section: 0)) as! BookingCell
-        
-        if textField == cell.txtFirstName {
-            guestDetails[row]["first_name"] = textField.text as AnyObject
-        } else if textField == cell.txtLastName {
-            guestDetails[row]["last_name"] = textField.text as AnyObject
-        } else if textField == cell.txtTitle {
-            guestDetails[row]["title"] = textField.text as AnyObject
-        } else if textField == cell.txtState {
-            guestDetails[row]["state"] = textField.text as AnyObject
+        if let cell = tableView.cellForRow(at: IndexPath(row: row, section: 0)) as? BookingCell
+        {
+            if textField == cell.txtFirstName {
+                guestDetails[row]["name"] = textField.text as AnyObject
+            }
+            else if textField == cell.txtLastName {
+                guestDetails[row]["age"] = textField.text as AnyObject
+            }
+            else if textField == cell.txtTitle {
+                guestDetails[row]["title"] = textField.text as AnyObject
+            }
+            else if textField == cell.txtState {
+                guestDetails[row]["gender"] = textField.text as AnyObject
+            }
         }
     }
 }
@@ -215,79 +248,79 @@ extension BusBookingViewController: UITextFieldDelegate {
 // MARK: - API CALL
 extension BusBookingViewController {
     
-    func setupSearchTextField(_ searchedArray: [String], textField: SearchTextField) {
-        DispatchQueue.main.async {
-            
-            let row = textField.tag
-            
-            let cell = self.tableView.cellForRow(at: IndexPath(row: row, section: 0)) as! BookingCell
-            
-            if textField == cell.txtTitle {
-                
-                textField.theme = SearchTextFieldTheme.lightTheme()
-                textField.theme.font = LeaveCasaFonts.FONT_PROXIMA_NOVA_REGULAR_12 ?? UIFont.systemFont(ofSize: 12)
-                textField.theme.bgColor = UIColor.white
-                textField.theme.fontColor = UIColor.black
-                textField.theme.cellHeight = 40
-                textField.filterStrings(searchedArray)
-                textField.itemSelectionHandler = { filteredResults, itemPosition in
-                    let item = filteredResults[itemPosition]
-                    
-                    self.guestDetails[row]["title"] = item
-                    cell.txtTitle.resignFirstResponder()
-                }
-            } else if textField == cell.txtState {
-                
-                textField.theme = SearchTextFieldTheme.lightTheme()
-                textField.theme.font = LeaveCasaFonts.FONT_PROXIMA_NOVA_REGULAR_12 ?? UIFont.systemFont(ofSize: 12)
-                textField.theme.bgColor = UIColor.white
-                textField.theme.fontColor = UIColor.black
-                textField.theme.cellHeight = 40
-                textField.filterStrings(searchedArray)
-                textField.itemSelectionHandler = { filteredResults, itemPosition in
-                    let item = filteredResults[itemPosition]
-                    
-                    self.guestDetails[row]["state"] = item
-                    self.cityCodeStr = self.cityCode[itemPosition]
-                    cell.txtState.resignFirstResponder()
-                }
-            }
+    func blockTicket() {
+        let holderAddress = self.txtHolderAddress.text ?? ""
+        let holderIdType = self.txtHolderIdType.text ?? ""
+        let holderIdNumber = self.txtHolderIdNumber.text ?? ""
+        let holderEmail = self.txtHolderEmail.text ?? ""
+        let holderPhone = self.txtHolderPhone.text ?? ""
+        
+        if holderEmail.isEmpty || holderPhone.isEmpty {
+            Helper.showOKAlert(onVC: self, title: Alert.ALERT, message: AlertMessages.Fill_FIELDS_REQUIRED)
+            return
+        } else if !Validator().isValid(email: holderEmail) {
+            Helper.showOKAlert(onVC: self, title: Alert.ALERT, message: AlertMessages.WRONG_EMAIL_FORMAT)
+            return
+        } else if btnAgreement.tag == 0 {
+            Helper.showOKAlert(onVC: self, title: Alert.ALERT, message: AlertMessages.AGREE_TERMS)
+            return
         }
-    }
-    
-    
-    func fetchCityList(_ sender: SearchTextField) {
-        let string = sender.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).replacingOccurrences(of: " ", with: "%20") ?? ""
-                
-                if string.isEmpty
-                {
-                    self.cityName.removeAll()
-                    self.cityCode.removeAll()
-                    self.setupSearchTextField(self.cityName , textField: sender)
-                    return
-                }
+        
+        var bookingItems = [[String: AnyObject]]()
+        
+        for (index, item) in selectedSeats.enumerated() {
+            var passenger: [String: AnyObject] = guestDetails[index]
+            
+            if index == 0 {
+                passenger[WSRequestParams.WS_RESP_PARAM_ID_TYPE] = holderIdType as AnyObject
+                passenger[WSRequestParams.WS_RESP_PARAM_ID_NUMBER] = holderIdNumber as AnyObject
+                passenger[WSResponseParams.WS_RESP_PARAM_ADDRESS] = holderAddress as AnyObject
+                passenger[WSRequestParams.WS_REQS_PARAM_MOBILE] = holderPhone as AnyObject
+                passenger[WSRequestParams.WS_REQS_PARAM_EMAIL] = holderEmail as AnyObject
+                passenger[WSRequestParams.WS_REQS_PARAM_PRIMARY] = true as AnyObject
+            }
+            
+            let inventoryItems: [String: AnyObject] = [
+                WSResponseParams.WS_RESP_PARAM_FARE: item.sFare as AnyObject,
+                WSResponseParams.WS_RESP_PARAM_LADIES_SEAT:   item.sLadiesSeat as AnyObject,
+                WSRequestParams.WS_REQS_PARAM_SEAT_NAME: item.sName as AnyObject,
+                WSRequestParams.WS_REQS_PARAM_PASSENGER: passenger as AnyObject,
+            ]
+            
+            bookingItems.append(inventoryItems)
+        }
         
         if WSManager.isConnectedToInternet() {
-            WSManager.wsCallGetCityCodes(string, success: { (response, message) in
-                if self.cityName.count > 0 {
-                    self.cityName.removeAll()
+            let params: [String: AnyObject] = [
+                WSRequestParams.WS_REQS_PARAM_AVAILABLE_TRIP_ID: bus.sBusId as AnyObject,
+                WSRequestParams.WS_REQS_PARAM_BOARDING_POINT_ID: (bus.sBusBoardingArr.count > 0 ? bus.sBusBoardingArr[selectedboardingPointIndex].sBpId : bus.sBusBoarding.sBpId) as AnyObject,
+                WSRequestParams.WS_RESP_PARAM_DESTINATION: bus.sDestinationCode as AnyObject,
+                WSRequestParams.WS_RESP_PARAM_SOURCE: bus.sSourceCode as AnyObject,
+                WSRequestParams.WS_REQS_PARAM_BOOKING_ITEMS: bookingItems as AnyObject
+            ]
+            
+            Helper.showLoader(onVC: self, message: "")
+            WSManager.wsCallBusTicketBlock(params) { blockKey in
+                Helper.hideLoader(onVC: self)
+                
+                if let vc = ViewControllerHelper.getViewController(ofType: .WalletPaymentViewController) as? WalletPaymentViewController {
+                    
+                    let params: [String: AnyObject] = [
+                        WSRequestParams.WS_REQS_PARAM_BLOCK_KEY: blockKey as AnyObject,
+                    ]
+                    
+                    vc.params = params
+                    self.navigationController?.pushViewController(vc, animated: true)
                 }
-                if self.cityCode.count > 0 {
-                    self.cityCode.removeAll()
-                }
-                for i in 0..<response.count {
-                    let dict = response[i]
-                    self.cityName.append(dict[WSRequestParams.WS_REQS_PARAM_NAME] as? String ?? "")
-                    self.cityCode.append(dict[WSResponseParams.WS_RESP_PARAM_CODE] as? String ?? "")
-                }
-                self.setupSearchTextField(self.cityName, textField: sender)
-            }, failure: { (error) in
-                Helper.showOKAlert(onVC: self, title: Alert.ERROR, message: error.localizedDescription)
-            })
-        } else {
-            Helper.showOKCancelAlertWithCompletion(onVC: self, title: Alert.NO_INTERNET, message: AlertMessages.NO_INTERNET_CONNECTION, btnOkTitle: Alert.TRY_AGAIN, btnCancelTitle: Alert.CANCEL, onOk: {
-                self.fetchCityList(sender)
-            })
+            } failure: { error in
+                Helper.hideLoader(onVC: self)
+                Helper.showOKAlert(onVC: self, title: Alert.ALERT, message: error.localizedDescription)
+            }
+        }
+        
+        else {
+            Helper.showOKAlert(onVC: self, title: Alert.ALERT, message: AlertMessages.NO_INTERNET_CONNECTION)
+            
         }
     }
 }

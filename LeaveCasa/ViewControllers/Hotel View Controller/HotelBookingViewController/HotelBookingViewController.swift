@@ -36,7 +36,8 @@ class HotelBookingViewController: UIViewController {
     @IBOutlet weak var txtHolderLastName: UITextField!
     @IBOutlet weak var txtHolderPhone: UITextField!
     @IBOutlet weak var txtHolderEmail: UITextField!
-    
+    @IBOutlet weak var btnAgreement: UIButton!
+
     lazy var cityCode = [String]()
     lazy var cityName = [String]()
     lazy var cityCodeStr = ""
@@ -243,6 +244,17 @@ extension HotelBookingViewController: UITableViewDataSource, UITableViewDelegate
         
         //        cell.txtState.addTarget(self, action: #selector(searchCity(_:)), for: .editingChanged)
         //        // TODO: Pending - search state only
+        let detail = guestDetails[indexPath.row]
+        
+        if let item = detail["name"] as? String {
+            cell.txtFirstName.text = item
+        }
+        if let item = detail["surname"] as? String {
+            cell.txtLastName.text = item
+        }
+        if let item = detail["title"] as? String {
+            cell.txtTitle.text = item
+        }
         
         return cell
     }
@@ -376,6 +388,12 @@ extension HotelBookingViewController {
         if holderTitle.isEmpty || holderEmail.isEmpty || holderFName.isEmpty || holderLName.isEmpty || holderPhone.isEmpty {
             Helper.showOKAlert(onVC: self, title: Alert.ALERT, message: AlertMessages.Fill_FIELDS_REQUIRED)
             return
+        } else if !Validator().isValid(email: holderEmail) {
+            Helper.showOKAlert(onVC: self, title: Alert.ALERT, message: AlertMessages.WRONG_EMAIL_FORMAT)
+            return
+        } else if btnAgreement.tag == 0 {
+           Helper.showOKAlert(onVC: self, title: Alert.ALERT, message: AlertMessages.AGREE_TERMS)
+           return
         }
         
         if WSManager.isConnectedToInternet() {

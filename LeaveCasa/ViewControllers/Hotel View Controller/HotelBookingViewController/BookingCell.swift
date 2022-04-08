@@ -11,10 +11,11 @@ import SearchTextField
 
 class BookingCell: UITableViewCell {
 
+    @IBOutlet weak var lblNumber: UILabel!
     @IBOutlet weak var txtTitle: UITextField!
     @IBOutlet weak var txtFirstName: UITextField!
     @IBOutlet weak var txtLastName: UITextField!
-    @IBOutlet weak var txtState: SearchTextField!
+    @IBOutlet weak var txtState: UITextField!
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -21,6 +21,8 @@ struct AlertMessages {
     static let SELECT_FROM_CITY             = "Please enter your source city"
     static let SELECT_DEPARUTRE_DATE        = "Please enter your departure date"
     static let SELECT_RETURNING_DATE        = "Please enter your returning date"
-    static let Fill_FIELDS_REQUIRED          = "Please fill the required fields(*)"
+    static let Fill_FIELDS_REQUIRED         = "Please fill the required fields(*)"
+    static let AGREE_TERMS                  = "Please agree to the terms and conditions"
+    static let SELECT_SEAT                  = "Please select seat to continue"
 
 }

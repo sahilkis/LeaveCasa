@@ -31,7 +31,7 @@ struct AppConstants {
     
     static let flightTypes = ["All", "Economy", "Premium Economy", "Business", "Premium Business", "First"]
     static let flightTimes = ["MOR", "AFT", "EVE"]
-
+    
 }
 
 // App custom cells name
@@ -49,7 +49,7 @@ struct CellIds {
     static let BookingCell                  = "BookingCell"
     static let FlightDetailCell             = "FlightDetailCell"
     static let SeatCell                     = "SeatCell"
-
+    
 }
 
 // Color Constants
@@ -111,4 +111,5 @@ struct Strings {
     static let YES                          = "Yes"
     static let NO                           = "No"
     static let FALSE                        = "false"
+    static let TRUE                         = "true"
 }

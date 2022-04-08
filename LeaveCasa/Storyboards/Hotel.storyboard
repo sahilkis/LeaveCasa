@@ -91,7 +91,7 @@
                                                         </constraints>
                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="17"/>
-                                                        <textInputTraits key="textInputTraits"/>
+                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                         <connections>
                                                             <outlet property="delegate" destination="rLs-b7-DHG" id="DyZ-sH-XVt"/>
                                                         </connections>
@@ -2421,6 +2421,7 @@ Inclusions</string>
                     </view>
                     <size key="freeformSize" width="414" height="1800"/>
                     <connections>
+                        <outlet property="btnAgreement" destination="IID-ya-WpF" id="6cn-RH-Lri"/>
                         <outlet property="hotelRatingView" destination="EQ5-Gr-a8j" id="Tdy-up-i0h"/>
                         <outlet property="lblAdultCount" destination="9bj-kP-jhV" id="rEp-hg-iHw"/>
                         <outlet property="lblAvailability" destination="AhQ-De-fIW" id="WQt-bq-LHH"/>

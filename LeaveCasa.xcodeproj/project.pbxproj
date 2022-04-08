@@ -65,6 +65,7 @@
 		40300EFC27EAFCC60002C967 /* HotelBookingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40300EFB27EAFCC60002C967 /* HotelBookingViewController.swift */; };
 		40300EFE27EB497E0002C967 /* BookingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40300EFD27EB497E0002C967 /* BookingCell.swift */; };
 		4038B41827E2C2E90047E839 /* Hotel.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4038B41727E2C2E90047E839 /* Hotel.storyboard */; };
+		4039B2C42800223E001C9580 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4039B2C32800223E001C9580 /* ForgotPasswordViewController.swift */; };
 		403D080427F55D7E00E2D13A /* FlightFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403D080327F55D7E00E2D13A /* FlightFilterViewController.swift */; };
 		403EDF5C27E9AF6400096521 /* ImagesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 403EDF5B27E9AF6400096521 /* ImagesCell.xib */; };
 		405AA00527ED775F006BD68D /* FlightBookingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405AA00427ED775F006BD68D /* FlightBookingViewController.swift */; };
@@ -170,6 +171,7 @@
 		40300EFB27EAFCC60002C967 /* HotelBookingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelBookingViewController.swift; sourceTree = "<group>"; };
 		40300EFD27EB497E0002C967 /* BookingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingCell.swift; sourceTree = "<group>"; };
 		4038B41727E2C2E90047E839 /* Hotel.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Hotel.storyboard; sourceTree = "<group>"; };
+		4039B2C32800223E001C9580 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		403D080327F55D7E00E2D13A /* FlightFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightFilterViewController.swift; sourceTree = "<group>"; };
 		403EDF5B27E9AF6400096521 /* ImagesCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImagesCell.xib; sourceTree = "<group>"; };
 		405AA00427ED775F006BD68D /* FlightBookingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightBookingViewController.swift; sourceTree = "<group>"; };
@@ -306,6 +308,7 @@
 				18C8283B214FCF47007FC65A /* LoginViewController */,
 				195C403822FC09980013A644 /* MainViewController */,
 				195C403522FC08F70013A644 /* SignupViewController */,
+				4039B2C228002227001C9580 /* ForgotPasswordViewController */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -638,6 +641,14 @@
 				40300EFD27EB497E0002C967 /* BookingCell.swift */,
 			);
 			path = HotelBookingViewController;
+			sourceTree = "<group>";
+		};
+		4039B2C228002227001C9580 /* ForgotPasswordViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4039B2C32800223E001C9580 /* ForgotPasswordViewController.swift */,
+			);
+			path = ForgotPasswordViewController;
 			sourceTree = "<group>";
 		};
 		403D080227F55D4000E2D13A /* FlightFilterViewController */ = {
@@ -974,6 +985,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4039B2C42800223E001C9580 /* ForgotPasswordViewController.swift in Sources */,
 				400DFE442786CA1D0030CE16 /* SettingsManager.swift in Sources */,
 				1924095B23A244810012CFBF /* NSDateComponents+Timepiece.swift in Sources */,
 				40A14A8A27EC977200102036 /* FlightDetailViewController.swift in Sources */,

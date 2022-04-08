@@ -277,6 +277,8 @@ extension SearchBusViewController {
                     vc.searchedParams = params
                     vc.souceName = self.txtSource.text ?? ""
                     vc.destinationName = self.txtDestination.text ?? ""
+                    vc.souceCode = "\(self.sourceCityCode)"
+                    vc.destinationCode = self.destinationCityCode
                     vc.checkInDate = self.checkinDate
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
