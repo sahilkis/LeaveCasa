@@ -242,6 +242,7 @@ struct WSResponseParams {
     static let WS_RESP_PARAM_SUPPORTS_CANCELLATION   = "supports_cancellation"
     static let WS_RESP_PARAM_TAX                     = "Tax"
     static let WS_RESP_PARAM_TIME                    = "time"
+    static let WS_RESP_PARAM_TIN                     = "tin"
     static let WS_RESP_PARAM_TRACE_ID                = "TraceId"
     static let WS_RESP_PARAM_TERMINAL                = "Terminal"
     static let WS_RESP_PARAM_TOKEN                   = "token"

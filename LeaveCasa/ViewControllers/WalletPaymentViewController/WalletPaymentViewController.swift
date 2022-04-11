@@ -89,8 +89,13 @@ extension WalletPaymentViewController {
             WSManager.wsCallFinalBooking(url, params, completion: { (isSuccess, response, message) in
                 Helper.hideLoader(onVC: self)
                 if isSuccess {
-                    Helper.showOKAlertWithCompletion(onVC: self, title: Alert.SUCCESS, message: response?.debugDescription ?? "", btnOkTitle: Alert.OK) {
-                        self.backToHome()
+                    
+                    if let tinNumber = response?[WSResponseParams.WS_RESP_PARAM_TIN] as? String {
+                        
+                        Helper.showOKAlertWithCompletion(onVC: self, title: Alert.SUCCESS, message: "Your seat is booked for tin number: \(tinNumber)", btnOkTitle: Alert.OK) {
+                            
+                            self.backToHome()
+                        }
                     }
                 }
                 else {
