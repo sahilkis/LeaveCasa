@@ -900,6 +900,9 @@
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                             <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
                                                                             <textInputTraits key="textInputTraits"/>
+                                                                            <connections>
+                                                                                <outlet property="delegate" destination="r7O-63-Vai" id="BIA-0o-ZN3"/>
+                                                                            </connections>
                                                                         </textField>
                                                                         <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_bottom_red" translatesAutoresizingMaskIntoConstraints="NO" id="KU0-MM-0iw">
                                                                             <rect key="frame" x="365" y="14.5" width="9" height="5"/>
@@ -918,6 +921,9 @@
                                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
                                                                     <textInputTraits key="textInputTraits"/>
+                                                                    <connections>
+                                                                        <outlet property="delegate" destination="r7O-63-Vai" id="P1c-ty-rlL"/>
+                                                                    </connections>
                                                                 </textField>
                                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Id Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bel-K4-ePN">
                                                                     <rect key="frame" x="195" y="85" width="187" height="34"/>
@@ -925,6 +931,9 @@
                                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
                                                                     <textInputTraits key="textInputTraits"/>
+                                                                    <connections>
+                                                                        <outlet property="delegate" destination="r7O-63-Vai" id="dpZ-wf-Tuk"/>
+                                                                    </connections>
                                                                 </textField>
                                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Phone*" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qxh-BJ-ZXG">
                                                                     <rect key="frame" x="195" y="127" width="187" height="34"/>
@@ -932,6 +941,9 @@
                                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
                                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                                                    <connections>
+                                                                        <outlet property="delegate" destination="r7O-63-Vai" id="rVp-ow-l8h"/>
+                                                                    </connections>
                                                                 </textField>
                                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email Id*" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Bx1-eD-FAW">
                                                                     <rect key="frame" x="0.0" y="127" width="187" height="34"/>
@@ -939,6 +951,9 @@
                                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
                                                                     <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                                                                    <connections>
+                                                                        <outlet property="delegate" destination="r7O-63-Vai" id="H3S-52-Vnd"/>
+                                                                    </connections>
                                                                 </textField>
                                                             </subviews>
                                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -976,7 +991,7 @@
                                                     </constraints>
                                                 </view>
                                                 <prototypes>
-                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="BookingCell" rowHeight="182" id="cK0-Ia-Q3D" customClass="BookingCell" customModule="LeaveCasa" customModuleProvider="target">
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="BookingCell" rowHeight="182" id="cK0-Ia-Q3D" customClass="BookingCell" customModule="LeaveCasa" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="44.5" width="414" height="182"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cK0-Ia-Q3D" id="v2m-9V-BZi">

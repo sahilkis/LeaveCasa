@@ -58,12 +58,17 @@ class BusBookingViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tableView.addObserver(self, forKeyPath: Strings.CONTENT_SIZE, options: .new, context: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(sender:)), name: UIResponder.keyboardWillShowNotification, object: nil);
+                NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(sender:)), name: UIResponder.keyboardWillHideNotification, object: nil);
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.tableView.removeObserver(self, forKeyPath: Strings.CONTENT_SIZE)
-    }
+        NotificationCenter.default.removeObserver(UIResponder.keyboardWillShowNotification)
+                NotificationCenter.default.removeObserver(UIResponder.keyboardWillHideNotification)
+           }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if let newValue = change?[.newKey] {
@@ -73,6 +78,14 @@ class BusBookingViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    @objc func keyboardWillShow(sender: NSNotification) {
+        self.view.frame.origin.y = -150 // Move view 150 points upward
+    }
+    
+    @objc func keyboardWillHide(sender: NSNotification) {
+        self.view.frame.origin.y = 0 // Move view to original position
     }
     
     func setLeftbarButton() {
@@ -296,7 +309,7 @@ extension BusBookingViewController {
                 WSRequestParams.WS_REQS_PARAM_BOARDING_POINT_ID: (bus.sBusBoardingArr.count > 0 ? bus.sBusBoardingArr[selectedboardingPointIndex].sBpId : bus.sBusBoarding.sBpId) as AnyObject,
                 WSRequestParams.WS_RESP_PARAM_DESTINATION: bus.sDestinationCode as AnyObject,
                 WSRequestParams.WS_RESP_PARAM_SOURCE: bus.sSourceCode as AnyObject,
-                WSRequestParams.WS_REQS_PARAM_BOOKING_ITEMS: bookingItems as AnyObject
+                WSRequestParams.WS_REQS_PARAM_INVENTORY_ITEMS: bookingItems as AnyObject
             ]
             
             Helper.showLoader(onVC: self, message: "")
@@ -309,6 +322,7 @@ extension BusBookingViewController {
                         WSRequestParams.WS_REQS_PARAM_BLOCK_KEY: blockKey as AnyObject,
                     ]
                     
+                    vc.screenFrom = .bus
                     vc.params = params
                     self.navigationController?.pushViewController(vc, animated: true)
                 }

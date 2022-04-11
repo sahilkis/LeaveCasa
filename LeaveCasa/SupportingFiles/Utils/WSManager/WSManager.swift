@@ -562,20 +562,20 @@ class WSManager {
         })
     }
     
-    class func wsCallFinalBooking(_ requestParam: [String:AnyObject], completion:@escaping (_ isSuccess: Bool, _ response: [String:AnyObject]?, _ message: String)->()) {
+    class func wsCallFinalBooking(_ url : String, _ requestParam: [String:AnyObject], completion:@escaping (_ isSuccess: Bool, _ response: [String:AnyObject]?, _ message: String)->()) {
         
         var requestParams = requestParam
         
         requestParams[WSRequestParams.WS_REQS_PARAM_CUSTOMER_ID] = "\(settings?.customerId ?? "")" as AnyObject
         
-        AF.request(WebService.finalBooking, method: .post, parameters: requestParams, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: {(responseData) -> Void in
+        AF.request(url, method: .post, parameters: requestParams, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: {(responseData) -> Void in
             print(responseData.result)
             switch responseData.result {
             case .success(let value):
                 if let responseValue = value as? [String: AnyObject] {
                     print(responseValue)
-                    if let res = responseValue[WSResponseParams.WS_RESP_PARAM_RESPONSE] as? [String:AnyObject] {
-                        completion(true, res, "")
+                    if (responseValue[WSResponseParams.WS_RESP_PARAM_STATUS] as? String == WSResponseParams.WS_REPS_PARAM_SUCCESS) {
+                        completion(true, responseValue, "")
                     }
                     else {
                         completion(false, nil, "Wrong data type")
