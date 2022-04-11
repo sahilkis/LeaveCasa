@@ -16,7 +16,7 @@ class FlightDetailViewController: UIViewController {
     @IBOutlet weak var lblFlightTime: UILabel!
     @IBOutlet weak var lblFlightType: UILabel!
     
-    var flightsArray = [Flight]()
+    var flightsArray = [[FlightSegment]]()
     var logId = 0
     var tokenId = ""
     var traceId = ""
@@ -69,19 +69,37 @@ class FlightDetailViewController: UIViewController {
         
         self.flightType = self.returningFlights.sSegments.count > 0 ? 1: 0
         self.lblFlightImage.image = UIImage()
-        self.lblFlightName.text = "\(flights.sSourceCode.uppercased()) - \(flights.sDestinationCode.uppercased())"
         
-        if flightType == 1 {
-            let deptDate = Helper.convertStoredDate(flights.sStartTime, "E, MMM d, yyyy")
-            let retDate = Helper.convertStoredDate(returningFlights.sStartTime, "E, MMM d, yyyy")
-            self.lblFlightTime.text = "\(deptDate) - \(retDate)"
+        if let flightSegment = flights.sSegments.first, let firstSeg = flightSegment.first {
+            let sSource = firstSeg.sOriginAirport.sCityName
+            let sSourceCode = firstSeg.sOriginAirport.sCityCode
+            let sAirlineName = firstSeg.sAirline.sAirlineName
+            let sStartTime = firstSeg.sOriginDeptTime
+            let sDuration = firstSeg.sDuration
+            let sStopsCount = flightSegment.count - 1
             
-            flightsArray = [flights, returningFlights]
+            if let secondSeg = flightSegment.last {
+                let sEndTime = secondSeg.sDestinationArrvTime
+                let sDestination = secondSeg.sDestinationAirport.sCityName
+                let sDestinationCode = secondSeg.sDestinationAirport.sCityCode
+                let sAccDuration = secondSeg.sAccDuration == 0 ? firstSeg.sDuration : secondSeg.sAccDuration
+                
+                self.lblFlightName.text = "\(sSourceCode.uppercased()) - \(sDestinationCode.uppercased())"
+                
+                if let returnflightSegment = returningFlights.sSegments.first, let returnfirstSeg = returnflightSegment.first , flightType == 1 {
+                    let deptDate = Helper.convertStoredDate(sStartTime, "E, MMM d, yyyy")
+                    let retDate = Helper.convertStoredDate(returnfirstSeg.sOriginDeptTime, "E, MMM d, yyyy")
+                    self.lblFlightTime.text = "\(deptDate) - \(retDate)"
+                    
+                    flightsArray = flights.sSegments + returningFlights.sSegments
+                }
+                else {
+                    flightsArray = flights.sSegments
+                    self.lblFlightTime.text = Helper.convertStoredDate(sStartTime, "E, MMM d, yyyy")
+                }
+            }
         }
-        else {
-            flightsArray = [flights]
-            self.lblFlightTime.text = Helper.convertStoredDate(flights.sStartTime, "E, MMM d, yyyy")
-        }
+        
         self.lblFlightType.text = searchedFlight.flightClass//"\(numberOfAdults + numberOfChildren + numberOfInfants) passengers"
         self.tableView.reloadData()
         
@@ -120,13 +138,13 @@ extension FlightDetailViewController: UITableViewDataSource, UITableViewDelegate
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return self.flightsArray[section].sSegments.count
+        return self.flightsArray[section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CellIds.FlightDetailCell, for: indexPath) as! FlightDetailCell
         
-        let item = self.flightsArray[indexPath.section].sSegments[indexPath.row]
+        let item = self.flightsArray[indexPath.section][indexPath.row]
         
         if indexPath.section == 0 {
             cell.lblTitle.text = "Flight To"
@@ -134,20 +152,24 @@ extension FlightDetailViewController: UITableViewDataSource, UITableViewDelegate
         else {
             cell.lblTitle.text = "Flight Return"
         }
-        cell.lblSource.text = item.sOriginAirport.sCityName
-        cell.lblSourceCode.text = item.sOriginAirport.sCityCode
-        cell.lblDestination.text = item.sDestinationAirport.sCityName
-        cell.lblDestinationCode.text = item.sDestinationAirport.sCityCode
         
-        cell.lblStartDate.text = Helper.convertStoredDate(item.sOriginDeptTime, "E, MMM d, yyyy")
-        cell.lblStartTime.text = Helper.convertStoredDate(item.sOriginDeptTime, "HH:mm a")
-        cell.lblEndDate.text = Helper.convertStoredDate(item.sDestinationArrvTime, "E, MMM d, yyyy")
-        cell.lblEndTime.text = Helper.convertStoredDate(item.sDestinationArrvTime, "HH:mm a")
-        
-        cell.lblDuration.text = Helper.getDuration(minutes: item.sDuration)
-        
-        cell.lblFlightNo.text = item.sAirline.sFlightNumber
-        cell.lblTerminal.text = item.sOriginAirport.sTerminal
+//        if let item = item.first {
+            cell.lblSource.text = item.sOriginAirport.sCityName
+            cell.lblSourceCode.text = item.sOriginAirport.sCityCode
+            cell.lblDestination.text = item.sDestinationAirport.sCityName
+            cell.lblDestinationCode.text = item.sDestinationAirport.sCityCode
+            
+            cell.lblStartDate.text = Helper.convertStoredDate(item.sOriginDeptTime, "E, MMM d, yyyy")
+            cell.lblStartTime.text = Helper.convertStoredDate(item.sOriginDeptTime, "HH:mm")
+            cell.lblEndDate.text = Helper.convertStoredDate(item.sDestinationArrvTime, "E, MMM d, yyyy")
+            cell.lblEndTime.text = Helper.convertStoredDate(item.sDestinationArrvTime, "HH:mm")
+            
+            cell.lblDuration.text = Helper.getDuration(minutes: item.sDuration)
+            
+            cell.lblFlightNo.text = item.sAirline.sFlightNumber
+            cell.lblTerminal.text = item.sOriginAirport.sTerminal
+            
+//        }
         
         cell.btnFareRules.tag = (indexPath.section * 1000) + indexPath.row
         cell.btnFareRules.addTarget(self, action: #selector(btnFareRules(_:)), for: .touchUpInside)
@@ -156,14 +178,14 @@ extension FlightDetailViewController: UITableViewDataSource, UITableViewDelegate
     }
     
     @objc func btnFareRules(_ sender: UIButton) {
-//        let row: Int = sender.tag % 1000
+        //        let row: Int = sender.tag % 1000
         let section: Int = sender.tag / 1000
         
         let item = flightsArray[section]
         
         if let vc = ViewControllerHelper.getViewController(ofType: .FlightFareRulesViewController) as? FlightFareRulesViewController {
             
-            vc.flights = item
+            vc.flights = (section >= flights.sSegments.count) ? returningFlights : flights
             vc.tokenId = self.tokenId
             vc.logId = self.logId
             vc.traceId = self.traceId

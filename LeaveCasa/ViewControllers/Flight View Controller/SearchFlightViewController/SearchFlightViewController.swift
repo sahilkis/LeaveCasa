@@ -71,6 +71,11 @@ class SearchFlightViewController: UIViewController {
         lblChildren.text = "\(numberOfChildren)"
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setUpTab()
+    }
+    
     func setLeftbarButton() {
         self.title = " "
         let leftBarButton = UIBarButtonItem.init(image: LeaveCasaIcons.BLACK_BACK, style: .plain, target: self, action: #selector(backClicked(_:)))
@@ -89,28 +94,34 @@ class SearchFlightViewController: UIViewController {
             underlineOneWay.backgroundColor = selectedColor
             
             btnRoundTrip.titleLabel?.textColor = unselectedColor
+            btnRoundTrip.setTitleColor(unselectedColor, for: .normal)
             underlineRoundTrip.backgroundColor = clearColor
             
             btnMultiCity.titleLabel?.textColor = unselectedColor
+            btnMultiCity.setTitleColor(unselectedColor, for: .normal)
             underlineMultiCity.backgroundColor = clearColor
             break
             
         case 1:
             btnOneWay.titleLabel?.textColor = unselectedColor
+            btnOneWay.setTitleColor(unselectedColor, for: .normal)
             underlineOneWay.backgroundColor = clearColor
             
             btnRoundTrip.setTitleColor(selectedColor, for: .normal)
             underlineRoundTrip.backgroundColor = selectedColor
             
             btnMultiCity.titleLabel?.textColor = unselectedColor
+            btnMultiCity.setTitleColor(unselectedColor, for: .normal)
             underlineMultiCity.backgroundColor = clearColor
             break
             
         case 2:
             btnOneWay.titleLabel?.textColor = unselectedColor
+            btnOneWay.setTitleColor(unselectedColor, for: .normal)
             underlineOneWay.backgroundColor = clearColor
             
             btnRoundTrip.titleLabel?.textColor = unselectedColor
+            btnRoundTrip.setTitleColor(unselectedColor, for: .normal)
             underlineRoundTrip.backgroundColor = clearColor
             
             btnMultiCity.setTitleColor(selectedColor, for: .normal)

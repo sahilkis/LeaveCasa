@@ -343,6 +343,6 @@ class Helper: NSObject {
         
         date = date.change(year: 0, month: 0, day: 0, hour: hours, minute: minutes, second: 0)
         
-        return Helper.convertDate(date, format: "HH:mm a")
+        return Helper.convertDate(date, format: "HH:mm")
     }
 }

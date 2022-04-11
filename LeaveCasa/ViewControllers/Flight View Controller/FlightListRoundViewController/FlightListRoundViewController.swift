@@ -175,43 +175,70 @@ extension FlightListRoundViewController: UITableViewDataSource, UITableViewDeleg
                 cell.viewBg.borderWidth = 0
             }
         }
-        
-        cell.lblStartTime.text = Helper.convertStoredDate(flight.sStartTime, "HH:mm a")
-        cell.lblEndTime.text = Helper.convertStoredDate(flight.sEndTime, "HH:mm a")
-        cell.lblSource.text = "\(flight.sSourceCode.uppercased()), \(Helper.convertStoredDate(flight.sStartTime, "E").uppercased())"
-        cell.lblDestination.text = "\(flight.sDestinationCode.uppercased()), \(Helper.convertStoredDate(flight.sEndTime, "E").uppercased())"
         cell.lblPrice.text = "₹ \(flight.sPrice)"
-        cell.lblDuration.text = Helper.getDuration(minutes: flight.sAccDuration)
-        cell.lblRoute.text = flight.sStopsCount == 0 ? "Non-stop" : "\(flight.sStopsCount) stop(s)"
-        cell.lblAirline.text = flight.sAirlineName
-        
-        var stops = ""
-        
-        if flight.sStops.count == 1
-        {
-            stops = flight.sStops[0].sCityName
-        } else if flight.sStops.count > 1
-        {
-            stops = "\(flight.sStops[0].sCityName) + \(flight.sStops.count)"
-        }
-        
-        cell.lblStops.text = stops
-        
         cell.lblFLightInfo.text = ""
-        
-        if let startTime = Helper.getStoredDate(flight.sStartTime) {
-            let components = Calendar.current.dateComponents([ .hour, .minute], from: Date(), to: startTime)
-            
-            let hour = components.hour ?? 0
-            let minute = components.minute ?? 0
-            
-            if hour < 5 && hour > 0 {
-                cell.lblFLightInfo.text = "< \(hour) hours"
-            } else if hour < 5 && minute > 0 {
-                cell.lblFLightInfo.text = "< \(minute) minutes"
+
+        if let flightSegment = flight.sSegments.first {
+            if let firstSeg = flightSegment.first {
+                let sSource = firstSeg.sOriginAirport.sCityName
+                let sSourceCode = firstSeg.sOriginAirport.sCityCode
+                let sAirlineName = firstSeg.sAirline.sAirlineName
+                let sStartTime = firstSeg.sOriginDeptTime
+                let sDuration = firstSeg.sDuration
+                let sStopsCount = flightSegment.count - 1
+                
+                if let secondSeg = flightSegment.last {
+                    let sEndTime = secondSeg.sDestinationArrvTime
+                    let sDestination = secondSeg.sDestinationAirport.sCityName
+                    let sDestinationCode = secondSeg.sDestinationAirport.sCityCode
+                    let sAccDuration = secondSeg.sAccDuration == 0 ? firstSeg.sDuration : secondSeg.sAccDuration
+                    
+                    cell.lblStartTime.text = Helper.convertStoredDate(sStartTime, "HH:mm")
+                    cell.lblEndTime.text = Helper.convertStoredDate(sEndTime, "HH:mm")
+                    cell.lblSource.text = "\(sSourceCode.uppercased()), \(Helper.convertStoredDate(sStartTime, "E").uppercased())"
+                    cell.lblDestination.text = "\(sDestinationCode.uppercased()), \(Helper.convertStoredDate(sEndTime, "E").uppercased())"
+                    
+                    cell.lblDuration.text = Helper.getDuration(minutes: sAccDuration)
+                    cell.lblRoute.text = sStopsCount == 0 ? "Non-stop" : "\(sStopsCount) stop(s)"
+                    cell.lblAirline.text = sAirlineName
+                    
+                    if let startTime = Helper.getStoredDate(sStartTime) {
+                        let components = Calendar.current.dateComponents([ .hour, .minute], from: Date(), to: startTime)
+                        
+                        let hour = components.hour ?? 0
+                        let minute = components.minute ?? 0
+                        
+                        if hour < 5 && hour > 0 {
+                            cell.lblFLightInfo.text = "< \(hour) hours"
+                        } else if hour < 5 && minute > 0 {
+                            cell.lblFLightInfo.text = "< \(minute) minutes"
+                        }
+                    }
+                }
             }
+            var sStops = [FlightAirport]()
+            
+            for i in 1..<flightSegment.count {
+                sStops.append(flightSegment[i].sOriginAirport)
+            }
+            
+            //                   if flightSegment.count - 1 == stops.count {
+            //                       sStops = stops
+            //                   }
+            
+            
+            var stops = ""
+            
+            if sStops.count == 1
+            {
+                stops = sStops[0].sCityName
+            } else if sStops.count > 1
+            {
+                stops = "\(sStops[0].sCityName) + \(sStops.count)"
+            }
+            
+            cell.lblStops.text = stops
         }
-        
         return cell
     }
     

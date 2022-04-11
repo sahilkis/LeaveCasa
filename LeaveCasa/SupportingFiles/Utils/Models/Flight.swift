@@ -23,45 +23,25 @@ class Flight: Mappable, CustomStringConvertible {
         sFare <- map[WSResponseParams.WS_RESP_PARAM_FARE_CAP]
         sResultIndex <- map[WSResponseParams.WS_RESP_PARAM_RESULTS_INDEX]
         
+        var allFlightSegments = [[FlightSegment]] ()
+        
         if let segments = segments {
             var segmentsArray = [[String: AnyObject]]()
             
             for result in segments  {
                 if let seg = result as? [[String: AnyObject]] {
                     segmentsArray = seg
+                    
+                }
+                
+                if let results = Mapper<FlightSegment>().mapArray(JSONArray: segmentsArray) as [FlightSegment]? {
+                    allFlightSegments.append(results)
                 }
             }
+            sSegments = allFlightSegments
             
-            if let results = Mapper<FlightSegment>().mapArray(JSONArray: segmentsArray) as [FlightSegment]? {
-                sSegments = results
-            }
         }
-        
-        if let firstSeg = sSegments.first {
-            sSource = firstSeg.sOriginAirport.sCityName
-            sSourceCode = firstSeg.sOriginAirport.sCityCode
-            sAirlineName = firstSeg.sAirline.sAirlineName
-            sStartTime = firstSeg.sOriginDeptTime
-            sDuration = firstSeg.sDuration
-            sStopsCount = sSegments.count - 1
-            
-            if let secondSeg = sSegments.last {
-                sEndTime = secondSeg.sDestinationArrvTime
-                sDestination = secondSeg.sDestinationAirport.sCityName
-                sDestinationCode = secondSeg.sDestinationAirport.sCityCode
-                sAccDuration = secondSeg.sAccDuration == 0 ? firstSeg.sDuration : secondSeg.sAccDuration
-                
-            }
-        }
-        
-        for i in 1..<sSegments.count {
-            stops.append(sSegments[i].sOriginAirport)
-        }
-        
-        if sSegments.count - 1 == stops.count {
-            sStops = stops
-        }
-        
+       
         if let fare = sFare as? FlightFare {
             sPrice = fare.sPublishedFare
         }
@@ -84,26 +64,26 @@ class Flight: Mappable, CustomStringConvertible {
         return nil
     })
     
-    lazy var sSegments = [FlightSegment]()
+    lazy var sSegments = [[FlightSegment]]()
     lazy var sFare = FlightFare()
     lazy var sResultIndex = String()
-    lazy var sSource = String()
-    lazy var sDestination = String()
-    lazy var sSourceCode = String()
-    lazy var sDestinationCode = String()
-    lazy var sStartTime = String()
-    lazy var sEndTime = String()
-    lazy var sDuration = Int()
-    lazy var sAccDuration = Int()
+    //    lazy var sSource = String()
+    //    lazy var sDestination = String()
+    //    lazy var sSourceCode = String()
+    //    lazy var sDestinationCode = String()
+    //    lazy var sStartTime = String()
+    //    lazy var sEndTime = String()
+    //    lazy var sDuration = Int()
+    //    lazy var sAccDuration = Int()
     lazy var sPrice = Int()
-    lazy var sCurrency = Int()
-    lazy var sType = [String: AnyObject]()
-    lazy var sStopsCount = Int()
-    lazy var sStops = [FlightAirport]()
-    lazy var sAirlineNo = Int()
-    lazy var sAirlineName = String()
-    lazy var sAirlineLogo = String()
-    lazy var sAdditional = String()
+    //    lazy var sCurrency = Int()
+    //    lazy var sType = [String: AnyObject]()
+    //    lazy var sStopsCount = Int()
+    //    lazy var sStops = [FlightAirport]()
+    //    lazy var sAirlineNo = Int()
+    //    lazy var sAirlineName = String()
+    //    lazy var sAirlineLogo = String()
+    //    lazy var sAdditional = String()
     
 }
 
