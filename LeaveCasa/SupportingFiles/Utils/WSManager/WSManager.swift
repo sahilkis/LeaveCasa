@@ -320,22 +320,55 @@ class WSManager {
     }
     
     // MARK: FETCH FLIGHTS FARE
-    class func wsCallFetchFlightFareDetails(_ requestParams: [String: AnyObject], success:@escaping (_ response:  [String: AnyObject])->(),failure:@escaping (NSError)->()) {
+    class func wsCallFetchFlightFareDetails(_ requestParams: [String: AnyObject], success:@escaping (_ fareRules: [String: AnyObject], _ fareQuotes: [String:AnyObject])->(),failure:@escaping (NSError)->()) {
         AF.request(WebService.flightFareDetails, method: .post, parameters: requestParams, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: {(responseData) -> Void in
             print(responseData.result)
             switch responseData.result {
             case .success(let value):
                 if let responseValue = value as? [String: AnyObject] {
                     print(responseValue)
-                    if let responseDict = responseValue[WSResponseParams.WS_RESP_PARAM_FARES_RULES] as? [String:AnyObject] {
+                    if let fareRulesDict = responseValue[WSResponseParams.WS_RESP_PARAM_FARES_RULES] as? [String:AnyObject], let fareQuotesDict = responseValue[WSResponseParams.WS_RESP_PARAM_FARES_QUOTES] as? [String:AnyObject] {
                         
-                        if let results = responseDict[WSResponseParams.WS_RESP_PARAM_RESPONSE_CAP] as? [String:AnyObject] {
+                        if let fareRules = fareRulesDict[WSResponseParams.WS_RESP_PARAM_RESPONSE_CAP] as? [String:AnyObject], let fareQuotes = fareQuotesDict[WSResponseParams.WS_RESP_PARAM_RESPONSE_CAP] as? [String:AnyObject] {
                             
-                            success(results)
+                            success(fareRules, fareQuotes)
                         } else {
                             failure(AppConstants.errSomethingWentWrong)
                         }
                         
+                    } else {
+                        if let message = responseValue[WSResponseParams.WS_RESP_PARAM_MESSAGE] as? String {
+                            failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: message]))
+                        } else {
+                            failure(AppConstants.errSomethingWentWrong)
+                        }
+                    }
+                } else {
+                    failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: responseData.error?.localizedDescription ?? ""]))
+                }
+            case .failure(let error):
+                failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: error.localizedDescription]))
+            }
+        })
+    }
+    
+    // MARK: FETCH Flight Ticket
+    class func wsCallFlightTicket(_ requestParams: [String: AnyObject], success:@escaping (_ response: String)->(),failure:@escaping (NSError)->()) {
+        
+        var requstParams = requestParams
+        
+        requstParams[WSRequestParams.WS_REQS_PARAM_CUSTOMER_ID] = "\(settings?.customerId ?? "")" as AnyObject
+        
+        AF.request(WebService.flightTicket, method: .post, parameters: requstParams, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: {(responseData) -> Void in
+            print(responseData.result)
+            switch responseData.result {
+            case .success(let value):
+                if let responseValue = value as? [String: AnyObject] {
+                    print(responseValue)
+                    if (responseValue[WSResponseParams.WS_RESP_PARAM_STATUS] as? String == WSResponseParams.WS_REPS_PARAM_SUCCESS) {
+                        if let response = responseValue[WSResponseParams.WS_RESP_PARAM_RESPONSE] as? String {
+                            success(response)
+                        }
                     } else {
                         if let message = responseValue[WSResponseParams.WS_RESP_PARAM_MESSAGE] as? String {
                             failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: message]))
@@ -349,6 +382,7 @@ class WSManager {
             }
         })
     }
+    
     // MARK: - BUS
     // MARK: SEARCH SOURCE CITY CODES
     class func wsCallGetBusSourceCityCodes(_ requestParams: String, success:@escaping (_ response: [[String: AnyObject]],_ message:String?)->(),failure:@escaping (NSError)->()) {

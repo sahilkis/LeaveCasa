@@ -60,22 +60,21 @@ extension FlightFareRulesViewController {
                DispatchQueue.main.async {
                    
                    Helper.showLoader(onVC: self, message: Alert.LOADING)
-                   WSManager.wsCallFetchFlightFareDetails(params, success: { (result) in
+                   WSManager.wsCallFetchFlightFareDetails(params, success: { (resultFareRules, resultFareQuotes) in
                        Helper.hideLoader(onVC: self)
                        
-                       if let fareRules = result[WSResponseParams.WS_RESP_PARAM_FARES_RULES_CAP] as? [[String:AnyObject]] {
+                       if let fareRules = resultFareRules[WSResponseParams.WS_RESP_PARAM_FARES_RULES_CAP] as? [[String:AnyObject]] {
+                           
+                           var rules = ""
+                           
                            for fareRule in fareRules {
                                if let fareRuleDetails = fareRule[WSResponseParams.WS_RESP_PARAM_FARES_RULE_DETAIL] as? String {
-                                   self.lblText.text = fareRuleDetails
-                                   
-                                   if fareRuleDetails.contains("<") || fareRuleDetails.contains(">") {
-                                       self.lblText.attributedText = fareRuleDetails.htmlToAttributedString
-                                   }
+                                   rules += fareRuleDetails
                                }
                            }
+                           
+                           self.lblText.attributedText = rules.htmlToAttributedString
                        }
-                       
-                       
                    }, failure: { (error) in
                        Helper.hideLoader(onVC: self)
                        Helper.showOKAlert(onVC: self, title: Alert.ERROR, message: error.localizedDescription)

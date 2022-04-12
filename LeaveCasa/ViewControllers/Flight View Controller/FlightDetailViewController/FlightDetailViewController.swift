@@ -117,9 +117,11 @@ extension FlightDetailViewController {
     @IBAction func btnBookNowAction(_ sender: UIButton) {
         if let vc = ViewControllerHelper.getViewController(ofType: .FlightBookingViewController) as? FlightBookingViewController {
             
-            
             vc.flights = self.flights
             vc.returningFlights = self.returningFlights
+            vc.tokenId = self.tokenId
+            vc.logId = self.logId
+            vc.traceId = self.traceId
             vc.searchedFlight = self.searchedFlight
             vc.numberOfChildren = self.numberOfChildren
             vc.numberOfAdults = self.numberOfAdults

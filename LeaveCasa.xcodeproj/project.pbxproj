@@ -58,6 +58,7 @@
 		1FABDA8727F431DE006AD9A8 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FABDA8627F431DE006AD9A8 /* TabBarViewController.swift */; };
 		1FABDAF327F450AF006AD9A8 /* TripsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FABDAF227F450AF006AD9A8 /* TripsViewController.swift */; };
 		1FF2962F27F5728F008502C7 /* WalletPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF2962E27F5728F008502C7 /* WalletPaymentViewController.swift */; };
+		40082BF52805578000040021 /* FlightBookingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40082BF42805578000040021 /* FlightBookingCell.swift */; };
 		400DFE442786CA1D0030CE16 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DFE432786CA1D0030CE16 /* SettingsManager.swift */; };
 		400DFE492787028A0030CE16 /* SearchRoomsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DFE482787028A0030CE16 /* SearchRoomsCell.swift */; };
 		40169FCC27E1AC330046A7A2 /* FlightListCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40169FCB27E1AC330046A7A2 /* FlightListCollectionCell.swift */; };
@@ -164,6 +165,7 @@
 		1FF2962E27F5728F008502C7 /* WalletPaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletPaymentViewController.swift; sourceTree = "<group>"; };
 		2938878705CEC9DEF73768C5 /* Pods_LeaveCasa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LeaveCasa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B451D01AA1029BFC6156992 /* Pods-LeaveCasa.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeaveCasa.release.xcconfig"; path = "Target Support Files/Pods-LeaveCasa/Pods-LeaveCasa.release.xcconfig"; sourceTree = "<group>"; };
+		40082BF42805578000040021 /* FlightBookingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightBookingCell.swift; sourceTree = "<group>"; };
 		400DFE432786CA1D0030CE16 /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
 		400DFE482787028A0030CE16 /* SearchRoomsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRoomsCell.swift; sourceTree = "<group>"; };
 		40169FCB27E1AC330046A7A2 /* FlightListCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightListCollectionCell.swift; sourceTree = "<group>"; };
@@ -663,6 +665,7 @@
 			isa = PBXGroup;
 			children = (
 				405AA00427ED775F006BD68D /* FlightBookingViewController.swift */,
+				40082BF42805578000040021 /* FlightBookingCell.swift */,
 			);
 			path = FlightBookingViewController;
 			sourceTree = "<group>";
@@ -1007,6 +1010,7 @@
 				193E1EF223ACDDDC00DDA7C9 /* Bus.swift in Sources */,
 				19499D4523A7905D0025DB1F /* SearchFlightViewController.swift in Sources */,
 				19107A5823363670003E8CF3 /* HotelDetail.swift in Sources */,
+				40082BF52805578000040021 /* FlightBookingCell.swift in Sources */,
 				192495F12333643000B0E36E /* SearchHotelViewController.swift in Sources */,
 				19309A112334D4C100E189AE /* FloatRatingView.swift in Sources */,
 				406778BB27DF205900565C52 /* SearchFlightCell.swift in Sources */,

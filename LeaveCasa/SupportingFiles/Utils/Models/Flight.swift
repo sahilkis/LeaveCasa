@@ -22,6 +22,14 @@ class Flight: Mappable, CustomStringConvertible {
         segments <- map[WSResponseParams.WS_RESP_PARAM_SEGMENTS]
         sFare <- map[WSResponseParams.WS_RESP_PARAM_FARE_CAP]
         sResultIndex <- map[WSResponseParams.WS_RESP_PARAM_RESULTS_INDEX]
+        sAirlineCode <- map[WSResponseParams.WS_RESP_PARAM_AIRLINE_CODE]
+        sIsPanRequiredAtBook <- map[WSResponseParams.WS_RESP_PARAM_IS_PAN_REQ_AT_BOOK]
+        sIsPanRequiredAtTicket <- map[WSResponseParams.WS_RESP_PARAM_IS_PAN_REQ_AT_TICKET]
+        sIsPassportRequiredAtBook <- map[WSResponseParams.WS_RESP_PARAM_IS_PASSPORT_REQ_AT_BOOK]
+        sIsPassportRequiredAtTicket <- map[WSResponseParams.WS_RESP_PARAM_IS_PASSPORT_REQ_AT_TICKET]
+        sIsLCC <- map[WSResponseParams.WS_RESP_PARAM_ISLCC]
+        sIsGSTMandatory <- map[WSResponseParams.WS_RESP_PARAM_IS_GST_MANDATORY]
+        sGSTAllowed <- map[WSResponseParams.WS_RESP_PARAM_GST_ALLOWED]
         
         var allFlightSegments = [[FlightSegment]] ()
         
@@ -84,6 +92,15 @@ class Flight: Mappable, CustomStringConvertible {
     //    lazy var sAirlineName = String()
     //    lazy var sAirlineLogo = String()
     //    lazy var sAdditional = String()
+    lazy var sIsPassportRequiredAtBook = Bool()
+    lazy var sIsPassportRequiredAtTicket = Bool()
+    lazy var sIsPanRequiredAtTicket = Bool()
+    lazy var sIsPanRequiredAtBook = Bool()
+    lazy var sIsLCC = Bool()
+    lazy var sIsGSTMandatory = Bool()
+    lazy var sGSTAllowed = Bool()
+    lazy var sAirlineCode = String()
+
     
 }
 

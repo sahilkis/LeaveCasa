@@ -59,7 +59,7 @@ class BusBookingViewController: UIViewController {
         super.viewWillAppear(animated)
         self.tableView.addObserver(self, forKeyPath: Strings.CONTENT_SIZE, options: .new, context: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(sender:)), name: UIResponder.keyboardWillShowNotification, object: nil);
-                NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(sender:)), name: UIResponder.keyboardWillHideNotification, object: nil);
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(sender:)), name: UIResponder.keyboardWillHideNotification, object: nil);
         
     }
     
@@ -67,8 +67,8 @@ class BusBookingViewController: UIViewController {
         super.viewWillDisappear(animated)
         self.tableView.removeObserver(self, forKeyPath: Strings.CONTENT_SIZE)
         NotificationCenter.default.removeObserver(UIResponder.keyboardWillShowNotification)
-                NotificationCenter.default.removeObserver(UIResponder.keyboardWillHideNotification)
-           }
+        NotificationCenter.default.removeObserver(UIResponder.keyboardWillHideNotification)
+    }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if let newValue = change?[.newKey] {
