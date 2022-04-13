@@ -10,7 +10,6 @@ import UIKit
 
 class FlightBookingCell: UITableViewCell {
 
-   
     @IBOutlet weak var lblNumber: UILabel!
     @IBOutlet weak var txtTitle: UITextField!
     @IBOutlet weak var txtFirstName: UITextField!

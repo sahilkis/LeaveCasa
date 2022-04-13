@@ -22,7 +22,7 @@ class FlightDetailViewController: UIViewController {
     var traceId = ""
     var flights = Flight()
     var returningFlights = Flight()
-    var searchedFlight = FlightStruct()
+    var searchedFlight = [FlightStruct]()
     
     var numberOfAdults = 1
     var numberOfChildren = 0
@@ -69,42 +69,58 @@ class FlightDetailViewController: UIViewController {
         
         self.flightType = self.returningFlights.sSegments.count > 0 ? 1: 0
         self.lblFlightImage.image = UIImage()
-        
-        if let flightSegment = flights.sSegments.first, let firstSeg = flightSegment.first {
-            let sSource = firstSeg.sOriginAirport.sCityName
-            let sSourceCode = firstSeg.sOriginAirport.sCityCode
-            let sAirlineName = firstSeg.sAirline.sAirlineName
-            let sStartTime = firstSeg.sOriginDeptTime
-            let sDuration = firstSeg.sDuration
-            let sStopsCount = flightSegment.count - 1
-            
-            if let secondSeg = flightSegment.last {
-                let sEndTime = secondSeg.sDestinationArrvTime
-                let sDestination = secondSeg.sDestinationAirport.sCityName
-                let sDestinationCode = secondSeg.sDestinationAirport.sCityCode
-                let sAccDuration = secondSeg.sAccDuration == 0 ? firstSeg.sDuration : secondSeg.sAccDuration
-                
-                self.lblFlightName.text = "\(sSourceCode.uppercased()) - \(sDestinationCode.uppercased())"
-                
-                if let returnflightSegment = returningFlights.sSegments.first, let returnfirstSeg = returnflightSegment.first , flightType == 1 {
-                    let deptDate = Helper.convertStoredDate(sStartTime, "E, MMM d, yyyy")
-                    let retDate = Helper.convertStoredDate(returnfirstSeg.sOriginDeptTime, "E, MMM d, yyyy")
-                    self.lblFlightTime.text = "\(deptDate) - \(retDate)"
-                    
-                    flightsArray = flights.sSegments + returningFlights.sSegments
-                }
-                else {
+        if flightType == 1 {
+            flightsArray = flights.sSegments + returningFlights.sSegments
+                        }
+            else {
                     flightsArray = flights.sSegments
-                    self.lblFlightTime.text = Helper.convertStoredDate(sStartTime, "E, MMM d, yyyy")
                 }
+        
+        var flightNameString = ""
+        var flightDatesString = ""
+        var flightClassString = ""
+        
+        for flightStruct in searchedFlight {
+            flightClassString  += "\(flightStruct.flightClass) - "
+        }
+        
+        for (flightIndex, flightSegment) in flightsArray.enumerated() {
+        if let firstSeg = flightSegment.first {
+            let sSourceCode = firstSeg.sOriginAirport.sCityCode
+            let sStartTime = firstSeg.sOriginDeptTime
+            
+            flightNameString += "\(sSourceCode.uppercased()) - "
+            flightDatesString += "\(Helper.convertStoredDate(sStartTime, "E, MMM d, yyyy")) - "
+            
+            if let secondSeg = flightSegment.last, flightIndex == flightsArray.count - 1 {
+                let sDestinationCode = secondSeg.sDestinationAirport.sCityCode
+                
+                flightNameString += "\(sDestinationCode.uppercased())"
+                
+//                if let returnflightSegment = returningFlights.sSegments.first, let returnfirstSeg = returnflightSegment.first , flightType == 1 {
+//                    let deptDate = Helper.convertStoredDate(sStartTime, "E, MMM d, yyyy")
+//                    let retDate = Helper.convertStoredDate(returnfirstSeg.sOriginDeptTime, "E, MMM d, yyyy")
+//                    flightDatesString = "\(deptDate) - \(retDate)"
+//
+//                    flightsArray = flights.sSegments + returningFlights.sSegments
+//                }
+//                else {
+//                    flightsArray = flights.sSegments
+//                    flightDatesString = Helper.convertStoredDate(sStartTime, "E, MMM d, yyyy")
+//                }
             }
         }
         
-        self.lblFlightType.text = searchedFlight.flightClass//"\(numberOfAdults + numberOfChildren + numberOfInfants) passengers"
+//            flightClassString  = searchedFlight.flightClass//"\(numberOfAdults + numberOfChildren + numberOfInfants) passengers"
+            
+        }
+        self.lblFlightName.text = flightNameString.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)//.dropLast()
+        self.lblFlightTime.text = String(flightDatesString.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).dropLast())
+        self.lblFlightType.text = String(flightClassString.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).dropLast())
+        
         self.tableView.reloadData()
         
     }
-    
 }
 
 // MARK: - UIBUTTON ACTIONS
@@ -148,30 +164,31 @@ extension FlightDetailViewController: UITableViewDataSource, UITableViewDelegate
         
         let item = self.flightsArray[indexPath.section][indexPath.row]
         
-        if indexPath.section == 0 {
-            cell.lblTitle.text = "Flight To"
-        }
-        else {
-            cell.lblTitle.text = "Flight Return"
-        }
-        
-//        if let item = item.first {
-            cell.lblSource.text = item.sOriginAirport.sCityName
-            cell.lblSourceCode.text = item.sOriginAirport.sCityCode
-            cell.lblDestination.text = item.sDestinationAirport.sCityName
-            cell.lblDestinationCode.text = item.sDestinationAirport.sCityCode
-            
-            cell.lblStartDate.text = Helper.convertStoredDate(item.sOriginDeptTime, "E, MMM d, yyyy")
-            cell.lblStartTime.text = Helper.convertStoredDate(item.sOriginDeptTime, "HH:mm")
-            cell.lblEndDate.text = Helper.convertStoredDate(item.sDestinationArrvTime, "E, MMM d, yyyy")
-            cell.lblEndTime.text = Helper.convertStoredDate(item.sDestinationArrvTime, "HH:mm")
-            
-            cell.lblDuration.text = Helper.getDuration(minutes: item.sDuration)
-            
-            cell.lblFlightNo.text = item.sAirline.sFlightNumber
-            cell.lblTerminal.text = item.sOriginAirport.sTerminal
-            
+//        if indexPath.section == 0 {
+//            cell.lblTitle.text = "Flight To"
 //        }
+//        else {
+//            cell.lblTitle.text = "Flight Return"
+//        }
+        
+        //        if let item = item.first {
+        cell.lblAirline.text = item.sAirline.sAirlineName
+        cell.lblSource.text = item.sOriginAirport.sCityName
+        cell.lblSourceCode.text = item.sOriginAirport.sCityCode
+        cell.lblDestination.text = item.sDestinationAirport.sCityName
+        cell.lblDestinationCode.text = item.sDestinationAirport.sCityCode
+        
+        cell.lblStartDate.text = Helper.convertStoredDate(item.sOriginDeptTime, "E, MMM d, yyyy")
+        cell.lblStartTime.text = Helper.convertStoredDate(item.sOriginDeptTime, "HH:mm")
+        cell.lblEndDate.text = Helper.convertStoredDate(item.sDestinationArrvTime, "E, MMM d, yyyy")
+        cell.lblEndTime.text = Helper.convertStoredDate(item.sDestinationArrvTime, "HH:mm")
+        
+        cell.lblDuration.text = Helper.getDuration(minutes: item.sDuration)
+        
+        cell.lblFlightNo.text = item.sAirline.sFlightNumber
+        cell.lblTerminal.text = item.sOriginAirport.sTerminal
+        
+        //        }
         
         cell.btnFareRules.tag = (indexPath.section * 1000) + indexPath.row
         cell.btnFareRules.addTarget(self, action: #selector(btnFareRules(_:)), for: .touchUpInside)

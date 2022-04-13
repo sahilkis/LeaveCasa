@@ -29,7 +29,7 @@ class FlightListRoundViewController: UIViewController {
     var returnDate = Date()
     var selectedDate = 0
     var searchParams: [String: AnyObject] = [:]
-    var searchedFlight = FlightStruct()
+    var searchedFlight = [FlightStruct]()
     var selectedflightTime: Int = 0
     var selectedflightStop:Int = 0
     var selectedflightType: Int = 0
@@ -61,11 +61,13 @@ class FlightListRoundViewController: UIViewController {
     }
     
     func setUpData() {
-        self.lblFlight.text = "\(searchedFlight.sourceCode.uppercased()) - \(searchedFlight.destinationCode.uppercased())"
-        self.lblRetrunFlight.text = "\(searchedFlight.destinationCode.uppercased()) - \(searchedFlight.sourceCode.uppercased())"
-        self.lblDepartDate.text = Helper.convertDate(searchedFlight.fromDate, format: "E, MMM d")
-        self.lblReturnDate.text = Helper.convertDate(searchedFlight.toDate, format: "E, MMM d")
-        
+        if let searchedFlight = searchedFlight.first {
+            self.lblFlight.text = "\(searchedFlight.sourceCode.uppercased()) - \(searchedFlight.destinationCode.uppercased())"
+            self.lblRetrunFlight.text = "\(searchedFlight.destinationCode.uppercased()) - \(searchedFlight.sourceCode.uppercased())"
+            self.lblDepartDate.text = Helper.convertDate(searchedFlight.fromDate, format: "E, MMM d")
+            self.lblReturnDate.text = Helper.convertDate(searchedFlight.toDate, format: "E, MMM d")
+            
+        }
         let flightOne = flights[selectedFlightIndex].sPrice
         let flightTwo = returningFlights[selectedReturnFlightIndex].sPrice
         
@@ -177,7 +179,7 @@ extension FlightListRoundViewController: UITableViewDataSource, UITableViewDeleg
         }
         cell.lblPrice.text = "₹ \(flight.sPrice)"
         cell.lblFLightInfo.text = ""
-
+        
         if let flightSegment = flight.sSegments.first {
             if let firstSeg = flightSegment.first {
                 let sSource = firstSeg.sOriginAirport.sCityName

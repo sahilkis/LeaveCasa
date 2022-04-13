@@ -22,7 +22,7 @@ class FlightListViewController: UIViewController {
     var dates = [Date]()
     var selectedDate = 0
     var searchParams: [String: AnyObject] = [:]
-    var searchedFlight = FlightStruct()
+    var searchedFlight = [FlightStruct]()
     var numberOfAdults = 1
     var numberOfChildren = 0
     var numberOfInfants = 0
@@ -114,23 +114,32 @@ extension FlightListViewController: FlightFilterDelegate {
 // MARK: - UITABLEVIEW METHODS
 extension FlightListViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return flights.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return flights.count
+        return flights[section].sSegments.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CellIds.FlightListCell, for: indexPath) as! FlightListCell
         
-        let flight = flights[indexPath.row]
-        
+        let flight = flights[indexPath.section]
         cell.lblPrice.text = "₹ \(flight.sPrice)"
-        cell.viewReturn.isHidden = true
         cell.lblFLightInfo.text = ""
         
-        if let flightSegment = flight.sSegments.first {
+        cell.lblFLightInfo.isHidden = true
+        cell.lblPrice.isHidden = true
+        cell.topSpace.constant = 0
+        
+        if indexPath.row == 0
+        {
+            cell.lblFLightInfo.isHidden = false
+            cell.lblPrice.isHidden = false
+            cell.topSpace.constant = 16
+        }
+        
+        if let flightSegment = flight.sSegments[indexPath.row] as? [FlightSegment]{
             if let firstSeg = flightSegment.first {
                 let sSource = firstSeg.sOriginAirport.sCityName
                 let sSourceCode = firstSeg.sOriginAirport.sCityCode
@@ -174,11 +183,6 @@ extension FlightListViewController: UITableViewDataSource, UITableViewDelegate {
                 sStops.append(flightSegment[i].sOriginAirport)
             }
             
-            //                   if flightSegment.count - 1 == stops.count {
-            //                       sStops = stops
-            //                   }
-            
-            
             var stops = ""
             
             if sStops.count == 1
@@ -191,58 +195,12 @@ extension FlightListViewController: UITableViewDataSource, UITableViewDelegate {
             
             cell.lblStops.text = stops
         }
-        if let flightSegment = flight.sSegments.last, flight.sSegments.count > 1 {
-            
-            cell.viewReturn.isHidden = false
-            if let firstSeg = flightSegment.first {
-                let sSource = firstSeg.sOriginAirport.sCityName
-                let sSourceCode = firstSeg.sOriginAirport.sCityCode
-                let sAirlineName = firstSeg.sAirline.sAirlineName
-                let sStartTime = firstSeg.sOriginDeptTime
-                let sDuration = firstSeg.sDuration
-                let sStopsCount = flightSegment.count - 1
-                
-                if let secondSeg = flightSegment.last {
-                    let sEndTime = secondSeg.sDestinationArrvTime
-                    let sDestination = secondSeg.sDestinationAirport.sCityName
-                    let sDestinationCode = secondSeg.sDestinationAirport.sCityCode
-                    let sAccDuration = secondSeg.sAccDuration == 0 ? firstSeg.sDuration : secondSeg.sAccDuration
-                    
-                    cell.lblRetStartTime.text = Helper.convertStoredDate(sStartTime, "HH:mm")
-                    cell.lblRetEndTime.text = Helper.convertStoredDate(sEndTime, "HH:mm")
-                    cell.lblRetSource.text = "\(sSourceCode.uppercased()), \(Helper.convertStoredDate(sStartTime, "E").uppercased())"
-                    cell.lblRetDestination.text = "\(sDestinationCode.uppercased()), \(Helper.convertStoredDate(sEndTime, "E").uppercased())"
-                    
-                    cell.lblRetDuration.text = Helper.getDuration(minutes: sAccDuration)
-                    cell.lblRetRoute.text = sStopsCount == 0 ? "Non-stop" : "\(sStopsCount) stop(s)"
-                }
-            }
-            var sStops = [FlightAirport]()
-            
-            for i in 1..<flightSegment.count {
-                sStops.append(flightSegment[i].sOriginAirport)
-            }
-            
-            var stops = ""
-            
-            if sStops.count == 1
-            {
-                stops = sStops[0].sCityName
-            } else if sStops.count > 1
-            {
-                stops = "\(sStops[0].sCityName) + \(sStops.count)"
-            }
-            
-            cell.lblRetStops.text = stops
-            
-            
-        }
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let dict = flights[indexPath.row]
+        let dict = flights[indexPath.section]
         
         if let vc = ViewControllerHelper.getViewController(ofType: .FlightDetailViewController) as? FlightDetailViewController {
             vc.flights = dict

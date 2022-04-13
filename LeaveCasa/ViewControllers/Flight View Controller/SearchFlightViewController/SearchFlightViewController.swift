@@ -60,6 +60,12 @@ class SearchFlightViewController: UIViewController {
         
         var first = FlightStruct()
         first.flightClass = AppConstants.flightTypes[first.flightClassIndex]
+        checkinDate = Date()
+        checkoutDate = Calendar.current.date(byAdding: .day, value: 1, to: Date()) ?? Date()
+        first.fromDate = checkinDate
+        first.toDate = checkoutDate
+        first.from = Helper.setCheckInDate()
+        first.to = Helper.setCheckOutDate()
         
         array.append(first)
         // Do any additional setup after loading the view.
@@ -142,12 +148,20 @@ class SearchFlightViewController: UIViewController {
     }
     
     func setDates() {
-        checkinDate = Date()
-        checkoutDate = Calendar.current.date(byAdding: .day, value: 1, to: Date()) ?? Date()
+        checkinDate = array[selectedIndex].fromDate
+        checkoutDate = Calendar.current.date(byAdding: .day, value: 1, to: checkinDate) ?? Date()
         array[selectedIndex].fromDate = checkinDate
         array[selectedIndex].toDate = checkoutDate
-        array[selectedIndex].from = Helper.setCheckInDate()
-        array[selectedIndex].to = Helper.setCheckOutDate()
+        array[selectedIndex].from = Helper.convertDate(checkinDate)
+        array[selectedIndex].to = Helper.nextCheckOutDate(checkinDate)
+        
+        if selectedTab == 2 {
+            for i in (selectedIndex+1)..<array.count {
+                array[i].fromDate = checkoutDate
+                array[i].from = Helper.nextCheckOutDate(checkinDate)
+            }
+        }
+        
     }
     
     func openDateCalendar() {
@@ -206,6 +220,12 @@ class SearchFlightViewController: UIViewController {
                     
                     self.array[row].destination = self.cityName[itemPosition]
                     self.array[row].destinationCode = self.cityCode[itemPosition]
+                    
+                    if self.selectedTab == 2 && self.array.count > row + 1 {
+                        self.array[row+1].source = self.cityName[itemPosition]
+                        self.array[row+1].sourceCode = self.cityCode[itemPosition]
+                        
+                    }
                     cell.txtDestination.resignFirstResponder()
                     self.tableView.reloadData()
                 }
@@ -271,8 +291,8 @@ class SearchFlightViewController: UIViewController {
         obj.source = last.destination
         obj.sourceCode = last.destinationCode
         obj.passengers = last.passengers
-        obj.from = last.to
-        obj.fromDate = last.toDate
+        obj.from = last.from
+        obj.fromDate = last.fromDate
         obj.flightClass = last.flightClass
         obj.flightClassIndex = last.flightClassIndex
         
@@ -413,6 +433,13 @@ extension SearchFlightViewController: WWCalendarTimeSelectorProtocol {
             array[selectedIndex].from = Helper.convertDate(date)
             array[selectedIndex].to = Helper.nextCheckOutDate(date)
             
+            if selectedTab == 2 {
+                for i in (selectedIndex+1)..<array.count {
+                    array[i].fromDate = checkoutDate
+                    array[i].from = Helper.nextCheckOutDate(date)
+                }
+            }
+            
         } else {
             checkoutDate = date
             array[selectedIndex].toDate = checkoutDate
@@ -432,8 +459,13 @@ extension SearchFlightViewController: WWCalendarTimeSelectorProtocol {
             } else {
                 return true
             }
-        }
-        else {
+        } else if selectedTab == 2 && selectedIndex > 0 && array.count > selectedIndex {
+            if date < array[selectedIndex-1].fromDate {
+                return false
+            } else {
+                return true
+            }
+        } else {
             return true
         }
     }
@@ -592,7 +624,7 @@ extension SearchFlightViewController {
                             vc.flights = results.first ?? []
                             vc.startDate = self.array[self.selectedIndex].fromDate
                             vc.searchParams = params
-                            vc.searchedFlight = self.array[self.selectedIndex]
+                            vc.searchedFlight = self.array
                             vc.numberOfChildren = self.numberOfChildren
                             vc.numberOfAdults = self.numberOfAdults
                             vc.numberOfInfants = self.numberOfInfants
@@ -608,7 +640,7 @@ extension SearchFlightViewController {
                             vc.returningFlights = results.last ?? []
                             vc.startDate = self.array[self.selectedIndex].fromDate
                             vc.returnDate = self.array[self.selectedIndex].toDate
-                            vc.searchedFlight = self.array[self.selectedIndex]
+                            vc.searchedFlight = self.array
                             vc.searchParams = params
                             
                             vc.numberOfChildren = self.numberOfChildren

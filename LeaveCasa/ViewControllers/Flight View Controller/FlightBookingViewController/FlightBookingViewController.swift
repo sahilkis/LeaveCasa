@@ -47,7 +47,7 @@ class FlightBookingViewController: UIViewController {
     
     var flights = Flight()
     var returningFlights = Flight()
-    var searchedFlight = FlightStruct()
+    var searchedFlight = [FlightStruct]()
     var logId = 0
     var tokenId = ""
     var traceId = ""
