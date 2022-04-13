@@ -96,6 +96,8 @@ class SearchFlightViewController: UIViewController {
         switch selectedTab
         {
         case 0:
+            self.array = [self.array[0]]
+            
             btnOneWay.setTitleColor(selectedColor, for: .normal)
             underlineOneWay.backgroundColor = selectedColor
             
@@ -109,6 +111,8 @@ class SearchFlightViewController: UIViewController {
             break
             
         case 1:
+            self.array = [self.array[0]]
+            
             btnOneWay.titleLabel?.textColor = unselectedColor
             btnOneWay.setTitleColor(unselectedColor, for: .normal)
             underlineOneWay.backgroundColor = clearColor
@@ -263,7 +267,7 @@ class SearchFlightViewController: UIViewController {
             } else if item.from.isEmpty {
                 alertMessage = AlertMessages.SELECT_DEPARUTRE_DATE
                 break
-            } else if item.to.isEmpty && selectedTab == 1 { // is round trip
+            } else if item.to.isEmpty && selectedTab == 1 && selectedIndex == 0 { // is round trip
                 alertMessage = AlertMessages.SELECT_RETURNING_DATE
                 break
             }
