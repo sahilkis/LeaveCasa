@@ -139,6 +139,7 @@ class FlightSegment: Mappable, CustomStringConvertible {
         sDuration <- map[WSResponseParams.WS_RESP_PARAM_DURATION]
         sAccDuration <- map[WSResponseParams.WS_RESP_PARAM_DURATION_ACCUM]
         sNumberOfSeats <- map[WSResponseParams.WS_RESP_PARAM_NUMBER_OF_SEATS]
+        sCabinClass <- map[WSResponseParams.WS_RESP_PARAM_CABIN_CLASS]
     }
     
     var description: String {
@@ -166,6 +167,7 @@ class FlightSegment: Mappable, CustomStringConvertible {
     lazy var sDuration = Int()
     lazy var sAccDuration = Int()
     lazy var sNumberOfSeats = Int()
+    lazy var sCabinClass = Int()
 }
 
 class FlightAirline: Mappable, CustomStringConvertible {

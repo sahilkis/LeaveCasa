@@ -80,10 +80,6 @@ class FlightDetailViewController: UIViewController {
         var flightDatesString = ""
         var flightClassString = ""
         
-        for flightStruct in searchedFlight {
-            flightClassString  += "\(flightStruct.flightClass) - "
-        }
-        
         for (flightIndex, flightSegment) in flightsArray.enumerated() {
         if let firstSeg = flightSegment.first {
             let sSourceCode = firstSeg.sOriginAirport.sCityCode
@@ -91,6 +87,7 @@ class FlightDetailViewController: UIViewController {
             
             flightNameString += "\(sSourceCode.uppercased()) - "
             flightDatesString += "\(Helper.convertStoredDate(sStartTime, "E, MMM d, yyyy")) - "
+            flightClassString  += "\(AppConstants.flightTypes[firstSeg.sCabinClass-1]) - "
             
             if let secondSeg = flightSegment.last, flightIndex == flightsArray.count - 1 {
                 let sDestinationCode = secondSeg.sDestinationAirport.sCityCode

@@ -148,6 +148,8 @@ class SearchFlightViewController: UIViewController {
     }
     
     func setDates() {
+        
+        selectedIndex = 0
         checkinDate = array[selectedIndex].fromDate
         checkoutDate = Calendar.current.date(byAdding: .day, value: 1, to: checkinDate) ?? Date()
         array[selectedIndex].fromDate = checkinDate
@@ -279,10 +281,12 @@ class SearchFlightViewController: UIViewController {
         
         array.remove(at: index)
         tableView.reloadData()
+        self.selectedIndex = 0
         
     }
     
     @objc func btnAddCityClicked(_ sender: UIButton) {
+        
         let index = sender.tag
         var obj = FlightStruct()
         
@@ -370,8 +374,10 @@ class SearchFlightViewController: UIViewController {
         classDropDown.dataSource = AppConstants.flightTypes
         classDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             
-            self.array[indexPathRow].flightClassIndex = index
-            self.array[indexPathRow].flightClass = AppConstants.flightTypes[index]
+            for indexpath in 0..<array.count {
+                self.array[indexpath].flightClassIndex = index
+                self.array[indexpath].flightClass = AppConstants.flightTypes[index]
+            }
             
             self.tableView.reloadData()
         }
@@ -622,7 +628,7 @@ extension SearchFlightViewController {
                             vc.traceId = self.traceId
                             vc.logId = self.logId
                             vc.flights = results.first ?? []
-                            vc.startDate = self.array[self.selectedIndex].fromDate
+                            vc.startDate = self.array[0].fromDate
                             vc.searchParams = params
                             vc.searchedFlight = self.array
                             vc.numberOfChildren = self.numberOfChildren
@@ -638,8 +644,8 @@ extension SearchFlightViewController {
                             vc.traceId = self.traceId
                             vc.flights = results.first ?? []
                             vc.returningFlights = results.last ?? []
-                            vc.startDate = self.array[self.selectedIndex].fromDate
-                            vc.returnDate = self.array[self.selectedIndex].toDate
+                            vc.startDate = self.array[0].fromDate
+                            vc.returnDate = self.array[0].toDate
                             vc.searchedFlight = self.array
                             vc.searchParams = params
                             

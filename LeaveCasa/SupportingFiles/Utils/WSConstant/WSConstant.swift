@@ -139,6 +139,7 @@ struct WSResponseParams {
     static let WS_RESP_PARAM_BP_NAME                 = "bpName"
     static let WS_RESP_PARAM_BUS_ROUTES              = "busRoutes"
     static let WS_RESP_PARAM_BUS_TYPE                = "busType"
+    static let WS_RESP_PARAM_CABIN_CLASS             = "CabinClass"
     static let WS_RESP_PARAM_CATEGORY                = "category"
     static let WS_RESP_PARAM_CANCELLATION_POLICY     = "cancellation_policy"
     static let WS_RESP_PARAM_CANCEL_BY_DATE          = "cancel_by_date"

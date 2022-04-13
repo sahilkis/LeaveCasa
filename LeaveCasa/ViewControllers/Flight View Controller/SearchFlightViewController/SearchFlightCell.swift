@@ -75,7 +75,7 @@ class SearchFlightCell: UITableViewCell {
                  btnClose.isHidden  = false
                  btnCloseHeight.constant = 35
             }
-            if !isLast
+            if !isLast || indexpath.row >= 4
             {
                 btnAddCity.isHidden  = true
                 btnAddCityHeight.constant = 0
