@@ -9,6 +9,7 @@
 import UIKit
 import SearchTextField
 import DropDown
+import ObjectMapper
 
 struct BookingDetail {
     var title = String()
@@ -60,8 +61,8 @@ class FlightBookingViewController: UIViewController {
     var numberOfAdults = 1
     var numberOfChildren = 0
     var numberOfInfants = 0
-    var flightFare = [String:AnyObject]()
-    var returningflightFare = [String:AnyObject]()
+    var flightFare = FlightFare()
+    var returningflightFare = FlightFare()
     var titleDropDown = DropDown()
     var titles = ["Mr", "Ms", "Mrs", "Mstr", "Miss"]
     var genders = ["Male", "Female"]
@@ -494,6 +495,16 @@ extension FlightBookingViewController {
             Helper.showOKAlert(onVC: self, title: Alert.ALERT, message: AlertMessages.AGREE_TERMS)
             return
         }
+        var isLCC = self.flights.sIsLCC
+        
+        if returningFlights.sSegments.count > 0 {
+            isLCC = self.flights.sIsLCC || self.returningFlights.sIsLCC
+        }
+        
+        if !(isLCC) {
+            Helper.showOKAlert(onVC: self, title: Alert.ALERT, message: "LCC is disabled for this flight.")
+            return
+        }
         
         if WSManager.isConnectedToInternet() {
             
@@ -507,6 +518,23 @@ extension FlightBookingViewController {
                     Helper.showOKAlert(onVC: self, title: Alert.ALERT, message: AlertMessages.WRONG_EMAIL_FORMAT)
                     return
                 }
+                
+                let fare : [String:AnyObject] = [
+                    "Currency": flightFare.sCurrency as AnyObject,
+                    "BaseFare": (flightFare.sBaseFare + returningflightFare.sBaseFare) as AnyObject,
+                    "Tax": (flightFare.sTax + returningflightFare.sTax) as AnyObject,
+                    "YQTax": (flightFare.sYQTax + returningflightFare.sYQTax) as AnyObject,
+                    "AdditionalTxnFeePub": (flightFare.sAdditionalTxnFeePub + returningflightFare.sAdditionalTxnFeePub) as AnyObject,
+                    "AdditionalTxnFeeOfrd": (flightFare.sAdditionalTxnFeeOfrd + returningflightFare.sAdditionalTxnFeeOfrd) as AnyObject,
+                    "OtherCharges": (flightFare.sOtherCharges + returningflightFare.sOtherCharges) as AnyObject,
+                    "Discount": (flightFare.sDiscount + returningflightFare.sDiscount) as AnyObject,
+                    "PublishedFare": (flightFare.sPublishedFare + returningflightFare.sPublishedFare) as AnyObject,
+                    "OfferedFare": (flightFare.sOfferedFare + returningflightFare.sOfferedFare) as AnyObject,
+                    "TdsOnCommission": (flightFare.sTdsOnCommission + returningflightFare.sTdsOnCommission) as AnyObject,
+                    "TdsOnPLB": (flightFare.sTdsOnPLB + returningflightFare.sTdsOnPLB) as AnyObject,
+                    "TdsOnIncentive": (flightFare.sTdsOnIncentive + returningflightFare.sTdsOnIncentive) as AnyObject,
+                    "ServiceFee": (flightFare.sServiceFee + returningflightFare.sServiceFee) as AnyObject
+                ]
                 
                 let passenger: [String:AnyObject] = [
                     
@@ -526,7 +554,7 @@ extension FlightBookingViewController {
                     "Nationality": i.nationality as AnyObject,
                     "ContactNo": i.contactNo as AnyObject,
                     "Email": i.email as AnyObject,
-                    "Fare" : flightFare as AnyObject,
+                    "Fare" : fare as AnyObject,
                     "IsLeadPax": true as AnyObject,
                     "FFAirlineCode": "" as AnyObject,
                     "FFNumber": "" as AnyObject,
@@ -598,7 +626,7 @@ extension FlightBookingViewController {
                 WSManager.wsCallFetchFlightFareDetails(params, success: { (resultFareRules, resultFareQuotes) in
                     Helper.hideLoader(onVC: self)
                     
-                    if let results = resultFareQuotes[WSResponseParams.WS_RESP_PARAM_RESULTS_CAP] as? [String:AnyObject], let fareQuotes = results[WSResponseParams.WS_RESP_PARAM_FARE_CAP] as? [String:AnyObject] {
+                    if let results = resultFareQuotes[WSResponseParams.WS_RESP_PARAM_RESULTS_CAP] as? [String:AnyObject], let fareQuotesObj = results[WSResponseParams.WS_RESP_PARAM_FARE_CAP] as? [String:AnyObject], let fareQuotes = Mapper<FlightFare>().map(JSON: fareQuotesObj) as FlightFare? {
                         if isReturning {
                             self.returningflightFare = fareQuotes
                         } else {

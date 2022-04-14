@@ -87,7 +87,7 @@ class FlightDetailViewController: UIViewController {
             
             flightNameString += "\(sSourceCode.uppercased()) - "
             flightDatesString += "\(Helper.convertStoredDate(sStartTime, "E, MMM d, yyyy")) - "
-            flightClassString  += "\(AppConstants.flightTypes[firstSeg.sCabinClass-1]) - "
+            flightClassString  += "\(AppConstants.flightTypes[(firstSeg.sCabinClass > 0 ? firstSeg.sCabinClass : 1)-1]) - "
             
             if let secondSeg = flightSegment.last, flightIndex == flightsArray.count - 1 {
                 let sDestinationCode = secondSeg.sDestinationAirport.sCityCode

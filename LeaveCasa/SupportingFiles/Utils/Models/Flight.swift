@@ -49,7 +49,7 @@ class Flight: Mappable, CustomStringConvertible {
             sSegments = allFlightSegments
             
         }
-       
+        
         if let fare = sFare as? FlightFare {
             sPrice = fare.sPublishedFare
         }
@@ -83,7 +83,7 @@ class Flight: Mappable, CustomStringConvertible {
     //    lazy var sEndTime = String()
     //    lazy var sDuration = Int()
     //    lazy var sAccDuration = Int()
-    lazy var sPrice = Int()
+    lazy var sPrice = Double()
     //    lazy var sCurrency = Int()
     //    lazy var sType = [String: AnyObject]()
     //    lazy var sStopsCount = Int()
@@ -100,7 +100,7 @@ class Flight: Mappable, CustomStringConvertible {
     lazy var sIsGSTMandatory = Bool()
     lazy var sGSTAllowed = Bool()
     lazy var sAirlineCode = String()
-
+    
     
 }
 
@@ -263,6 +263,76 @@ class FlightFare: Mappable, CustomStringConvertible {
         sBaseFare <- map[WSResponseParams.WS_RESP_PARAM_BASE_FARE]
         sTax <- map[WSResponseParams.WS_RESP_PARAM_TAX]
         sPublishedFare <- map[WSResponseParams.WS_RESP_PUBLISHED_FARE]
+        sYQTax <- map[WSResponseParams.WS_RESP_PARAM_YQTAX]
+        sAdditionalTxnFeePub <- map[WSResponseParams.WS_RESP_PARAM_ADDITIONAL_TXN_FEE_PUB]
+        sAdditionalTxnFeeOfrd <- map[WSResponseParams.WS_RESP_PARAM_ADDITIONAL_TXN_FEE_RD]
+        sServiceFee <- map[WSResponseParams.WS_RESP_PARAM_SERVICE_FEE]
+        sDiscount <- map[WSResponseParams.WS_RESP_PARAM_DISCOUNT]
+        sOtherCharges <- map[WSResponseParams.WS_RESP_PARAM_OTHER_CHARGES]
+        sOfferedFare <- map[WSResponseParams.WS_RESP_PARAM_OFFERED_FARE]
+        sTdsOnPLB <- map[WSResponseParams.WS_RESP_PARAM_TDS_ON_PLB]
+        sTdsOnCommission <- map[WSResponseParams.WS_RESP_PARAM_TDS_ON_COMMISSION]
+        sTdsOnIncentive <- map[WSResponseParams.WS_RESP_PARAM_TDS_ON_INCENTIVE]
+        
+        var anyObject : AnyObject?
+        
+        anyObject <- map[WSResponseParams.WS_RESP_PARAM_BASE_FARE]
+        if let item = anyObject as? String, !item.isEmpty, let value = Double(item) {
+            sBaseFare = value
+        }
+        anyObject <- map[WSResponseParams.WS_RESP_PARAM_TAX]
+        if let item = anyObject as? String, !item.isEmpty, let value = Double(item) {
+            sTax = value
+        }
+        anyObject <- map[WSResponseParams.WS_RESP_PUBLISHED_FARE]
+        if let item = anyObject as? String, !item.isEmpty, let value = Double(item) {
+            sPublishedFare = value
+        }
+        
+        anyObject <- map[WSResponseParams.WS_RESP_PARAM_YQTAX]
+        if let item = anyObject as? String, !item.isEmpty, let value = Double(item) {
+            sYQTax = value
+        }
+        
+        anyObject <- map[WSResponseParams.WS_RESP_PARAM_ADDITIONAL_TXN_FEE_PUB]
+        if let item = anyObject as? String, !item.isEmpty, let value = Double(item) {
+            sAdditionalTxnFeePub = value
+        }
+        
+        anyObject <- map[WSResponseParams.WS_RESP_PARAM_ADDITIONAL_TXN_FEE_RD]
+        if let item = anyObject as? String, !item.isEmpty, let value = Double(item) {
+            sAdditionalTxnFeeOfrd = value
+        }
+        
+        anyObject <- map[WSResponseParams.WS_RESP_PARAM_DISCOUNT]
+        if let item = anyObject as? String, !item.isEmpty, let value = Double(item) {
+            sDiscount = value
+        }
+        
+        anyObject <- map[WSResponseParams.WS_RESP_PARAM_OTHER_CHARGES]
+        if let item = anyObject as? String, !item.isEmpty, let value = Double(item) {
+            sOtherCharges = value
+        }
+        
+        anyObject <- map[WSResponseParams.WS_RESP_PARAM_OFFERED_FARE]
+        if let item = anyObject as? String, !item.isEmpty, let value = Double(item) {
+            sOfferedFare = value
+        }
+        
+        anyObject <- map[WSResponseParams.WS_RESP_PARAM_TDS_ON_INCENTIVE]
+        if let item = anyObject as? String, !item.isEmpty, let value = Double(item) {
+            sTdsOnIncentive = value
+        }
+        
+        anyObject <- map[WSResponseParams.WS_RESP_PARAM_TDS_ON_COMMISSION]
+        if let item = anyObject as? String, !item.isEmpty, let value = Double(item) {
+            sTdsOnCommission = value
+        }
+        
+        anyObject <- map[WSResponseParams.WS_RESP_PARAM_TDS_ON_PLB]
+        if let item = anyObject as? String, !item.isEmpty, let value = Double(item) {
+            sTdsOnPLB = value
+        }
     }
     
     var description: String {
@@ -283,7 +353,19 @@ class FlightFare: Mappable, CustomStringConvertible {
     })
     
     lazy var sCurrency = String()
-    lazy var sBaseFare = Int()
-    lazy var sTax = Int()
-    lazy var sPublishedFare = Int()
+    lazy var sBaseFare = Double()
+    lazy var sTax = Double()
+    lazy var sPublishedFare = Double()
+    lazy var sYQTax = Double()
+    lazy var sAdditionalTxnFeePub = Double()
+    lazy var sAdditionalTxnFeeOfrd = Double()
+    lazy var sOtherCharges = Double()
+    lazy var sDiscount = Double()
+    lazy var sOfferedFare = Double()
+    lazy var sTdsOnCommission = Double()
+    lazy var sTdsOnPLB = Double()
+    lazy var sTdsOnIncentive = Double()
+    lazy var sServiceFee = Double()
+    
+    
 }

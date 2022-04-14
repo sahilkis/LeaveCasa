@@ -191,17 +191,36 @@ extension BusDetailViewController: UICollectionViewDelegate, UICollectionViewDat
             if seat.sAvailable {
                 cell.image.image = LeaveCasaIcons.SEAT_BLACK
                 
+                if seat.sLength > 1 || seat.sWidth > 1 {
+                    cell.image.image = LeaveCasaIcons.SLEEPER_BLACK
+                }
                 if seat.sLadiesSeat {
                     cell.image.image = LeaveCasaIcons.SEAT_RED
+                    
+                    if seat.sLength > 1 || seat.sWidth > 1 {
+                        cell.image.image = LeaveCasaIcons.SLEEPER_RED
+                    }
                 }
                 if seat.isSelected {
                     cell.image.image = LeaveCasaIcons.SEAT_GREY
+                    
+                    if seat.sLength > 1 || seat.sWidth > 1 {
+                        cell.image.image = LeaveCasaIcons.SLEEPER_GREY
+                    }
                 }
             } else {
                 cell.image.image = LeaveCasaIcons.SEAT_BLUE
                 
+                if seat.sLength > 1 || seat.sWidth > 1 {
+                    cell.image.image = LeaveCasaIcons.SLEEPER_BLUE
+                }
+                
                 if seat.sLadiesSeat {
                     cell.image.image = LeaveCasaIcons.SEAT_YELLOW
+                    
+                    if seat.sLength > 1 || seat.sWidth > 1 {
+                        cell.image.image = LeaveCasaIcons.SLEEPER_YELLOW
+                    }
                 }
             }
         }

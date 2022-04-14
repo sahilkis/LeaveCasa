@@ -84,6 +84,11 @@ struct LeaveCasaIcons {
     static let SEAT_GREY                     = UIImage.init(named: "ic_seat_grey")
     static let SEAT_RED                      = UIImage.init(named: "ic_seat_red")
     static let SEAT_YELLOW                   = UIImage.init(named: "ic_seat_yellow")
+    static let SLEEPER_BLACK                    = UIImage.init(named: "ic_sleeper_black")
+    static let SLEEPER_BLUE                     = UIImage.init(named: "ic_sleeper_blue")
+    static let SLEEPER_GREY                     = UIImage.init(named: "ic_sleeper_grey")
+    static let SLEEPER_RED                      = UIImage.init(named: "ic_sleeper_red")
+    static let SLEEPER_YELLOW                   = UIImage.init(named: "ic_sleeper_yellow")
 }
 
 // Alert Titles
