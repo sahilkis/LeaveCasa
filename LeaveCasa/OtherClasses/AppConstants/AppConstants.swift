@@ -118,4 +118,11 @@ struct Strings {
     static let NO                           = "No"
     static let FALSE                        = "false"
     static let TRUE                         = "true"
+    static let HOTEL_BOOK                   = "hotel_book"
+    static let FLIGHT_BOOK                  = "flight_book"
+    static let BUS_BOOK                     = "Bus_book"
+    static let HOTEL_CANCEL                 = "hotel_cancel"
+    static let FLIGHT_CANCEL                = "flight_cancel"
+    static let BUS_CANCEL                   = "Bus_cancel"
+
 }

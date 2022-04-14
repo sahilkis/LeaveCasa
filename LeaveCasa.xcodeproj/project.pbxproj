@@ -78,6 +78,8 @@
 		408334D927EDCF470015F994 /* BusBookingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408334D827EDCF470015F994 /* BusBookingViewController.swift */; };
 		408334DB27EDE5320015F994 /* SeatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408334DA27EDE5320015F994 /* SeatCell.swift */; };
 		40A14A8A27EC977200102036 /* FlightDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A14A8927EC977200102036 /* FlightDetailViewController.swift */; };
+		40A7ED9C28084809007CCF57 /* Pods_LeaveCasa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2938878705CEC9DEF73768C5 /* Pods_LeaveCasa.framework */; };
+		40A7ED9D28084809007CCF57 /* Pods_LeaveCasa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2938878705CEC9DEF73768C5 /* Pods_LeaveCasa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		40B0A37E27F17B8800EF2BB6 /* Flight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40B0A37D27F17B8800EF2BB6 /* Flight.swift */; };
 		40BAC11827E8968C00952E2E /* FacilitiesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BAC11727E8968C00952E2E /* FacilitiesCell.swift */; };
 		40C7B3D427F445C3005027B1 /* FlightListRoundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C7B3D327F445C3005027B1 /* FlightListRoundViewController.swift */; };
@@ -85,7 +87,6 @@
 		40CDAF1627E0B40800B5B8FA /* FlightListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CDAF1527E0B40800B5B8FA /* FlightListViewController.swift */; };
 		40CDAF1827E0B43F00B5B8FA /* FlightListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CDAF1727E0B43F00B5B8FA /* FlightListCell.swift */; };
 		40E56C6227FC499300981CDF /* HotelFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E56C6127FC499300981CDF /* HotelFilterViewController.swift */; };
-		A71135AD1284FFCD1745A8CA /* Pods_LeaveCasa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2938878705CEC9DEF73768C5 /* Pods_LeaveCasa.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,6 +105,20 @@
 			remoteInfo = LeaveCasa;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		40A7ED9E28084809007CCF57 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				40A7ED9D28084809007CCF57 /* Pods_LeaveCasa.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		18C82805214FCEC8007FC65A /* LeaveCasa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeaveCasa.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -200,7 +215,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A71135AD1284FFCD1745A8CA /* Pods_LeaveCasa.framework in Frameworks */,
+				40A7ED9C28084809007CCF57 /* Pods_LeaveCasa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -798,6 +813,7 @@
 				18C82802214FCEC8007FC65A /* Frameworks */,
 				18C82803214FCEC8007FC65A /* Resources */,
 				9DDBFAEDC4680FFF88E11D7A /* [CP] Embed Pods Frameworks */,
+				40A7ED9E28084809007CCF57 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -965,6 +981,7 @@
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SKActivityIndicatorView/SKActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/SearchTextField/SearchTextField.framework",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/razorpay-pod/Razorpay.framework/Razorpay",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -975,6 +992,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SKActivityIndicatorView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SearchTextField.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Razorpay.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

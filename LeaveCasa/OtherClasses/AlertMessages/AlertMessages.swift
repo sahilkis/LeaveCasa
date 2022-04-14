@@ -25,5 +25,6 @@ struct AlertMessages {
     static let Fill_All_FIELDS              = "Please fill all the fields"
     static let AGREE_TERMS                  = "Please agree to the terms and conditions"
     static let SELECT_SEAT                  = "Please select seat to continue"
+    static let PAYMENT_SUCCESS              = "Payment Succeeded"
 
 }

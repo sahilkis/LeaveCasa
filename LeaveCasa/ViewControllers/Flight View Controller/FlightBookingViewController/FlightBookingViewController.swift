@@ -586,6 +586,33 @@ extension FlightBookingViewController {
                     
                     
                     
+                    if let vc = ViewControllerHelper.getViewController(ofType: .WalletPaymentViewController) as? WalletPaymentViewController {
+                        
+                        let params: [String: AnyObject] = [:
+                            
+//                            WSRequestParams.WS_REQS_PARAM_BLOCK_KEY: blockKey as AnyObject,
+                        ]
+                        
+                        let totalFares: [FlightFare] = [self.flights.sFare, self.returningFlights.sFare]
+
+                        let price = totalFares.map({$0.sPublishedFare}).reduce(0, +)
+
+//                        if let markup = self.markups as? Markup {
+//                            if markup.amountBy == Strings.PERCENT {
+//                                price += (price * (markup.amount) / 100)
+//                            } else {
+//                                price += (markup.amount)
+//                            }
+//                        }
+                        
+                        vc.screenFrom = .flight
+                        
+                        vc.params = params
+                        vc.totalPayable = price
+                        vc.bookingType = Strings.FLIGHT_BOOK
+                         
+                        self.navigationController?.pushViewController(vc, animated: true)
+                    }
                     
                     
                 }, failure: { (error) in

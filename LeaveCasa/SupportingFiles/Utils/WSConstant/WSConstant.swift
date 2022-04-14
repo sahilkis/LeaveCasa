@@ -37,6 +37,8 @@ struct WebService {
     
     // MARK: WALLET
     static let checkWalletBalance                    = "\(baseUrl)/wallet-balance"
+    static let creditWalletBalance                   = "\(baseUrl)/credit-wallet"
+    static let debitWalletBalance                    = "\(baseUrl)/debit-wallet"
     static let recheckBooking                        = "\(baseUrl)/recheck"
     static let finalBooking                          = "\(baseUrl)/final-book"
 }

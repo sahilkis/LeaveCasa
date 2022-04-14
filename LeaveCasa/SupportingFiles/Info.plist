@@ -53,5 +53,12 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+    <key>LSApplicationQueriesSchemes</key>
+        <array>
+            <string>tez</string>
+            <string>phonepe</string>
+            <string>paytmmp</string>
+        </array>
+        
 </dict>
 </plist>

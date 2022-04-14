@@ -563,6 +563,51 @@ class WSManager {
         })
     }
     
+    class func wsCallCreditWalletBalance(_ requestParams : [String: AnyObject],completion:@escaping (_ isSuccess: Bool, _ message: String)->()) {
+        AF.request(WebService.creditWalletBalance, method: .post, parameters: requestParams, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: {(responseData) -> Void in
+            print(responseData.result)
+            switch responseData.result {
+            case .success(let value):
+                if let responseValue = value as? [String: AnyObject] {
+                    print(responseValue)
+                    if let message = responseValue[WSResponseParams.WS_RESP_PARAM_MESSAGE] as? String {
+                        completion(true, message)
+                    }
+                    else {
+                        completion(false, "Wrong data type")
+                    }
+                } else {
+                    completion(false, responseData.error?.localizedDescription ?? "")
+                }
+            case .failure(let error):
+                completion(false, error.localizedDescription)
+            }
+        })
+    }
+    
+    class func wsCallDebitWalletBalance(_ requestParams: [String: AnyObject], completion:@escaping (_ isSuccess: Bool, _ message: String)->()) {
+        AF.request(WebService.debitWalletBalance, method: .post, parameters: requestParams, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: {(responseData) -> Void in
+                   
+            print(responseData.result)
+            switch responseData.result {
+            case .success(let value):
+                if let responseValue = value as? [String: AnyObject] {
+                    print(responseValue)
+                    if let message = responseValue[WSResponseParams.WS_RESP_PARAM_MESSAGE] as? String {
+                                            completion(true, message)
+                                        }
+                                        else {
+                                            completion(false, "Wrong data type")
+                                        }
+                } else {
+                    completion(false,  responseData.error?.localizedDescription ?? "")
+                }
+            case .failure(let error):
+                completion(false,  error.localizedDescription)
+            }
+        })
+    }
+    
     class func wsCallRecheckBooking(_ requestParams: [String: AnyObject], success:@escaping (_ arrHomeData: HotelDetail, _ searchId: String)->(),failure:@escaping (NSError)->()) {
         AF.request(WebService.recheckBooking, method: .post, parameters: requestParams, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: {(responseData) -> Void in
             print(responseData.result)

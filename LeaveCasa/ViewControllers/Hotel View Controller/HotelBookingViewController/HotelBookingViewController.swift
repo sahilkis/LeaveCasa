@@ -440,7 +440,28 @@ extension HotelBookingViewController {
                             WSRequestParams.WS_REQS_PARAM_BOOKING_ITEMS: bookingItem as AnyObject
                         ]
                         
+                        var price = 0.0
+                        if let rate = self.hotelDetail.rates as? [HotelRate] {
+                            let minRate = rate[self.selectedRoomRate]
+                            
+                            price = minRate.sPrice
+                            for i in 0..<self.markups.count {
+                                        let markup: Markup?
+                                markup = self.markups[i]
+                                if markup?.starRating == self.hotelDetail.iCategory {
+                                            if markup?.amountBy == Strings.PERCENT {
+                                                price += (price * (markup?.amount ?? 0) / 100)
+                                            } else {
+                                                price += (markup?.amount ?? 0)
+                                            }
+                                        }
+                                    }
+                        }
+                        
                         vc.params = params
+                        vc.totalPayable = price
+                        vc.bookingType = Strings.HOTEL_BOOK
+                        
                         self.navigationController?.pushViewController(vc, animated: true)
                     }
                 }

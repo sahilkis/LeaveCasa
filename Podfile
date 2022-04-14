@@ -9,5 +9,6 @@ target 'LeaveCasa' do
     pod "SearchTextField"
     pod 'SDWebImage'
     pod 'SKActivityIndicatorView'
-    
+    pod 'razorpay-pod'
+
 end

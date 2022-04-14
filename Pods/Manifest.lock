@@ -5,6 +5,7 @@ PODS:
     - ObjectMapper (~> 3.5.1)
   - DropDown (2.3.13)
   - ObjectMapper (3.5.3)
+  - razorpay-pod (1.2.2)
   - SDWebImage (5.12.2):
     - SDWebImage/Core (= 5.12.2)
   - SDWebImage/Core (5.12.2)
@@ -15,6 +16,7 @@ DEPENDENCIES:
   - Alamofire (~> 5.0.0-rc.2)
   - AlamofireObjectMapper
   - DropDown
+  - razorpay-pod
   - SDWebImage
   - SearchTextField
   - SKActivityIndicatorView
@@ -25,6 +27,7 @@ SPEC REPOS:
     - AlamofireObjectMapper
     - DropDown
     - ObjectMapper
+    - razorpay-pod
     - SDWebImage
     - SearchTextField
     - SKActivityIndicatorView
@@ -34,10 +37,11 @@ SPEC CHECKSUMS:
   AlamofireObjectMapper: 74d1440c92c42bbcc2b5f4dc81654ac095ec669f
   DropDown: 8a2116376c1981888557f72ec2ffc9a5e0e456ec
   ObjectMapper: 97111c97e054a6ee25917662106689f0b4127b37
+  razorpay-pod: dfa66706727a7435d38b4ed79e53cad7a027d980
   SDWebImage: 240e5c12b592fb1268c1d03b8c90d90e8c2ffe82
   SearchTextField: 40dc3cc57def5a211f263cac263622c163bbc25a
   SKActivityIndicatorView: f46936f760d33eb8235333242269bf01cc9248ae
 
-PODFILE CHECKSUM: c7f98043d94469b3227d7e11133b8d81e0484e68
+PODFILE CHECKSUM: ac0925e3c20c81fdf3a374d9d9c97885185f7bb4
 
 COCOAPODS: 1.11.2
