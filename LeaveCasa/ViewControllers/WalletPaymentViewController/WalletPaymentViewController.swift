@@ -26,14 +26,14 @@ class WalletPaymentViewController: UIViewController {
         let options: [String:Any] = [
                     "amount": "\(amount * 100)", //This is in currency subunits. 100 = 100 paise= INR 1.
                     "currency": "INR",//We support more that 92 international currencies.
-                    "description": description,
-                    "name": name,
-                    "prefill": [
-                        "contact": contact,
-                        "email": email
-                    ],
+//                    "description": description,
+//                    "name": name,
+//                    "prefill": [
+//                        "contact": contact,
+//                        "email": email
+//                    ],
                     "theme": [
-                        "color": LeaveCasaColors.PINK_COLOR
+                        "color": "#FF2D55"
                     ]
                 ]
         razorpay.open(options)

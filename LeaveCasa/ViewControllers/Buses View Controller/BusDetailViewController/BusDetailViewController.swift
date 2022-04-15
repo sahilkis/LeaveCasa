@@ -22,6 +22,9 @@ class BusDetailViewController: UIViewController {
     @IBOutlet weak var txtDroppingPoint: UITextField!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var upperSeatsView: UIView!
+    @IBOutlet weak var upperCollectionView: UICollectionView!
+    @IBOutlet weak var upperCollectionViewHeightConstraint: NSLayoutConstraint!
     
     var bus = Bus()
     var markups : Markup?
@@ -37,12 +40,18 @@ class BusDetailViewController: UIViewController {
     var classDropDown = DropDown()
     var selectedSeats = [BusSeat]()
     var seats = [BusSeat]()
-    var noOfRows = 1
-    var noOfColumns = 1
+    //    var noOfRows = 1
+    //    var noOfColumns = 1
+    var rowsOfSeats = [Int]()
+    var columnsOfSeats = [Int]()
+    var isZIndex = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.upperSeatsView.isHidden = !self.isZIndex
+        self.upperCollectionViewHeightConstraint.constant = 0
+        self.upperCollectionView.reloadData()
         setupData()
         setLeftbarButton()
         searchBusLayout()
@@ -51,17 +60,23 @@ class BusDetailViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.collectionView.addObserver(self, forKeyPath: Strings.CONTENT_SIZE, options: .new, context: nil)
+        self.upperCollectionView.addObserver(self, forKeyPath: Strings.CONTENT_SIZE, options: .new, context: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.collectionView.removeObserver(self, forKeyPath: Strings.CONTENT_SIZE)
+        self.upperCollectionView.removeObserver(self, forKeyPath: Strings.CONTENT_SIZE)
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if let newValue = change?[.newKey] {
             if let newSize = newValue as? CGSize {
-                self.collectionViewHeightConstraint.constant = newSize.height
+                if let collection = object as? UICollectionView, collection == self.upperCollectionView  {
+//                    self.upperCollectionViewHeightConstraint.constant = newSize.height + 50
+                } else {
+                    self.collectionViewHeightConstraint.constant = newSize.height
+                }
                 
             }
         }
@@ -80,6 +95,7 @@ class BusDetailViewController: UIViewController {
         self.txtDate.text = Helper.convertDate(self.date)
         
         self.collectionView.reloadData()
+        self.upperCollectionView.reloadData()
         
         self.boardingArray = bus.sBusBoardingArr.count > 0 ? bus.sBusBoardingArr : [bus.sBusBoarding]
         self.txtBoardingPoint.text = boardingArray[selectedboardingPointIndex].sLocation
@@ -170,11 +186,18 @@ extension BusDetailViewController {
 extension BusDetailViewController: UICollectionViewDelegate, UICollectionViewDataSource
 {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return noOfColumns
+        
+        if collectionView == self.upperCollectionView && !self.isZIndex{
+            return 0
+        }
+        return columnsOfSeats.count ?? 0//noOfColumns
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return noOfRows//seats.count
+        if collectionView == self.upperCollectionView && !self.isZIndex{
+            return 0
+        }
+        return rowsOfSeats.count ?? 0//noOfRows//seats.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -183,8 +206,14 @@ extension BusDetailViewController: UICollectionViewDelegate, UICollectionViewDat
         
         //        let seat = self.seats[indexPath.row]
         
+        var zIndex = 0
+        
+        if collectionView == self.upperCollectionView && self.isZIndex {
+            zIndex = 1
+        }
+        
         if let seat = self.seats.first(where: { seat in
-            seat.sColumn == indexPath.section && seat.sRow == indexPath.row && seat.sZIndex == 0 // TODO: Pending upper seats display
+            seat.sColumn == columnsOfSeats[indexPath.section] && seat.sRow == rowsOfSeats[indexPath.row] && seat.sZIndex == zIndex
         }) {
             
             cell.image.isHidden = false
@@ -231,13 +260,20 @@ extension BusDetailViewController: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        var zIndex = 0
+        
+        if collectionView == self.upperCollectionView && self.isZIndex {
+            zIndex = 1
+        }
         if let index = self.seats.firstIndex(where: { seat in
-            seat.sColumn == indexPath.section && seat.sRow == indexPath.row && seat.sZIndex == 0 // TODO: Pending upper seats selection
+            seat.sColumn == columnsOfSeats[indexPath.section] && seat.sRow == rowsOfSeats[indexPath.row] && seat.sZIndex == zIndex
         }) {
             
             if seats[index].sAvailable {
                 seats[index].isSelected = !seats[index].isSelected
                 self.collectionView.reloadData()
+                self.upperCollectionView.reloadData()
                 self.setupPrice()
             }
         }
@@ -252,22 +288,29 @@ extension BusDetailViewController: UICollectionViewDelegateFlowLayout {
         var length = 1.0
         var width = 1.0
         
+        
+        var zIndex = 0
+        
+        if collectionView == self.upperCollectionView && self.isZIndex {
+            zIndex = 1
+        }
+        
         if let index = self.seats.firstIndex(where: { seat in
-            seat.sColumn == indexPath.section && seat.sRow == indexPath.row && seat.sZIndex == 0 // TODO: Pending upper seats selection
+            seat.sColumn == indexPath.section && seat.sRow == indexPath.row && seat.sZIndex == zIndex
         }) {
             length = Double(seats[index].sLength)
             width = Double(seats[index].sWidth)
         }
-        return CGSize(width: (collectionWidth/CGFloat(noOfColumns))*length, height: (collectionWidth/CGFloat(noOfColumns))*width)
+        return CGSize(width: (collectionWidth/CGFloat(columnsOfSeats.count))*length, height: (collectionWidth/CGFloat(columnsOfSeats.count))*width)
         
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
+        return 5
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
+        return 5
         
     }
 }
@@ -323,14 +366,35 @@ extension BusDetailViewController {
                         return s1.sColumn < s2.sColumn
                     })
                 
-                self.noOfRows = Array(Set(self.seats.map { bus in
+                //                self.noOfRows = Array(Set(self.seats.map { bus in
+                //                    bus.sRow
+                //                })).count
+                //                self.noOfColumns = Array(Set(self.seats.map { bus in
+                //                    bus.sColumn
+                //                })).count
+                self.rowsOfSeats = Array(Set(self.seats.map { bus in
                     bus.sRow
-                })).count
-                self.noOfColumns = Array(Set(self.seats.map { bus in
+                })).sorted(by: { s1, s2 in
+                    return s1 < s2
+                })
+                self.columnsOfSeats = Array(Set(self.seats.map { bus in
                     bus.sColumn
-                })).count
+                })).sorted(by: { s1, s2 in
+                    return s1 < s2
+                })
+                let zindex = Array(Set(self.seats.map { bus in
+                    bus.sZIndex
+                })).sorted(by: { s1, s2 in
+                    return s1 < s2
+                }).count
                 
                 self.collectionView.reloadData()
+                
+                self.isZIndex = zindex > 1 ? true: false
+                self.upperSeatsView.isHidden = !self.isZIndex
+                self.upperCollectionViewHeightConstraint.constant = self.isZIndex ? 200 : 0
+
+                self.upperCollectionView.reloadData()
                 
             }, failure: { (error) in
                 Helper.hideLoader(onVC: self)
