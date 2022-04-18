@@ -84,11 +84,16 @@ struct LeaveCasaIcons {
     static let SEAT_GREY                     = UIImage.init(named: "ic_seat_grey")
     static let SEAT_RED                      = UIImage.init(named: "ic_seat_red")
     static let SEAT_YELLOW                   = UIImage.init(named: "ic_seat_yellow")
-    static let SLEEPER_BLACK                    = UIImage.init(named: "ic_sleeper_black")
-    static let SLEEPER_BLUE                     = UIImage.init(named: "ic_sleeper_blue")
-    static let SLEEPER_GREY                     = UIImage.init(named: "ic_sleeper_grey")
-    static let SLEEPER_RED                      = UIImage.init(named: "ic_sleeper_red")
-    static let SLEEPER_YELLOW                   = UIImage.init(named: "ic_sleeper_yellow")
+    static let SLEEPER_BLACK                 = UIImage.init(named: "ic_sleeper_black")
+    static let SLEEPER_BLUE                  = UIImage.init(named: "ic_sleeper_blue")
+    static let SLEEPER_GREY                  = UIImage.init(named: "ic_sleeper_grey")
+    static let SLEEPER_RED                   = UIImage.init(named: "ic_sleeper_red")
+    static let SLEEPER_YELLOW                = UIImage.init(named: "ic_sleeper_yellow")
+    static let SLEEPER_BLACK_VERT            = UIImage.init(named: "ic_sleeper_black_vertical")
+    static let SLEEPER_BLUE_VERT             = UIImage.init(named: "ic_sleeper_blue_vertical")
+    static let SLEEPER_GREY_VERT             = UIImage.init(named: "ic_sleeper_grey_vertical")
+    static let SLEEPER_RED_VERT              = UIImage.init(named: "ic_sleeper_red_vertical")
+    static let SLEEPER_YELLOW_VERT           = UIImage.init(named: "ic_sleeper_yellow_vertical")
 }
 
 // Alert Titles
@@ -124,5 +129,5 @@ struct Strings {
     static let HOTEL_CANCEL                 = "hotel_cancel"
     static let FLIGHT_CANCEL                = "flight_cancel"
     static let BUS_CANCEL                   = "Bus_cancel"
-
+    
 }

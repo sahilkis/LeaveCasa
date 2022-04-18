@@ -151,6 +151,30 @@ extension WalletPaymentViewController {
             if screenFrom == .bus
             {
                 url = WebService.busTicketFinal
+            } else if screenFrom == .flight {
+                
+                DispatchQueue.main.async {
+                    
+                    Helper.showLoader(onVC: self, message: Alert.LOADING)
+                    WSManager.wsCallFlightTicket(params, success: { (result) in
+                        Helper.hideLoader(onVC: self)
+                        
+                        if let response = result[WSResponseParams.WS_RESP_PARAM_RESPONSE_CAP] as? [String:AnyObject] {
+                            if let bookingId = response[WSResponseParams.WS_RESP_PARAM_BOOKING_ID] as? Int, let pnr = response[WSResponseParams.WS_RESP_PARAM_PNR] as? String  {
+                                self.reduceWalletBalance(self.walletReducinigValue, "\(bookingId)")
+                            }
+                        }
+                        else if let error = result[WSResponseParams.WS_RESP_PARAM_ERROR] as? [String:AnyObject], let errorMessage = error[WSResponseParams.WS_RESP_PARAM_ERROR_MESSAGE] as? String  {
+                            Helper.showOKAlert(onVC: self, title: Alert.ERROR, message: errorMessage)
+                        }
+                        
+                    }, failure: { (error) in
+                        Helper.hideLoader(onVC: self)
+                        Helper.showOKAlert(onVC: self, title: Alert.ERROR, message: error.localizedDescription)
+                    })
+                }
+                
+                return
             }
             
             WSManager.wsCallFinalBooking(url, params, completion: { (isSuccess, response, message) in

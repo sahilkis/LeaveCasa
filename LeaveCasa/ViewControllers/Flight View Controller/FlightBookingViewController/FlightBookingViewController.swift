@@ -18,6 +18,7 @@ struct BookingDetail {
     var paxType = String()
     var dob = String()
     var gender = String()
+    var genderValue = Int()
     var passportNo = String()
     var passportExpiryDate = String()
     var addressLine1 = String()
@@ -122,6 +123,7 @@ class FlightBookingViewController: UIViewController {
             
             obj.title = titles.first ?? ""
             obj.gender = genders.first ?? ""
+            obj.genderValue = 0
             obj.paxType = "1"
             obj.nationality = "IN"
             obj.countryCode = "IN"
@@ -162,7 +164,7 @@ class FlightBookingViewController: UIViewController {
         if let calendar = ViewControllerHelper.getViewController(ofType: .WWCalendarTimeSelector) as? WWCalendarTimeSelector {
             calendar.delegate = self
             
-            calendar.optionCurrentDate = Date()
+            calendar.optionCurrentDate = Date.date(year: Date().year - 12, month: Date().month, day: Date().day)
             calendar.optionStyles.showDateMonth(true)
             calendar.optionStyles.showMonth(false)
             calendar.optionStyles.showYear(true)
@@ -188,6 +190,7 @@ class FlightBookingViewController: UIViewController {
                 }
                 else{
                     guestDetails[row].gender = item
+                    guestDetails[row].genderValue = index
                 }
             }
         }
@@ -238,7 +241,7 @@ extension FlightBookingViewController: WWCalendarTimeSelectorProtocol {
     }
     
     func WWCalendarTimeSelectorShouldSelectDate(_ selector: WWCalendarTimeSelector, date: Date) -> Bool {
-        if isDoB  && date > Date() {
+        if isDoB  && date > Date.date(year: Date().year - 12, month: Date().month, day: Date().day) {
             return false
         } else if !isDoB  && date < Date() {
             return false
@@ -511,11 +514,14 @@ extension FlightBookingViewController {
             var passengers = [[String: AnyObject]]()
             
             for i in guestDetails {
-                if i.title.isEmpty || i.firstName.isEmpty || i.lastName.isEmpty || i.dob.isEmpty || i.gender.isEmpty || i.addressLine1.isEmpty || i.addressLine2.isEmpty || i.city.isEmpty || i.contactNo.isEmpty || i.email.isEmpty || ((flights.sIsPassportRequiredAtTicket || flights.sIsPassportRequiredAtBook) && (i.passportNo.isEmpty || i.passportExpiryDate.isEmpty)) || ((flights.sIsPanRequiredAtBook || flights.sIsPanRequiredAtTicket) && (i.panNo.isEmpty)){
+                if i.title.isEmpty || i.firstName.isEmpty || i.lastName.isEmpty || i.dob.isEmpty || i.gender.isEmpty || i.addressLine1.isEmpty || i.addressLine2.isEmpty || i.city.isEmpty || i.contactNo.isEmpty || i.email.isEmpty || ((flights.sIsPassportRequiredAtTicket || flights.sIsPassportRequiredAtBook) && (i.passportNo.isEmpty || i.passportExpiryDate.isEmpty)) || ((flights.sIsPanRequiredAtBook || flights.sIsPanRequiredAtTicket) && (i.panNo.isEmpty)) {
                     Helper.showOKAlert(onVC: self, title: Alert.ALERT, message: AlertMessages.Fill_All_FIELDS)
                     return
-                }else if !Validator().isValid(email: i.email) {
+                } else if !Validator().isValid(email: i.email) {
                     Helper.showOKAlert(onVC: self, title: Alert.ALERT, message: AlertMessages.WRONG_EMAIL_FORMAT)
+                    return
+                } else if i.contactNo.count < 7 || i.contactNo.count > 15 {
+                    Helper.showOKAlert(onVC: self, title: Alert.ALERT, message: AlertMessages.VALID_PHONE_NUMBER)
                     return
                 }
                 
@@ -536,14 +542,14 @@ extension FlightBookingViewController {
                     "ServiceFee": (flightFare.sServiceFee + returningflightFare.sServiceFee) as AnyObject
                 ]
                 
-                let passenger: [String:AnyObject] = [
+                var passenger: [String:AnyObject] = [
                     
                     "Title": i.title as AnyObject,
                     "FirstName": i.firstName as AnyObject,
                     "LastName": i.lastName as AnyObject,
                     "PaxType": i.paxType as AnyObject,
                     "DateOfBirth": i.dob as AnyObject,
-                    "Gender": i.gender as AnyObject,
+                    "Gender": (i.genderValue + 1) as AnyObject, //i.gender as AnyObject,
                     "PassportNo": i.passportNo as AnyObject,
                     "PassportExpiry": i.passportExpiryDate as AnyObject,
                     "AddressLine1": i.addressLine1 as AnyObject,
@@ -558,12 +564,16 @@ extension FlightBookingViewController {
                     "IsLeadPax": true as AnyObject,
                     "FFAirlineCode": "" as AnyObject,
                     "FFNumber": "" as AnyObject,
-                    "GSTCompanyAddress": "" as AnyObject,
-                    "GSTCompanyContactNumber": "" as AnyObject,
-                    "GSTCompanyName": "" as AnyObject,
-                    "GSTNumber": "" as AnyObject,
-                    "GSTCompanyEmail": "" as AnyObject
                 ]
+                
+                // TODO: Pending - Using static GST values for now
+                if flights.sIsGSTMandatory || flights.sGSTAllowed || returningFlights.sIsGSTMandatory || returningFlights.sGSTAllowed {
+                    passenger["GSTCompanyAddress"] = "2ND FLOOR, F-562 A, LADO SARAI, DELHI, South Delhi, Delhi, 110030" as AnyObject
+                    passenger["GSTCompanyContactNumber"] = "7042457803" as AnyObject
+                    passenger["GSTCompanyName"] = "LEAVECASA TRAVEL PRIVATE LIMITED" as AnyObject
+                    passenger["GSTNumber"] = "07AADCL9221G1ZL" as AnyObject
+                    passenger["GSTCompanyEmail"] = "nikhilg@acmemedia.in" as AnyObject
+                }
                 
                 passengers.append(passenger)
             }
@@ -578,47 +588,27 @@ extension FlightBookingViewController {
             
             params[WSResponseParams.WS_RESP_PARAM_LOGID] = 1480 as AnyObject //TODO: Pending
             
-            DispatchQueue.main.async {
+            if let vc = ViewControllerHelper.getViewController(ofType: .WalletPaymentViewController) as? WalletPaymentViewController {
                 
-                Helper.showLoader(onVC: self, message: Alert.LOADING)
-                WSManager.wsCallFlightTicket(params, success: { (result) in
-                    Helper.hideLoader(onVC: self)
-                    
-                    
-                    
-                    if let vc = ViewControllerHelper.getViewController(ofType: .WalletPaymentViewController) as? WalletPaymentViewController {
-                        
-                        let params: [String: AnyObject] = [:
-                            
-//                            WSRequestParams.WS_REQS_PARAM_BLOCK_KEY: blockKey as AnyObject,
-                        ]
-                        
-                        let totalFares: [FlightFare] = [self.flights.sFare, self.returningFlights.sFare]
-
-                        let price = totalFares.map({$0.sPublishedFare}).reduce(0, +)
-
-//                        if let markup = self.markups as? Markup {
-//                            if markup.amountBy == Strings.PERCENT {
-//                                price += (price * (markup.amount) / 100)
-//                            } else {
-//                                price += (markup.amount)
-//                            }
-//                        }
-                        
-                        vc.screenFrom = .flight
-                        
-                        vc.params = params
-                        vc.totalPayable = price
-                        vc.bookingType = Strings.FLIGHT_BOOK
-                         
-                        self.navigationController?.pushViewController(vc, animated: true)
-                    }
-                    
-                    
-                }, failure: { (error) in
-                    Helper.hideLoader(onVC: self)
-                    Helper.showOKAlert(onVC: self, title: Alert.ERROR, message: error.localizedDescription)
-                })
+                let totalFares: [FlightFare] = [self.flights.sFare, self.returningFlights.sFare]
+                
+                let price = totalFares.map({$0.sPublishedFare}).reduce(0, +)
+                
+                //                        if let markup = self.markups as? Markup {
+                //                            if markup.amountBy == Strings.PERCENT {
+                //                                price += (price * (markup.amount) / 100)
+                //                            } else {
+                //                                price += (markup.amount)
+                //                            }
+                //                        }
+                
+                vc.screenFrom = .flight
+                
+                vc.params = params
+                vc.totalPayable = price
+                vc.bookingType = Strings.FLIGHT_BOOK
+                
+                self.navigationController?.pushViewController(vc, animated: true)
             }
         } else {
             Helper.hideLoader(onVC: self)

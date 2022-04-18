@@ -26,5 +26,7 @@ struct AlertMessages {
     static let AGREE_TERMS                  = "Please agree to the terms and conditions"
     static let SELECT_SEAT                  = "Please select seat to continue"
     static let PAYMENT_SUCCESS              = "Payment Succeeded"
+    static let VALID_PHONE_NUMBER           = "Please fill valid contact number between 7 to 15 digits for passenger"
+    static let VALID_AGE                    = "Adult age Should be greater than equals to 12 years."
 
 }

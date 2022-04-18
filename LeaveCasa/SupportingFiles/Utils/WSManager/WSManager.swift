@@ -353,7 +353,7 @@ class WSManager {
     }
     
     // MARK: FETCH Flight Ticket
-    class func wsCallFlightTicket(_ requestParams: [String: AnyObject], success:@escaping (_ response: String)->(),failure:@escaping (NSError)->()) {
+    class func wsCallFlightTicket(_ requestParams: [String: AnyObject], success:@escaping (_ response: [String:AnyObject])->(),failure:@escaping (NSError)->()) {
         
         var requstParams = requestParams
         
@@ -363,15 +363,17 @@ class WSManager {
             print(responseData.result)
             switch responseData.result {
             case .success(let value):
-                if let responseValue = value as? [String: AnyObject] {
+                if let value = value as? [String: AnyObject], let responseValue = value[WSResponseParams.WS_REPS_PARAM_DATA] as? [String:AnyObject] {
                     print(responseValue)
-                    if (responseValue[WSResponseParams.WS_RESP_PARAM_STATUS] as? String == WSResponseParams.WS_REPS_PARAM_SUCCESS) {
-                        if let response = responseValue[WSResponseParams.WS_RESP_PARAM_RESPONSE] as? String {
+                    if let response = responseValue[WSResponseParams.WS_RESP_PARAM_RESPONSE_CAP] as? [String:AnyObject] {
+                       
                             success(response)
-                        }
+                       
                     } else {
                         if let message = responseValue[WSResponseParams.WS_RESP_PARAM_MESSAGE] as? String {
                             failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: message]))
+                        } else {
+                            failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: responseData.error?.localizedDescription ?? ""]))
                         }
                     }
                 } else {

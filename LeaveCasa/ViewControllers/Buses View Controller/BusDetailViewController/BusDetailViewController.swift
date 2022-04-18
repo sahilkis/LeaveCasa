@@ -73,11 +73,10 @@ class BusDetailViewController: UIViewController {
         if let newValue = change?[.newKey] {
             if let newSize = newValue as? CGSize {
                 if let collection = object as? UICollectionView, collection == self.upperCollectionView  {
-//                    self.upperCollectionViewHeightConstraint.constant = newSize.height + 50
+//                     self.upperCollectionViewHeightConstraint.constant = newSize.height + 50
                 } else {
                     self.collectionViewHeightConstraint.constant = newSize.height
                 }
-                
             }
         }
     }
@@ -220,35 +219,45 @@ extension BusDetailViewController: UICollectionViewDelegate, UICollectionViewDat
             if seat.sAvailable {
                 cell.image.image = LeaveCasaIcons.SEAT_BLACK
                 
-                if seat.sLength > 1 || seat.sWidth > 1 {
+                if seat.sLength > 1 {
                     cell.image.image = LeaveCasaIcons.SLEEPER_BLACK
+                } else if seat.sWidth > 1 {
+                    cell.image.image = LeaveCasaIcons.SLEEPER_BLACK_VERT
                 }
                 if seat.sLadiesSeat {
                     cell.image.image = LeaveCasaIcons.SEAT_RED
                     
-                    if seat.sLength > 1 || seat.sWidth > 1 {
+                    if seat.sLength > 1 {
                         cell.image.image = LeaveCasaIcons.SLEEPER_RED
+                    } else if seat.sWidth > 1 {
+                        cell.image.image = LeaveCasaIcons.SLEEPER_RED_VERT
                     }
                 }
                 if seat.isSelected {
                     cell.image.image = LeaveCasaIcons.SEAT_GREY
                     
-                    if seat.sLength > 1 || seat.sWidth > 1 {
+                    if seat.sLength > 1 {
                         cell.image.image = LeaveCasaIcons.SLEEPER_GREY
+                    } else if seat.sWidth > 1 {
+                        cell.image.image = LeaveCasaIcons.SLEEPER_GREY_VERT
                     }
                 }
             } else {
                 cell.image.image = LeaveCasaIcons.SEAT_BLUE
                 
-                if seat.sLength > 1 || seat.sWidth > 1 {
+                if seat.sLength > 1 {
                     cell.image.image = LeaveCasaIcons.SLEEPER_BLUE
+                } else if seat.sWidth > 1 {
+                    cell.image.image = LeaveCasaIcons.SLEEPER_BLUE_VERT
                 }
                 
                 if seat.sLadiesSeat {
                     cell.image.image = LeaveCasaIcons.SEAT_YELLOW
                     
-                    if seat.sLength > 1 || seat.sWidth > 1 {
+                    if seat.sLength > 1 {
                         cell.image.image = LeaveCasaIcons.SLEEPER_YELLOW
+                    } else if seat.sWidth > 1 {
+                        cell.image.image = LeaveCasaIcons.SLEEPER_YELLOW_VERT
                     }
                 }
             }
@@ -284,10 +293,9 @@ extension BusDetailViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let collectionWidth = collectionView.bounds.width
+        let collectionWidth = UIScreen.main.bounds.width//collectionView.bounds.width
         var length = 1.0
         var width = 1.0
-        
         
         var zIndex = 0
         
@@ -295,14 +303,34 @@ extension BusDetailViewController: UICollectionViewDelegateFlowLayout {
             zIndex = 1
         }
         
-        if let index = self.seats.firstIndex(where: { seat in
-            seat.sColumn == indexPath.section && seat.sRow == indexPath.row && seat.sZIndex == zIndex
-        }) {
-            length = Double(seats[index].sLength)
-            width = Double(seats[index].sWidth)
+        if collectionView == self.collectionView {
+            if let index = self.seats.firstIndex(where: { seat in
+                seat.sColumn == indexPath.section && seat.sRow == indexPath.row && seat.sZIndex == zIndex
+            }) {
+                length = Double(seats[index].sLength)
+                width = Double(seats[index].sWidth)
+            }
+            
+            if length == width {
+                return CGSize(width: 25, height: 25)
+            }
+            else if length > width {
+                return CGSize(width: 50, height: 25)
+            }
+            else {
+                return CGSize(width: 25, height: 50)
+            }
         }
-        return CGSize(width: (collectionWidth/CGFloat(columnsOfSeats.count))*length, height: (collectionWidth/CGFloat(columnsOfSeats.count))*width)
-        
+        else {
+            if let index = self.seats.firstIndex(where: { seat in
+                seat.sColumn == indexPath.section && seat.sRow == indexPath.row && seat.sZIndex == zIndex
+            }) {
+                length = Double(seats[index].sLength)
+                width = Double(seats[index].sWidth)
+            }
+            
+            return CGSize(width: (collectionWidth/CGFloat(columnsOfSeats.count))*length, height: (collectionWidth/CGFloat(columnsOfSeats.count))*width)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
