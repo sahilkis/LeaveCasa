@@ -73,7 +73,7 @@ class BusDetailViewController: UIViewController {
         if let newValue = change?[.newKey] {
             if let newSize = newValue as? CGSize {
                 if let collection = object as? UICollectionView, collection == self.upperCollectionView  {
-//                     self.upperCollectionViewHeightConstraint.constant = newSize.height + 50
+                    //                     self.upperCollectionViewHeightConstraint.constant = newSize.height + 50
                 } else {
                     self.collectionViewHeightConstraint.constant = newSize.height
                 }
@@ -303,34 +303,15 @@ extension BusDetailViewController: UICollectionViewDelegateFlowLayout {
             zIndex = 1
         }
         
-        if collectionView == self.collectionView {
-            if let index = self.seats.firstIndex(where: { seat in
-                seat.sColumn == indexPath.section && seat.sRow == indexPath.row && seat.sZIndex == zIndex
-            }) {
-                length = Double(seats[index].sLength)
-                width = Double(seats[index].sWidth)
-            }
-            
-            if length == width {
-                return CGSize(width: 25, height: 25)
-            }
-            else if length > width {
-                return CGSize(width: 50, height: 25)
-            }
-            else {
-                return CGSize(width: 25, height: 50)
-            }
+        if let index = self.seats.firstIndex(where: { seat in
+            seat.sColumn == columnsOfSeats[indexPath.section] && seat.sRow == rowsOfSeats[indexPath.row] && seat.sZIndex == zIndex
+        }) {
+            length = Double(seats[index].sLength)
+            width = Double(seats[index].sWidth)
         }
-        else {
-            if let index = self.seats.firstIndex(where: { seat in
-                seat.sColumn == indexPath.section && seat.sRow == indexPath.row && seat.sZIndex == zIndex
-            }) {
-                length = Double(seats[index].sLength)
-                width = Double(seats[index].sWidth)
-            }
-            
-            return CGSize(width: (collectionWidth/CGFloat(columnsOfSeats.count))*length, height: (collectionWidth/CGFloat(columnsOfSeats.count))*width)
-        }
+        
+        return CGSize(width: 50*length, height: 50*width)
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -421,7 +402,7 @@ extension BusDetailViewController {
                 self.isZIndex = zindex > 1 ? true: false
                 self.upperSeatsView.isHidden = !self.isZIndex
                 self.upperCollectionViewHeightConstraint.constant = self.isZIndex ? 200 : 0
-
+                
                 self.upperCollectionView.reloadData()
                 
             }, failure: { (error) in
