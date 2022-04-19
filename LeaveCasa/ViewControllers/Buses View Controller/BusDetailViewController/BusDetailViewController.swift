@@ -66,16 +66,24 @@ class BusDetailViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.collectionView.removeObserver(self, forKeyPath: Strings.CONTENT_SIZE)
-        self.upperCollectionView.removeObserver(self, forKeyPath: Strings.CONTENT_SIZE)
+//        self.upperCollectionView.removeObserver(self, forKeyPath: Strings.CONTENT_SIZE)
     }
+    
+    override func viewDidLayoutSubviews() {
+            super.viewDidLayoutSubviews()
+            collectionView.collectionViewLayout.invalidateLayout()
+//        upperCollectionView.collectionViewLayout.invalidateLayout()
+        }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if let newValue = change?[.newKey] {
             if let newSize = newValue as? CGSize {
                 if let collection = object as? UICollectionView, collection == self.upperCollectionView  {
-                    //                     self.upperCollectionViewHeightConstraint.constant = newSize.height + 50
-                } else {
-                    self.collectionViewHeightConstraint.constant = newSize.height
+                    self.upperCollectionViewHeightConstraint.constant = self.isZIndex ? self.collectionViewHeightConstraint.constant : 0
+                }
+                else {
+                self.collectionViewHeightConstraint.constant = newSize.height
+                self.upperCollectionViewHeightConstraint.constant = self.isZIndex ? self.collectionViewHeightConstraint.constant : 0
                 }
             }
         }
@@ -308,10 +316,17 @@ extension BusDetailViewController: UICollectionViewDelegateFlowLayout {
         }) {
             length = Double(seats[index].sLength)
             width = Double(seats[index].sWidth)
+            
+            let newWidth = (collectionWidth/CGFloat(columnsOfSeats.count))*length
+            let newHeight = (collectionWidth/CGFloat(columnsOfSeats.count))*width
+            
+//            if newWidth < 35 || newWidth > 100 || newHeight < 35 || newHeight > 100 {
+                return CGSize(width: 35*length, height: 35*width)
+//            }
+//            return CGSize(width: newWidth, height: newHeight)
         }
         
-        return CGSize(width: 50*length, height: 50*width)
-        
+        return CGSize(width: 1,height: 1)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -359,6 +374,9 @@ extension BusDetailViewController {
             ]
             
             WSManager.wsCallFetchBusSeatLayout(params, success: { (layouts) in
+                
+                DispatchQueue.main.async {
+                   
                 Helper.hideLoader(onVC: self)
                 
                 self.busLayout = layouts
@@ -404,7 +422,9 @@ extension BusDetailViewController {
                 self.upperCollectionViewHeightConstraint.constant = self.isZIndex ? 200 : 0
                 
                 self.upperCollectionView.reloadData()
+                self.view.layoutIfNeeded()
                 
+                }
             }, failure: { (error) in
                 Helper.hideLoader(onVC: self)
                 Helper.showOKAlert(onVC: self, title: Alert.ERROR, message: error.localizedDescription)

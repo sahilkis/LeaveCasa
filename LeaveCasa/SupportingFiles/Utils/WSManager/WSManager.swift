@@ -353,13 +353,77 @@ class WSManager {
     }
     
     // MARK: FETCH Flight Ticket
-    class func wsCallFlightTicket(_ requestParams: [String: AnyObject], success:@escaping (_ response: [String:AnyObject])->(),failure:@escaping (NSError)->()) {
+    class func wsCallFlightTicketLCC(_ requestParams: [String: AnyObject], success:@escaping (_ response: [String:AnyObject])->(),failure:@escaping (NSError)->()) {
         
         var requstParams = requestParams
         
         requstParams[WSRequestParams.WS_REQS_PARAM_CUSTOMER_ID] = "\(settings?.customerId ?? "")" as AnyObject
         
-        AF.request(WebService.flightTicket, method: .post, parameters: requstParams, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: {(responseData) -> Void in
+        AF.request(WebService.flightTicketLCC, method: .post, parameters: requstParams, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: {(responseData) -> Void in
+            print(responseData.result)
+            switch responseData.result {
+            case .success(let value):
+                if let value = value as? [String: AnyObject], let responseValue = value[WSResponseParams.WS_REPS_PARAM_DATA] as? [String:AnyObject] {
+                    print(responseValue)
+                    if let response = responseValue[WSResponseParams.WS_RESP_PARAM_RESPONSE_CAP] as? [String:AnyObject] {
+                       
+                            success(response)
+                       
+                    } else {
+                        if let message = responseValue[WSResponseParams.WS_RESP_PARAM_MESSAGE] as? String {
+                            failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: message]))
+                        } else {
+                            failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: responseData.error?.localizedDescription ?? ""]))
+                        }
+                    }
+                } else {
+                    failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: responseData.error?.localizedDescription ?? ""]))
+                }
+            case .failure(let error):
+                failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: error.localizedDescription]))
+            }
+        })
+    }
+    
+    class func wsCallFlightBookNonLCC(_ requestParams: [String: AnyObject], success:@escaping (_ response: [String:AnyObject])->(),failure:@escaping (NSError)->()) {
+        
+        var requstParams = requestParams
+        
+        requstParams[WSRequestParams.WS_REQS_PARAM_CUSTOMER_ID] = "\(settings?.customerId ?? "")" as AnyObject
+        
+        AF.request(WebService.flightBookNonLCC, method: .post, parameters: requstParams, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: {(responseData) -> Void in
+            print(responseData.result)
+            switch responseData.result {
+            case .success(let value):
+                if let value = value as? [String: AnyObject], let responseValue = value[WSResponseParams.WS_REPS_PARAM_DATA] as? [String:AnyObject] {
+                    print(responseValue)
+                    if let response = responseValue[WSResponseParams.WS_RESP_PARAM_RESPONSE_CAP] as? [String:AnyObject] {
+                       
+                            success(response)
+                       
+                    } else {
+                        if let message = responseValue[WSResponseParams.WS_RESP_PARAM_MESSAGE] as? String {
+                            failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: message]))
+                        } else {
+                            failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: responseData.error?.localizedDescription ?? ""]))
+                        }
+                    }
+                } else {
+                    failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: responseData.error?.localizedDescription ?? ""]))
+                }
+            case .failure(let error):
+                failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: error.localizedDescription]))
+            }
+        })
+    }
+    
+    class func wsCallFlightTicketNonLCC(_ requestParams: [String: AnyObject], success:@escaping (_ response: [String:AnyObject])->(),failure:@escaping (NSError)->()) {
+        
+        var requstParams = requestParams
+        
+        requstParams[WSRequestParams.WS_REQS_PARAM_CUSTOMER_ID] = "\(settings?.customerId ?? "")" as AnyObject
+        
+        AF.request(WebService.flightTicketNonLCC, method: .post, parameters: requstParams, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: {(responseData) -> Void in
             print(responseData.result)
             switch responseData.result {
             case .success(let value):

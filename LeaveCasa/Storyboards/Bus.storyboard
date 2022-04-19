@@ -1286,7 +1286,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="981"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q65-vB-ipV">
-                                                <rect key="frame" x="16" y="16" width="343" height="845.5"/>
+                                                <rect key="frame" x="16" y="16" width="343" height="865.5"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IQ9-H7-8yo" userLabel="TextField">
                                                         <rect key="frame" x="0.0" y="0.0" width="167.5" height="80"/>
@@ -1499,7 +1499,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TEc-QM-vl5" userLabel="SeatsView">
-                                                        <rect key="frame" x="0.0" y="162" width="343" height="200"/>
+                                                        <rect key="frame" x="0.0" y="182" width="343" height="200"/>
                                                         <subviews>
                                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="73Y-iF-V7o">
                                                                 <rect key="frame" x="0.0" y="0.0" width="343" height="200"/>
@@ -1551,10 +1551,10 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zWS-bq-fwJ" userLabel="UpperSeatsView">
-                                                        <rect key="frame" x="0.0" y="362" width="343" height="200"/>
+                                                        <rect key="frame" x="0.0" y="382" width="343" height="200"/>
                                                         <subviews>
                                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="vnb-nZ-aQm">
-                                                                <rect key="frame" x="0.0" y="18" width="343" height="182"/>
+                                                                <rect key="frame" x="0.0" y="26" width="343" height="174"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="6dy-tz-p4R">
                                                                     <size key="itemSize" width="50" height="50"/>
@@ -1603,7 +1603,7 @@
                                                         <constraints>
                                                             <constraint firstItem="vnb-nZ-aQm" firstAttribute="leading" secondItem="zWS-bq-fwJ" secondAttribute="leading" id="Vk9-SU-Oek"/>
                                                             <constraint firstItem="XRA-Uq-oQN" firstAttribute="centerX" secondItem="zWS-bq-fwJ" secondAttribute="centerX" id="Wbf-nF-Jpy"/>
-                                                            <constraint firstItem="vnb-nZ-aQm" firstAttribute="top" secondItem="XRA-Uq-oQN" secondAttribute="bottom" id="enA-Ph-hGL"/>
+                                                            <constraint firstItem="vnb-nZ-aQm" firstAttribute="top" secondItem="XRA-Uq-oQN" secondAttribute="bottom" constant="8" id="enA-Ph-hGL"/>
                                                             <constraint firstItem="XRA-Uq-oQN" firstAttribute="top" secondItem="zWS-bq-fwJ" secondAttribute="top" id="kPU-f7-qDr"/>
                                                             <constraint firstAttribute="bottom" secondItem="vnb-nZ-aQm" secondAttribute="bottom" id="qmm-mW-QZG"/>
                                                             <constraint firstAttribute="trailing" secondItem="vnb-nZ-aQm" secondAttribute="trailing" id="tjx-eb-bEL"/>
@@ -1611,14 +1611,14 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ota-rs-m8H">
-                                                        <rect key="frame" x="0.0" y="562" width="343" height="1"/>
+                                                        <rect key="frame" x="0.0" y="582" width="343" height="1"/>
                                                         <color key="backgroundColor" red="0.84705882349999995" green="0.84705882349999995" blue="0.84705882349999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="1" id="wmg-z9-vY7"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fpr-Oh-jw7" userLabel="SeatTypeView">
-                                                        <rect key="frame" x="0.0" y="579" width="343" height="77"/>
+                                                        <rect key="frame" x="0.0" y="599" width="343" height="77"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vav-4R-eL0">
                                                                 <rect key="frame" x="0.0" y="0.0" width="167.5" height="25"/>
@@ -1763,19 +1763,19 @@
                                                         </constraints>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Seat(s) : " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DhR-fK-kOs">
-                                                        <rect key="frame" x="0.0" y="672" width="70" height="23.5"/>
+                                                        <rect key="frame" x="0.0" y="692" width="70" height="23.5"/>
                                                         <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="17"/>
                                                         <color key="textColor" red="0.1176470588" green="0.14117647059999999" blue="0.19215686269999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Total Fare : " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SrA-2a-rN6">
-                                                        <rect key="frame" x="249" y="672" width="94" height="23.5"/>
+                                                        <rect key="frame" x="249" y="692" width="94" height="23.5"/>
                                                         <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="17"/>
                                                         <color key="textColor" red="0.1176470588" green="0.14117647059999999" blue="0.19215686269999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gt2-66-Ka2">
-                                                        <rect key="frame" x="0.0" y="711.5" width="343" height="34"/>
+                                                        <rect key="frame" x="0.0" y="731.5" width="343" height="34"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Boarding Points" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pxc-zR-18m" customClass="SearchTextField" customModule="SearchTextField">
                                                                 <rect key="frame" x="0.0" y="0.0" width="343" height="34"/>
@@ -1800,7 +1800,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fYp-k6-qKE">
-                                                        <rect key="frame" x="0.0" y="761.5" width="343" height="34"/>
+                                                        <rect key="frame" x="0.0" y="781.5" width="343" height="34"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Dropping Points" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OQX-u0-bKI" customClass="SearchTextField" customModule="SearchTextField">
                                                                 <rect key="frame" x="0.0" y="0.0" width="343" height="34"/>
@@ -1855,7 +1855,7 @@
                                                     <constraint firstItem="4jg-wH-30M" firstAttribute="trailing" secondItem="Vz9-b7-yW8" secondAttribute="trailing" id="fJR-SY-nnC"/>
                                                     <constraint firstItem="Gt2-66-Ka2" firstAttribute="leading" secondItem="Q65-vB-ipV" secondAttribute="leading" id="jap-P6-fp3"/>
                                                     <constraint firstAttribute="trailing" secondItem="TEc-QM-vl5" secondAttribute="trailing" id="jkP-ul-XIa"/>
-                                                    <constraint firstItem="TEc-QM-vl5" firstAttribute="top" secondItem="zTD-z1-yqT" secondAttribute="bottom" id="kWO-g9-8fO"/>
+                                                    <constraint firstItem="TEc-QM-vl5" firstAttribute="top" secondItem="zTD-z1-yqT" secondAttribute="bottom" constant="20" id="kWO-g9-8fO"/>
                                                     <constraint firstItem="ota-rs-m8H" firstAttribute="trailing" secondItem="4jg-wH-30M" secondAttribute="trailing" id="lWJ-lz-JCr"/>
                                                     <constraint firstItem="NeM-7y-hx7" firstAttribute="leading" secondItem="IQ9-H7-8yo" secondAttribute="trailing" constant="8" id="lxp-y9-WuF"/>
                                                     <constraint firstItem="Fpr-Oh-jw7" firstAttribute="top" secondItem="ota-rs-m8H" secondAttribute="bottom" constant="16" id="mhW-aj-P3F"/>

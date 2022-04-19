@@ -503,12 +503,7 @@ extension FlightBookingViewController {
         if returningFlights.sSegments.count > 0 {
             isLCC = self.flights.sIsLCC || self.returningFlights.sIsLCC
         }
-        
-        if !(isLCC) {
-            Helper.showOKAlert(onVC: self, title: Alert.ALERT, message: "LCC is disabled for this flight.")
-            return
-        }
-        
+       
         if WSManager.isConnectedToInternet() {
             
             var passengers = [[String: AnyObject]]()
@@ -588,28 +583,78 @@ extension FlightBookingViewController {
             
             params[WSResponseParams.WS_RESP_PARAM_LOGID] = 1480 as AnyObject //TODO: Pending
             
-            if let vc = ViewControllerHelper.getViewController(ofType: .WalletPaymentViewController) as? WalletPaymentViewController {
-                
-                let totalFares: [FlightFare] = [self.flights.sFare, self.returningFlights.sFare]
-                
-                let price = totalFares.map({$0.sPublishedFare}).reduce(0, +)
-                
-                //                        if let markup = self.markups as? Markup {
-                //                            if markup.amountBy == Strings.PERCENT {
-                //                                price += (price * (markup.amount) / 100)
-                //                            } else {
-                //                                price += (markup.amount)
-                //                            }
-                //                        }
-                
-                vc.screenFrom = .flight
-                
-                vc.params = params
-                vc.totalPayable = price
-                vc.bookingType = Strings.FLIGHT_BOOK
-                
-                self.navigationController?.pushViewController(vc, animated: true)
-            }
+            
+                   if isLCC {
+                       
+                       if let vc = ViewControllerHelper.getViewController(ofType: .WalletPaymentViewController) as? WalletPaymentViewController {
+                           
+                           let totalFares: [FlightFare] = [self.flights.sFare, self.returningFlights.sFare]
+                           
+                           let price = totalFares.map({$0.sPublishedFare}).reduce(0, +)
+                           
+                           //                        if let markup = self.markups as? Markup {
+                           //                            if markup.amountBy == Strings.PERCENT {
+                           //                                price += (price * (markup.amount) / 100)
+                           //                            } else {
+                           //                                price += (markup.amount)
+                           //                            }
+                           //                        }
+                           
+                           vc.screenFrom = .flight
+                           vc.isLCC = true
+                           vc.params = params
+                           vc.totalPayable = price
+                           vc.bookingType = Strings.FLIGHT_BOOK
+                           
+                           self.navigationController?.pushViewController(vc, animated: true)
+                       }
+                   } else {
+                       
+                       Helper.showLoader(onVC: self, message: Alert.LOADING)
+                       WSManager.wsCallFlightBookNonLCC(params, success: { (result) in
+                           Helper.hideLoader(onVC: self)
+                           
+                           if let response = result[WSResponseParams.WS_RESP_PARAM_RESPONSE_CAP] as? [String:AnyObject] {
+                               if let bookingId = response[WSResponseParams.WS_RESP_PARAM_BOOKING_ID] as? Int, let pnr = response[WSResponseParams.WS_RESP_PARAM_PNR] as? String  {
+
+                                   if let vc = ViewControllerHelper.getViewController(ofType: .WalletPaymentViewController) as? WalletPaymentViewController {
+                                       
+                                       let totalFares: [FlightFare] = [self.flights.sFare, self.returningFlights.sFare]
+                                       
+                                       let price = totalFares.map({$0.sPublishedFare}).reduce(0, +)
+                                       
+                                       //                        if let markup = self.markups as? Markup {
+                                       //                            if markup.amountBy == Strings.PERCENT {
+                                       //                                price += (price * (markup.amount) / 100)
+                                       //                            } else {
+                                       //                                price += (markup.amount)
+                                       //                            }
+                                       //                        }
+                                       
+                                       vc.screenFrom = .flight
+                                       vc.params = [WSResponseParams.WS_RESP_PARAM_TRACE_ID : self.traceId as AnyObject,
+                                                    WSResponseParams.WS_RESP_PARAM_TOKEN : self.tokenId as AnyObject,
+                                                    WSResponseParams.WS_RESP_PARAM_BOOKING_ID: bookingId as AnyObject,
+                                                    WSResponseParams.WS_RESP_PARAM_PNR: pnr
+                                        as AnyObject]
+                                       vc.totalPayable = price
+                                       vc.bookingType = Strings.FLIGHT_BOOK
+                                       
+                                       self.navigationController?.pushViewController(vc, animated: true)
+                                   }
+                                   
+                               }
+                           }
+                           else if let error = result[WSResponseParams.WS_RESP_PARAM_ERROR] as? [String:AnyObject], let errorMessage = error[WSResponseParams.WS_RESP_PARAM_ERROR_MESSAGE] as? String  {
+                               Helper.showOKAlert(onVC: self, title: Alert.ERROR, message: errorMessage)
+                           }
+                           
+                       }, failure: { (error) in
+                           Helper.hideLoader(onVC: self)
+                           Helper.showOKAlert(onVC: self, title: Alert.ERROR, message: error.localizedDescription)
+                       })
+                   }
+                   
         } else {
             Helper.hideLoader(onVC: self)
             Helper.showOKCancelAlertWithCompletion(onVC: self, title: Alert.NO_INTERNET, message: AlertMessages.NO_INTERNET_CONNECTION, btnOkTitle: Alert.TRY_AGAIN, btnCancelTitle: Alert.CANCEL, onOk: {

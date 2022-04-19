@@ -25,7 +25,9 @@ struct WebService {
     static let airportCityCode                       = "\(baseUrl)/airport/codes/"
     static let flightSearch                          = "\(baseUrl)/flight/advance_flight_search"
     static let flightFareDetails                     = "\(baseUrl)/flight/fare_rule_quote_ssr"
-    static let flightTicket                          = "\(baseUrl)/flight/lcc-ticket"
+    static let flightTicketLCC                       = "\(baseUrl)/flight/lcc-ticket"
+    static let flightBookNonLCC                      = "\(baseUrl)/flight/non-lcc-book"
+    static let flightTicketNonLCC                    = "\(baseUrl)/flight/non-lcc-ticket"
     
     // MARK: BUS
     static let busSourceSearch                       = "\(baseUrl)/bus/cities/"

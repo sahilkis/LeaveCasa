@@ -18,6 +18,7 @@ class WalletPaymentViewController: UIViewController {
     var bookingType = ""
     var params = [String:AnyObject]()
     var screenFrom = ScreenFrom.hotel
+    var isLCC = false
     
     typealias Razorpay = RazorpayCheckout
     var razorpay: RazorpayCheckout!
@@ -151,12 +152,16 @@ extension WalletPaymentViewController {
             if screenFrom == .bus
             {
                 url = WebService.busTicketFinal
-            } else if screenFrom == .flight {
+            } else if screenFrom == .flight
+            {
+                url = WebService.flightTicketNonLCC
+            }
+            else if screenFrom == .flight && self.isLCC {
                 
                 DispatchQueue.main.async {
                     
                     Helper.showLoader(onVC: self, message: Alert.LOADING)
-                    WSManager.wsCallFlightTicket(params, success: { (result) in
+                    WSManager.wsCallFlightTicketLCC(params, success: { (result) in
                         Helper.hideLoader(onVC: self)
                         
                         if let response = result[WSResponseParams.WS_RESP_PARAM_RESPONSE_CAP] as? [String:AnyObject] {
