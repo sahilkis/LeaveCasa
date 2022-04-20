@@ -76,17 +76,17 @@ class BusDetailViewController: UIViewController {
         }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if let newValue = change?[.newKey] {
-            if let newSize = newValue as? CGSize {
-                if let collection = object as? UICollectionView, collection == self.upperCollectionView  {
-                    self.upperCollectionViewHeightConstraint.constant = self.isZIndex ? self.collectionViewHeightConstraint.constant : 0
-                }
-                else {
-                self.collectionViewHeightConstraint.constant = newSize.height
-                self.upperCollectionViewHeightConstraint.constant = self.isZIndex ? self.collectionViewHeightConstraint.constant : 0
-                }
-            }
-        }
+//        if let newValue = change?[.newKey] {
+//            if let newSize = newValue as? CGSize {
+//                if let collection = object as? UICollectionView, collection == self.upperCollectionView  {
+//                    self.upperCollectionViewHeightConstraint.constant = self.isZIndex ? self.collectionViewHeightConstraint.constant : 0
+//                }
+//                else {
+//                self.collectionViewHeightConstraint.constant = newSize.height
+//                self.upperCollectionViewHeightConstraint.constant = self.isZIndex ? self.collectionViewHeightConstraint.constant : 0
+//                }
+//            }
+//        }
     }
     
     func setLeftbarButton() {
@@ -321,7 +321,7 @@ extension BusDetailViewController: UICollectionViewDelegateFlowLayout {
             let newHeight = (collectionWidth/CGFloat(columnsOfSeats.count))*width
             
 //            if newWidth < 35 || newWidth > 100 || newHeight < 35 || newHeight > 100 {
-                return CGSize(width: 35*length, height: 35*width)
+                return CGSize(width: 40*length, height: 40*width)
 //            }
 //            return CGSize(width: newWidth, height: newHeight)
         }
@@ -422,6 +422,8 @@ extension BusDetailViewController {
                 self.upperCollectionViewHeightConstraint.constant = self.isZIndex ? 200 : 0
                 
                 self.upperCollectionView.reloadData()
+                    self.collectionViewHeightConstraint.constant = CGFloat((self.rowsOfSeats.count * 50))
+                                    self.upperCollectionViewHeightConstraint.constant = self.isZIndex ? self.collectionViewHeightConstraint.constant + 30 : 0
                 self.view.layoutIfNeeded()
                 
                 }
