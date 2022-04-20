@@ -218,6 +218,7 @@ extension FlightBookingViewController {
     
     @IBAction func btnProceedToPaymentAction(_ sender: UIButton) {
         
+        self.view.resignFirstResponder()
         bookFlightTicket()
         //        if let vc = ViewControllerHelper.getViewController(ofType: .FlightBookingViewController) as? FlightBookingViewController {
         //            vc.hotels = self.hotels
@@ -366,10 +367,12 @@ extension FlightBookingViewController: UITextFieldDelegate {
             return false
         } else if textField == cell.txtDOB {
             isDoB = true
+            self.view.resignFirstResponder()
             openDateCalendar(textField)
             return false
         } else if textField == cell.txtPassportExpiry {
             isDoB = false
+            self.view.resignFirstResponder()
             openDateCalendar(textField)
             return false
         }

@@ -25,18 +25,18 @@ class WalletPaymentViewController: UIViewController {
     
     internal func showPaymentForm(currency : String, amount: Double, name: String, description : String, contact: String, email: String ){
         let options: [String:Any] = [
-                    "amount": "\(amount * 100)", //This is in currency subunits. 100 = 100 paise= INR 1.
-                    "currency": "INR",//We support more that 92 international currencies.
-//                    "description": description,
-//                    "name": name,
-//                    "prefill": [
-//                        "contact": contact,
-//                        "email": email
-//                    ],
-                    "theme": [
-                        "color": "#FF2D55"
-                    ]
-                ]
+            "amount": "\(amount * 100)", //This is in currency subunits. 100 = 100 paise= INR 1.
+            "currency": "INR",//We support more that 92 international currencies.
+            //                    "description": description,
+            //                    "name": name,
+            //                    "prefill": [
+            //                        "contact": contact,
+            //                        "email": email
+            //                    ],
+            "theme": [
+                "color": "#FF2D55"
+            ]
+        ]
         razorpay.open(options)
     }
     
@@ -55,7 +55,9 @@ class WalletPaymentViewController: UIViewController {
     }
     
     func setupData() {
-        
+        self.btnUseWalletBalance.isSelected = true
+        self.btnUseWalletBalance.setImage(LeaveCasaIcons.CHECKBOX_GREY, for: .normal)
+        self.btnUseWalletBalance.setImage(LeaveCasaIcons.CHECKBOX_BLUE, for: .selected)
     }
     
     func backToHome() {
@@ -108,7 +110,7 @@ extension WalletPaymentViewController {
 // MARK: - API CALL
 extension WalletPaymentViewController {
     func fetchWalletBalance() {
-
+        
         Helper.showLoader(onVC: self, message: "")
         WSManager.wsCallFetchWalletBalence { (isSuccess, balance, message) in
             Helper.hideLoader(onVC: self)
@@ -121,7 +123,7 @@ extension WalletPaymentViewController {
     }
     
     func reduceWalletBalance(_ byValue: Double, _ bookingId: String) {
-
+        
         Helper.showLoader(onVC: self, message: "")
         
         let params: [String: AnyObject] = [
@@ -129,7 +131,7 @@ extension WalletPaymentViewController {
             "booking_id": bookingId as AnyObject,
             "credited": byValue as AnyObject
         ]
-
+        
         
         WSManager.wsCallDebitWalletBalance(params) { (isSuccess, message) in
             Helper.hideLoader(onVC: self)
@@ -147,18 +149,8 @@ extension WalletPaymentViewController {
             let params: [String: AnyObject] = params
             Helper.showLoader(onVC: self, message: "")
             
-            var url = WebService.finalBooking
-            
-            if screenFrom == .bus
-            {
-                url = WebService.busTicketFinal
-            } else if screenFrom == .flight
-            {
-                url = WebService.flightTicketNonLCC
-            }
-            else if screenFrom == .flight && self.isLCC {
-                
-                DispatchQueue.main.async {
+            if screenFrom == .flight {
+                if self.isLCC {
                     
                     Helper.showLoader(onVC: self, message: Alert.LOADING)
                     WSManager.wsCallFlightTicketLCC(params, success: { (result) in
@@ -172,34 +164,51 @@ extension WalletPaymentViewController {
                         else if let error = result[WSResponseParams.WS_RESP_PARAM_ERROR] as? [String:AnyObject], let errorMessage = error[WSResponseParams.WS_RESP_PARAM_ERROR_MESSAGE] as? String  {
                             Helper.showOKAlert(onVC: self, title: Alert.ERROR, message: errorMessage)
                         }
+                    }, failure: { (error) in
+                        Helper.hideLoader(onVC: self)
+                        Helper.showOKAlert(onVC: self, title: Alert.ERROR, message: error.localizedDescription)
+                    })
+                } else {
+                    WSManager.wsCallFlightTicketNonLCC(params, success: { (result) in
+                        Helper.hideLoader(onVC: self)
                         
+                        if let response = result[WSResponseParams.WS_RESP_PARAM_RESPONSE_CAP] as? [String:AnyObject] {
+                            if let bookingId = response[WSResponseParams.WS_RESP_PARAM_BOOKING_ID] as? Int, let pnr = response[WSResponseParams.WS_RESP_PARAM_PNR] as? String  {
+                                self.reduceWalletBalance(self.walletReducinigValue, "\(bookingId)")
+                            }
+                        }
+                        else if let error = result[WSResponseParams.WS_RESP_PARAM_ERROR] as? [String:AnyObject], let errorMessage = error[WSResponseParams.WS_RESP_PARAM_ERROR_MESSAGE] as? String  {
+                            Helper.showOKAlert(onVC: self, title: Alert.ERROR, message: errorMessage)
+                        }
                     }, failure: { (error) in
                         Helper.hideLoader(onVC: self)
                         Helper.showOKAlert(onVC: self, title: Alert.ERROR, message: error.localizedDescription)
                     })
                 }
-                
-                return
             }
-            
-            WSManager.wsCallFinalBooking(url, params, completion: { (isSuccess, response, message) in
-                Helper.hideLoader(onVC: self)
-                if isSuccess {
-                    
-//                    if let tinNumber = response?[WSResponseParams.WS_RESP_PARAM_TIN] as? String {
-//
-//
-//                    }
-                    self.reduceWalletBalance(self.walletReducinigValue, "")
+            else {
+                var url = WebService.finalBooking
+                
+                if screenFrom == .bus
+                {
+                    url = WebService.busTicketFinal
                 }
-                else {
-                    Helper.showOKAlert(onVC: self, title: Alert.ALERT, message: message)
-                }
-            })
+                
+                WSManager.wsCallFinalBooking(url, params, completion: { (isSuccess, response, message) in
+                    Helper.hideLoader(onVC: self)
+                    if isSuccess {
+                        if let tinNumber = response?[WSResponseParams.WS_RESP_PARAM_TIN] as? String {
+                            self.reduceWalletBalance(self.walletReducinigValue, tinNumber)
+                        }
+                    }
+                    else {
+                        Helper.showOKAlert(onVC: self, title: Alert.ALERT, message: message)
+                    }
+                })
+            }
         }
         else {
             Helper.showOKAlert(onVC: self, title: Alert.ALERT, message: AlertMessages.NO_INTERNET_CONNECTION)
-            
         }
     }
 }
@@ -214,7 +223,7 @@ extension WalletPaymentViewController : RazorpayPaymentCompletionProtocol {
     func onPaymentSuccess(_ payment_id: String) {
         print("success: ", payment_id)
         Helper.showOKAlert(onVC: self, title: Alert.ALERT, message: AlertMessages.PAYMENT_SUCCESS)
-
+        
         self.finalBooking()
     }
 }
@@ -237,6 +246,5 @@ extension WalletPaymentViewController: RazorpayPaymentCompletionProtocolWithData
         Helper.showOKAlert(onVC: self, title: Alert.ALERT, message: AlertMessages.PAYMENT_SUCCESS)
         
         self.finalBooking()
-          
     }
 }

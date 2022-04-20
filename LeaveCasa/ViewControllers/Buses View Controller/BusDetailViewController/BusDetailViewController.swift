@@ -197,14 +197,14 @@ extension BusDetailViewController: UICollectionViewDelegate, UICollectionViewDat
         if collectionView == self.upperCollectionView && !self.isZIndex{
             return 0
         }
-        return columnsOfSeats.count ?? 0//noOfColumns
+        return columnsOfSeats.count //noOfColumns
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.upperCollectionView && !self.isZIndex{
             return 0
         }
-        return rowsOfSeats.count ?? 0//noOfRows//seats.count
+        return rowsOfSeats.count //noOfRows//seats.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

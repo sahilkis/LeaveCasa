@@ -408,6 +408,8 @@ class WSManager {
                             failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: responseData.error?.localizedDescription ?? ""]))
                         }
                     }
+                } else if let value = value as? [String: AnyObject], let errorMessage = value[WSResponseParams.WS_REPS_PARAM_DATA] as? String {
+                    failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: errorMessage]))
                 } else {
                     failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: responseData.error?.localizedDescription ?? ""]))
                 }
@@ -440,6 +442,8 @@ class WSManager {
                             failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: responseData.error?.localizedDescription ?? ""]))
                         }
                     }
+                } else if let value = value as? [String: AnyObject], let errorMessage = value[WSResponseParams.WS_REPS_PARAM_DATA] as? String {
+                    failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: errorMessage]))
                 } else {
                     failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: responseData.error?.localizedDescription ?? ""]))
                 }
