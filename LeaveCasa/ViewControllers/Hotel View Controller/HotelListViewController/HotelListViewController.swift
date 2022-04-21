@@ -166,9 +166,9 @@ extension HotelListViewController: UITableViewDataSource, UITableViewDelegate {
             vc.checkIn = checkIn
             vc.checkOut = checkOut
             vc.finalRooms = finalRooms
-            vc.numberOfRooms = dict.sNoOfRooms
-            vc.numberOfAdults = dict.sNoOfAdults
-            vc.numberOfChild = dict.sNoOfChildren
+            vc.numberOfRooms = self.numberOfRooms
+            vc.numberOfAdults = self.numberOfAdults
+            vc.numberOfChild = self.numberOfChild
             vc.numberOfNights = dict.sNoOfNights
             vc.ageOfChildren = self.ageOfChildren
             

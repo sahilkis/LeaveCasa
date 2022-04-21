@@ -50,7 +50,8 @@ struct CellIds {
     static let FlightDetailCell             = "FlightDetailCell"
     static let FlightBookingCell            = "FlightBookingCell"
     static let SeatCell                     = "SeatCell"
-    
+    static let TripsCell                    = "TripsCell"
+
 }
 
 // Color Constants
@@ -79,6 +80,9 @@ struct LeaveCasaIcons {
     static let RADIO_GREY                    = UIImage.init(named: "ic_radio_unselected")
     static let SEARCH                        = UIImage.init(named: "ic_search")
     static let SIDE_MENU                     = UIImage.init(named: "ic_side_menu")
+    static let HOME_FLIGHT                   = UIImage.init(named: "ic_home_flight")
+    static let HOME_HOTEL                    = UIImage.init(named: "ic_home_hotel")
+    static let HOME_BUS                      = UIImage.init(named: "ic_home_bus")
     static let SEAT_BLACK                    = UIImage.init(named: "ic_seat_black")
     static let SEAT_BLUE                     = UIImage.init(named: "ic_seat_blue")
     static let SEAT_GREY                     = UIImage.init(named: "ic_seat_grey")
@@ -129,5 +133,6 @@ struct Strings {
     static let HOTEL_CANCEL                 = "hotel_cancel"
     static let FLIGHT_CANCEL                = "flight_cancel"
     static let BUS_CANCEL                   = "Bus_cancel"
-    
+    static let MY_TRIPS                     = "My Trips"
+
 }

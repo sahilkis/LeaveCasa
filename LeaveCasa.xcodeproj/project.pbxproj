@@ -74,6 +74,7 @@
 		405F35BB27F5A3260039E5A0 /* FlightFareRulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405F35BA27F5A3260039E5A0 /* FlightFareRulesViewController.swift */; };
 		406778B927DF050100565C52 /* Flight.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 406778B827DF050100565C52 /* Flight.storyboard */; };
 		406778BB27DF205900565C52 /* SearchFlightCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406778BA27DF205900565C52 /* SearchFlightCell.swift */; };
+		406C5AD9281110C200F16259 /* TripsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406C5AD8281110C200F16259 /* TripsCell.swift */; };
 		408334D627EDCF010015F994 /* BusDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408334D527EDCF010015F994 /* BusDetailViewController.swift */; };
 		408334D927EDCF470015F994 /* BusBookingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408334D827EDCF470015F994 /* BusBookingViewController.swift */; };
 		408334DB27EDE5320015F994 /* SeatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408334DA27EDE5320015F994 /* SeatCell.swift */; };
@@ -196,6 +197,7 @@
 		405F35BA27F5A3260039E5A0 /* FlightFareRulesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightFareRulesViewController.swift; sourceTree = "<group>"; };
 		406778B827DF050100565C52 /* Flight.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Flight.storyboard; sourceTree = "<group>"; };
 		406778BA27DF205900565C52 /* SearchFlightCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFlightCell.swift; sourceTree = "<group>"; };
+		406C5AD8281110C200F16259 /* TripsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsCell.swift; sourceTree = "<group>"; };
 		408334D527EDCF010015F994 /* BusDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusDetailViewController.swift; sourceTree = "<group>"; };
 		408334D827EDCF470015F994 /* BusBookingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusBookingViewController.swift; sourceTree = "<group>"; };
 		408334DA27EDE5320015F994 /* SeatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatCell.swift; sourceTree = "<group>"; };
@@ -621,6 +623,7 @@
 			isa = PBXGroup;
 			children = (
 				1FABDAF227F450AF006AD9A8 /* TripsViewController.swift */,
+				406C5AD8281110C200F16259 /* TripsCell.swift */,
 			);
 			path = TripsViewController;
 			sourceTree = "<group>";
@@ -1052,6 +1055,7 @@
 				195C403D22FC0C100013A644 /* HomeViewController.swift in Sources */,
 				19D6443123263A77009E199B /* UITextfield+Extension.swift in Sources */,
 				192495EE2333615B00B0E36E /* UIView+Extension.swift in Sources */,
+				406C5AD9281110C200F16259 /* TripsCell.swift in Sources */,
 				40CDAF1827E0B43F00B5B8FA /* FlightListCell.swift in Sources */,
 				18C82844214FCF8F007FC65A /* Helper.swift in Sources */,
 				1951EC8027F4866600170AA5 /* HotelCancellationPolicyViewController.swift in Sources */,

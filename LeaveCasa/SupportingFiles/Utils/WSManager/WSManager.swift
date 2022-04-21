@@ -137,6 +137,50 @@ class WSManager {
             }
         })
     }
+    
+    // MARK: Fetch Trips
+    class func wsCallFetchTrips(success:@escaping (_ arrHotels: [Hotels], _ arrBuses: [Bus], _ arrFlights: [Flight])->(),failure:@escaping (NSError)->()) {
+        AF.request(WebService.trips, method: .get, parameters: nil, headers: authorizationHeader).responseJSON(completionHandler: {(responseData) -> Void in
+            print(responseData.result)
+            switch responseData.result {
+            case .success(let value):
+                if let responseValue = value as? [String: AnyObject] {
+                    print(responseValue)
+                    var hotels: [Hotels] = []
+                    var buses: [Bus] = []
+                    var flights: [Flight] = []
+                    
+                    if let flight = responseValue[WSResponseParams.WS_RESP_PARAM_FLIGHT_BOOKING] as? [[String: AnyObject]] {
+                        if let results = Mapper<Flight>().mapArray(JSONArray: flight) as [Flight]? {
+                            flights = results
+                        }
+//                        for i in flight {
+//                            if let flight = responseValue[WSResponseParams.WS_RESP_PARAM_BOOKING_DETAIL] as? String {
+//                                                }
+//                        }
+                    }
+                    if let hotel = responseValue[WSResponseParams.WS_RESP_PARAM_HOTEL_BOOKING] as? [[String: AnyObject]] {
+                        if let results = Mapper<Hotels>().mapArray(JSONArray: hotel) as [Hotels]? {
+                            hotels = results
+                        }
+                    }
+                    if let bus = responseValue[WSResponseParams.WS_RESP_PARAM_BUS_BOOKING] as? [[String: AnyObject]] {
+                        if let results = Mapper<Bus>().mapArray(JSONArray: bus) as [Bus]? {
+                            buses = results
+                        }
+                    }
+                     
+                    success(hotels, buses, flights)
+                    
+                }  else {
+                failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: responseData.error?.localizedDescription ?? ""]))
+            }
+        case .failure(let error):
+            failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: error.localizedDescription]))
+        }
+        })
+    }
+    
     // MARK: HOTEL
     
     // MARK: SEARCH CITY CODES
