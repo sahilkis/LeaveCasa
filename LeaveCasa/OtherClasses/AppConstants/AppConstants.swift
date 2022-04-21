@@ -51,6 +51,7 @@ struct CellIds {
     static let FlightBookingCell            = "FlightBookingCell"
     static let SeatCell                     = "SeatCell"
     static let TripsCell                    = "TripsCell"
+    static let SideMenuCell                 = "SideMenuCell"
 
 }
 
@@ -98,6 +99,12 @@ struct LeaveCasaIcons {
     static let SLEEPER_GREY_VERT             = UIImage.init(named: "ic_sleeper_grey_vertical")
     static let SLEEPER_RED_VERT              = UIImage.init(named: "ic_sleeper_red_vertical")
     static let SLEEPER_YELLOW_VERT           = UIImage.init(named: "ic_sleeper_yellow_vertical")
+    static let SIDE_MENU_USER                = UIImage.init(named: "ic_user_blue")
+    static let SIDE_MENU_WALLET              = UIImage.init(named: "ic_wallet")
+    static let SIDE_MENU_RATE                = UIImage.init(named: "ic_rating")
+    static let SIDE_MENU_REFER               = UIImage.init(named: "ic_refer")
+    static let SIDE_MENU_NOTIFICATION        = UIImage.init(named: "ic_notification")
+
 }
 
 // Alert Titles

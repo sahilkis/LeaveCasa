@@ -47,7 +47,10 @@ class HomeViewController: UIViewController {
 // MARK: - UIBUTTON ACTIONS
 extension HomeViewController {
     @IBAction func leftBarButton(_ sender: UIBarButtonItem) {
-
+        if let vc = ViewControllerHelper.getViewController(ofType: .SideMenuViewController) as? SideMenuViewController {
+                    
+                    self.navigationController?.present(vc, animated: true)
+                }
     }
     
     @IBAction func rightBarButton(_ sender: UIBarButtonItem) {

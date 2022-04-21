@@ -75,6 +75,8 @@
 		406778B927DF050100565C52 /* Flight.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 406778B827DF050100565C52 /* Flight.storyboard */; };
 		406778BB27DF205900565C52 /* SearchFlightCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406778BA27DF205900565C52 /* SearchFlightCell.swift */; };
 		406C5AD9281110C200F16259 /* TripsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406C5AD8281110C200F16259 /* TripsCell.swift */; };
+		406C5ADC28117D5D00F16259 /* SideMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406C5ADB28117D5D00F16259 /* SideMenuCell.swift */; };
+		406C5ADE28117D7E00F16259 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406C5ADD28117D7E00F16259 /* SideMenuViewController.swift */; };
 		408334D627EDCF010015F994 /* BusDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408334D527EDCF010015F994 /* BusDetailViewController.swift */; };
 		408334D927EDCF470015F994 /* BusBookingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408334D827EDCF470015F994 /* BusBookingViewController.swift */; };
 		408334DB27EDE5320015F994 /* SeatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408334DA27EDE5320015F994 /* SeatCell.swift */; };
@@ -198,6 +200,8 @@
 		406778B827DF050100565C52 /* Flight.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Flight.storyboard; sourceTree = "<group>"; };
 		406778BA27DF205900565C52 /* SearchFlightCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFlightCell.swift; sourceTree = "<group>"; };
 		406C5AD8281110C200F16259 /* TripsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsCell.swift; sourceTree = "<group>"; };
+		406C5ADB28117D5D00F16259 /* SideMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuCell.swift; sourceTree = "<group>"; };
+		406C5ADD28117D7E00F16259 /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
 		408334D527EDCF010015F994 /* BusDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusDetailViewController.swift; sourceTree = "<group>"; };
 		408334D827EDCF470015F994 /* BusBookingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusBookingViewController.swift; sourceTree = "<group>"; };
 		408334DA27EDE5320015F994 /* SeatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatCell.swift; sourceTree = "<group>"; };
@@ -317,6 +321,7 @@
 		18C82838214FCEFF007FC65A /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				406C5ADA28117D3700F16259 /* Side Menu View Controller */,
 				1FF2962D27F57270008502C7 /* WalletPaymentViewController */,
 				1FABDAF127F45094006AD9A8 /* TripsViewController */,
 				1FABDA8527F431B6006AD9A8 /* TabBarViewController */,
@@ -696,6 +701,15 @@
 			path = FlightFareRulesViewController;
 			sourceTree = "<group>";
 		};
+		406C5ADA28117D3700F16259 /* Side Menu View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				406C5ADD28117D7E00F16259 /* SideMenuViewController.swift */,
+				406C5ADB28117D5D00F16259 /* SideMenuCell.swift */,
+			);
+			path = "Side Menu View Controller";
+			sourceTree = "<group>";
+		};
 		408334D127EDCDBB0015F994 /* Buses View Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -1053,6 +1067,7 @@
 				408334D927EDCF470015F994 /* BusBookingViewController.swift in Sources */,
 				40C7B3D427F445C3005027B1 /* FlightListRoundViewController.swift in Sources */,
 				195C403D22FC0C100013A644 /* HomeViewController.swift in Sources */,
+				406C5ADE28117D7E00F16259 /* SideMenuViewController.swift in Sources */,
 				19D6443123263A77009E199B /* UITextfield+Extension.swift in Sources */,
 				192495EE2333615B00B0E36E /* UIView+Extension.swift in Sources */,
 				406C5AD9281110C200F16259 /* TripsCell.swift in Sources */,
@@ -1066,6 +1081,7 @@
 				1924095E23A244810012CFBF /* Int+Timepiece.swift in Sources */,
 				19309A072334C58800E189AE /* Hotels.swift in Sources */,
 				18C82846214FCF98007FC65A /* AppConstants.swift in Sources */,
+				406C5ADC28117D5D00F16259 /* SideMenuCell.swift in Sources */,
 				408334DB27EDE5320015F994 /* SeatCell.swift in Sources */,
 				40300EFE27EB497E0002C967 /* BookingCell.swift in Sources */,
 				193E1EF823ACE6DA00DDA7C9 /* BusListCell.swift in Sources */,
