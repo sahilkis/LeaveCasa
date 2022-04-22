@@ -506,7 +506,7 @@
                                                                             <rect key="frame" x="2" y="18" width="44" height="44"/>
                                                                             <subviews>
                                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_user" translatesAutoresizingMaskIntoConstraints="NO" id="ecL-LD-I1M">
-                                                                                    <rect key="frame" x="16" y="15" width="12" height="14"/>
+                                                                                    <rect key="frame" x="10" y="10" width="24" height="24"/>
                                                                                 </imageView>
                                                                             </subviews>
                                                                             <color key="backgroundColor" red="0.94509803920000002" green="0.94901960780000005" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -3439,7 +3439,7 @@
         <image name="ic_square_tick_grey" width="14.666666984558105" height="14.666666984558105"/>
         <image name="ic_take_off_plane" width="28" height="28"/>
         <image name="ic_timer" width="17" height="17"/>
-        <image name="ic_user" width="12" height="14"/>
+        <image name="ic_user" width="24" height="24"/>
         <systemColor name="groupTableViewBackgroundColor">
             <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

@@ -77,6 +77,7 @@
 		406C5AD9281110C200F16259 /* TripsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406C5AD8281110C200F16259 /* TripsCell.swift */; };
 		406C5ADC28117D5D00F16259 /* SideMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406C5ADB28117D5D00F16259 /* SideMenuCell.swift */; };
 		406C5ADE28117D7E00F16259 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406C5ADD28117D7E00F16259 /* SideMenuViewController.swift */; };
+		4073E2BD281291B200400403 /* TripsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4073E2BC281291B200400403 /* TripsDetailViewController.swift */; };
 		408334D627EDCF010015F994 /* BusDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408334D527EDCF010015F994 /* BusDetailViewController.swift */; };
 		408334D927EDCF470015F994 /* BusBookingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408334D827EDCF470015F994 /* BusBookingViewController.swift */; };
 		408334DB27EDE5320015F994 /* SeatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408334DA27EDE5320015F994 /* SeatCell.swift */; };
@@ -202,6 +203,7 @@
 		406C5AD8281110C200F16259 /* TripsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsCell.swift; sourceTree = "<group>"; };
 		406C5ADB28117D5D00F16259 /* SideMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuCell.swift; sourceTree = "<group>"; };
 		406C5ADD28117D7E00F16259 /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
+		4073E2BC281291B200400403 /* TripsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsDetailViewController.swift; sourceTree = "<group>"; };
 		408334D527EDCF010015F994 /* BusDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusDetailViewController.swift; sourceTree = "<group>"; };
 		408334D827EDCF470015F994 /* BusBookingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusBookingViewController.swift; sourceTree = "<group>"; };
 		408334DA27EDE5320015F994 /* SeatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatCell.swift; sourceTree = "<group>"; };
@@ -323,7 +325,7 @@
 			children = (
 				406C5ADA28117D3700F16259 /* Side Menu View Controller */,
 				1FF2962D27F57270008502C7 /* WalletPaymentViewController */,
-				1FABDAF127F45094006AD9A8 /* TripsViewController */,
+				1FABDAF127F45094006AD9A8 /* Trips View Controller */,
 				1FABDA8527F431B6006AD9A8 /* TabBarViewController */,
 				408334D127EDCDBB0015F994 /* Buses View Controller */,
 				408334D227EDCDDB0015F994 /* Flight View Controller */,
@@ -624,13 +626,13 @@
 			path = TabBarViewController;
 			sourceTree = "<group>";
 		};
-		1FABDAF127F45094006AD9A8 /* TripsViewController */ = {
+		1FABDAF127F45094006AD9A8 /* Trips View Controller */ = {
 			isa = PBXGroup;
 			children = (
-				1FABDAF227F450AF006AD9A8 /* TripsViewController.swift */,
-				406C5AD8281110C200F16259 /* TripsCell.swift */,
+				4073E2BB2812918200400403 /* TripsDetailViewController */,
+				4073E2BA2812915900400403 /* TripsViewController */,
 			);
-			path = TripsViewController;
+			path = "Trips View Controller";
 			sourceTree = "<group>";
 		};
 		1FF2962D27F57270008502C7 /* WalletPaymentViewController */ = {
@@ -708,6 +710,23 @@
 				406C5ADB28117D5D00F16259 /* SideMenuCell.swift */,
 			);
 			path = "Side Menu View Controller";
+			sourceTree = "<group>";
+		};
+		4073E2BA2812915900400403 /* TripsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1FABDAF227F450AF006AD9A8 /* TripsViewController.swift */,
+				406C5AD8281110C200F16259 /* TripsCell.swift */,
+			);
+			path = TripsViewController;
+			sourceTree = "<group>";
+		};
+		4073E2BB2812918200400403 /* TripsDetailViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4073E2BC281291B200400403 /* TripsDetailViewController.swift */,
+			);
+			path = TripsDetailViewController;
 			sourceTree = "<group>";
 		};
 		408334D127EDCDBB0015F994 /* Buses View Controller */ = {
@@ -1057,6 +1076,7 @@
 				19561F2D2338B8F000AA4FF3 /* RoomsCell.swift in Sources */,
 				40CDAF1627E0B40800B5B8FA /* FlightListViewController.swift in Sources */,
 				19FB4D09231A7998007C742C /* AlertMessages.swift in Sources */,
+				4073E2BD281291B200400403 /* TripsDetailViewController.swift in Sources */,
 				18C82809214FCEC8007FC65A /* AppDelegate.swift in Sources */,
 				408334D627EDCF010015F994 /* BusDetailViewController.swift in Sources */,
 				18C82842214FCF86007FC65A /* ViewControllerHelper.swift in Sources */,

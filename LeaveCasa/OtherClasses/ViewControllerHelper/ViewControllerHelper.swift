@@ -13,6 +13,7 @@ struct ViewControllerIdentifiers {
     static let ForgotPasswordViewController             = "ForgotPasswordViewController"
     static let HomeViewController                       = "HomeViewController"
     static let SideMenuViewController                   = "SideMenuViewController"
+    static let TripsDetailViewController                = "TripsDetailViewController"
     static let SearchHotelViewController                = "SearchHotelViewController"
     static let HotelListViewController                  = "HotelListViewController"
     static let HotelFilterViewController                = "HotelFilterViewController"
@@ -44,6 +45,7 @@ enum ViewControllerType {
     case ForgotPasswordViewController
     case HomeViewController
     case SideMenuViewController
+    case TripsDetailViewController
     case SearchHotelViewController
     case HotelListViewController
     case HotelFilterViewController
@@ -89,8 +91,10 @@ class ViewControllerHelper: NSObject {
             viewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.TabBarViewController) as! TabBarViewController
         } else if viewControllerType == .HomeViewController {
             viewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.HomeViewController) as! HomeViewController
-        }else if viewControllerType == .SideMenuViewController {
+        } else if viewControllerType == .SideMenuViewController {
             viewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.SideMenuViewController) as! SideMenuViewController
+        } else if viewControllerType == .TripsDetailViewController {
+            viewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.TripsDetailViewController) as! TripsDetailViewController
         } else if viewControllerType == .WWCalendarTimeSelector {
             viewController = UIStoryboard.init(name: ViewControllerIdentifiers.WWCalendarTimeSelector, bundle: nil).instantiateInitialViewController() as! WWCalendarTimeSelector
         } else if viewControllerType == .WalletPaymentViewController {
