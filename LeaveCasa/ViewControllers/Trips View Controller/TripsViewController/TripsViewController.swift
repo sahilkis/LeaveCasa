@@ -29,7 +29,7 @@ class TripsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        searchHotel()
+        fetchTrips()
     }
     
     private func setUpTab() {
@@ -145,9 +145,34 @@ extension TripsViewController: UITableViewDataSource, UITableViewDelegate {
             let flight = flights[indexPath.row]
             
             cell.imgHotel.image = LeaveCasaIcons.HOME_FLIGHT
-            //                       cell.lblHotelAddress.text = flight.sAddress
-            //            cell.lblHotelName.text = flight.
+            cell.lblHotelName.text = flight.sAirlineCode
             
+            
+            var flightNameString = ""
+            var flightDatesString = ""
+            var flightClassString = ""
+            
+            for (flightIndex, flightSegment) in flight.sSegments.enumerated() {
+            if let firstSeg = flightSegment.first {
+                let sSourceCode = firstSeg.sOriginAirport.sCityCode
+                let sStartTime = firstSeg.sOriginDeptTime
+                
+                flightNameString += "\(sSourceCode.uppercased()) - "
+                flightDatesString += "\(Helper.convertStoredDate(sStartTime, "E, MMM d, yyyy")) - "
+                flightClassString  += "\(AppConstants.flightTypes[(firstSeg.sCabinClass > 0 ? firstSeg.sCabinClass : 1)-1]) - "
+                
+                if let secondSeg = flightSegment.last, flightIndex == flight.sSegments.count - 1 {
+                    let sDestinationCode = secondSeg.sDestinationAirport.sCityCode
+                    
+                    flightNameString += "\(sDestinationCode.uppercased())"
+                    
+                }
+            }
+            
+            }
+            cell.lblHotelAddress.text = flightNameString
+            cell.lblDates.text = flightDatesString
+
             let price = flight.sPrice
             cell.lblHotelPrice.text = "₹\(String(format: "%.0f", price))"
             
@@ -207,12 +232,25 @@ extension TripsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        if let vc = ViewControllerHelper.getViewController(ofType: .TripsDetailViewController) as? TripsDetailViewController {
+            vc.selectedTab = self.selectedTab
+
+            if self.selectedTab == .flight {
+                vc.flight = self.flights[indexPath.row]
+            } else if self.selectedTab == .hotel {
+                vc.hotel = self.hotels[indexPath.row]
+            } else if self.selectedTab == .bus {
+                vc.bus = self.buses[indexPath.row]
+            }
+
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
 }
 
 // MARK: - API CALL
 extension TripsViewController {
-    func searchHotel() {
+    func fetchTrips() {
         if WSManager.isConnectedToInternet() {
             Helper.showLoader(onVC: self, message: "")
             WSManager.wsCallFetchTrips(success: { (hotels, buses, flights) in
@@ -230,7 +268,7 @@ extension TripsViewController {
             Helper.hideLoader(onVC: self)
             Helper.showOKCancelAlertWithCompletion(onVC: self, title: Alert.NO_INTERNET, message: AlertMessages.NO_INTERNET_CONNECTION, btnOkTitle: Alert.TRY_AGAIN, btnCancelTitle: Alert.CANCEL, onOk: {
                 Helper.showLoader(onVC: self, message: Alert.LOADING)
-                self.searchHotel()
+                self.fetchTrips()
             })
         }
     }

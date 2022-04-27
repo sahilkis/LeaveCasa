@@ -639,7 +639,9 @@ extension FlightBookingViewController {
                                                     WSResponseParams.WS_RESP_PARAM_TOKEN : self.tokenId as AnyObject,
                                                     WSResponseParams.WS_RESP_PARAM_BOOKING_ID: bookingId as AnyObject,
                                                     WSResponseParams.WS_RESP_PARAM_PNR: pnr
-                                        as AnyObject]
+                                        as AnyObject,
+                                                    WSResponseParams.WS_RESP_PARAM_LOGID: self.logId
+                                                                                            as AnyObject]
                                        vc.totalPayable = price
                                        vc.bookingType = Strings.FLIGHT_BOOK
                                        

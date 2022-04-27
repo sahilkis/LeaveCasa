@@ -629,8 +629,8 @@
 		1FABDAF127F45094006AD9A8 /* Trips View Controller */ = {
 			isa = PBXGroup;
 			children = (
-				4073E2BB2812918200400403 /* TripsDetailViewController */,
 				4073E2BA2812915900400403 /* TripsViewController */,
+				4073E2BB2812918200400403 /* TripsDetailViewController */,
 			);
 			path = "Trips View Controller";
 			sourceTree = "<group>";

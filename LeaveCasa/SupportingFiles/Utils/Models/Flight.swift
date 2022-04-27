@@ -40,6 +40,9 @@ class Flight: Mappable, CustomStringConvertible {
                 if let seg = result as? [[String: AnyObject]] {
                     segmentsArray = seg
                     
+                } else if let seg = result as? [String: AnyObject] {
+                    segmentsArray = [seg]
+                    
                 }
                 
                 if let results = Mapper<FlightSegment>().mapArray(JSONArray: segmentsArray) as [FlightSegment]? {

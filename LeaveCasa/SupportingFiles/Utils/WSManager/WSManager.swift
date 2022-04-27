@@ -144,20 +144,25 @@ class WSManager {
             print(responseData.result)
             switch responseData.result {
             case .success(let value):
-                if let responseValue = value as? [String: AnyObject] {
-                    print(responseValue)
+                if let responseArray = value as? [[String: AnyObject]] {
+                    print(responseArray)
                     var hotels: [Hotels] = []
                     var buses: [Bus] = []
                     var flights: [Flight] = []
                     
+                    for responseValue in responseArray {
                     if let flight = responseValue[WSResponseParams.WS_RESP_PARAM_FLIGHT_BOOKING] as? [[String: AnyObject]] {
-                        if let results = Mapper<Flight>().mapArray(JSONArray: flight) as [Flight]? {
-                            flights = results
+                        
+                        for item in flight {
+                            if let detailsDict = item[WSResponseParams.WS_RESP_PARAM_BOOKING_DETAIL] as? String, let details = Helper.convertToDictionary(text: detailsDict) as? [String: AnyObject], let responseDict = details[WSResponseParams.WS_RESP_PARAM_RESPONSE_CAP] as? [String:AnyObject], let respDict = responseDict[WSResponseParams.WS_RESP_PARAM_RESPONSE_CAP] as? [String:AnyObject], let flightItinerary = respDict["FlightItinerary"] as? [String:AnyObject]
+                                {
+                                if let results = Mapper<Flight>().map(JSON: flightItinerary) as Flight?{
+                                    flights.append(results)
+                                }
+//                        if let results = Mapper<Flight>().mapArray(JSONArray: flight) as [Flight]? {
+//                            flights = results
+                            }
                         }
-//                        for i in flight {
-//                            if let flight = responseValue[WSResponseParams.WS_RESP_PARAM_BOOKING_DETAIL] as? String {
-//                                                }
-//                        }
                     }
                     if let hotel = responseValue[WSResponseParams.WS_RESP_PARAM_HOTEL_BOOKING] as? [[String: AnyObject]] {
                         if let results = Mapper<Hotels>().mapArray(JSONArray: hotel) as [Hotels]? {
@@ -165,9 +170,20 @@ class WSManager {
                         }
                     }
                     if let bus = responseValue[WSResponseParams.WS_RESP_PARAM_BUS_BOOKING] as? [[String: AnyObject]] {
-                        if let results = Mapper<Bus>().mapArray(JSONArray: bus) as [Bus]? {
-                            buses = results
-                        }
+//                        if let results = Mapper<Bus>().mapArray(JSONArray: bus) as [Bus]? {
+//                            buses = results
+//                        }
+                        for item in bus {
+                                                    if let detailsDict = item[WSResponseParams.WS_RESP_PARAM_BOOKING_DETAIL] as? String, let details = Helper.convertToDictionary(text: detailsDict) as? [String: AnyObject],  let respDict = details[WSResponseParams.WS_RESP_PARAM_DETAIL] as? [String:AnyObject]
+                                                        {
+                                                        if let results = Mapper<Bus>().map(JSON: respDict) as Bus?{
+                                                            buses.append(results)
+                                                        }
+                        //                        if let results = Mapper<Flight>().mapArray(JSONArray: flight) as [Flight]? {
+                        //                            flights = results
+                                                    }
+                                                }
+                    }
                     }
                      
                     success(hotels, buses, flights)
