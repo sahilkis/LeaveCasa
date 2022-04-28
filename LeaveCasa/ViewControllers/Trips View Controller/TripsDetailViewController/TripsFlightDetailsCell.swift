@@ -1,14 +1,14 @@
 //
-//  FlightListself.swift
+//  TripsFlightDetailsCell.swift
 //  LeaveCasa
 //
-//  Created by macmini-2020 on 15/03/22.
+//  Created by macmini-2020 on 28/04/22.
 //  Copyright © 2022 Apple. All rights reserved.
 //
 
 import UIKit
 
-class FlightListCell: UITableViewCell {
+class TripsFlightDetailsCell: UITableViewCell {
         
     @IBOutlet weak var topSpace: NSLayoutConstraint!
     @IBOutlet weak var lblStartTime: UILabel!
@@ -109,3 +109,4 @@ class FlightListCell: UITableViewCell {
     }
     
 }
+

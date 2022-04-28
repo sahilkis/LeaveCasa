@@ -82,6 +82,8 @@
 		408334D927EDCF470015F994 /* BusBookingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408334D827EDCF470015F994 /* BusBookingViewController.swift */; };
 		408334DB27EDE5320015F994 /* SeatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408334DA27EDE5320015F994 /* SeatCell.swift */; };
 		40A14A8A27EC977200102036 /* FlightDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A14A8927EC977200102036 /* FlightDetailViewController.swift */; };
+		40A38EDC281AA253002868B1 /* Booking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A38EDB281AA253002868B1 /* Booking.swift */; };
+		40A38EDE281AC442002868B1 /* TripsFlightDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A38EDD281AC442002868B1 /* TripsFlightDetailsCell.swift */; };
 		40A7ED9C28084809007CCF57 /* Pods_LeaveCasa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2938878705CEC9DEF73768C5 /* Pods_LeaveCasa.framework */; };
 		40A7ED9D28084809007CCF57 /* Pods_LeaveCasa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2938878705CEC9DEF73768C5 /* Pods_LeaveCasa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		40B0A37E27F17B8800EF2BB6 /* Flight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40B0A37D27F17B8800EF2BB6 /* Flight.swift */; };
@@ -208,6 +210,8 @@
 		408334D827EDCF470015F994 /* BusBookingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusBookingViewController.swift; sourceTree = "<group>"; };
 		408334DA27EDE5320015F994 /* SeatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatCell.swift; sourceTree = "<group>"; };
 		40A14A8927EC977200102036 /* FlightDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightDetailViewController.swift; sourceTree = "<group>"; };
+		40A38EDB281AA253002868B1 /* Booking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Booking.swift; sourceTree = "<group>"; };
+		40A38EDD281AC442002868B1 /* TripsFlightDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsFlightDetailsCell.swift; sourceTree = "<group>"; };
 		40B0A37D27F17B8800EF2BB6 /* Flight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flight.swift; sourceTree = "<group>"; };
 		40BAC11727E8968C00952E2E /* FacilitiesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacilitiesCell.swift; sourceTree = "<group>"; };
 		40C7B3D327F445C3005027B1 /* FlightListRoundViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightListRoundViewController.swift; sourceTree = "<group>"; };
@@ -476,6 +480,7 @@
 				19107A592336397C003E8CF3 /* Markup.swift */,
 				193E1EF123ACDDDC00DDA7C9 /* Bus.swift */,
 				40B0A37D27F17B8800EF2BB6 /* Flight.swift */,
+				40A38EDB281AA253002868B1 /* Booking.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -725,6 +730,7 @@
 			isa = PBXGroup;
 			children = (
 				4073E2BC281291B200400403 /* TripsDetailViewController.swift */,
+				40A38EDD281AC442002868B1 /* TripsFlightDetailsCell.swift */,
 			);
 			path = TripsDetailViewController;
 			sourceTree = "<group>";
@@ -1051,6 +1057,7 @@
 				19D6442E23263996009E199B /* Validator.swift in Sources */,
 				40B0A37E27F17B8800EF2BB6 /* Flight.swift in Sources */,
 				405F35BB27F5A3260039E5A0 /* FlightFareRulesViewController.swift in Sources */,
+				40A38EDC281AA253002868B1 /* Booking.swift in Sources */,
 				40E56C6227FC499300981CDF /* HotelFilterViewController.swift in Sources */,
 				19309A0A2334CB5100E189AE /* HotelListViewController.swift in Sources */,
 				403D080427F55D7E00E2D13A /* FlightFilterViewController.swift in Sources */,
@@ -1073,6 +1080,7 @@
 				19309A0D2334CDED00E189AE /* HotelListCell.swift in Sources */,
 				18C82849214FD06C007FC65A /* Extensions.swift in Sources */,
 				1924095A23A244810012CFBF /* NSCalendar+Timepiece.swift in Sources */,
+				40A38EDE281AC442002868B1 /* TripsFlightDetailsCell.swift in Sources */,
 				19561F2D2338B8F000AA4FF3 /* RoomsCell.swift in Sources */,
 				40CDAF1627E0B40800B5B8FA /* FlightListViewController.swift in Sources */,
 				19FB4D09231A7998007C742C /* AlertMessages.swift in Sources */,

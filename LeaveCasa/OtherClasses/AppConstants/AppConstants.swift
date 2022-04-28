@@ -52,7 +52,7 @@ struct CellIds {
     static let SeatCell                     = "SeatCell"
     static let TripsCell                    = "TripsCell"
     static let SideMenuCell                 = "SideMenuCell"
-
+    static let TripsFlightDetailsCell       = "TripsFlightDetailsCell"
 }
 
 // Color Constants

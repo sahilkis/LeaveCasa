@@ -125,76 +125,8 @@ extension FlightListViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: CellIds.FlightListCell, for: indexPath) as! FlightListCell
         
         let flight = flights[indexPath.section]
-        cell.lblPrice.text = "₹ \(flight.sPrice)"
-        cell.lblFLightInfo.text = ""
         
-        cell.lblFLightInfo.isHidden = true
-        cell.lblPrice.isHidden = true
-        cell.topSpace.constant = 0
-        
-        if indexPath.row == 0
-        {
-            cell.lblFLightInfo.isHidden = false
-            cell.lblPrice.isHidden = false
-            cell.topSpace.constant = 16
-        }
-        
-        if let flightSegment = flight.sSegments[indexPath.row] as? [FlightSegment]{
-            if let firstSeg = flightSegment.first {
-                let sSource = firstSeg.sOriginAirport.sCityName
-                let sSourceCode = firstSeg.sOriginAirport.sCityCode
-                let sAirlineName = firstSeg.sAirline.sAirlineName
-                let sStartTime = firstSeg.sOriginDeptTime
-                let sDuration = firstSeg.sDuration
-                let sStopsCount = flightSegment.count - 1
-                
-                if let secondSeg = flightSegment.last {
-                    let sEndTime = secondSeg.sDestinationArrvTime
-                    let sDestination = secondSeg.sDestinationAirport.sCityName
-                    let sDestinationCode = secondSeg.sDestinationAirport.sCityCode
-                    let sAccDuration = secondSeg.sAccDuration == 0 ? firstSeg.sDuration : secondSeg.sAccDuration
-                    
-                    cell.lblStartTime.text = Helper.convertStoredDate(sStartTime, "HH:mm")
-                    cell.lblEndTime.text = Helper.convertStoredDate(sEndTime, "HH:mm")
-                    cell.lblSource.text = "\(sSourceCode.uppercased()), \(Helper.convertStoredDate(sStartTime, "E").uppercased())"
-                    cell.lblDestination.text = "\(sDestinationCode.uppercased()), \(Helper.convertStoredDate(sEndTime, "E").uppercased())"
-                    
-                    cell.lblDuration.text = Helper.getDuration(minutes: sAccDuration)
-                    cell.lblRoute.text = sStopsCount == 0 ? "Non-stop" : "\(sStopsCount) stop(s)"
-                    cell.lblAirline.text = sAirlineName
-                    
-                    if let startTime = Helper.getStoredDate(sStartTime) {
-                        let components = Calendar.current.dateComponents([ .hour, .minute], from: Date(), to: startTime)
-                        
-                        let hour = components.hour ?? 0
-                        let minute = components.minute ?? 0
-                        
-                        if hour < 5 && hour > 0 {
-                            cell.lblFLightInfo.text = "< \(hour) hours"
-                        } else if hour < 5 && minute > 0 {
-                            cell.lblFLightInfo.text = "< \(minute) minutes"
-                        }
-                    }
-                }
-            }
-            var sStops = [FlightAirport]()
-            
-            for i in 1..<flightSegment.count {
-                sStops.append(flightSegment[i].sOriginAirport)
-            }
-            
-            var stops = ""
-            
-            if sStops.count == 1
-            {
-                stops = sStops[0].sCityName
-            } else if sStops.count > 1
-            {
-                stops = "\(sStops[0].sCityName) + \(sStops.count)"
-            }
-            
-            cell.lblStops.text = stops
-        }
+        cell.setUp(indexPath: indexPath, flight: flight)
         
         return cell
     }

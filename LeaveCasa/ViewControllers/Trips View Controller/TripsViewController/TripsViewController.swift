@@ -1,5 +1,7 @@
 import UIKit
 
+var shouldRefreshTrips = false
+
 class TripsViewController: UIViewController {
     
     @IBOutlet weak var btnFlights: UIButton!
@@ -12,9 +14,9 @@ class TripsViewController: UIViewController {
     @IBOutlet weak var lblNoBooking: UILabel!
     //    @IBOutlet weak var lblDes: UILabel!
     
-    var flights = [Flight]()
-    var hotels = [Hotels]()
-    var buses = [Bus]()
+    var flights = [FlightBooking]()
+    var hotels = [HotelBooking]()
+    var buses = [BusBooking]()
     var selectedTab = ScreenFrom.flight
     
     override func viewDidLoad() {
@@ -29,7 +31,11 @@ class TripsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        fetchTrips()
+        if shouldRefreshTrips
+        {
+            fetchTrips()
+            shouldRefreshTrips = false
+        }
     }
     
     private func setUpTab() {
@@ -142,12 +148,11 @@ extension TripsViewController: UITableViewDataSource, UITableViewDelegate {
         switch selectedTab {
         case .flight:
             
-            let flight = flights[indexPath.row]
+            let flight = flights[indexPath.row].sFlight
             
             cell.imgHotel.image = LeaveCasaIcons.HOME_FLIGHT
-            cell.lblHotelName.text = flight.sAirlineCode
             
-            
+            var flightAirlineNameString = ""
             var flightNameString = ""
             var flightDatesString = ""
             var flightClassString = ""
@@ -156,8 +161,15 @@ extension TripsViewController: UITableViewDataSource, UITableViewDelegate {
             if let firstSeg = flightSegment.first {
                 let sSourceCode = firstSeg.sOriginAirport.sCityCode
                 let sStartTime = firstSeg.sOriginDeptTime
+                let sAirline = firstSeg.sAirline.sAirlineName
                 
                 flightNameString += "\(sSourceCode.uppercased()) - "
+                flightAirlineNameString += "\(sAirline)"
+                
+                if flightIndex != flight.sSegments.count - 1 {
+                    flightAirlineNameString += " -  "
+                }
+                
                 flightDatesString += "\(Helper.convertStoredDate(sStartTime, "E, MMM d, yyyy")) - "
                 flightClassString  += "\(AppConstants.flightTypes[(firstSeg.sCabinClass > 0 ? firstSeg.sCabinClass : 1)-1]) - "
                 
@@ -165,11 +177,11 @@ extension TripsViewController: UITableViewDataSource, UITableViewDelegate {
                     let sDestinationCode = secondSeg.sDestinationAirport.sCityCode
                     
                     flightNameString += "\(sDestinationCode.uppercased())"
-                    
                 }
             }
             
             }
+            cell.lblHotelName.text = flightAirlineNameString
             cell.lblHotelAddress.text = flightNameString
             cell.lblDates.text = flightDatesString
 
@@ -178,7 +190,7 @@ extension TripsViewController: UITableViewDataSource, UITableViewDelegate {
             
         case .hotel:
             
-            let hotel = hotels[indexPath.row]
+            let hotel = hotels[indexPath.row].sHotel
             
             cell.imgHotel.image = LeaveCasaIcons.HOME_HOTEL
             cell.lblHotelAddress.text = hotel.sAddress
@@ -189,7 +201,7 @@ extension TripsViewController: UITableViewDataSource, UITableViewDelegate {
             
         case .bus:
             
-            let bus = buses[indexPath.row]
+            let bus = buses[indexPath.row].sBus
             
             cell.imgHotel.image = LeaveCasaIcons.HOME_BUS
             cell.lblHotelAddress.text = "\(bus.sSourceCode) - \(bus.sDestinationCode)"
@@ -253,11 +265,11 @@ extension TripsViewController {
     func fetchTrips() {
         if WSManager.isConnectedToInternet() {
             Helper.showLoader(onVC: self, message: "")
-            WSManager.wsCallFetchTrips(success: { (hotels, buses, flights) in
+            WSManager.wsCallFetchTrips(success: { (bookings) in
                 Helper.hideLoader(onVC: self)
-                self.flights = flights
-                self.hotels = hotels
-                self.buses = buses
+                self.flights = bookings.sFlightBooking
+                self.hotels = bookings.sHotelBooking
+                self.buses = bookings.sBusBooking
                 
                 self.tableView.reloadData()
             }, failure: { (error) in

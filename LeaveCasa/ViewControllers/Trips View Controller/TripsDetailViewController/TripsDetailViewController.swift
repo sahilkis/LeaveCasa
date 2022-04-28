@@ -15,18 +15,29 @@ class TripsDetailViewController: UIViewController {
     @IBOutlet weak var viewBuses: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var lblBusSeats: UILabel!
+        @IBOutlet weak var lblBusPrice: UILabel!
+    //    @IBOutlet weak var lblTimings: UILabel!
+        @IBOutlet weak var lblBusName: UILabel!
+    //    @IBOutlet weak var lblBusType: UILabel!
+        @IBOutlet weak var lblBusCondition: UILabel!
+        @IBOutlet weak var lblBusStartTime: UILabel!
+        @IBOutlet weak var lblBusSource: UILabel!
+        @IBOutlet weak var lblBusEndTime: UILabel!
+        @IBOutlet weak var lblBusDestination: UILabel!
        
-    var flight = Flight()
-    var hotel = Hotels()
-    var bus = Bus()
+    var flight = FlightBooking()
+    var hotel = HotelBooking()
+    var bus = BusBooking()
     var selectedTab = ScreenFrom.flight
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        self.tableView.register(FlightListCell.self, forCellReuseIdentifier: CellIds.FlightListCell)
         setLeftbarButton()
         setUpData()
-        self.tableView.register(FlightListCell.self, forCellReuseIdentifier: CellIds.FlightListCell)
     }
     
     
@@ -66,12 +77,82 @@ class TripsDetailViewController: UIViewController {
         switch selectedTab {
         case .bus:
             self.viewBuses.isHidden = false
+            setUpBus()
         case .flight:
 //            self.viewFlights.isHidden = false
             break
         case .hotel:
             self.viewHotels.isHidden = false
         }
+        
+        self.tableView.reloadData()
+    }
+    
+    func setUpBus() {
+        let bus: Bus? = bus.sBus
+        
+        if let seats = bus?.sSeats {
+            self.lblBusSeats.text = "\(seats) Seats"
+        }
+        
+        var ac = Strings.NO
+        var sleeper = Strings.NO
+        if !(bus?.sAC ?? false) {
+            ac = Strings.NO
+        } else {
+            ac = Strings.YES
+        }
+        if !(bus?.sSleeper ?? false) {
+            sleeper = Strings.NO
+        } else {
+            sleeper = Strings.YES
+        }
+        self.lblBusCondition.text = "Ac: \(ac) | Sleeper: \(sleeper)"
+        
+        if var arrivalTime = bus?.sArrivalTime {
+            if var departureTime = bus?.sDepartureTime {
+                arrivalTime = Helper.getTimeString(time:arrivalTime)
+                departureTime = Helper.getTimeString(time: departureTime)
+                self.lblBusStartTime.text = departureTime
+                self.lblBusEndTime.text = arrivalTime
+                
+            }
+        }
+        
+        if let price = bus?.fareDetails {
+            var farePrice = 0.0
+            
+            if let fare = price[WSResponseParams.WS_RESP_PARAM_TOTAL_FARE] as? String {
+                farePrice = Double(fare) ?? 0
+            }
+            
+            if let priceArray = bus?.fareDetailsArray {
+                for i in 0..<priceArray.count {
+                    let dict = priceArray[i]
+                    if let fare = dict[WSResponseParams.WS_RESP_PARAM_TOTAL_FARE] as? String {
+                        farePrice = Double(fare) ?? 0
+                        break
+                    }
+                }
+            }
+            
+//            if let markup = markups as? Markup {
+//                if markup.amountBy == Strings.PERCENT {
+//                    farePrice += (farePrice * (markup.amount) / 100)
+//                } else {
+//                    farePrice += (markup.amount)
+//                }
+//            }
+            self.lblBusPrice.text = "₹\(String(format: "%.0f", farePrice))"
+        }
+        
+        if let travels = bus?.sTravels {
+            self.lblBusName.text = travels
+        }
+        
+        self.lblBusSource.text = bus?.sSourceCode
+        self.lblBusDestination.text = bus?.sDestinationCode
+        
     }
 }
 
@@ -107,7 +188,7 @@ extension TripsDetailViewController: UITableViewDataSource, UITableViewDelegate 
         switch selectedTab
                 {
                 case .flight:
-            return flight.sSegments.count
+            return flight.sFlight.sSegments.count
         case .bus:
             return 0
         case .hotel:
@@ -117,87 +198,13 @@ extension TripsDetailViewController: UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: CellIds.FlightBookingCell, for: indexPath) as! FlightBookingCell
-//
-//
-//        return cell
-        
         switch selectedTab
         {
         case .flight:
             
-            if let cell = tableView.dequeueReusableCell(withIdentifier: CellIds.FlightListCell, for: indexPath) as? FlightListCell {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: CellIds.TripsFlightDetailsCell, for: indexPath) as? TripsFlightDetailsCell {
                 
-                cell.lblPrice.text = "₹ \(flight.sPrice)"
-                cell.lblFLightInfo.text = ""
-                
-                cell.lblFLightInfo.isHidden = true
-                cell.lblPrice.isHidden = true
-                cell.topSpace.constant = 0
-                
-                if indexPath.row == 0
-                {
-                    cell.lblFLightInfo.isHidden = false
-                    cell.lblPrice.isHidden = false
-                    cell.topSpace.constant = 16
-                }
-                
-                if let flightSegment = flight.sSegments[indexPath.row] as? [FlightSegment]{
-                    if let firstSeg = flightSegment.first {
-                        let sSource = firstSeg.sOriginAirport.sCityName
-                        let sSourceCode = firstSeg.sOriginAirport.sCityCode
-                        let sAirlineName = firstSeg.sAirline.sAirlineName
-                        let sStartTime = firstSeg.sOriginDeptTime
-                        let sDuration = firstSeg.sDuration
-                        let sStopsCount = flightSegment.count - 1
-                        
-                        if let secondSeg = flightSegment.last {
-                            let sEndTime = secondSeg.sDestinationArrvTime
-                            let sDestination = secondSeg.sDestinationAirport.sCityName
-                            let sDestinationCode = secondSeg.sDestinationAirport.sCityCode
-                            let sAccDuration = secondSeg.sAccDuration == 0 ? firstSeg.sDuration : secondSeg.sAccDuration
-                            
-                            cell.lblStartTime.text = Helper.convertStoredDate(sStartTime, "HH:mm")
-                            cell.lblEndTime.text = Helper.convertStoredDate(sEndTime, "HH:mm")
-                            cell.lblSource.text = "\(sSourceCode.uppercased()), \(Helper.convertStoredDate(sStartTime, "E").uppercased())"
-                            cell.lblDestination.text = "\(sDestinationCode.uppercased()), \(Helper.convertStoredDate(sEndTime, "E").uppercased())"
-                            
-                            cell.lblDuration.text = Helper.getDuration(minutes: sAccDuration)
-                            cell.lblRoute.text = sStopsCount == 0 ? "Non-stop" : "\(sStopsCount) stop(s)"
-                            cell.lblAirline.text = sAirlineName
-                            
-                            if let startTime = Helper.getStoredDate(sStartTime) {
-                                let components = Calendar.current.dateComponents([ .hour, .minute], from: Date(), to: startTime)
-                                
-                                let hour = components.hour ?? 0
-                                let minute = components.minute ?? 0
-                                
-                                if hour < 5 && hour > 0 {
-                                    cell.lblFLightInfo.text = "< \(hour) hours"
-                                } else if hour < 5 && minute > 0 {
-                                    cell.lblFLightInfo.text = "< \(minute) minutes"
-                                }
-                            }
-                        }
-                    }
-                    var sStops = [FlightAirport]()
-                    
-                    for i in 1..<flightSegment.count {
-                        sStops.append(flightSegment[i].sOriginAirport)
-                    }
-                    
-                    var stops = ""
-                    
-                    if sStops.count == 1
-                    {
-                        stops = sStops[0].sCityName
-                    } else if sStops.count > 1
-                    {
-                        stops = "\(sStops[0].sCityName) + \(sStops.count)"
-                    }
-                    
-                    cell.lblStops.text = stops
-                }
+                cell.setUp(indexPath: indexPath, flight: flight.sFlight)
                 
                 return cell
             }
@@ -217,7 +224,7 @@ extension TripsDetailViewController {
     func fetchTrips() {
         if WSManager.isConnectedToInternet() {
             Helper.showLoader(onVC: self, message: "")
-            WSManager.wsCallFetchTrips(success: { (hotels, buses, flights) in
+            WSManager.wsCallFetchTrips(success: { (bookings) in
                 Helper.hideLoader(onVC: self)
                 
             }, failure: { (error) in
