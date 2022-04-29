@@ -56,6 +56,23 @@ class Flight: Mappable, CustomStringConvertible {
         if let fare = sFare as? FlightFare {
             sPrice = fare.sPublishedFare
         }
+        
+        var fareRules : AnyObject?
+        
+        fareRules <- map[WSResponseParams.WS_RESP_PARAM_FARES_RULES_CAP]
+        if let fareRules = fareRules as? [[String:AnyObject]] {
+            
+            var rules = ""
+            
+            for fareRule in fareRules {
+                if let fareRuleDetails = fareRule[WSResponseParams.WS_RESP_PARAM_FARES_RULE_DETAIL] as? String {
+                    rules += fareRuleDetails
+                }
+            }
+            
+            sFareRules = rules
+            
+        }
     }
     
     var description: String {
@@ -103,7 +120,7 @@ class Flight: Mappable, CustomStringConvertible {
     lazy var sIsGSTMandatory = Bool()
     lazy var sGSTAllowed = Bool()
     lazy var sAirlineCode = String()
-    
+    lazy var sFareRules = String()
     
 }
 

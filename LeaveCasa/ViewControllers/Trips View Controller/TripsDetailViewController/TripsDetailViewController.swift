@@ -10,13 +10,24 @@ import UIKit
 
 class TripsDetailViewController: UIViewController {
     
+    @IBOutlet weak var lblBusSeats: UILabel!
     @IBOutlet weak var viewFlights: UIView!
     @IBOutlet weak var viewHotels: UIView!
     @IBOutlet weak var viewBuses: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var lblBusSeats: UILabel!
+    @IBOutlet weak var viewPayment: UIView!
+    @IBOutlet weak var viewImpInfo: UIView!
+    @IBOutlet weak var viewRefund: UIView!
+    
+    @IBOutlet weak var lblHeading: UILabel!
+    @IBOutlet weak var lblBookingId: UILabel!
+    @IBOutlet weak var lblPrice: UILabel!
+    @IBOutlet weak var lblPaidAmount: UILabel!
+    @IBOutlet weak var lblImpInfo: UILabel!
+    @IBOutlet weak var lblRefund: UILabel!
+    
     @IBOutlet weak var lblBusPrice: UILabel!
     //    @IBOutlet weak var lblTimings: UILabel!
     @IBOutlet weak var lblBusName: UILabel!
@@ -61,7 +72,6 @@ class TripsDetailViewController: UIViewController {
         }
     }
     
-    
     func setLeftbarButton() {
         self.title = ""
         let leftBarButton = UIBarButtonItem.init(image: LeaveCasaIcons.BLACK_BACK, style: .plain, target: self, action: #selector(backClicked(_:)))
@@ -76,16 +86,44 @@ class TripsDetailViewController: UIViewController {
         
         switch selectedTab {
         case .bus:
+            self.setUpBus()
             self.viewBuses.isHidden = false
-            setUpBus()
+            self.lblBookingId.text = self.bus.sBookingId
+            self.lblHeading.text = "Hope you have a NICE JOURNEY"
+            self.lblImpInfo.text = ""
+            self.lblRefund.text = ""
+            self.lblPrice.text = self.lblBusPrice.text
+            self.lblPaidAmount.text = self.lblBusPrice.text
+            
+            
         case .flight:
             //            self.viewFlights.isHidden = false
+            self.lblBookingId.text = "\(self.flight.sBookingId)"
+            self.lblHeading.text = "Hope you have a GOOD EXPERIENCE"
+            self.lblHeading.text = "Hope you have a NICE JOURNEY"
+            self.lblImpInfo.text = ""
+            self.lblRefund.text = ""
+            self.lblPrice.text = "₹ \(self.flight.sFlight.sPrice)"
+            self.lblPaidAmount.text = "₹ \(self.flight.sFlight.sPrice)"
+            
+            var fareRules = self.flight.sFlight.sFareRules
+            self.lblImpInfo.attributedText = fareRules.htmlToAttributedString
+             
+            
             break
         case .hotel:
             self.viewHotels.isHidden = false
+            self.lblBookingId.text = "\(self.hotel.sBookingId)"
+            self.lblHeading.text = "Hope you have a GOOD STAY"
+            self.lblHeading.text = "Hope you have a NICE JOURNEY"
+            self.lblImpInfo.text = ""
+            self.lblRefund.text = ""
+            //            self.lblPrice.text = self.hotel.sHotel
+            //                        self.lblPaidAmount.text = self.lblBusPrice.text
         }
         
         self.tableView.reloadData()
+        self.setupUI()
     }
     
     func setUpBus() {
@@ -153,6 +191,20 @@ class TripsDetailViewController: UIViewController {
         self.lblBusSource.text = bus?.sSourceCode
         self.lblBusDestination.text = bus?.sDestinationCode
         
+    }
+    
+    func setupUI() {
+        if self.lblImpInfo.text?.isEmpty ?? false {
+            self.viewImpInfo.isHidden = true
+        } else {
+            self.viewImpInfo.isHidden = true
+        }
+        
+        if self.lblRefund.text?.isEmpty ?? false {
+                    self.viewRefund.isHidden = true
+                } else {
+                    self.viewRefund.isHidden = true
+                }
     }
 }
 

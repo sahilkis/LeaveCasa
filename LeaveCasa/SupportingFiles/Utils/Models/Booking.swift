@@ -83,7 +83,6 @@ class FlightBooking: Mappable, CustomStringConvertible {
         
         bookingDetail <- map[WSResponseParams.WS_RESP_PARAM_BOOKING_DETAIL]
         
-        
         if let detailsDict = bookingDetail as? String, let details = Helper.convertToDictionary(text: detailsDict) as? [String: AnyObject] {
             bookingDetailDict = details
         }
@@ -104,7 +103,7 @@ class FlightBooking: Mappable, CustomStringConvertible {
                 }
             }
             
-            if let item = respDict[WSResponseParams.WS_RESP_PARAM_BOOKINGID] as? Int {
+            if let item = respDict[WSResponseParams.WS_RESP_PARAM_BOOKING_ID] as? Int {
                 sBookingId = item
             }
             if let item = respDict[WSResponseParams.WS_RESP_PARAM_PNR] as? String{
@@ -195,7 +194,7 @@ class Route: Mappable, CustomStringConvertible {
 
 class BusBooking: Mappable, CustomStringConvertible {
     
-    lazy var sBookingId = Int()
+    lazy var sBookingId = String()
     lazy var sPNR = String()
     lazy var sStatus = Int()
     lazy var sTicketStatus = Int()
@@ -214,6 +213,7 @@ class BusBooking: Mappable, CustomStringConvertible {
         var bookingDetailDict: [String : AnyObject]?
         
         bookingDetail <- map[WSResponseParams.WS_RESP_PARAM_BOOKING_DETAIL]
+        sBookingId <- map[WSResponseParams.WS_RESP_PARAM_BOOKINGID]
         
         if let detailsDict = bookingDetail as? String, let details = Helper.convertToDictionary(text: detailsDict) as? [String: AnyObject] {
             bookingDetailDict = details
@@ -228,7 +228,7 @@ class BusBooking: Mappable, CustomStringConvertible {
                 sBus = results
             }
             
-            if let item = respDict[WSResponseParams.WS_RESP_PARAM_BOOKINGID] as? Int {
+            if let item = respDict[WSResponseParams.WS_RESP_PARAM_BOOKINGID] as? String {
                 sBookingId = item
             }
             if let item = respDict[WSResponseParams.WS_RESP_PARAM_PNR] as? String{
