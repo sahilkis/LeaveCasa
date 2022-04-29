@@ -17,16 +17,16 @@ class TripsDetailViewController: UIViewController {
     @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var lblBusSeats: UILabel!
-        @IBOutlet weak var lblBusPrice: UILabel!
+    @IBOutlet weak var lblBusPrice: UILabel!
     //    @IBOutlet weak var lblTimings: UILabel!
-        @IBOutlet weak var lblBusName: UILabel!
+    @IBOutlet weak var lblBusName: UILabel!
     //    @IBOutlet weak var lblBusType: UILabel!
-        @IBOutlet weak var lblBusCondition: UILabel!
-        @IBOutlet weak var lblBusStartTime: UILabel!
-        @IBOutlet weak var lblBusSource: UILabel!
-        @IBOutlet weak var lblBusEndTime: UILabel!
-        @IBOutlet weak var lblBusDestination: UILabel!
-       
+    @IBOutlet weak var lblBusCondition: UILabel!
+    @IBOutlet weak var lblBusStartTime: UILabel!
+    @IBOutlet weak var lblBusSource: UILabel!
+    @IBOutlet weak var lblBusEndTime: UILabel!
+    @IBOutlet weak var lblBusDestination: UILabel!
+    
     var flight = FlightBooking()
     var hotel = HotelBooking()
     var bus = BusBooking()
@@ -35,7 +35,7 @@ class TripsDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        self.tableView.register(FlightListCell.self, forCellReuseIdentifier: CellIds.FlightListCell)
+        //        self.tableView.register(FlightListCell.self, forCellReuseIdentifier: CellIds.FlightListCell)
         setLeftbarButton()
         setUpData()
     }
@@ -61,7 +61,7 @@ class TripsDetailViewController: UIViewController {
         }
     }
     
-
+    
     func setLeftbarButton() {
         self.title = ""
         let leftBarButton = UIBarButtonItem.init(image: LeaveCasaIcons.BLACK_BACK, style: .plain, target: self, action: #selector(backClicked(_:)))
@@ -73,13 +73,13 @@ class TripsDetailViewController: UIViewController {
         self.viewFlights.isHidden = true
         self.viewHotels.isHidden = true
         self.viewBuses.isHidden = true
-
+        
         switch selectedTab {
         case .bus:
             self.viewBuses.isHidden = false
             setUpBus()
         case .flight:
-//            self.viewFlights.isHidden = false
+            //            self.viewFlights.isHidden = false
             break
         case .hotel:
             self.viewHotels.isHidden = false
@@ -136,13 +136,13 @@ class TripsDetailViewController: UIViewController {
                 }
             }
             
-//            if let markup = markups as? Markup {
-//                if markup.amountBy == Strings.PERCENT {
-//                    farePrice += (farePrice * (markup.amount) / 100)
-//                } else {
-//                    farePrice += (markup.amount)
-//                }
-//            }
+            //            if let markup = markups as? Markup {
+            //                if markup.amountBy == Strings.PERCENT {
+            //                    farePrice += (farePrice * (markup.amount) / 100)
+            //                } else {
+            //                    farePrice += (markup.amount)
+            //                }
+            //            }
             self.lblBusPrice.text = "₹\(String(format: "%.0f", farePrice))"
         }
         
@@ -174,7 +174,7 @@ extension TripsDetailViewController {
     }
     
     @IBAction func btnPropertDetailsAction(_ sender: UIButton) {
-       
+        
     }
 }
 
@@ -186,8 +186,8 @@ extension TripsDetailViewController: UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch selectedTab
-                {
-                case .flight:
+        {
+        case .flight:
             return flight.sFlight.sSegments.count
         case .bus:
             return 0
@@ -215,7 +215,6 @@ extension TripsDetailViewController: UITableViewDataSource, UITableViewDelegate 
         }
         return UITableViewCell()
     }
-    
 }
 
 

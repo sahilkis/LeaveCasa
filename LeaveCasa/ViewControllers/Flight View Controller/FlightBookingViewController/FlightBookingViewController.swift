@@ -525,53 +525,53 @@ extension FlightBookingViewController {
                 }
                 
                 let fare : [String:AnyObject] = [
-                    "Currency": flightFare.sCurrency as AnyObject,
-                    "BaseFare": (flightFare.sBaseFare + returningflightFare.sBaseFare) as AnyObject,
-                    "Tax": (flightFare.sTax + returningflightFare.sTax) as AnyObject,
-                    "YQTax": (flightFare.sYQTax + returningflightFare.sYQTax) as AnyObject,
-                    "AdditionalTxnFeePub": (flightFare.sAdditionalTxnFeePub + returningflightFare.sAdditionalTxnFeePub) as AnyObject,
-                    "AdditionalTxnFeeOfrd": (flightFare.sAdditionalTxnFeeOfrd + returningflightFare.sAdditionalTxnFeeOfrd) as AnyObject,
-                    "OtherCharges": (flightFare.sOtherCharges + returningflightFare.sOtherCharges) as AnyObject,
-                    "Discount": (flightFare.sDiscount + returningflightFare.sDiscount) as AnyObject,
-                    "PublishedFare": (flightFare.sPublishedFare + returningflightFare.sPublishedFare) as AnyObject,
-                    "OfferedFare": (flightFare.sOfferedFare + returningflightFare.sOfferedFare) as AnyObject,
-                    "TdsOnCommission": (flightFare.sTdsOnCommission + returningflightFare.sTdsOnCommission) as AnyObject,
-                    "TdsOnPLB": (flightFare.sTdsOnPLB + returningflightFare.sTdsOnPLB) as AnyObject,
-                    "TdsOnIncentive": (flightFare.sTdsOnIncentive + returningflightFare.sTdsOnIncentive) as AnyObject,
-                    "ServiceFee": (flightFare.sServiceFee + returningflightFare.sServiceFee) as AnyObject
+                    WSResponseParams.WS_RESP_PARAM_CURRENCY: flightFare.sCurrency as AnyObject,
+                    WSResponseParams.WS_RESP_PARAM_BASE_FARE: (flightFare.sBaseFare + returningflightFare.sBaseFare) as AnyObject,
+                    WSResponseParams.WS_RESP_PARAM_TAX: (flightFare.sTax + returningflightFare.sTax) as AnyObject,
+                    WSResponseParams.WS_RESP_PARAM_YQTAX: (flightFare.sYQTax + returningflightFare.sYQTax) as AnyObject,
+                    WSResponseParams.WS_RESP_PARAM_ADDITIONAL_TXN_FEE_PUB: (flightFare.sAdditionalTxnFeePub + returningflightFare.sAdditionalTxnFeePub) as AnyObject,
+                    WSResponseParams.WS_RESP_PARAM_ADDITIONAL_TXN_FEE_RD: (flightFare.sAdditionalTxnFeeOfrd + returningflightFare.sAdditionalTxnFeeOfrd) as AnyObject,
+                    WSResponseParams.WS_RESP_PARAM_OTHER_CHARGES: (flightFare.sOtherCharges + returningflightFare.sOtherCharges) as AnyObject,
+                    WSResponseParams.WS_RESP_PARAM_DISCOUNT: (flightFare.sDiscount + returningflightFare.sDiscount) as AnyObject,
+                    WSResponseParams.WS_RESP_PUBLISHED_FARE: (flightFare.sPublishedFare + returningflightFare.sPublishedFare) as AnyObject,
+                    WSResponseParams.WS_RESP_PARAM_OFFERED_FARE: (flightFare.sOfferedFare + returningflightFare.sOfferedFare) as AnyObject,
+                    WSResponseParams.WS_RESP_PARAM_TDS_ON_COMMISSION: (flightFare.sTdsOnCommission + returningflightFare.sTdsOnCommission) as AnyObject,
+                    WSResponseParams.WS_RESP_PARAM_TDS_ON_PLB: (flightFare.sTdsOnPLB + returningflightFare.sTdsOnPLB) as AnyObject,
+                    WSResponseParams.WS_RESP_PARAM_TDS_ON_INCENTIVE: (flightFare.sTdsOnIncentive + returningflightFare.sTdsOnIncentive) as AnyObject,
+                    WSResponseParams.WS_RESP_PARAM_SERVICE_FEE: (flightFare.sServiceFee + returningflightFare.sServiceFee) as AnyObject
                 ]
                 
                 var passenger: [String:AnyObject] = [
                     
-                    "Title": i.title as AnyObject,
-                    "FirstName": i.firstName as AnyObject,
-                    "LastName": i.lastName as AnyObject,
-                    "PaxType": i.paxType as AnyObject,
-                    "DateOfBirth": i.dob as AnyObject,
-                    "Gender": (i.genderValue + 1) as AnyObject, //i.gender as AnyObject,
-                    "PassportNo": i.passportNo as AnyObject,
-                    "PassportExpiry": i.passportExpiryDate as AnyObject,
-                    "AddressLine1": i.addressLine1 as AnyObject,
-                    "AddressLine2": i.addressLine2 as AnyObject,
-                    "City": i.city as AnyObject,
-                    "CountryCode": i.countryCode as AnyObject,
-                    "CountryName": i.countryName as AnyObject,
-                    "Nationality": i.nationality as AnyObject,
-                    "ContactNo": i.contactNo as AnyObject,
-                    "Email": i.email as AnyObject,
-                    "Fare" : fare as AnyObject,
-                    "IsLeadPax": true as AnyObject,
-                    "FFAirlineCode": "" as AnyObject,
-                    "FFNumber": "" as AnyObject,
+                    WSRequestParams.WS_REQS_PARAM_TITLE.capitalized: i.title as AnyObject,
+                    WSResponseParams.WS_RESP_PARAM_FIRSTNAME: i.firstName as AnyObject,
+                    WSResponseParams.WS_RESP_PARAM_LASTNAME: i.lastName as AnyObject,
+                    WSRequestParams.WS_REQS_PARAM_PAX_TYPE: i.paxType as AnyObject,
+                    WSRequestParams.WS_REQS_PARAM_DATE_OF_BIRTH: i.dob as AnyObject,
+                    WSRequestParams.WS_REQS_PARAM_GENDER.capitalized: (i.genderValue + 1) as AnyObject, //i.gender as AnyObject,
+                    WSRequestParams.WS_REQS_PARAM_PASSPORT_NO: i.passportNo as AnyObject,
+                    WSRequestParams.WS_REQS_PARAM_PASSPORT_EXPIRY: i.passportExpiryDate as AnyObject,
+                    WSResponseParams.WS_RESP_PARAM_ADDRESS_LINE1: i.addressLine1 as AnyObject,
+                    WSResponseParams.WS_RESP_PARAM_ADDRESS_LINE2: i.addressLine2 as AnyObject,
+                    WSResponseParams.WS_RESP_PARAM_CITY: i.city as AnyObject,
+                    WSResponseParams.WS_RESP_PARAM_COUNTRYCODE_CAP: i.countryCode as AnyObject,
+                    WSResponseParams.WS_RESP_PARAM_COUNTRYNAME_CAP: i.countryName as AnyObject,
+                    WSResponseParams.WS_RESP_PARAM_NATIONALITY: i.nationality as AnyObject,
+                    WSResponseParams.WS_RESP_PARAM_CONTACTNO: i.contactNo as AnyObject,
+                    WSRequestParams.WS_REQS_PARAM_EMAIL.capitalized: i.email as AnyObject,
+                    WSResponseParams.WS_RESP_PARAM_FARE.capitalized : fare as AnyObject,
+                    WSRequestParams.WS_REQS_PARAM_IS_LEAD_PAX: true as AnyObject,
+                    WSRequestParams.WS_REQS_PARAM_FFAIRLINECODE: "" as AnyObject,
+                    WSRequestParams.WS_REQS_PARAM_FFNUMBER: "" as AnyObject,
                 ]
                 
                 // TODO: Pending - Using static GST values for now
                 if flights.sIsGSTMandatory || flights.sGSTAllowed || returningFlights.sIsGSTMandatory || returningFlights.sGSTAllowed {
-                    passenger["GSTCompanyAddress"] = "2ND FLOOR, F-562 A, LADO SARAI, DELHI, South Delhi, Delhi, 110030" as AnyObject
-                    passenger["GSTCompanyContactNumber"] = "7042457803" as AnyObject
-                    passenger["GSTCompanyName"] = "LEAVECASA TRAVEL PRIVATE LIMITED" as AnyObject
-                    passenger["GSTNumber"] = "07AADCL9221G1ZL" as AnyObject
-                    passenger["GSTCompanyEmail"] = "nikhilg@acmemedia.in" as AnyObject
+                    passenger[WSRequestParams.WS_REQS_PARAM_GST_COMPANY_ADDRESS] = "2ND FLOOR, F-562 A, LADO SARAI, DELHI, South Delhi, Delhi, 110030" as AnyObject
+                    passenger[WSRequestParams.WS_REQS_PARAM_GST_COMPANY_CONTACT_NO] = "7042457803" as AnyObject
+                    passenger[WSRequestParams.WS_REQS_PARAM_GST_COMPANY_NAME] = "LEAVECASA TRAVEL PRIVATE LIMITED" as AnyObject
+                    passenger[WSRequestParams.WS_REQS_PARAM_GST_NUMBER] = "07AADCL9221G1ZL" as AnyObject
+                    passenger[WSRequestParams.WS_REQS_PARAM_GST_COMPANY_EMAIL] = "nikhilg@acmemedia.in" as AnyObject
                 }
                 
                 passengers.append(passenger)
@@ -695,7 +695,7 @@ extension FlightBookingViewController {
                     Helper.hideLoader(onVC: self)
                     
                     if let results = resultFareQuotes[WSResponseParams.WS_RESP_PARAM_RESULTS_CAP] as? [String:AnyObject] {
-                        if let fareQuotesObj = results[WSResponseParams.WS_RESP_PARAM_FARE_CAP] as? [String:AnyObject], let fareQuotes = Mapper<FlightFare>().map(JSON: fareQuotesObj) as FlightFare? {
+                        if let fareQuotesObj = results[WSResponseParams.WS_RESP_PARAM_FARE.capitalized] as? [String:AnyObject], let fareQuotes = Mapper<FlightFare>().map(JSON: fareQuotesObj) as FlightFare? {
                             if isReturning {
                                 self.returningflightFare = fareQuotes
                             } else {
