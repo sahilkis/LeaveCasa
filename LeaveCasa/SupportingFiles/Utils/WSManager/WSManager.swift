@@ -396,7 +396,7 @@ class WSManager {
             print(responseData.result)
             switch responseData.result {
             case .success(let value):
-                if let value = value as? [String: AnyObject], let responseValue = value[WSResponseParams.WS_REPS_PARAM_DATA] as? [String:AnyObject] {
+                if let responseValue = value as? [String: AnyObject] { //}, let responseValue = value[WSResponseParams.WS_REPS_PARAM_DATA] as? [String:AnyObject] {
                     print(responseValue)
                     if let response = responseValue[WSResponseParams.WS_RESP_PARAM_RESPONSE_CAP] as? [String:AnyObject] {
                        

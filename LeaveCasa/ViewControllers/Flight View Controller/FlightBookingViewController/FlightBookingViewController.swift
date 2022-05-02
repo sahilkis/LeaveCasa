@@ -124,6 +124,8 @@ class FlightBookingViewController: UIViewController {
     
     private func setupData() {
         
+        guestDetails.removeAll()
+        
         for i in 0..<numberOfAdults {
             var obj = BookingDetail()
             

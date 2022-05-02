@@ -106,7 +106,7 @@ class TripsDetailViewController: UIViewController {
             self.lblPrice.text = "₹ \(self.flight.sFlight.sPrice)"
             self.lblPaidAmount.text = "₹ \(self.flight.sFlight.sPrice)"
             
-            var fareRules = self.flight.sFlight.sFareRules
+            let fareRules = self.flight.sFlight.sFareRules
             self.lblImpInfo.attributedText = fareRules.htmlToAttributedString
              
             
@@ -197,13 +197,13 @@ class TripsDetailViewController: UIViewController {
         if self.lblImpInfo.text?.isEmpty ?? false {
             self.viewImpInfo.isHidden = true
         } else {
-            self.viewImpInfo.isHidden = true
+            self.viewImpInfo.isHidden = false
         }
         
         if self.lblRefund.text?.isEmpty ?? false {
                     self.viewRefund.isHidden = true
                 } else {
-                    self.viewRefund.isHidden = true
+                    self.viewRefund.isHidden = false
                 }
     }
 }
