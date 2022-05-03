@@ -12,7 +12,7 @@ struct ViewControllerIdentifiers {
     static let SignupViewController                     = "SignupViewController"
     static let ForgotPasswordViewController             = "ForgotPasswordViewController"
     static let HomeViewController                       = "HomeViewController"
-    static let SideMenuViewController                   = "SideMenuViewController"
+    static let SettingsViewController                   = "SettingsViewController"
     static let TripsDetailViewController                = "TripsDetailViewController"
     static let SearchHotelViewController                = "SearchHotelViewController"
     static let HotelListViewController                  = "HotelListViewController"
@@ -44,7 +44,7 @@ enum ViewControllerType {
     case SignupViewController
     case ForgotPasswordViewController
     case HomeViewController
-    case SideMenuViewController
+    case SettingsViewController
     case TripsDetailViewController
     case SearchHotelViewController
     case HotelListViewController
@@ -91,8 +91,8 @@ class ViewControllerHelper: NSObject {
             viewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.TabBarViewController) as! TabBarViewController
         } else if viewControllerType == .HomeViewController {
             viewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.HomeViewController) as! HomeViewController
-        } else if viewControllerType == .SideMenuViewController {
-            viewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.SideMenuViewController) as! SideMenuViewController
+        } else if viewControllerType == .SettingsViewController {
+            viewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.SettingsViewController) as! SettingsViewController
         } else if viewControllerType == .TripsDetailViewController {
             viewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.TripsDetailViewController) as! TripsDetailViewController
         } else if viewControllerType == .WWCalendarTimeSelector {

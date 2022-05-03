@@ -356,4 +356,19 @@ class Helper: NSObject {
         }
         return nil
     }
+    
+    class func convertToJSONString(jsonObject: [String: Any]) -> String? {
+        
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted)
+            // here "jsonData" is the dictionary encoded in JSON data
+            let decoded = String(data: jsonData, encoding: .utf8)!
+
+            return decoded
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+        return ""
+    }
 }

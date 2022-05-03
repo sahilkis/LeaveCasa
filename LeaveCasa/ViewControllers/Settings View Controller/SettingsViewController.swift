@@ -1,5 +1,5 @@
 //
-//  SideMenuViewController.swift
+//  SettingsViewController.swift
 //  LeaveCasa
 //
 //  Created by macmini-2020 on 21/04/22.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SideMenuViewController: UIViewController {
+class SettingsViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var lblName: UILabel!
@@ -30,15 +30,24 @@ class SideMenuViewController: UIViewController {
         SideMenuData(title: "Rate Us", subtitle: "", image: LeaveCasaIcons.SIDE_MENU_RATE),
         SideMenuData(title: "Logout", subtitle: "", image: LeaveCasaIcons.SIDE_MENU_USER)
     ]
-    
+    var loggedInUser = User()
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.loggedInUser = SettingsManager().loggedInUser
+        
+        setUpDate()
+    }
+    
+    func setUpDate()  {
+        self.lblName.text = self.loggedInUser.sName
+        self.lblPhone.text = self.loggedInUser.sEmail
     }
 }
 
 // MARK: - UIBUTTON ACTIONS
-extension SideMenuViewController {
+extension SettingsViewController {
     @IBAction func editProfileClicked(_ sender: UIButton) {
         
     }
@@ -53,7 +62,7 @@ extension SideMenuViewController {
 }
 
 // MARK: - UITABLEVIEW METHODS
-extension SideMenuViewController: UITableViewDataSource, UITableViewDelegate {
+extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -63,7 +72,7 @@ extension SideMenuViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: CellIds.SideMenuCell, for: indexPath) as! SideMenuCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: CellIds.SettingsCell, for: indexPath) as! SettingsCell
         let item = array[indexPath.row]
         
         cell.lblName.text = item.title

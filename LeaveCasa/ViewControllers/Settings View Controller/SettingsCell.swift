@@ -1,5 +1,5 @@
 //
-//  SideMenuCell.swift
+//  SettingsCell.swift
 //  LeaveCasa
 //
 //  Created by macmini-2020 on 21/04/22.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SideMenuCell: UITableViewCell {
+class SettingsCell: UITableViewCell {
     
     @IBOutlet weak var img: UIImageView!
     @IBOutlet weak var lblName: UILabel!

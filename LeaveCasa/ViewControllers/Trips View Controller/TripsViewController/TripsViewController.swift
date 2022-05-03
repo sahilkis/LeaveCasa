@@ -23,7 +23,7 @@ class TripsViewController: UIViewController {
         super.viewDidLoad()
         
         lblNoBooking.isHidden = true
-        setLeftbarButton()
+//        setLeftbarButton()
         setUpTab()
         
     }

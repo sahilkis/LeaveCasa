@@ -5,8 +5,8 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         getCustomerId()
-        setLeftbarButton()
-        setRightbarButton()
+//        setLeftbarButton()
+//        setRightbarButton()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -49,7 +49,7 @@ class HomeViewController: UIViewController {
 // MARK: - UIBUTTON ACTIONS
 extension HomeViewController {
     @IBAction func leftBarButton(_ sender: UIBarButtonItem) {
-        if let vc = ViewControllerHelper.getViewController(ofType: .SideMenuViewController) as? SideMenuViewController {
+        if let vc = ViewControllerHelper.getViewController(ofType: .SettingsViewController) as? SettingsViewController {
                     
                     self.navigationController?.present(vc, animated: true)
                 }

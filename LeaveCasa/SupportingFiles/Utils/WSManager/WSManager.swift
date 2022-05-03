@@ -32,7 +32,7 @@ class WSManager {
                     print(responseValue)
                     if let token = responseValue[WSResponseParams.WS_RESP_PARAM_ACCESS_TOKEN] as? String {
                         self.settings?.accessToken = "\(token)"
-                        
+                                            
                         if rememberMe {
                             self.settings?.rememberMe = true
                         } else {
@@ -64,7 +64,7 @@ class WSManager {
                     if let token = responseValue[WSResponseParams.WS_RESP_PARAM_ACCESS_TOKEN] as? String {
                         self.settings?.accessToken = "\(token)"
                         self.settings?.rememberMe = true
-                        
+                                                
                         completion(true, "")
                     } else {
                         if let responseMessage = responseValue[WSResponseParams.WS_RESP_PARAM_MESSAGE] as? String {
@@ -123,6 +123,7 @@ class WSManager {
                     if let custID = responseValue[WSResponseParams.WS_RESP_PARAM_ID] as? Int {
                         
                         self.settings?.customerId = "\(custID)"
+                        self.settings?.loggedInUserString = Helper.convertToJSONString(jsonObject: responseValue) ?? ""
                         
                         completion(true, "\(custID)", "")
                     }
