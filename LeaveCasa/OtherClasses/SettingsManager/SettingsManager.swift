@@ -115,6 +115,13 @@ class SettingsManager: NSObject, SettingsManagerProtocol
         defaults.synchronize()
     }
     
+    func removeAll () {
+        let domain = Bundle.main.bundleIdentifier!
+
+        defaults.removePersistentDomain(forName: domain)
+        defaults.synchronize()
+    }
+    
     private func getLoggedInUser() -> User
     {
         var loggedInUser = User()

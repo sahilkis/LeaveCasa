@@ -44,6 +44,19 @@ class SettingsViewController: UIViewController {
         self.lblName.text = self.loggedInUser.sName
         self.lblPhone.text = self.loggedInUser.sEmail
     }
+    
+    func logout() {
+        
+        Helper.showOKCancelAlertWithCompletion(onVC: self, title: Alert.ALERT, message: AlertMessages.LOGOUT, btnOkTitle: Alert.LOGOUT, btnCancelTitle: Alert.CANCEL) {
+            
+                   SettingsManager().removeAll()
+                   
+                   self.dismiss(animated: true, completion: {
+                       self.navigationController?.popToRootViewController(animated: true)
+                   })
+        }
+       
+    }
 }
 
 // MARK: - UIBUTTON ACTIONS
@@ -84,5 +97,9 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        if indexPath.row == array.count - 1 //LOGOUT
+        {
+            logout()
+        }
     }
 }

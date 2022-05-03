@@ -440,7 +440,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "85F41546-5A74-436F-A094-4E4D017B8B0F"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LeaveCasa/ViewControllers/HomeViewController/HomeViewController.swift"
@@ -1392,7 +1392,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "C0A23486-D95E-4C88-8B13-F6F2D0C85C5D"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LeaveCasa/SupportingFiles/Utils/WSManager/WSManager.swift"
@@ -1776,7 +1776,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "C386B109-7519-4C1D-AA56-2F88497D4F1A"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LeaveCasa/SupportingFiles/Utils/WSManager/WSManager.swift"

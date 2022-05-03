@@ -28,7 +28,7 @@ class MainViewController: UIViewController {
     }
     
     func checkUserStatus() {
-        if self.settings?.rememberMe ?? false {
+        if !(self.settings?.accessToken.isEmpty ?? true) ?? false {
             if let vc = ViewControllerHelper.getViewController(ofType: .TabBarViewController) as? TabBarViewController {
                 vc.modalPresentationStyle = .overFullScreen
                 self.present(vc, animated: true, completion: nil)

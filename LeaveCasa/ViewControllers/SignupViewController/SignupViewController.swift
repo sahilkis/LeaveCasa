@@ -137,6 +137,9 @@ extension SignupViewController {
             WSManager.wsCallSignup(params, completion: { (isSuccess, message) in
                 if isSuccess {
                     Helper.hideLoader(onVC: self)
+                    
+                    self.txtPassword.text = ""
+
                     if let vc = ViewControllerHelper.getViewController(ofType: .TabBarViewController) as? TabBarViewController {
                         vc.modalPresentationStyle = .overFullScreen
                         self.present(vc, animated: true, completion: nil)
