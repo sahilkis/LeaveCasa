@@ -121,6 +121,8 @@ struct Alert {
     static let TRY_AGAIN                    = "Try Again"
     static let NO_INTERNET                  = "No Internet Connection"
     static let ALERT_SOMETHING_WENT_WRONG   = "Whoops, something went wrong. Please refresh and try again."
+    static let SUCCESS_ON_UPDATE_PROFILE    = "Successfully Updated Profile"
+
 }
 
 // Strings
@@ -141,5 +143,7 @@ struct Strings {
     static let FLIGHT_CANCEL                = "flight_cancel"
     static let BUS_CANCEL                   = "Bus_cancel"
     static let MY_TRIPS                     = "My Trips"
-
+    static let SAVE                         = "Save"
+    static let SUCCESS_ON_UPDATE_PROFILE    = "successfully_update_profile"
+    
 }

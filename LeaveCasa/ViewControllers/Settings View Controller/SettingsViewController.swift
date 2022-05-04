@@ -16,19 +16,19 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var sliderProfile: UISlider!
     @IBOutlet weak var lblProfileDesc: UILabel!
     
-    struct SideMenuData
+    struct SettingsListData
     {
         var title = String()
         var subtitle : String?
         var image : UIImage?
     }
     var array = [
-        SideMenuData(title: "My Account", subtitle: "", image: LeaveCasaIcons.SIDE_MENU_USER),
-        SideMenuData(title: "Wallet", subtitle: "", image: LeaveCasaIcons.SIDE_MENU_WALLET),
-        SideMenuData(title: "Refer & Earn", subtitle: "", image: LeaveCasaIcons.SIDE_MENU_REFER),
-        SideMenuData(title: "Notifications", subtitle: "", image: LeaveCasaIcons.SIDE_MENU_NOTIFICATION),
-        SideMenuData(title: "Rate Us", subtitle: "", image: LeaveCasaIcons.SIDE_MENU_RATE),
-        SideMenuData(title: "Logout", subtitle: "", image: LeaveCasaIcons.SIDE_MENU_USER)
+        SettingsListData(title: "My Account", subtitle: "", image: LeaveCasaIcons.SIDE_MENU_USER),
+        SettingsListData(title: "Wallet", subtitle: "", image: LeaveCasaIcons.SIDE_MENU_WALLET),
+        SettingsListData(title: "Refer & Earn", subtitle: "", image: LeaveCasaIcons.SIDE_MENU_REFER),
+        SettingsListData(title: "Notifications", subtitle: "", image: LeaveCasaIcons.SIDE_MENU_NOTIFICATION),
+        SettingsListData(title: "Rate Us", subtitle: "", image: LeaveCasaIcons.SIDE_MENU_RATE),
+        SettingsListData(title: "Logout", subtitle: "", image: LeaveCasaIcons.SIDE_MENU_USER)
     ]
     var loggedInUser = User()
         
@@ -45,24 +45,36 @@ class SettingsViewController: UIViewController {
         self.lblPhone.text = self.loggedInUser.sEmail
     }
     
+    func openMyAccount() {
+        
+        if let vc = ViewControllerHelper.getViewController(ofType: .ProfileViewController) as? ProfileViewController {
+            vc.isEditable = false
+
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
     func logout() {
         
         Helper.showOKCancelAlertWithCompletion(onVC: self, title: Alert.ALERT, message: AlertMessages.LOGOUT, btnOkTitle: Alert.LOGOUT, btnCancelTitle: Alert.CANCEL) {
-            
-                   SettingsManager().removeAll()
+                
+            SettingsManager().removeAll()
                    
                    self.dismiss(animated: true, completion: {
                        self.navigationController?.popToRootViewController(animated: true)
                    })
         }
-       
     }
 }
 
 // MARK: - UIBUTTON ACTIONS
 extension SettingsViewController {
     @IBAction func editProfileClicked(_ sender: UIButton) {
-        
+        if let vc = ViewControllerHelper.getViewController(ofType: .ProfileViewController) as? ProfileViewController {
+                    vc.isEditable = true
+
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
     }
     
     @IBAction func contactUsClicked(_ sender: UIButton) {
@@ -97,9 +109,15 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if indexPath.row == array.count - 1 //LOGOUT
-        {
+        switch indexPath.row {
+        case 0:
+            openMyAccount()
+            
+        case 5:
             logout()
+        default:
+            break
         }
+        
     }
 }

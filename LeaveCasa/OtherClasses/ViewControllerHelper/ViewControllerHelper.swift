@@ -13,6 +13,7 @@ struct ViewControllerIdentifiers {
     static let ForgotPasswordViewController             = "ForgotPasswordViewController"
     static let HomeViewController                       = "HomeViewController"
     static let SettingsViewController                   = "SettingsViewController"
+    static let ProfileViewController                    = "ProfileViewController"
     static let TripsDetailViewController                = "TripsDetailViewController"
     static let SearchHotelViewController                = "SearchHotelViewController"
     static let HotelListViewController                  = "HotelListViewController"
@@ -45,6 +46,7 @@ enum ViewControllerType {
     case ForgotPasswordViewController
     case HomeViewController
     case SettingsViewController
+    case ProfileViewController
     case TripsDetailViewController
     case SearchHotelViewController
     case HotelListViewController
@@ -93,6 +95,8 @@ class ViewControllerHelper: NSObject {
             viewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.HomeViewController) as! HomeViewController
         } else if viewControllerType == .SettingsViewController {
             viewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.SettingsViewController) as! SettingsViewController
+        } else if viewControllerType == .ProfileViewController {
+            viewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.ProfileViewController) as! ProfileViewController
         } else if viewControllerType == .TripsDetailViewController {
             viewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifiers.TripsDetailViewController) as! TripsDetailViewController
         } else if viewControllerType == .WWCalendarTimeSelector {

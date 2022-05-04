@@ -32,7 +32,7 @@ class WSManager {
                     print(responseValue)
                     if let token = responseValue[WSResponseParams.WS_RESP_PARAM_ACCESS_TOKEN] as? String {
                         self.settings?.accessToken = "\(token)"
-                                            
+                        
                         if rememberMe {
                             self.settings?.rememberMe = true
                         } else {
@@ -64,7 +64,7 @@ class WSManager {
                     if let token = responseValue[WSResponseParams.WS_RESP_PARAM_ACCESS_TOKEN] as? String {
                         self.settings?.accessToken = "\(token)"
                         self.settings?.rememberMe = true
-                                                
+                        
                         completion(true, "")
                     } else {
                         if let responseMessage = responseValue[WSResponseParams.WS_RESP_PARAM_MESSAGE] as? String {
@@ -139,6 +139,69 @@ class WSManager {
         })
     }
     
+    // MARK: Upload Profile Image
+    class func wsCallUploadImage(media: UIImage, params: [String:String], fileName: String, completion:@escaping (_ isSuccess: Bool, _ response: String?, _ message: String)->()) {
+        var headers: HTTPHeaders = authorizationHeader
+        
+        headers.add(name: "Content-type", value: "multipart/form-data")
+        
+        AF.upload(
+            multipartFormData: { multipartFormData in
+                multipartFormData.append(media.jpegData(
+                    compressionQuality: 0.5)!,
+                                         withName: "upload_data",
+                                         fileName: "\(fileName).jpeg", mimeType: "image/jpeg"
+                )
+                for param in params {
+                    let value = param.value.data(using: String.Encoding.utf8)!
+                    multipartFormData.append(value, withName: param.key)
+                }
+            },
+            to: WebService.profilePic,
+            method: .post ,
+            headers: headers
+        )
+            .response { response in
+                print(response)
+                switch response.result {
+                case .success(let value):
+                    if let responseValue = value as? [String: AnyObject] {
+                        
+                        completion(true, "\(response)", "")
+                        
+                    } else {
+                        completion(false, nil, response.error?.localizedDescription ?? "")
+                    }
+                case .failure(let error):
+                    completion(false, nil, error.localizedDescription)
+                }
+            }
+    }
+    
+    // MARK: Update Profile
+    class func wsCallUpdateProfile(_ reqParams : [String:AnyObject], completion:@escaping (_ isSuccess: Bool, _ response: String?, _ message: String)->()) {
+        AF.request(WebService.updateProfile, method: .post, parameters: reqParams, headers: authorizationHeader).responseJSON(completionHandler: {(responseData) -> Void in
+            print(responseData.result)
+            switch responseData.result {
+            case .success(let value):
+                if let responseValue = value as? [String: AnyObject] {
+                    print(responseValue)
+                    if let message = responseValue[WSResponseParams.WS_RESP_PARAM_MESSAGE] as? String, message == Strings.SUCCESS_ON_UPDATE_PROFILE  {
+                        
+                        completion(true, Alert.SUCCESS_ON_UPDATE_PROFILE, "")
+                    }
+                    else {
+                        completion(false, nil, "Wrong data type")
+                    }
+                } else {
+                    completion(false, nil, responseData.error?.localizedDescription ?? "")
+                }
+            case .failure(let error):
+                completion(false, nil, error.localizedDescription)
+            }
+        })
+    }
+    
     // MARK: Fetch Trips
     class func wsCallFetchTrips(success:@escaping (_ booking: Booking)->(),failure:@escaping (NSError)->()) { //_ arrHotels: [Hotels], _ arrBuses: [Bus], _ arrFlights: [Flight]
         AF.request(WebService.trips, method: .get, parameters: nil, headers: authorizationHeader).responseJSON(completionHandler: {(responseData) -> Void in
@@ -147,27 +210,27 @@ class WSManager {
             case .success(let value):
                 if let responseArray = value as? [[String: AnyObject]] {
                     print(responseArray)
-//                    var hotels: [Hotel] = []
-//                    var buses: [Bus] = []
-//                    var flights: [Flight] = []
+                    //                    var hotels: [Hotel] = []
+                    //                    var buses: [Bus] = []
+                    //                    var flights: [Flight] = []
                     for responseValue in responseArray {
-                    
+                        
                         if let results = Mapper<Booking>().map(JSON: responseValue) as Booking? {
-//                            hotels = results.sHotelBooking
-//                            buses = results.sBusBooking
-//                            flights = results.sFlightBooking
+                            //                            hotels = results.sHotelBooking
+                            //                            buses = results.sBusBooking
+                            //                            flights = results.sFlightBooking
                             success(results)
-                       }
+                        }
                     }
-                     
-//                    success(hotels, buses, flights)
+                    
+                    //                    success(hotels, buses, flights)
                     
                 }  else {
-                failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: responseData.error?.localizedDescription ?? ""]))
+                    failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: responseData.error?.localizedDescription ?? ""]))
+                }
+            case .failure(let error):
+                failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: error.localizedDescription]))
             }
-        case .failure(let error):
-            failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: error.localizedDescription]))
-        }
         })
     }
     
@@ -400,9 +463,9 @@ class WSManager {
                 if let responseValue = value as? [String: AnyObject] { //}, let responseValue = value[WSResponseParams.WS_REPS_PARAM_DATA] as? [String:AnyObject] {
                     print(responseValue)
                     if let response = responseValue[WSResponseParams.WS_RESP_PARAM_RESPONSE_CAP] as? [String:AnyObject] {
-                       
-                            success(response)
-                       
+                        
+                        success(response)
+                        
                     } else {
                         if let message = responseValue[WSResponseParams.WS_RESP_PARAM_MESSAGE] as? String {
                             failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: message]))
@@ -432,9 +495,9 @@ class WSManager {
                 if let value = value as? [String: AnyObject], let responseValue = value[WSResponseParams.WS_REPS_PARAM_DATA] as? [String:AnyObject] {
                     print(responseValue)
                     if let response = responseValue[WSResponseParams.WS_RESP_PARAM_RESPONSE_CAP] as? [String:AnyObject] {
-                       
-                            success(response)
-                       
+                        
+                        success(response)
+                        
                     } else {
                         if let message = responseValue[WSResponseParams.WS_RESP_PARAM_MESSAGE] as? String {
                             failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: message]))
@@ -466,9 +529,9 @@ class WSManager {
                 if let value = value as? [String: AnyObject], let responseValue = value[WSResponseParams.WS_REPS_PARAM_DATA] as? [String:AnyObject] {
                     print(responseValue)
                     if let response = responseValue[WSResponseParams.WS_RESP_PARAM_RESPONSE_CAP] as? [String:AnyObject] {
-                       
-                            success(response)
-                       
+                        
+                        success(response)
+                        
                     } else {
                         if let message = responseValue[WSResponseParams.WS_RESP_PARAM_MESSAGE] as? String {
                             failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: message]))
@@ -691,18 +754,18 @@ class WSManager {
     
     class func wsCallDebitWalletBalance(_ requestParams: [String: AnyObject], completion:@escaping (_ isSuccess: Bool, _ message: String)->()) {
         AF.request(WebService.debitWalletBalance, method: .post, parameters: requestParams, encoding: JSONEncoding.default, headers: nil).responseJSON(completionHandler: {(responseData) -> Void in
-                   
+            
             print(responseData.result)
             switch responseData.result {
             case .success(let value):
                 if let responseValue = value as? [String: AnyObject] {
                     print(responseValue)
                     if let message = responseValue[WSResponseParams.WS_RESP_PARAM_MESSAGE] as? String {
-                                            completion(true, message)
-                                        }
-                                        else {
-                                            completion(false, "Wrong data type")
-                                        }
+                        completion(true, message)
+                    }
+                    else {
+                        completion(false, "Wrong data type")
+                    }
                 } else {
                     completion(false,  responseData.error?.localizedDescription ?? "")
                 }

@@ -17,6 +17,8 @@ class User: Mappable, CustomStringConvertible {
         sCountry <- map[WSResponseParams.WS_RESP_PARAM_COUNTRY]
         sDob <- map[WSResponseParams.WS_RESP_PARAM_DOB]
         sEmail <- map[WSRequestParams.WS_REQS_PARAM_EMAIL]
+        sGender <- map[WSRequestParams.WS_REQS_PARAM_GENDER]
+        sPhone <- map[WSRequestParams.WS_REQS_PARAM_MOBILE]
         sApiToken <- map[WSResponseParams.WS_RESP_PARAM_API_TOKEN]
         sProfilePics <- map[WSResponseParams.WS_RESP_PARAM_PROFILE_PIC]
         sProfilePic <- map[WSResponseParams.WS_RESP_PARAM_PROFILE_PIC]
@@ -25,6 +27,13 @@ class User: Mappable, CustomStringConvertible {
             sProfilePic = imagesUrl
         }
         
+        var obj : AnyObject?
+        
+        obj <- map[WSRequestParams.WS_REQS_PARAM_MOBILE]
+        
+        if let obj = obj as? Int {
+            sPhone = "\(obj)"
+        }
     }
     
     var description: String {
@@ -51,6 +60,8 @@ class User: Mappable, CustomStringConvertible {
     lazy var sCountry = String()
     lazy var sDob = String()
     lazy var sEmail = String()
+    lazy var sGender = String()
+    lazy var sPhone = String()
     lazy var sApiToken = String()
     lazy var sProfilePics = [String: AnyObject]()
     lazy var sProfilePic = String()

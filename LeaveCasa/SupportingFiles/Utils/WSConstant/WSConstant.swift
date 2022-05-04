@@ -14,6 +14,8 @@ struct WebService {
     static let forgotPassword                        = "\(baseUrl)/forgot-passwordss"
     static let customerId                            = "\(baseUrl)/user"
     static let trips                                 = "\(baseUrl)/customer_booking_detail"
+    static let updateProfile                         = "\(baseUrl)/upadate-profile"
+    static let profilePic                            = "\(baseUrl)/profile-image"
 
     // MARK: HOTEL
     static let citySearch                            = "\(baseUrl)/hotel-city-search/"
