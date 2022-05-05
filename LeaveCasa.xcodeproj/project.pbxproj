@@ -95,6 +95,7 @@
 		40CDAF1627E0B40800B5B8FA /* FlightListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CDAF1527E0B40800B5B8FA /* FlightListViewController.swift */; };
 		40CDAF1827E0B43F00B5B8FA /* FlightListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CDAF1727E0B43F00B5B8FA /* FlightListCell.swift */; };
 		40DC23F2282244090069DC45 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40DC23F1282244090069DC45 /* ProfileViewController.swift */; };
+		40E52AD72823F4CE006E00A3 /* WalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E52AD62823F4CE006E00A3 /* WalletViewController.swift */; };
 		40E56C6227FC499300981CDF /* HotelFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E56C6127FC499300981CDF /* HotelFilterViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -224,6 +225,7 @@
 		40CDAF1527E0B40800B5B8FA /* FlightListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightListViewController.swift; sourceTree = "<group>"; };
 		40CDAF1727E0B43F00B5B8FA /* FlightListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightListCell.swift; sourceTree = "<group>"; };
 		40DC23F1282244090069DC45 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		40E52AD62823F4CE006E00A3 /* WalletViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletViewController.swift; sourceTree = "<group>"; };
 		40E56C6127FC499300981CDF /* HotelFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelFilterViewController.swift; sourceTree = "<group>"; };
 		D57CC5C06870644F4F5A9B61 /* Pods-LeaveCasa.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LeaveCasa.debug.xcconfig"; path = "Target Support Files/Pods-LeaveCasa/Pods-LeaveCasa.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -721,6 +723,7 @@
 			children = (
 				406C5ADD28117D7E00F16259 /* SettingsViewController.swift */,
 				406C5ADB28117D5D00F16259 /* SettingsCell.swift */,
+				40E52AD52823F4AB006E00A3 /* WalletViewController */,
 				40DC23F0282243590069DC45 /* ProfileViewController */,
 			);
 			path = "Settings View Controller";
@@ -841,6 +844,14 @@
 				40DC23F1282244090069DC45 /* ProfileViewController.swift */,
 			);
 			path = ProfileViewController;
+			sourceTree = "<group>";
+		};
+		40E52AD52823F4AB006E00A3 /* WalletViewController */ = {
+			isa = PBXGroup;
+			children = (
+				40E52AD62823F4CE006E00A3 /* WalletViewController.swift */,
+			);
+			path = WalletViewController;
 			sourceTree = "<group>";
 		};
 		40E56C6027FC495100981CDF /* HotelFilterViewController */ = {
@@ -1132,6 +1143,7 @@
 				195C404A22FC10F90013A644 /* WSManager.swift in Sources */,
 				1FF2962F27F5728F008502C7 /* WalletPaymentViewController.swift in Sources */,
 				40C7B3D627F4463B005027B1 /* FlightListRoundCell.swift in Sources */,
+				40E52AD72823F4CE006E00A3 /* WalletViewController.swift in Sources */,
 				1924095E23A244810012CFBF /* Int+Timepiece.swift in Sources */,
 				19309A072334C58800E189AE /* Hotels.swift in Sources */,
 				18C82846214FCF98007FC65A /* AppConstants.swift in Sources */,

@@ -8,6 +8,8 @@
 
 import UIKit
 import SDWebImage
+import StoreKit
+
 
 class SettingsViewController: UIViewController {
     
@@ -20,17 +22,18 @@ class SettingsViewController: UIViewController {
     
     struct SettingsListData
     {
+        var id = Int()
         var title = String()
         var subtitle : String?
         var image : UIImage?
     }
     var array = [
-        SettingsListData(title: "My Account", subtitle: "", image: LeaveCasaIcons.SIDE_MENU_USER),
-        SettingsListData(title: "Wallet", subtitle: "", image: LeaveCasaIcons.SIDE_MENU_WALLET),
-        SettingsListData(title: "Refer & Earn", subtitle: "", image: LeaveCasaIcons.SIDE_MENU_REFER),
-        SettingsListData(title: "Notifications", subtitle: "", image: LeaveCasaIcons.SIDE_MENU_NOTIFICATION),
-        SettingsListData(title: "Rate Us", subtitle: "", image: LeaveCasaIcons.SIDE_MENU_RATE),
-        SettingsListData(title: "Logout", subtitle: "", image: LeaveCasaIcons.SIDE_MENU_USER)
+        SettingsListData(id: 1, title: "My Account", subtitle: "", image: LeaveCasaIcons.SIDE_MENU_USER),
+        SettingsListData(id: 2, title: "Wallet", subtitle: "", image: LeaveCasaIcons.SIDE_MENU_WALLET),
+        //        SettingsListData(id: 3, title: "Refer & Earn", subtitle: "", image: LeaveCasaIcons.SIDE_MENU_REFER),
+        //        SettingsListData(id: 4, title: "Notifications", subtitle: "", image: LeaveCasaIcons.SIDE_MENU_NOTIFICATION),
+        SettingsListData(id: 5, title: "Rate Us", subtitle: "", image: LeaveCasaIcons.SIDE_MENU_RATE),
+        SettingsListData(id: 6, title: "Logout", subtitle: "", image: LeaveCasaIcons.SIDE_MENU_USER)
     ]
     var loggedInUser = User()
     
@@ -72,6 +75,28 @@ class SettingsViewController: UIViewController {
             vc.isEditable = false
             
             self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
+    func openWallet() {
+        
+        if let vc = ViewControllerHelper.getViewController(ofType: .WalletViewController) as? WalletViewController {
+            
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
+    func rateUs() {
+        if #available(iOS 10.3, *) {
+            SKStoreReviewController.requestReview()
+            
+        } else if let url = URL(string: "itms-apps://itunes.apple.com/app/" + "appId") {
+            if #available(iOS 10, *) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                
+            } else {
+                UIApplication.shared.openURL(url)
+            }
         }
     }
     
@@ -130,11 +155,18 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        switch indexPath.row {
-        case 0:
+        let id = array[indexPath.row].id
+        
+        switch id {
+        case 1:
             openMyAccount()
-            
+        case 2:
+            openWallet()
+        case 3, 4:
+            break
         case 5:
+            rateUs()
+        case 6:
             logout()
         default:
             break
