@@ -13,7 +13,7 @@ class WalletPaymentViewController: UIViewController {
     @IBOutlet weak var lblTotalAmountPayable: UILabel!
     
     var totalPayable = Double()
-    var walletBalance = 1000000.0//Double()  //TODO: Make it 0 later when Razorpay will work
+    var walletBalance = Double()
     var walletReducinigValue = Double()
     var bookingType = ""
     var params = [String:AnyObject]()
@@ -88,6 +88,7 @@ extension WalletPaymentViewController {
     @IBAction func proceedToPaymentClicked(_ sender: UIButton) {
         
         var amount = totalPayable
+        walletBalance = 10000000.0//Double()  //TODO: Make it 0 later when Razorpay will work
         
         if btnUseWalletBalance.isSelected {
             if walletBalance > totalPayable
