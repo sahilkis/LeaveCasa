@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class SettingsViewController: UIViewController {
     
@@ -15,6 +16,7 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var lblPhone: UILabel!
     @IBOutlet weak var sliderProfile: UISlider!
     @IBOutlet weak var lblProfileDesc: UILabel!
+    @IBOutlet weak var profilePic: UIImageView!
     
     struct SettingsListData
     {
@@ -31,25 +33,44 @@ class SettingsViewController: UIViewController {
         SettingsListData(title: "Logout", subtitle: "", image: LeaveCasaIcons.SIDE_MENU_USER)
     ]
     var loggedInUser = User()
-        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.loggedInUser = SettingsManager().loggedInUser
+        getUser()
         
-        setUpDate()
     }
     
-    func setUpDate()  {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.loggedInUser = SettingsManager().loggedInUser
+        
+        setUpData()
+    }
+    
+    func setUpData()  {
         self.lblName.text = self.loggedInUser.sName
         self.lblPhone.text = self.loggedInUser.sEmail
+        
+        if !(loggedInUser.sProfilePath.isEmpty || loggedInUser.sProfilePic.isEmpty) {
+            
+            let imageUrl = loggedInUser.sProfilePath + loggedInUser.sProfilePic
+            
+            if let imageStr = imageUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
+                if let url = URL(string: imageStr) {
+                    self.profilePic.sd_setImage(with: url, completed: nil)
+                }
+            }
+        }
+        
     }
     
     func openMyAccount() {
         
         if let vc = ViewControllerHelper.getViewController(ofType: .ProfileViewController) as? ProfileViewController {
             vc.isEditable = false
-
+            
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
@@ -57,12 +78,12 @@ class SettingsViewController: UIViewController {
     func logout() {
         
         Helper.showOKCancelAlertWithCompletion(onVC: self, title: Alert.ALERT, message: AlertMessages.LOGOUT, btnOkTitle: Alert.LOGOUT, btnCancelTitle: Alert.CANCEL) {
-                
+            
             SettingsManager().removeAll()
-                   
-                   self.dismiss(animated: true, completion: {
-                       self.navigationController?.popToRootViewController(animated: true)
-                   })
+            
+            self.dismiss(animated: true, completion: {
+                self.navigationController?.popToRootViewController(animated: true)
+            })
         }
     }
 }
@@ -71,10 +92,10 @@ class SettingsViewController: UIViewController {
 extension SettingsViewController {
     @IBAction func editProfileClicked(_ sender: UIButton) {
         if let vc = ViewControllerHelper.getViewController(ofType: .ProfileViewController) as? ProfileViewController {
-                    vc.isEditable = true
-
-                    self.navigationController?.pushViewController(vc, animated: true)
-                }
+            vc.isEditable = true
+            
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     @IBAction func contactUsClicked(_ sender: UIButton) {
@@ -119,5 +140,16 @@ extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
             break
         }
         
+    }
+}
+
+extension SettingsViewController {
+    
+    func getUser() {
+        WSManager.wsCallFetchCustomerId { isSuccess, response, message in
+            self.loggedInUser = SettingsManager().loggedInUser
+            
+            self.setUpData()
+        }
     }
 }

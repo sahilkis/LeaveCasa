@@ -1874,13 +1874,13 @@ Welcome back!</string>
                                                                         <rect key="frame" x="234" y="0.0" width="109" height="70"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00pm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k4U-tn-Wmf">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="109" height="49.5"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="109" height="23.5"/>
                                                                                 <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="17"/>
                                                                                 <color key="textColor" red="0.1176470588" green="0.14117647059999999" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="__" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vdB-J5-ZcH">
-                                                                                <rect key="frame" x="0.0" y="49.5" width="109" height="20.5"/>
+                                                                                <rect key="frame" x="0.0" y="23.5" width="109" height="46.5"/>
                                                                                 <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="15"/>
                                                                                 <color key="textColor" red="0.74509803919999995" green="0.76078431369999999" blue="0.80784313730000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                 <nil key="highlightedColor"/>
@@ -1891,13 +1891,13 @@ Welcome back!</string>
                                                                         <rect key="frame" x="343" y="0.0" width="0.0" height="70"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$ 0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0CG-XW-Mo7">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="0.0" height="23.5"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="0.0" height="49.5"/>
                                                                                 <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="17"/>
                                                                                 <color key="textColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 seats" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NMM-bh-rRy">
-                                                                                <rect key="frame" x="0.0" y="23.5" width="0.0" height="46.5"/>
+                                                                                <rect key="frame" x="0.0" y="49.5" width="0.0" height="20.5"/>
                                                                                 <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="15"/>
                                                                                 <color key="textColor" red="1" green="0.53725490200000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                 <nil key="highlightedColor"/>
@@ -2572,8 +2572,9 @@ Welcome back!</string>
                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YNT-Kx-5it">
                                                 <rect key="frame" x="107.5" y="60" width="160" height="160"/>
                                                 <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="majestic grande hotel 1" translatesAutoresizingMaskIntoConstraints="NO" id="uNo-u7-ASR">
-                                                        <rect key="frame" x="2" y="2" width="156" height="156"/>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="uNo-u7-ASR">
+                                                        <rect key="frame" x="2" y="2.5" width="156" height="155"/>
+                                                        <color key="tintColor" systemColor="opaqueSeparatorColor"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                                 <real key="value" value="78"/>
@@ -3272,14 +3273,24 @@ Welcome back!</string>
                                 <rect key="frame" x="0.0" y="44" width="375" height="574"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="YcH-e3-ROh">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="134"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="138"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MNI-bE-Uf8">
-                                            <rect key="frame" x="8" y="30" width="359" height="84"/>
+                                            <rect key="frame" x="8" y="30" width="359" height="88"/>
                                             <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ph1-4K-kGR">
+                                                    <rect key="frame" x="74" y="57.5" width="130" height="30.5"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="plain" title="View/ Edit Profile">
+                                                        <fontDescription key="titleFontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                                    </buttonConfiguration>
+                                                    <connections>
+                                                        <action selector="editProfileClicked:" destination="z21-cx-A89" eventType="touchUpInside" id="BIr-Vb-CUs"/>
+                                                    </connections>
+                                                </button>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="r4w-DS-EAq">
-                                                    <rect key="frame" x="46" y="0.0" width="313" height="84"/>
+                                                    <rect key="frame" x="82" y="0.0" width="277" height="47.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="deo-Wx-caH">
                                                             <rect key="frame" x="0.0" y="0.0" width="13" height="27.5"/>
@@ -3294,10 +3305,10 @@ Welcome back!</string>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="NrY-84-aiR">
-                                                            <rect key="frame" x="0.0" y="50.5" width="417" height="6"/>
+                                                            <rect key="frame" x="0.0" y="47.5" width="669" height="6"/>
                                                             <subviews>
                                                                 <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="ZF6-aM-HNS">
-                                                                    <rect key="frame" x="-2" y="0.0" width="421" height="1"/>
+                                                                    <rect key="frame" x="-2" y="0.0" width="673" height="1"/>
                                                                     <color key="thumbTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </slider>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nbf-kt-5RU">
@@ -3308,39 +3319,60 @@ Welcome back!</string>
                                                                 </label>
                                                             </subviews>
                                                         </stackView>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ph1-4K-kGR">
-                                                            <rect key="frame" x="0.0" y="53.5" width="130" height="30.5"/>
-                                                            <state key="normal" title="Button"/>
-                                                            <buttonConfiguration key="configuration" style="plain" title="View/ Edit Profile">
-                                                                <fontDescription key="titleFontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                                            </buttonConfiguration>
-                                                            <connections>
-                                                                <action selector="editProfileClicked:" destination="z21-cx-A89" eventType="touchUpInside" id="BIr-Vb-CUs"/>
-                                                            </connections>
-                                                        </button>
                                                     </subviews>
                                                 </stackView>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_user_circular" translatesAutoresizingMaskIntoConstraints="NO" id="67C-de-mM0">
-                                                    <rect key="frame" x="8" y="8" width="30" height="30"/>
+                                                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KID-q7-ri2">
+                                                    <rect key="frame" x="8" y="0.0" width="54" height="54"/>
+                                                    <subviews>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_user" translatesAutoresizingMaskIntoConstraints="NO" id="SCH-3R-vAp">
+                                                            <rect key="frame" x="2" y="2" width="50" height="50"/>
+                                                            <color key="tintColor" systemColor="opaqueSeparatorColor"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                    <real key="value" value="25"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </imageView>
+                                                    </subviews>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="30" id="kJ5-2v-pzY"/>
-                                                        <constraint firstAttribute="height" constant="30" id="tMs-Gq-wek"/>
+                                                        <constraint firstAttribute="bottom" secondItem="SCH-3R-vAp" secondAttribute="bottom" constant="2" id="EE6-km-gYC"/>
+                                                        <constraint firstItem="SCH-3R-vAp" firstAttribute="leading" secondItem="KID-q7-ri2" secondAttribute="leading" constant="2" id="Ni1-T7-C51"/>
+                                                        <constraint firstItem="SCH-3R-vAp" firstAttribute="top" secondItem="KID-q7-ri2" secondAttribute="top" constant="2" id="PUH-8q-tyQ"/>
+                                                        <constraint firstAttribute="trailing" secondItem="SCH-3R-vAp" secondAttribute="trailing" constant="2" id="U4L-ma-Bs6"/>
+                                                        <constraint firstAttribute="height" constant="54" id="dOq-Dv-4FQ"/>
+                                                        <constraint firstAttribute="width" constant="54" id="zGc-EY-jP8"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                            <real key="value" value="10"/>
+                                                            <real key="value" value="27"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                                            <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                                            <real key="value" value="3"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                                            <real key="value" value="3"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                                            <size key="value" width="3" height="3"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
-                                                </imageView>
+                                                </view>
                                             </subviews>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             <constraints>
-                                                <constraint firstItem="67C-de-mM0" firstAttribute="top" secondItem="MNI-bE-Uf8" secondAttribute="top" constant="8" id="DtA-f8-OwM"/>
-                                                <constraint firstItem="r4w-DS-EAq" firstAttribute="leading" secondItem="67C-de-mM0" secondAttribute="trailing" constant="8" symbolic="YES" id="Te6-Ux-c2k"/>
-                                                <constraint firstAttribute="bottom" secondItem="r4w-DS-EAq" secondAttribute="bottom" id="hPL-fC-Ft6"/>
+                                                <constraint firstItem="ph1-4K-kGR" firstAttribute="leading" secondItem="r4w-DS-EAq" secondAttribute="leading" constant="-8" id="0ef-JQ-Twb"/>
+                                                <constraint firstItem="KID-q7-ri2" firstAttribute="leading" secondItem="MNI-bE-Uf8" secondAttribute="leading" constant="8" id="7LV-kS-332"/>
+                                                <constraint firstAttribute="bottom" secondItem="ph1-4K-kGR" secondAttribute="bottom" id="L27-CH-hdN"/>
+                                                <constraint firstAttribute="bottom" secondItem="ph1-4K-kGR" secondAttribute="bottom" id="aZn-Tm-OHf"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ph1-4K-kGR" secondAttribute="trailing" constant="20" id="azm-rf-KdT"/>
+                                                <constraint firstItem="r4w-DS-EAq" firstAttribute="leading" secondItem="KID-q7-ri2" secondAttribute="trailing" constant="20" id="kCa-7S-3Qp"/>
                                                 <constraint firstItem="r4w-DS-EAq" firstAttribute="top" secondItem="MNI-bE-Uf8" secondAttribute="top" id="okS-A7-Zgm"/>
                                                 <constraint firstAttribute="trailing" secondItem="r4w-DS-EAq" secondAttribute="trailing" id="pWD-4O-BhP"/>
-                                                <constraint firstItem="67C-de-mM0" firstAttribute="leading" secondItem="MNI-bE-Uf8" secondAttribute="leading" constant="8" id="xeH-y1-hDL"/>
+                                                <constraint firstItem="KID-q7-ri2" firstAttribute="top" secondItem="MNI-bE-Uf8" secondAttribute="top" id="z9s-fH-7Kz"/>
                                             </constraints>
                                         </view>
                                     </subviews>
@@ -3353,13 +3385,13 @@ Welcome back!</string>
                                     </constraints>
                                 </view>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="inq-Uz-TxW">
-                                    <rect key="frame" x="0.0" y="274" width="375" height="44"/>
+                                    <rect key="frame" x="0.0" y="278" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rcj-5j-Uv2">
                                             <rect key="frame" x="80" y="0.0" width="215.5" height="44"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OOr-Ai-ULf">
+                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OOr-Ai-ULf">
                                                     <rect key="frame" x="0.0" y="0.0" width="90" height="44"/>
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="plain" title="Contact Us">
@@ -3370,14 +3402,14 @@ Welcome back!</string>
                                                         <action selector="contactUsClicked:" destination="z21-cx-A89" eventType="touchUpInside" id="bis-NP-zFq"/>
                                                     </connections>
                                                 </button>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AQs-kx-IgX">
+                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AQs-kx-IgX">
                                                     <rect key="frame" x="100" y="8" width="1" height="28"/>
                                                     <color key="backgroundColor" red="0.60784313725490191" green="0.60784313725490191" blue="0.60784313725490191" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="1" id="z8x-AG-QoH"/>
                                                     </constraints>
                                                 </view>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="huI-F3-PcB">
+                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="huI-F3-PcB">
                                                     <rect key="frame" x="110" y="0.0" width="105.5" height="44"/>
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="plain" title="Privacy Policy">
@@ -3415,7 +3447,7 @@ Welcome back!</string>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SettingsCell" rowHeight="73" id="Xvo-HF-Wkm" customClass="SettingsCell" customModule="LeaveCasa" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="178.5" width="375" height="73"/>
+                                        <rect key="frame" x="0.0" y="182.5" width="375" height="73"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Xvo-HF-Wkm" id="mra-Xd-v4Y">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="73"/>
@@ -3494,6 +3526,7 @@ Welcome back!</string>
                         <outlet property="lblName" destination="deo-Wx-caH" id="e40-Zg-evb"/>
                         <outlet property="lblPhone" destination="Lk7-sd-IzX" id="APN-VT-LST"/>
                         <outlet property="lblProfileDesc" destination="nbf-kt-5RU" id="M0V-ij-hgg"/>
+                        <outlet property="profilePic" destination="SCH-3R-vAp" id="MWZ-X1-I2p"/>
                         <outlet property="sliderProfile" destination="ZF6-aM-HNS" id="58E-UU-7XB"/>
                         <outlet property="tableView" destination="dTG-Jv-i5P" id="KeD-DS-hKl"/>
                     </connections>
@@ -3717,9 +3750,11 @@ Welcome back!</string>
         <image name="ic_timer" width="17" height="17"/>
         <image name="ic_trips" width="24.5" height="23.5"/>
         <image name="ic_user" width="24" height="24"/>
-        <image name="ic_user_circular" width="18.5" height="18.5"/>
         <image name="img_background" width="374" height="812"/>
-        <image name="majestic grande hotel 1" width="345" height="188"/>
+        <image name="person.circle.fill" catalog="system" width="128" height="121"/>
+        <systemColor name="opaqueSeparatorColor">
+            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

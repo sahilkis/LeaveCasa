@@ -8,6 +8,7 @@
 
 import UIKit
 import DropDown
+import SDWebImage
 
 class ProfileViewController: UIViewController {
     
@@ -47,6 +48,7 @@ class ProfileViewController: UIViewController {
         
         setLeftbarButton()
         setUpData()
+        self.getUser()
     }
     
     func setLeftbarButton() {
@@ -68,6 +70,17 @@ class ProfileViewController: UIViewController {
         self.txtGender.text = loggedInUser.sGender
         self.txtDob.text = loggedInUser.sDob
         self.txtCity.text = loggedInUser.sCity
+        
+        if !(loggedInUser.sProfilePath.isEmpty || loggedInUser.sProfilePic.isEmpty) {
+            
+            let imageUrl = loggedInUser.sProfilePath + loggedInUser.sProfilePic
+
+                        if let imageStr = imageUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
+                            if let url = URL(string: imageStr) {
+                                self.profilePic.sd_setImage(with: url, completed: nil)
+                            }
+                        }
+                    }
         
         if !isEditable
         {
@@ -188,6 +201,15 @@ extension ProfileViewController: WWCalendarTimeSelectorProtocol {
 
 extension ProfileViewController {
     func updateProfile() {
+        if image != nil
+        {
+            uploadProfilePic()
+        } else {
+            updateUserProfile()
+        }
+    }
+    
+    func updateUserProfile() {
         if WSManager.isConnectedToInternet() {
             self.view.resignFirstResponder()
             
@@ -232,6 +254,30 @@ extension ProfileViewController {
                     self.getUser()
                     Helper.showOKAlert(onVC: self, title: Alert.SUCCESS, message: response ?? "")
                     
+                } else {
+                    Helper.hideLoader(onVC: self)
+                    Helper.showOKAlert(onVC: self, title: Alert.ERROR, message: message)
+                }
+            })
+        } else {
+            Helper.hideLoader(onVC: self)
+        }
+    }
+    
+    
+    func uploadProfilePic() {
+        if WSManager.isConnectedToInternet() {
+            self.view.resignFirstResponder()
+            
+            let params: [String: String] = [:]
+            
+            Helper.showLoader(onVC: self, message: Alert.LOADING)
+            
+            WSManager.wsCallUploadImage(media: image ?? UIImage(), params: params, fileName: "image", completion: { isSuccess, response, message in
+                if isSuccess {
+                    Helper.hideLoader(onVC: self)
+                    
+                    self.updateUserProfile()
                 } else {
                     Helper.hideLoader(onVC: self)
                     Helper.showOKAlert(onVC: self, title: Alert.ERROR, message: message)

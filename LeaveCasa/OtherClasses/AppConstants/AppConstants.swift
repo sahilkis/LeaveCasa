@@ -145,5 +145,7 @@ struct Strings {
     static let MY_TRIPS                     = "My Trips"
     static let SAVE                         = "Save"
     static let SUCCESS_ON_UPDATE_PROFILE    = "successfully_update_profile"
-    
+    static let SUCCESSFULLY_UPLOAD_PROFILE_PIC    = "successfully_upload_profile_pic"
+
 }
+

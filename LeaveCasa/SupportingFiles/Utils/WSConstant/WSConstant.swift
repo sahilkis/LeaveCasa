@@ -270,6 +270,7 @@ struct WSResponseParams {
     static let WS_RESP_PARAM_PERCENT                 = "percent"
     static let WS_RESP_PARAM_PAN                     = "PAN"
     static let WS_RESP_PARAM_PNR                     = "PNR"
+    static let WS_RESP_PARAM_PATH                    = "path"
     static let WS_RESP_PARAM_PRICE                   = "price"
     static let WS_RESP_PARAM_PRICE_DETAILS           = "price_details"
     static let WS_RESP_PARAM_PROFILE_PIC             = "profile_pic"

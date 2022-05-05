@@ -13,7 +13,7 @@ class WalletPaymentViewController: UIViewController {
     @IBOutlet weak var lblTotalAmountPayable: UILabel!
     
     var totalPayable = Double()
-    var walletBalance = Double()
+    var walletBalance = 1000000.0//Double()  //TODO: Make it 0 later when Razorpay will work
     var walletReducinigValue = Double()
     var bookingType = ""
     var params = [String:AnyObject]()
@@ -123,6 +123,14 @@ extension WalletPaymentViewController {
     }
     
     func reduceWalletBalance(_ byValue: Double, _ bookingId: String) {
+        
+        //TODO: Remove it later when Razorpay will work
+        Helper.showOKAlertWithCompletion(onVC: self, title: Alert.SUCCESS, message: "Your booking is completed with booking ID: \(bookingId)", btnOkTitle: Alert.OK) {
+                            
+                            self.backToHome()
+                        }
+        return
+        //TODO: Remove above lines  later when Razorpay will work
         
         Helper.showLoader(onVC: self, message: "")
         

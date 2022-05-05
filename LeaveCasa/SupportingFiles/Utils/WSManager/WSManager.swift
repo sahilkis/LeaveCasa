@@ -149,8 +149,8 @@ class WSManager {
             multipartFormData: { multipartFormData in
                 multipartFormData.append(media.jpegData(
                     compressionQuality: 0.5)!,
-                                         withName: "upload_data",
-                                         fileName: "\(fileName).jpeg", mimeType: "image/jpeg"
+                                         withName: fileName,
+                                         fileName: "\(fileName).jpg", mimeType: "image/jpg"
                 )
                 for param in params {
                     let value = param.value.data(using: String.Encoding.utf8)!
@@ -161,13 +161,15 @@ class WSManager {
             method: .post ,
             headers: headers
         )
-            .response { response in
+            .responseJSON { response in
                 print(response)
                 switch response.result {
                 case .success(let value):
                     if let responseValue = value as? [String: AnyObject] {
+                        if let message = responseValue[WSResponseParams.WS_RESP_PARAM_MESSAGE] as? String, message == Strings.SUCCESSFULLY_UPLOAD_PROFILE_PIC {
                         
-                        completion(true, "\(response)", "")
+                        completion(true, "\(message)", "")
+                    }
                         
                     } else {
                         completion(false, nil, response.error?.localizedDescription ?? "")
