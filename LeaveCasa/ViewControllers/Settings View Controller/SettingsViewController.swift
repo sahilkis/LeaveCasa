@@ -66,6 +66,9 @@ class SettingsViewController: UIViewController {
                 }
             }
         }
+        else {
+            self.profilePic.image = LeaveCasaIcons.USER_PLACEHOLDER
+        }
         
     }
     

@@ -104,6 +104,9 @@ struct LeaveCasaIcons {
     static let SIDE_MENU_RATE                = UIImage.init(named: "ic_rating")
     static let SIDE_MENU_REFER               = UIImage.init(named: "ic_refer")
     static let SIDE_MENU_NOTIFICATION        = UIImage.init(named: "ic_notification")
+    static let USER_PLACEHOLDER              = UIImage.init(named: "ic_user")
+    @available(iOS 13.0, *)
+    static let USER_PLACEHOLDER_GRAY         = UIImage.init(systemName: "person.circle.fill")
 
 }
 

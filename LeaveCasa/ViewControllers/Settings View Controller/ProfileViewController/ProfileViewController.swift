@@ -80,7 +80,13 @@ class ProfileViewController: UIViewController {
                                 self.profilePic.sd_setImage(with: url, completed: nil)
                             }
                         }
-                    }
+        } else {
+            if #available(iOS 13.0, *) {
+                self.profilePic.image = LeaveCasaIcons.USER_PLACEHOLDER_GRAY
+            } else {
+                // Fallback on earlier versions
+            }
+        }
         
         if !isEditable
         {
