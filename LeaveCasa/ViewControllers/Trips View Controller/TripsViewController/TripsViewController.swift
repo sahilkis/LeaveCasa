@@ -23,7 +23,7 @@ class TripsViewController: UIViewController {
         super.viewDidLoad()
         
         lblNoBooking.isHidden = true
-//        setLeftbarButton()
+        //        setLeftbarButton()
         setUpTab()
         
     }
@@ -158,33 +158,33 @@ extension TripsViewController: UITableViewDataSource, UITableViewDelegate {
             var flightClassString = ""
             
             for (flightIndex, flightSegment) in flight.sSegments.enumerated() {
-            if let firstSeg = flightSegment.first {
-                let sSourceCode = firstSeg.sOriginAirport.sCityCode
-                let sStartTime = firstSeg.sOriginDeptTime
-                let sAirline = firstSeg.sAirline.sAirlineName
-                
-                flightNameString += "\(sSourceCode.uppercased()) - "
-                flightAirlineNameString += "\(sAirline)"
-                
-                if flightIndex != flight.sSegments.count - 1 {
-                    flightAirlineNameString += " -  "
-                }
-                
-                flightDatesString += "\(Helper.convertStoredDate(sStartTime, "E, MMM d, yyyy")) - "
-                flightClassString  += "\(AppConstants.flightTypes[(firstSeg.sCabinClass > 0 ? firstSeg.sCabinClass : 1)-1]) - "
-                
-                if let secondSeg = flightSegment.last, flightIndex == flight.sSegments.count - 1 {
-                    let sDestinationCode = secondSeg.sDestinationAirport.sCityCode
+                if let firstSeg = flightSegment.first {
+                    let sSourceCode = firstSeg.sOriginAirport.sCityCode
+                    let sStartTime = firstSeg.sOriginDeptTime
+                    let sAirline = firstSeg.sAirline.sAirlineName
                     
-                    flightNameString += "\(sDestinationCode.uppercased())"
+                    flightNameString += "\(sSourceCode.uppercased()) - "
+                    flightAirlineNameString += "\(sAirline)"
+                    
+                    if flightIndex != flight.sSegments.count - 1 {
+                        flightAirlineNameString += " -  "
+                    }
+                    
+                    flightDatesString += "\(Helper.convertStoredDate(sStartTime, "E, MMM d, yyyy")) - "
+                    flightClassString  += "\(AppConstants.flightTypes[(firstSeg.sCabinClass > 0 ? firstSeg.sCabinClass : 1)-1]) - "
+                    
+                    if let secondSeg = flightSegment.last, flightIndex == flight.sSegments.count - 1 {
+                        let sDestinationCode = secondSeg.sDestinationAirport.sCityCode
+                        
+                        flightNameString += "\(sDestinationCode.uppercased())"
+                    }
                 }
-            }
-            
+                
             }
             cell.lblHotelName.text = flightAirlineNameString
             cell.lblHotelAddress.text = flightNameString
             cell.lblDates.text = flightDatesString
-
+            
             let price = flight.sPrice
             cell.lblHotelPrice.text = "₹\(String(format: "%.0f", price))"
             
@@ -204,12 +204,14 @@ extension TripsViewController: UITableViewDataSource, UITableViewDelegate {
             let bus = buses[indexPath.row].sBus
             
             cell.imgHotel.image = LeaveCasaIcons.HOME_BUS
-            cell.lblHotelAddress.text = "\(bus.sSourceCode) - \(bus.sDestinationCode)"
+            cell.lblHotelAddress.text = "\(bus.sSourceCity) - \(bus.sDestinationCity)"
             cell.lblHotelName.text = bus.sTravels
             
-            let arrivalTime = Helper.getTimeString(time: bus.sArrivalTime)
-            let departureTime = Helper.getTimeString(time: bus.sDepartureTime)
-            cell.lblDates.text = "\(departureTime) - \(arrivalTime)"
+            let arrivalTime = Helper.getTimeString(time: bus.sDropTime)
+            let departureTime = Helper.getTimeString(time: bus.sPickUpTime)
+            let date = Helper.convertDateFormat(bus.sDOJ, formatTo: "E, MMM d, yyyy")
+            
+            cell.lblDates.text = "\(date) (\(departureTime) - \(arrivalTime))"
             
             if let price = bus.fareDetails as? [String: AnyObject] {
                 var farePrice = 0.0
@@ -237,6 +239,10 @@ extension TripsViewController: UITableViewDataSource, UITableViewDelegate {
                 //                }
                 cell.lblHotelPrice.text = "₹\(String(format: "%.0f", farePrice))"
             }
+            
+            if let fare = buses[indexPath.row].sPassengers.first?.sFare {
+                cell.lblHotelPrice.text = "₹\(fare)"
+            }
         }
         
         return cell
@@ -246,7 +252,7 @@ extension TripsViewController: UITableViewDataSource, UITableViewDelegate {
         
         if let vc = ViewControllerHelper.getViewController(ofType: .TripsDetailViewController) as? TripsDetailViewController {
             vc.selectedTab = self.selectedTab
-
+            
             if self.selectedTab == .flight {
                 vc.flight = self.flights[indexPath.row]
             } else if self.selectedTab == .hotel {
@@ -254,7 +260,7 @@ extension TripsViewController: UITableViewDataSource, UITableViewDelegate {
             } else if self.selectedTab == .bus {
                 vc.bus = self.buses[indexPath.row]
             }
-
+            
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }

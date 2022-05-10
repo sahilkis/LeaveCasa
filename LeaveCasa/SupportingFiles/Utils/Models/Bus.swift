@@ -29,10 +29,15 @@ class Bus: Mappable, CustomStringConvertible {
         sAC <- map[WSResponseParams.WS_RESP_PARAM_AC]
         sSourceCode <- map[WSRequestParams.WS_RESP_PARAM_SOURCE]
         sDestinationCode <- map[WSRequestParams.WS_RESP_PARAM_DESTINATION]
+        sDOJ <- map[WSResponseParams.WS_RESP_PARAM_DOJ]
+        sSourceCity <- map[WSResponseParams.WS_RESP_PARAM_SOURCE_CITY]
+        sDestinationCity <- map[WSResponseParams.WS_RESP_PARAM_DESTINATION_CITY]
         sSeater <- map[WSResponseParams.WS_RESP_PARAM_SEATER]
         sSleeper <- map[WSResponseParams.WS_RESP_PARAM_SLEEPER]
         sDropPointMandatory <- map[WSResponseParams.WS_RESP_PARAM_DROP_MANDATORY]
-
+        sPickUpTime <- map[WSResponseParams.WS_RESP_PARAM_PICKUP_TIME]
+        sDropTime <- map[WSResponseParams.WS_RESP_PARAM_DROP_TIME]
+                
         var busBoarding: [[String: AnyObject]]?
         
         busBoarding <- map[WSResponseParams.WS_RESP_PARAM_BOARDING_TIMES]
@@ -106,9 +111,14 @@ class Bus: Mappable, CustomStringConvertible {
     lazy var sBusDroppingArr = [BusBoarding]()
     lazy var sSourceCode = String()
     lazy var sDestinationCode = String()
+    lazy var sDOJ = String()
     lazy var sDropPointMandatory = Bool()
+    lazy var sSourceCity = String()
+    lazy var sDestinationCity = String()
     lazy var sSeater = Bool()
     lazy var sSleeper = Bool()
+    lazy var sPickUpTime = String()
+    lazy var sDropTime = String()
 }
 
 class BusBoarding: Mappable, CustomStringConvertible {

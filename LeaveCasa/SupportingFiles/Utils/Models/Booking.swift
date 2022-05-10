@@ -68,7 +68,7 @@ class FlightBooking: Mappable, CustomStringConvertible {
     lazy var sStatus = Int()
     lazy var sTicketStatus = Int()
     lazy var sFlight = Flight()
-    lazy var sRoute = Route()
+//    lazy var sRoute = Route()
     lazy var sPassengers = [FlightPassenger]()
     
     required init?(map: Map) {}
@@ -79,18 +79,8 @@ class FlightBooking: Mappable, CustomStringConvertible {
     
     func mapping(map: Map) {
         var bookingDetail: AnyObject?
-        var bookingDetailDict: [String : AnyObject]?
         
-        bookingDetail <- map[WSResponseParams.WS_RESP_PARAM_BOOKING_DETAIL]
-        
-        if let detailsDict = bookingDetail as? String, let details = Helper.convertToDictionary(text: detailsDict) as? [String: AnyObject] {
-            bookingDetailDict = details
-        }
-        if let detailsDict = bookingDetail as? [String: AnyObject] {
-            bookingDetailDict = detailsDict
-            
-        }
-        if let details = bookingDetailDict as? [String: AnyObject], let responseDict = details[WSResponseParams.WS_RESP_PARAM_RESPONSE_CAP] as? [String:AnyObject], let respDict = responseDict[WSResponseParams.WS_RESP_PARAM_RESPONSE_CAP] as? [String:AnyObject] {
+        if let details = map.JSON as? [String: AnyObject], let responseDict = details[WSResponseParams.WS_RESP_PARAM_RESPONSE_CAP] as? [String:AnyObject], let respDict = responseDict[WSResponseParams.WS_RESP_PARAM_RESPONSE_CAP] as? [String:AnyObject] {
             if let flightItinerary = respDict[WSResponseParams.WS_RESP_PARAM_FLIGHT_ITINERARY] as? [String:AnyObject]
             {
                 if let results = Mapper<Flight>().map(JSON: flightItinerary) as Flight? {
@@ -120,11 +110,11 @@ class FlightBooking: Mappable, CustomStringConvertible {
         
         bookingDetail <- map[WSResponseParams.WS_RESP_PARAM_ROUTE]
         
-        if let detailsDict = bookingDetail as? String, let details = Helper.convertToDictionary(text: detailsDict) as? [String: AnyObject] {
-            if let results = Mapper<Route>().map(JSON: details) as Route? {
-                sRoute = results
-            }
-        }
+//        if let detailsDict = bookingDetail as? String, let details = Helper.convertToDictionary(text: detailsDict) as? [String: AnyObject] {
+//            if let results = Mapper<Route>().map(JSON: details) as Route? {
+//                sRoute = results
+//            }
+//        }
     }
     
     var description: String {
@@ -199,7 +189,7 @@ class BusBooking: Mappable, CustomStringConvertible {
     lazy var sStatus = Int()
     lazy var sTicketStatus = Int()
     lazy var sBus = Bus()
-    lazy var sRoute = Route()
+//    lazy var sRoute = Route()
     lazy var sPassengers = [BusPassenger]()
     
     required init?(map: Map) {}
@@ -210,19 +200,10 @@ class BusBooking: Mappable, CustomStringConvertible {
     
     func mapping(map: Map) {
         var bookingDetail: AnyObject?
-        var bookingDetailDict: [String : AnyObject]?
         
-        bookingDetail <- map[WSResponseParams.WS_RESP_PARAM_BOOKING_DETAIL]
         sBookingId <- map[WSResponseParams.WS_RESP_PARAM_BOOKINGID]
         
-        if let detailsDict = bookingDetail as? String, let details = Helper.convertToDictionary(text: detailsDict) as? [String: AnyObject] {
-            bookingDetailDict = details
-        }
-        if let detailsDict = bookingDetail as? [String: AnyObject] {
-            bookingDetailDict = detailsDict
-            
-        }
-        if let details = bookingDetailDict as? [String: AnyObject], let respDict = details[WSResponseParams.WS_RESP_PARAM_DETAIL] as? [String:AnyObject] {
+        if let details = map.JSON as? [String: AnyObject], let respDict = details[WSResponseParams.WS_RESP_PARAM_DETAIL] as? [String:AnyObject] {
             
             if let results = Mapper<Bus>().map(JSON: respDict) as Bus? {
                 sBus = results
@@ -231,7 +212,7 @@ class BusBooking: Mappable, CustomStringConvertible {
             if let item = respDict[WSResponseParams.WS_RESP_PARAM_BOOKINGID] as? String {
                 sBookingId = item
             }
-            if let item = respDict[WSResponseParams.WS_RESP_PARAM_PNR] as? String{
+            if let item = respDict[WSResponseParams.WS_RESP_PARAM_PNR.lowercased()] as? String{
                 sPNR = item
             }
             if let item = respDict[WSResponseParams.WS_RESP_PARAM_STATUS] as? Int{
@@ -255,13 +236,13 @@ class BusBooking: Mappable, CustomStringConvertible {
             }
         }
         
-        bookingDetail <- map[WSResponseParams.WS_RESP_PARAM_ROUTE]
-        
-        if let detailsDict = bookingDetail as? String, let details = Helper.convertToDictionary(text: detailsDict) as? [String: AnyObject] {
-            if let results = Mapper<Route>().map(JSON: details) as Route? {
-                sRoute = results
-            }
-        }
+//        bookingDetail <- map[WSResponseParams.WS_RESP_PARAM_ROUTE]
+//
+//        if let detailsDict = bookingDetail as? String, let details = Helper.convertToDictionary(text: detailsDict) as? [String: AnyObject] {
+//            if let results = Mapper<Route>().map(JSON: details) as Route? {
+//                sRoute = results
+//            }
+//        }
     }
     
     var description: String {
@@ -292,7 +273,7 @@ class HotelBooking: Mappable, CustomStringConvertible {
     lazy var sStatus = Int()
     lazy var sTicketStatus = Int()
     lazy var sHotel = Hotels()
-    lazy var sRoute = Route()
+//    lazy var sRoute = Route()
     lazy var sPassengers = [HotelPassenger]()
     lazy var sHolder = HotelPassenger()
     
@@ -305,19 +286,8 @@ class HotelBooking: Mappable, CustomStringConvertible {
     func mapping(map: Map) {
         
         var bookingDetail: AnyObject?
-        var bookingDetailDict: [String : AnyObject]?
         
-        bookingDetail <- map[WSResponseParams.WS_RESP_PARAM_BOOKING_DETAIL]
-        
-        
-        if let detailsDict = bookingDetail as? String, let details = Helper.convertToDictionary(text: detailsDict) as? [String: AnyObject] {
-            bookingDetailDict = details
-        }
-        if let detailsDict = bookingDetail as? [String: AnyObject] {
-            bookingDetailDict = detailsDict
-            
-        }
-        if let details = bookingDetailDict as? [String: AnyObject], let responseDict = details[WSResponseParams.WS_RESP_PARAM_RESPONSE_CAP] as? [String:AnyObject], let respDict = responseDict[WSResponseParams.WS_RESP_PARAM_RESPONSE_CAP] as? [String:AnyObject] {
+        if let details = map.JSON as? [String: AnyObject], let responseDict = details[WSResponseParams.WS_RESP_PARAM_RESPONSE_CAP] as? [String:AnyObject], let respDict = responseDict[WSResponseParams.WS_RESP_PARAM_RESPONSE_CAP] as? [String:AnyObject] {
             
             if let results = Mapper<Hotels>().map(JSON:respDict) as Hotels? {
                 sHotel = results
@@ -368,13 +338,13 @@ class HotelBooking: Mappable, CustomStringConvertible {
             
         }
         
-        bookingDetail <- map[WSResponseParams.WS_RESP_PARAM_ROUTE]
-        
-        if let detailsDict = bookingDetail as? String, let details = Helper.convertToDictionary(text: detailsDict) as? [String: AnyObject] {
-            if let results = Mapper<Route>().map(JSON: details) as Route? {
-                sRoute = results
-            }
-        }
+//        bookingDetail <- map[WSResponseParams.WS_RESP_PARAM_ROUTE]
+//        
+//        if let detailsDict = bookingDetail as? String, let details = Helper.convertToDictionary(text: detailsDict) as? [String: AnyObject] {
+//            if let results = Mapper<Route>().map(JSON: details) as Route? {
+//                sRoute = results
+//            }
+//        }
     }
     
     var description: String {

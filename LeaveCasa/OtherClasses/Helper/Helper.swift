@@ -261,6 +261,19 @@ class Helper: NSObject {
         return ""
     }
     
+    class func convertDateFormat(_ dateString: String, _ formatFrom: String = "yyyy-MM-dd'T'HH:mm:ssZ", formatTo: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = formatFrom
+        let date = dateFormatter.date(from: dateString)
+        
+        if let date = date {
+            let newDateFormatter = DateFormatter()
+            newDateFormatter.dateFormat = formatTo
+            return newDateFormatter.string(from: date)
+        }
+        return ""
+    }
+    
     class func setCheckInDate() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"

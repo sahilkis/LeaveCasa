@@ -167,9 +167,9 @@ class WSManager {
                 case .success(let value):
                     if let responseValue = value as? [String: AnyObject] {
                         if let message = responseValue[WSResponseParams.WS_RESP_PARAM_MESSAGE] as? String, message == Strings.SUCCESSFULLY_UPLOAD_PROFILE_PIC {
-                        
-                        completion(true, "\(message)", "")
-                    }
+                            
+                            completion(true, "\(message)", "")
+                        }
                         
                     } else {
                         completion(false, nil, response.error?.localizedDescription ?? "")
@@ -205,28 +205,15 @@ class WSManager {
     }
     
     // MARK: Fetch Trips
-    class func wsCallFetchTrips(success:@escaping (_ booking: Booking)->(),failure:@escaping (NSError)->()) { //_ arrHotels: [Hotels], _ arrBuses: [Bus], _ arrFlights: [Flight]
+    class func wsCallFetchTrips(success:@escaping (_ booking: Booking)->(),failure:@escaping (NSError)->()) {
         AF.request(WebService.trips, method: .get, parameters: nil, headers: authorizationHeader).responseJSON(completionHandler: {(responseData) -> Void in
             print(responseData.result)
             switch responseData.result {
             case .success(let value):
-                if let responseArray = value as? [[String: AnyObject]] {
-                    print(responseArray)
-                    //                    var hotels: [Hotel] = []
-                    //                    var buses: [Bus] = []
-                    //                    var flights: [Flight] = []
-                    for responseValue in responseArray {
-                        
-                        if let results = Mapper<Booking>().map(JSON: responseValue) as Booking? {
-                            //                            hotels = results.sHotelBooking
-                            //                            buses = results.sBusBooking
-                            //                            flights = results.sFlightBooking
-                            success(results)
-                        }
+                if let responseValue = value as? [String: AnyObject] {
+                    if let results = Mapper<Booking>().map(JSON: responseValue) as Booking? {
+                        success(results)
                     }
-                    
-                    //                    success(hotels, buses, flights)
-                    
                 }  else {
                     failure(NSError.init(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: responseData.error?.localizedDescription ?? ""]))
                 }

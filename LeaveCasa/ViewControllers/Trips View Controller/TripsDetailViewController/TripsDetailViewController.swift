@@ -32,6 +32,7 @@ class TripsDetailViewController: UIViewController {
     //    @IBOutlet weak var lblTimings: UILabel!
     @IBOutlet weak var lblBusName: UILabel!
     //    @IBOutlet weak var lblBusType: UILabel!
+    @IBOutlet weak var lblBusJourneyDate: UILabel!
     @IBOutlet weak var lblBusCondition: UILabel!
     @IBOutlet weak var lblBusStartTime: UILabel!
     @IBOutlet weak var lblBusSource: UILabel!
@@ -88,17 +89,34 @@ class TripsDetailViewController: UIViewController {
         case .bus:
             self.setUpBus()
             self.viewBuses.isHidden = false
-            self.lblBookingId.text = self.bus.sBookingId
             self.lblHeading.text = "Hope you have a NICE JOURNEY"
             self.lblImpInfo.text = ""
             self.lblRefund.text = ""
             self.lblPrice.text = self.lblBusPrice.text
             self.lblPaidAmount.text = self.lblBusPrice.text
             
+            self.lblBusSource.text = self.bus.sBus.sSourceCity
+            self.lblBusDestination.text = self.bus.sBus.sDestinationCity
+            
+            var bookingIdStr = ""
+            
+            if !self.bus.sBookingId.isEmpty
+            {
+                bookingIdStr = Strings.BOOKING_ID + ": " + self.bus.sBookingId
+            }
+            
+            if !self.bus.sPNR.isEmpty
+            {
+                if !bookingIdStr.isEmpty {
+                    bookingIdStr += ", "
+                }
+                bookingIdStr += Strings.PNR + ": " + self.bus.sPNR
+            }
+            
+            self.lblBookingId.text = bookingIdStr
             
         case .flight:
             //            self.viewFlights.isHidden = false
-            self.lblBookingId.text = "\(self.flight.sBookingId)"
             self.lblHeading.text = "Hope you have a GOOD EXPERIENCE"
             self.lblHeading.text = "Hope you have a NICE JOURNEY"
             self.lblImpInfo.text = ""
@@ -108,18 +126,50 @@ class TripsDetailViewController: UIViewController {
             
             let fareRules = self.flight.sFlight.sFareRules
             self.lblImpInfo.attributedText = fareRules.htmlToAttributedString
-             
+            
+            var bookingIdStr = ""
+            
+            if self.flight.sBookingId != 0
+            {
+                bookingIdStr = Strings.BOOKING_ID + ": " + "\(self.flight.sBookingId)"
+            }
+            
+            if !self.flight.sPNR.isEmpty
+            {
+                if !bookingIdStr.isEmpty {
+                    bookingIdStr += ", "
+                }
+                bookingIdStr += Strings.PNR + ": " + self.flight.sPNR
+            }
+            
+            self.lblBookingId.text = bookingIdStr
             
             break
         case .hotel:
             self.viewHotels.isHidden = false
-            self.lblBookingId.text = "\(self.hotel.sBookingId)"
             self.lblHeading.text = "Hope you have a GOOD STAY"
             self.lblHeading.text = "Hope you have a NICE JOURNEY"
             self.lblImpInfo.text = ""
             self.lblRefund.text = ""
             //            self.lblPrice.text = self.hotel.sHotel
             //                        self.lblPaidAmount.text = self.lblBusPrice.text
+            
+            var bookingIdStr = ""
+            
+            if self.hotel.sBookingId != 0
+            {
+                bookingIdStr = Strings.BOOKING_ID + ": " + "\(self.hotel.sBookingId)"
+            }
+            
+            if !self.hotel.sPNR.isEmpty
+            {
+                if !bookingIdStr.isEmpty {
+                    bookingIdStr += ", "
+                }
+                bookingIdStr += Strings.PNR + ": " + self.hotel.sPNR
+            }
+            
+            self.lblBookingId.text = bookingIdStr
         }
         
         self.tableView.reloadData()
@@ -153,8 +203,21 @@ class TripsDetailViewController: UIViewController {
                 departureTime = Helper.getTimeString(time: departureTime)
                 self.lblBusStartTime.text = departureTime
                 self.lblBusEndTime.text = arrivalTime
-                
             }
+        }
+        
+        if var arrivalTime = bus?.sDropTime {
+            if var departureTime = bus?.sPickUpTime {
+                arrivalTime = Helper.getTimeString(time:arrivalTime)
+                departureTime = Helper.getTimeString(time: departureTime)
+                self.lblBusStartTime.text = departureTime
+                self.lblBusEndTime.text = arrivalTime
+            }
+        }
+        
+        if let doj = bus?.sDOJ {
+            let date = Helper.convertDateFormat(doj, formatTo: "E, MMM d, yyyy")
+            self.lblBusJourneyDate.text = date
         }
         
         if let price = bus?.fareDetails {
@@ -184,6 +247,10 @@ class TripsDetailViewController: UIViewController {
             self.lblBusPrice.text = "₹\(String(format: "%.0f", farePrice))"
         }
         
+        if let fare = self.bus.sPassengers.first?.sFare {
+            self.lblBusPrice.text = "₹\(fare)"
+        }
+        
         if let travels = bus?.sTravels {
             self.lblBusName.text = travels
         }
@@ -201,10 +268,10 @@ class TripsDetailViewController: UIViewController {
         }
         
         if self.lblRefund.text?.isEmpty ?? false {
-                    self.viewRefund.isHidden = true
-                } else {
-                    self.viewRefund.isHidden = false
-                }
+            self.viewRefund.isHidden = true
+        } else {
+            self.viewRefund.isHidden = false
+        }
     }
 }
 

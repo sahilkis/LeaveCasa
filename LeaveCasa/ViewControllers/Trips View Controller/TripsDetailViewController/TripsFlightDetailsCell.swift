@@ -9,10 +9,12 @@
 import UIKit
 
 class TripsFlightDetailsCell: UITableViewCell {
-        
+    
     @IBOutlet weak var topSpace: NSLayoutConstraint!
+    @IBOutlet weak var lblStartDate: UILabel!
     @IBOutlet weak var lblStartTime: UILabel!
     @IBOutlet weak var lblSource: UILabel!
+    @IBOutlet weak var lblEndDate: UILabel!
     @IBOutlet weak var lblEndTime: UILabel!
     @IBOutlet weak var lblDestination: UILabel!
     @IBOutlet weak var lblPrice: UILabel!
@@ -22,6 +24,10 @@ class TripsFlightDetailsCell: UITableViewCell {
     @IBOutlet weak var imgLogo: UIImageView!
     @IBOutlet weak var lblStops: UILabel!
     @IBOutlet weak var lblAirline: UILabel!
+    @IBOutlet weak var lblFlightNo: UILabel!
+    @IBOutlet weak var lblTerminal: UILabel!
+    @IBOutlet weak var lblGate: UILabel!
+    @IBOutlet weak var lblSeats: UILabel!
     
     func setUp(indexPath: IndexPath, flight: Flight) {
         
@@ -54,6 +60,8 @@ class TripsFlightDetailsCell: UITableViewCell {
                     let sDestinationCode = secondSeg.sDestinationAirport.sCityCode
                     let sAccDuration = secondSeg.sAccDuration == 0 ? firstSeg.sDuration : secondSeg.sAccDuration
                     
+                    self.lblStartDate.text = Helper.convertStoredDate(sStartTime, "E, MMM d, yyyy")
+                    self.lblEndDate.text = Helper.convertStoredDate(sEndTime, "E, MMM d, yyyy")
                     self.lblStartTime.text = Helper.convertStoredDate(sStartTime, "HH:mm")
                     self.lblEndTime.text = Helper.convertStoredDate(sEndTime, "HH:mm")
                     self.lblSource.text = "\(sSourceCode.uppercased()), \(Helper.convertStoredDate(sStartTime, "E").uppercased())"
@@ -76,6 +84,9 @@ class TripsFlightDetailsCell: UITableViewCell {
                         }
                     }
                 }
+                self.lblFlightNo.text = firstSeg.sAirline.sFlightNumber
+                self.lblTerminal.text = firstSeg.sOriginAirport.sTerminal
+                
             }
             var sStops = [FlightAirport]()
             

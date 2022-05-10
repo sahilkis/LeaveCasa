@@ -130,6 +130,7 @@ struct Alert {
 
 // Strings
 struct Strings {
+    static let BOOKING_ID                   = "Booking ID"
     static let PERCENT                      = "percent"
     static let CONTENT_SIZE                 = "contentSize"
     static let NON_REFUNDABLE               = "Non Refundable"
@@ -146,6 +147,7 @@ struct Strings {
     static let FLIGHT_CANCEL                = "flight_cancel"
     static let BUS_CANCEL                   = "Bus_cancel"
     static let MY_TRIPS                     = "My Trips"
+    static let PNR                          = "PNR"
     static let SAVE                         = "Save"
     static let SUCCESS_ON_UPDATE_PROFILE    = "successfully_update_profile"
     static let SUCCESSFULLY_UPLOAD_PROFILE_PIC    = "successfully_upload_profile_pic"
