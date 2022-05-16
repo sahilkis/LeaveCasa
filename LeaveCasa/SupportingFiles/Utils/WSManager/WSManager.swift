@@ -210,8 +210,8 @@ class WSManager {
             print(responseData.result)
             switch responseData.result {
             case .success(let value):
-                if let responseValue = value as? [String: AnyObject] {
-                    if let results = Mapper<Booking>().map(JSON: responseValue) as Booking? {
+                if let responseValue = value as? [String: AnyObject], let responseData = responseValue[WSResponseParams.WS_REPS_PARAM_DATA] as? [String: AnyObject] {
+                    if let results = Mapper<Booking>().map(JSON: responseData) as Booking? {
                         success(results)
                     }
                 }  else {
